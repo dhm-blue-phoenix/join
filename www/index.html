@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de-at">
+
+<head>
+    <title>Join</title>
+    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./resources/favicon.png">
+    <link rel="manifest" href="./manifest.webmanifest">
+
+    <!-- META - Daten -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Ein Programm zum Verwalten ihrer Aufgaben">
+    <meta name="author" content="DHM">
+
+    <!-- CSS - Style -->
+    <link rel="stylesheet" href="./assets/css/main.css">
+
+    <!-- JS - Scripte -->
+    <script src="./assets/js/script.js" defer></script>
+</head>
+
+<body onload="includeHTML()">
+    <start class="start" w3-include-html="./pages/login/start.html"></start>
+    <login class="login" w3-include-html="./pages/login/login.html"></login>
+    <signup class="signup" w3-include-html="./pages/login/signup.html"></signup>
+</body>
+
+</html>

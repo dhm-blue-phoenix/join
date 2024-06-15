@@ -1,0 +1,45 @@
+<body>
+    <header>
+        <logo-container class="logo-container">
+            <img src="./resources/logo.png" alt="logo">
+        </logo-container>
+        <nav>
+            <span>Not a Join user?</span>
+            <button type="button" onclick="setSignupToActive()">Sign up</button>
+        </nav>
+    </header>
+    <main>
+        <div class="formLogin">
+            <form onsubmit="return false">
+                <div class="formHeader">
+                    <h1>Log in</h1>
+                    <hr>
+                </div>
+                <div class="formInput">
+                    <input-container class="input-container">
+                        <input type="email" placeholder="Email" id="inputEmail" required>
+                        <img src="./resources/symbols/mail.png" alt="mail">
+                    </input-container>
+                    <input-container class="input-container">
+                        <input type="password" placeholder="Password" id="inputPassword" required>
+                        <img src="./resources/symbols/lock.png" alt="lock">
+                    </input-container>
+                    <div>
+                        <input type="checkbox" id="inputCheckbox">
+                        <label for="inputCheckbox">Remember me</label>
+                    </div>
+                </div>
+                <div class="formButtons">
+                    <button type="submit">Login</button>
+                    <button type="button">Guest Log in</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Legal notice</a>
+        </div>
+    </footer>
+</body>

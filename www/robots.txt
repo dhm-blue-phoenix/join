@@ -1,0 +1,4 @@
+# Diese Datei sorgt dafuer, dass dieses UEbungsprojekte nicht bei Google gefunden werden kann
+
+User-agent: *
+Disallow: /

@@ -1,0 +1,30 @@
+/* login/start.css */
+
+.start figure {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--back-color01);
+    animation: aniStart .51s ease-in-out;
+}
+
+.start figure img {
+    width: 274px;
+    height: 334px;
+}
+
+@keyframes aniStart {
+    from {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        border-radius: 0 0 50% 0;
+    }
+
+    to {
+        transform: translate(-70vh, -70%) scale(0);
+        z-index: 0;
+    }
+}
