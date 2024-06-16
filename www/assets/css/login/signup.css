@@ -55,7 +55,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    transform: translateY(-50px);
+    /* transform: translateY(-50px); */
 }
 
 .signup .formSignup .formHeader {
@@ -152,11 +152,13 @@
     color: var(--text-color06);
 }
 
-.signup .formInput div label a {
+.signup .formInput div label button {
     color: var(--text-color05);
+    background-color: transparent;
+    border-style: none;
 }
 
-.signup .formInput div label a:hover {
+.signup .formInput div label button:hover {
     font-weight: bold;
     transform: scale(1.1);
     text-decoration: underline;
@@ -213,11 +215,13 @@
     justify-content: space-between;
 }
 
-.signup footer div a {
+.signup footer div button {
     color: var(--text-color06);
+    background-color: transparent;
+    border-style: none;
 }
 
-.signup footer div a:hover {
+.signup footer div button:hover {
     font-weight: bold;
     transform: scale(1.1);
     color: var(--text-color05);

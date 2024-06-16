@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de-at">
+
+<head>
+    <title>Join</title>
+    <link rel="shortcut icon" href="../../resources/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../../resources/favicon.png">
+    <link rel="manifest" href="../../manifest.webmanifest">
+
+    <!-- META - Daten -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="author" content="DHM">
+
+    <!-- CSS - Style -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/login/dataprotection.css">
+
+    <!-- JS - Scripte -->
+    <script src="../../assets/js/script.js" defer></script>
+    <script src="../../assets/js/login/dataprotection.js" defer></script>
+</head>
+
+<body onload="includeHTML(); init()">
+    <nav class="nav_dataprotection">
+        <figure>
+            <img src="../../resources/navLogo.png" alt="logo">
+        </figure>
+        <div>
+            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy
+                Policy</button>
+            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal
+                notice</button>
+        </div>
+    </nav>
+    <header>
+        <h1>Kanban Project Management Tool</h1>
+    </header>
+    <main>
+        <privacy_policy class="privacyPolicy">
+            <div>
+                <h2>Privacy Policy</h2>
+                <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+            </div>
+            <contant class="contant" w3-include-html="../../templates/login/dataprotection/privacyPolicy.html">
+            </contant>
+        </privacy_policy>
+        <legal_notice class="legalNotice">
+            <div>
+                <h2>Legal Notice</h2>
+                <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+            </div>
+            <contant class="contant" w3-include-html="../../templates/login/dataprotection/legalNotice.html"></contant>
+        </legal_notice>
+    </main>
+</body>
+
+</html>

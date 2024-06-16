@@ -35,7 +35,9 @@
                     </input-container>
                     <div>
                         <input type="checkbox" id="inputCheckbox">
-                        <label for="inputCheckbox">I accept the <a href="">Privacy policy</a></label>
+                        <label for="inputCheckbox">I accept the 
+                            <button type="button" onclick="window.open('./pages/login_dataprotection/dataprotection.html?page=privacy_policy')">Privacy Policy</button>
+                        </label>
                     </div>
                 </div>
                 <div class="formButtons">
@@ -46,8 +48,8 @@
     </main>
     <footer>
         <div>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Legal notice</a>
+            <button type="button" onclick="window.open('./pages/login_dataprotection/dataprotection.html?page=privacy_policy')">Privacy Policy</button>
+            <button type="button" onclick="window.open('./pages/login_dataprotection/dataprotection.html?page=legal_notice')">Legal notice</button>
         </div>
     </footer>
 </body>

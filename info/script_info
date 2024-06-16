@@ -1,0 +1,81 @@
+function currentPrivacyPage(i) {
+    const navElement01 = document.getElementById('navElement01');
+    const navElement02 = document.getElementById('navElement02');
+    const currentPageUrl = window.location.href;
+
+    // Überprüfen, ob "a.html" in der URL enthalten ist
+    if (currentPageUrl.includes('a.html')) {
+        if (i === 1) {
+            navElement01.classList.remove('nextPage');
+            navElement01.classList.add('currentPage');
+            navElement02.classList.remove('currentPage');
+            navElement02.classList.add('nextPage');
+            navElement01.disabled = true;
+            navElement02.disabled = false;
+            alert('You are on page a.html and clicked Privacy Policy');
+        } else if (i === 2) {
+            navElement01.classList.remove('currentPage');
+            navElement01.classList.add('nextPage');
+            navElement02.classList.remove('nextPage');
+            navElement02.classList.add('currentPage');
+            navElement01.disabled = false;
+            navElement02.disabled = true;
+            alert('You are on page a.html and clicked Legal Notice');
+        }
+    }
+
+    // Überprüfen, ob "b.html" in der URL enthalten ist
+    else if (currentPageUrl.includes('b.html')) {
+        if (i === 1) {
+            navElement01.classList.remove('nextPage');
+            navElement01.classList.add('currentPage');
+            navElement02.classList.remove('currentPage');
+            navElement02.classList.add('nextPage');
+            navElement01.disabled = true;
+            navElement02.disabled = false;
+            alert('You are on page b.html and clicked Privacy Policy');
+        } else if (i === 2) {
+            navElement01.classList.remove('currentPage');
+            navElement01.classList.add('nextPage');
+            navElement02.classList.remove('nextPage');
+            navElement02.classList.add('currentPage');
+            navElement01.disabled = false;
+            navElement02.disabled = true;
+            alert('You are on page b.html and clicked Legal Notice');
+        }
+    }
+}
+
+//========================
+
+function currentPrivacyPage(i) {
+    const navElement01 = document.getElementById('navElement01');
+    const navElement02 = document.getElementById('navElement02');
+
+    if (i === 1) {
+        navElement01.classList.remove('nextPage');
+        navElement01.classList.add('currentPage');
+        navElement02.classList.remove('currentPage');
+        navElement02.classList.add('nextPage');
+        navElement01.disabled = true;
+        navElement02.disabled = false;
+        window.location.href = 'a.html?page=a'; // redirect to a.html with a parameter
+    } else if (i === 2) {
+        navElement01.classList.remove('currentPage');
+        navElement01.classList.add('nextPage');
+        navElement02.classList.remove('nextPage');
+        navElement02.classList.add('currentPage');
+        navElement01.disabled = false;
+        navElement02.disabled = true;
+        window.location.href = 'b.html?page=b'; // redirect to b.html with a parameter
+    }
+}
+
+
+
+
+// ==============================
+
+function zurLetztenAktion() {
+    window.history.back();
+}
