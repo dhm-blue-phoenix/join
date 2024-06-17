@@ -1,6 +1,100 @@
 /* main.css */
 
 @import url('./style.css');
-@import url('./login/start.css');
-@import url('./login/login.css');
-@import url('./login/signup.css');
+
+/* --nav */
+.nav_dataprotection {
+    background-color: var(--back-color05);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 232px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.nav_dataprotection figure {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.nav_dataprotection figure img {
+    width: 100px;
+    height: 121px;
+}
+
+.nav_dataprotection div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+.nav_dataprotection div button {
+    width: 100%;
+    height: 60px;
+    color: var(--text-color06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: none;
+    background-color: transparent;
+}
+
+.nextPage:hover {
+    font-weight: bold;
+    transform: scale(1.1);
+    color: var(--text-color05);
+}
+
+.currentPage {
+    background-color: #091931 !important;
+    cursor: default;
+}
+
+/* --header */
+header {
+    background-color: var(--back-color04);
+    position: fixed;
+    width: calc(100% - 232px);
+    height: 96px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 232px;
+    box-shadow: #00000062 0px 0px 10px 0px;
+    z-index: 1;
+}
+
+header h1 {
+    margin-left: 150px;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+/* --main */
+main {
+    background-color: var(--back-color06);
+    position: fixed;
+    width: calc(100% - 232px);
+    height: calc(100% - 96px);
+    top: 96px;
+    left: 232px;
+}
+
+.nextPage:hover {
+    font-weight: bold;
+    transform: scale(1.1);
+    color: var(--text-color05);
+}
+
+.currentPage {
+    background-color: #091931 !important;
+    cursor: default;
+}
+
+.activePage {
+    display: block;
+}

@@ -15,17 +15,28 @@
     <meta name="author" content="DHM">
 
     <!-- CSS - Style -->
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
 
     <!-- JS - Scripte -->
     <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/login/main.js" defer></script>
 </head>
 
 <body onload="includeHTML(); init()">
-    <start class="start" w3-include-html="./templates/login/start.html"></start>
-    <login class="login" w3-include-html="./templates/login/login.html"></login>
-    <signup class="signup" w3-include-html="./templates/login/signup.html"></signup>
+    <nav class="nav_dataprotection">
+        <figure>
+            <img src="./resources/navLogo.png" alt="logo">
+        </figure>
+        <div>
+            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy Policy</button>
+            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal notice</button>
+        </div>
+    </nav>
+    <header>
+        <h1>Kanban Project Management Tool</h1>
+    </header>
+    <main>
+
+    </main>
 </body>
 
 </html>

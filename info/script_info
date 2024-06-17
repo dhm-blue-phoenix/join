@@ -79,3 +79,61 @@ function currentPrivacyPage(i) {
 function zurLetztenAktion() {
     window.history.back();
 }
+
+
+
+
+// (Betta)
+async function addTestUsers() {
+  const testUsers = [
+    {
+      'user': {
+        'name': 'test01',
+        'email': 'test01@gmail.com',
+        'password': 'test01'
+      }
+    },
+    {
+      'user': {
+        'name': 'test01',
+        'email': 'test02@gmail.com',
+        'password': 'test02'
+      }
+    }
+  ];
+
+  const response = await fetch(baseURL + '/users' + '.json', {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(testUsers)
+  });
+}
+
+async function retrieveUserData(patch) {
+  try {
+    const response = await fetch(baseURL + patch + '.json');
+    userData = await response.json();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+// test-code
+async function addUserData() {
+  const response = await fetch(baseURL + '/users' + '.json', {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newData)
+  });
+}
+
+async function deleteUserData() {
+  const response = await fetch(baseURL + '/users/userName2' + '.json', {
+    method: "DELETE"
+  });
+}
