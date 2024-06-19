@@ -151,6 +151,13 @@
     font-weight: 400;
 }
 
+.login .formLogin span {
+    opacity: 0;
+    color: brown;
+    transform: translate(5px, -30px);
+    font-size: small;
+}
+
 .login .formInput div input[type='checkbox'] {
     width: 16px;
     height: 16px;

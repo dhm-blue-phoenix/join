@@ -6,7 +6,7 @@
     </header>
     <main>
         <div class="formSignup">
-            <form onsubmit="return false">
+            <form onsubmit="formToCreateAnewUser(); return false">
                 <div class="formHeader">
                     <figure onclick="removeActiveFromSignup()">
                         <img src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="formInput">
                     <input-container class="input-container">
-                        <input type="password" placeholder="Name" id="inputName" required>
+                        <input type="text" placeholder="Name" id="inputName" required>
                         <img src="./resources/symbols/person.png" alt="person">
                     </input-container>
                     <input-container class="input-container">
@@ -29,10 +29,11 @@
                         <input type="password" placeholder="Password" id="inputPassword" required>
                         <img src="./resources/symbols/lock.png" alt="lock">
                     </input-container>
-                    <input-container class="input-container">
+                    <input-container class="input-container" id="signupPasswordContainer">
                         <input type="password" placeholder="Confirm Password" id="inputConfirmPassword" required>
                         <img src="./resources/symbols/lock.png" alt="lock">
                     </input-container>
+                    <span id="signupLoginWarning">Ups! your password don`t match</span>
                     <div>
                         <input type="checkbox" id="inputCheckbox">
                         <label for="inputCheckbox">I accept the 
@@ -44,6 +45,9 @@
                     <button type="submit">Sign up</button>
                 </div>
             </form>
+        </div>
+        <div class="successfulRegistration">
+            <span>You Signed Up successfully</span>
         </div>
     </main>
     <footer>

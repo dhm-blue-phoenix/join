@@ -111,15 +111,6 @@ async function addTestUsers() {
   });
 }
 
-async function retrieveUserData(patch) {
-  try {
-    const response = await fetch(baseURL + patch + '.json');
-    userData = await response.json();
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 
 // test-code
 async function addUserData() {
