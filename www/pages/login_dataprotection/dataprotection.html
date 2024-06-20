@@ -15,11 +15,11 @@
 
     <!-- CSS - Style -->
     <link rel="stylesheet" href="../../assets/css/main.css">
-    <link rel="stylesheet" href="../../assets/css/login/dataprotection.css">
+    <link rel="stylesheet" href="../../assets/css/dataprotection.css">
 
     <!-- JS - Scripte -->
     <script src="../../assets/js/script.js" defer></script>
-    <script src="../../assets/js/login/dataprotection.js" defer></script>
+    <script src="../../assets/js/dataprotection.js" defer></script>
 </head>
 
 <body onload="includeHTML(); init()">
@@ -28,10 +28,8 @@
             <img src="../../resources/navLogo.png" alt="logo">
         </figure>
         <div>
-            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy
-                Policy</button>
-            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal
-                notice</button>
+            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy Policy</button>
+            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal notice</button>
         </div>
     </nav>
     <header>
@@ -43,7 +41,7 @@
                 <h2>Privacy Policy</h2>
                 <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
             </div>
-            <contant class="contant" w3-include-html="../../templates/login/dataprotection/privacyPolicy.html">
+            <contant class="contant" w3-include-html="../../templates/dataprotection/privacyPolicy.html">
             </contant>
         </privacy_policy>
         <legal_notice class="legalNotice">
@@ -51,7 +49,7 @@
                 <h2>Legal Notice</h2>
                 <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
             </div>
-            <contant class="contant" w3-include-html="../../templates/login/dataprotection/legalNotice.html"></contant>
+            <contant class="contant" w3-include-html="../../templates/dataprotection/legalNotice.html"></contant>
         </legal_notice>
     </main>
 </body>

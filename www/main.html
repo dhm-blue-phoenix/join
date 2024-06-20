@@ -16,9 +16,11 @@
 
     <!-- CSS - Style -->
     <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/dataprotection.css">
 
     <!-- JS - Scripte -->
     <script src="./assets/js/script.js" defer></script>
+    <script src="./assets/js/dataprotection.js" defer></script>
 </head>
 
 <body onload="includeHTML(); init()">
@@ -35,7 +37,29 @@
         <h1>Kanban Project Management Tool</h1>
     </header>
     <main>
-
+        <dataprotection>
+            <help class="help">
+                <div>
+                    <h2>Help</h2>
+                    <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                </div>
+                <contant class="contant" w3-include-html="../../templates/dataprotection/help.html"></contant>
+            </help>
+            <privacy_policy class="privacyPolicy">
+                <div>
+                    <h2>Privacy Policy</h2>
+                    <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                </div>
+                <contant class="contant" w3-include-html="../../templates/dataprotection/privacyPolicy.html"></contant>
+            </privacy_policy>
+            <legal_notice class="legalNotice">
+                <div>
+                    <h2>Legal Notice</h2>
+                    <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                </div>
+                <contant class="contant" w3-include-html="../../templates/dataprotection/legalNotice.html"></contant>
+            </legal_notice>
+        </dataprotection>
     </main>
 </body>
 

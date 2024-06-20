@@ -71,6 +71,12 @@ main {
     left: 232px;
 }
 
+/* main/help */
+.help {
+    display: none;
+}
+
+/* main/privacyPolicy */
 .privacyPolicy {
     display: none;
 }
@@ -114,6 +120,7 @@ main {
     font-size: 16px;
 }
 
+/* main/legalNotice */
 .legalNotice {
     display: none;
 }
