@@ -1,3 +1,0 @@
-Wireframe = grober, statischer Entwurf einer Website;
-Mockup = detaillierte Grafik oder klickbare Version im Webdesign, die die spätere Website so genau wie möglich abbilde;
-Prototyp = die Interaktion die Nutzer ermöglicht den Fluss sowie die Reaktion eines Web Designs
