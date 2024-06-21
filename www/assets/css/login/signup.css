@@ -1,5 +1,6 @@
 /* signup/signup.css */
 
+/* Stile für das Hauptcontainer des Signup-Bereichs */
 .signup {
     z-index: 0;
     background-color: var(--back-color01);
@@ -12,11 +13,13 @@
     justify-content: space-between;
 }
 
+/* Klasse für aktivierten Signup-Bereich */
 .activSignup {
     z-index: 2;
 }
 
 /* -- signup header */
+/* Stile für den Header im Signup-Bereich */
 .signup header .logo-container img {
     margin-top: 80px;
     margin-left: 77px;
@@ -29,6 +32,7 @@
 }
 
 /* -- signup main */
+/* Stile für den Hauptinhalt im Signup-Bereich */
 .signup main {
     display: flex;
     justify-content: center;
@@ -55,7 +59,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* transform: translateY(-50px); */
 }
 
 .signup .formSignup .formHeader {
@@ -170,9 +173,7 @@
     border-style: solid;
     border-color: var(--bord-color02);
     border-radius: 3px;
-    border-width: 16px;
     cursor: pointer;
-    ;
 }
 
 .signup .formInput div input[type='checkbox']:hover {
@@ -244,6 +245,7 @@
 }
 
 /* -- signup footer */
+/* Stile für den Footer im Signup-Bereich */
 .signup footer {
     display: flex;
     justify-content: center;

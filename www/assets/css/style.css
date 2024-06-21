@@ -1,27 +1,28 @@
 /* style.css */
 
 :root {
+    /* Definiert benutzerdefinierte CSS-Variablen für Farben */
     
-    /* background-color */
-    --back-color01: #f5f5f5;
-    --back-color02: #2a3647;
-    --back-color03: #2ba0d2;
-    --back-color04: #ffffff;
-    --back-color05: #2a3647;
-    --back-color06: #e2e2e2;
-    
-    /* border-color */
-    --bord-color01: #d1d1d1;
-    --bord-color02: #2a3647;
-    --bord-color03: #2ba0d2;
-    
-    /* text-color */
-    --text-color01: #000000;
-    --text-color02: #ffffff;
-    --text-color03: #d1d1d1;
-    --text-color04: #2a3647;
-    --text-color05: #2ba0d2;
-    --text-color06: #a8a8a8;
+    /* Hintergrundfarben */
+    --back-color01: #f5f5f5;    /* Hellgrau */
+    --back-color02: #2a3647;    /* Dunkelblau */
+    --back-color03: #2ba0d2;    /* Hellblau */
+    --back-color04: #ffffff;    /* Weiß */
+    --back-color05: #2a3647;    /* Dunkelblau */
+    --back-color06: #e2e2e2;    /* Hellgrau */
+
+    /* Rahmenfarben */
+    --bord-color01: #d1d1d1;    /* Hellgrau */
+    --bord-color02: #2a3647;    /* Dunkelblau */
+    --bord-color03: #2ba0d2;    /* Hellblau */
+
+    /* Textfarben */
+    --text-color01: #000000;    /* Schwarz */
+    --text-color02: #ffffff;    /* Weiß */
+    --text-color03: #d1d1d1;    /* Hellgrau */
+    --text-color04: #2a3647;    /* Dunkelblau */
+    --text-color05: #2ba0d2;    /* Hellblau */
+    --text-color06: #a8a8a8;    /* Grau */
 }
 
 * {
@@ -52,11 +53,12 @@ input:focus {
 }
 
 /* -- Scrollbar -- */
+/* Stile für die Scrollleiste */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-::-webkit-scrollbar-track  {
+::-webkit-scrollbar-track {
     background-color: var(--back-color06);
     cursor: pointer;
 }

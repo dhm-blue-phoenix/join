@@ -1,5 +1,6 @@
 /* login/login_in.css */
 
+/* Stile für das Hauptcontainer des Login-Bereichs */
 .login {
     z-index: 1;
     background-color: var(--back-color01);
@@ -13,6 +14,7 @@
 }
 
 /* -- login header */
+/* Stile für den Header im Login-Bereich */
 .login header {
     display: flex;
     justify-content: space-between;
@@ -51,6 +53,7 @@
 }
 
 /* -- login main */
+/* Stile für den Hauptinhalt im Login-Bereich */
 .login main {
     display: flex;
     justify-content: center;
@@ -209,6 +212,7 @@
 }
 
 /* -- login footer */
+/* Stile für den Footer im Login-Bereich */
 .login footer {
     display: flex;
     justify-content: center;

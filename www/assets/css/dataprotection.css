@@ -1,6 +1,7 @@
 /* login/dataprotection.css */
 
 /* --nav */
+/* Stile für die Navigationsleiste der Datenschutzseite */
 .nav_dataprotection {
     background-color: var(--back-color05);
     position: fixed;
@@ -42,6 +43,7 @@
 }
 
 /* --header */
+/* Stile für den Header der Datenschutzseite */
 header {
     background-color: var(--back-color04);
     position: fixed;
@@ -62,6 +64,7 @@ header h1 {
 }
 
 /* --main */
+/* Stile für den Hauptbereich der Datenschutzseite */
 main {
     background-color: var(--back-color06);
     position: absolute;
@@ -71,60 +74,16 @@ main {
     left: 232px;
 }
 
-/* main/help */
-.help {
-    display: none;
-}
-
-/* main/privacyPolicy */
-.privacyPolicy {
-    display: none;
-}
-
-.privacyPolicy div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 70px;
-    margin-left: 70px;
-    margin-right: 70px;
-}
-
-.privacyPolicy div h2 {
-    font-weight: 700;
-    font-size: 61px;
-}
-
-.privacyPolicy div img {
-    width: 32px;
-    height: 32px;
-}
-
-.privacyPolicy div img:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.privacyPolicy .contant section {
-    margin: 30px;
-    margin-left: 70px;
-    margin-right: 70px;
-}
-
-.privacyPolicy .contant section h3 {
-    font-weight: 700;
-    font-size: 27px;
-}
-
-.privacyPolicy .contant section p {
-    font-weight: 400;
-    font-size: 16px;
-}
-
-/* main/legalNotice */
+/* --Gemeinsamer Stile für .help, .privacyPolicy und .legalNotice */
+/* Gemeinsame Stile für die Seiten "Help", "Privacy Policy" und "Legal Notice" */
+.help,
+.privacyPolicy,
 .legalNotice {
     display: none;
 }
 
+.help div,
+.privacyPolicy div,
 .legalNotice div {
     display: flex;
     justify-content: space-between;
@@ -133,45 +92,62 @@ main {
     margin-right: 70px;
 }
 
+.help div h2,
+.privacyPolicy div h2,
 .legalNotice div h2 {
     font-weight: 700;
     font-size: 61px;
 }
 
+.help div img,
+.privacyPolicy div img,
 .legalNotice div img {
     width: 32px;
     height: 32px;
 }
 
+.help div img:hover,
+.privacyPolicy div img:hover,
 .legalNotice div img:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
+.help .contant section,
+.privacyPolicy .contant section,
 .legalNotice .contant section {
     margin: 30px;
     margin-left: 70px;
     margin-right: 70px;
 }
 
+.help .contant section h3,
+.privacyPolicy .contant section h3,
 .legalNotice .contant section h3 {
     font-weight: 700;
     font-size: 27px;
 }
 
+.help .contant section p,
+.privacyPolicy .contant section p,
 .legalNotice .contant section p {
     font-weight: 400;
     font-size: 16px;
 }
 
+/* --Spezifische Stile für .legalNotice */
+/* Spezifische Stile für die Seite "Legal Notice" */
 .legalNotice .contant section ul {
     margin: 20px 0;
 }
 
+.help .contant section span,
 .legalNotice .contant section span {
     color: var(--text-color05);
 }
 
+/* --Stile für .nextPage und .currentPage */
+/* Stile für die Klassen .nextPage und .currentPage */
 .nextPage:hover {
     font-weight: bold;
     transform: scale(1.1);
@@ -183,6 +159,8 @@ main {
     cursor: default;
 }
 
+/* --Stile für .activePage */
+/* Stile für die Klasse .activePage */
 .activePage {
     display: block;
 }
