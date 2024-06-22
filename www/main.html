@@ -24,15 +24,43 @@
 </head>
 
 <body onload="includeHTML()">
-    <nav class="nav_dataprotection">
+    <navBar class="navBar">
         <figure>
             <img src="./resources/navLogo.png" alt="logo">
         </figure>
         <div>
-            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy Policy</button>
-            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal notice</button>
+            <button type="button" id="" onclick="currentPage('summary')">
+                <figure>
+                    <img src="./resources/symbols/summary.png" alt="summary">
+                    <figcaption>Summary</figcaption>
+                </figure>
+            </button>
+            <button type="button" id="" onclick="currentPage('addTask')">
+                <figure>
+                    <img src="./resources/symbols/add-task.png" alt="add-task">
+                    <figcaption>Add Task</figcaption>
+                </figure>
+            </button>
+            <button type="button" id="" onclick="currentPage('board')">
+                <figure>
+                    <img src="./resources/symbols/board.png" alt="board">
+                    <figcaption>Board</figcaption>
+                </figure>
+            </button>
+            <button type="button" id="" onclick="currentPage('contacts')">
+                <figure>
+                    <img src="./resources/symbols/contacts.png" alt="contacts">
+                    <figcaption>Contacts</figcaption>
+                </figure>
+            </button>
         </div>
-    </nav>
+        <div>
+            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy
+                Policy</button>
+            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal
+                notice</button>
+        </div>
+    </navBar>
     <header>
         <h1>Kanban Project Management Tool</h1>
     </header>
@@ -41,23 +69,23 @@
             <help class="help">
                 <div>
                     <h2>Help</h2>
-                    <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                    <img onclick="actionBack()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
                 </div>
-                <contant class="contant" w3-include-html="../../templates/dataprotection/help.html"></contant>
+                <contant class="contant" w3-include-html="./templates/dataprotection/help.html"></contant>
             </help>
             <privacy_policy class="privacyPolicy">
                 <div>
                     <h2>Privacy Policy</h2>
-                    <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                    <img onclick="actionBack()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
                 </div>
-                <contant class="contant" w3-include-html="../../templates/dataprotection/privacyPolicy.html"></contant>
+                <contant class="contant" w3-include-html="./templates/dataprotection/privacyPolicy.html"></contant>
             </privacy_policy>
             <legal_notice class="legalNotice">
                 <div>
                     <h2>Legal Notice</h2>
-                    <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                    <img onclick="actionBack()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
                 </div>
-                <contant class="contant" w3-include-html="../../templates/dataprotection/legalNotice.html"></contant>
+                <contant class="contant" w3-include-html="./templates/dataprotection/legalNotice.html"></contant>
             </legal_notice>
         </dataprotection>
     </main>
