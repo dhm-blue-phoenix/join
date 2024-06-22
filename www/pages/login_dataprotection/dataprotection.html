@@ -22,7 +22,7 @@
     <script src="../../assets/js/dataprotection.js" defer></script>
 </head>
 
-<body onload="includeHTML(); init()">
+<body onload="includeHTML(); checkTheCurrentPage();">
     <nav class="nav_dataprotection">
         <figure>
             <img src="../../resources/navLogo.png" alt="logo">
@@ -41,7 +41,7 @@
                 <h2>Privacy Policy</h2>
                 <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
             </div>
-            <contant class="contant" w3-include-html="../../templates/dataprotection/privacyPolicy.html">
+            <contant class="contant" w3-include-html="../../components/dataprotection/privacyPolicy.html">
             </contant>
         </privacy_policy>
         <legal_notice class="legalNotice">
@@ -49,7 +49,7 @@
                 <h2>Legal Notice</h2>
                 <img onclick="actionBack()" src="../../resources/symbols/arrow-left-line.png" alt="arrow-left-line">
             </div>
-            <contant class="contant" w3-include-html="../../templates/dataprotection/legalNotice.html"></contant>
+            <contant class="contant" w3-include-html="../../components/dataprotection/legalNotice.html"></contant>
         </legal_notice>
     </main>
 </body>

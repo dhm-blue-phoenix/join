@@ -10,7 +10,6 @@
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    gap: 15px;
 }
 
 .navBar figure {
@@ -65,5 +64,5 @@
     flex-direction: row;
     border-style: none;
     background-color: transparent;
-    margin-top: 1px;
+    margin-top: 15px;
 }

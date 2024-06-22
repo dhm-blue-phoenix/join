@@ -7,13 +7,6 @@ const CLASS_privacyPolicy = document.querySelector('.privacyPolicy');
 const CLASS_legalNotice = document.querySelector('.legalNotice');
 
 /**
- * Initialisiert die Seite, indem die aktuelle Seite überprüft und entsprechende Aktionen ausgeführt werden.
- */
-function init() {
-    checkTheCurrentPage();
-}
-
-/**
  * Überprüft die aktuelle URL, um festzustellen, welche Seite angezeigt werden soll, 
  * und ruft die entsprechende Funktion auf, um die Seite zu laden.
  */
@@ -39,7 +32,7 @@ function currentDataprotectionPage(currentPage) {
  */
 function currentPagePrivacyPolicy() {
     ID_legal_notice.classList.contains('currentPage') && removeLegalNoticeClass();
-    ID_legal_notice.classList.add('nextPage');
+    ID_legal_notice.classList.add('dataprotectionNextPage');
     ID_privacy_policy.classList.add('currentPage');
     CLASS_privacyPolicy.classList.add('activePage');
 }
@@ -49,7 +42,7 @@ function currentPagePrivacyPolicy() {
  */
 function currentPageLegalNotice() {
     ID_privacy_policy.classList.contains('currentPage') && removePrivacyPolicyClass();
-    ID_privacy_policy.classList.add('nextPage');
+    ID_privacy_policy.classList.add('dataprotectionNextPage');
     ID_legal_notice.classList.add('currentPage');
     CLASS_legalNotice.classList.add('activePage');
 }
@@ -60,7 +53,7 @@ function currentPageLegalNotice() {
 function removeLegalNoticeClass() {
     ID_legal_notice.classList.remove('currentPage');
     CLASS_legalNotice.classList.remove('activePage');
-    ID_privacy_policy.classList.remove('nextPage');
+    ID_privacy_policy.classList.remove('dataprotectionNextPage');
     return;
 }
 
@@ -70,7 +63,7 @@ function removeLegalNoticeClass() {
 function removePrivacyPolicyClass() {
     ID_privacy_policy.classList.remove('currentPage');
     CLASS_privacyPolicy.classList.remove('activePage');
-    ID_legal_notice.classList.remove('nextPage');
+    ID_legal_notice.classList.remove('dataprotectionNextPage');
     return;
 }
 

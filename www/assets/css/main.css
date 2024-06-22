@@ -3,16 +3,6 @@
 @import url('./style.css');
 @import url('./nav.css');
 
-.nextPage:hover {
-    font-weight: bold;
-    transform: scale(1.1);
-    color: var(--text-color05);
-}
-
-.currentPage {
-    background-color: #091931 !important;
-    cursor: default;
-}
 
 /* --header */
 /* Stile für den Header der Datenschutzseite */
@@ -44,19 +34,4 @@ main {
     height: calc(100% - 96px);
     top: 96px;
     left: 232px;
-}
-
-.nextPage:hover {
-    font-weight: bold;
-    transform: scale(1.1);
-    color: var(--text-color05);
-}
-
-.currentPage {
-    background-color: #091931 !important;
-    cursor: default;
-}
-
-.activePage {
-    display: block;
 }

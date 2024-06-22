@@ -162,22 +162,3 @@ main {
 .legalNotice .contant section span {
     color: var(--text-color05);
 }
-
-/* --Stile für .nextPage und .currentPage */
-/* Stile für die Klassen .nextPage und .currentPage */
-.nextPage:hover {
-    font-weight: bold;
-    transform: scale(1.1);
-    color: var(--text-color05);
-}
-
-.currentPage {
-    background-color: #091931 !important;
-    cursor: default;
-}
-
-/* --Stile für .activePage */
-/* Stile für die Klasse .activePage */
-.activePage {
-    display: block;
-}

@@ -19,35 +19,36 @@
     <link rel="stylesheet" href="./assets/css/dataprotection.css">
 
     <!-- JS - Scripte -->
+     <script src="./assets/js/globleVariables.js" defer></script>
     <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/dataprotection.js" defer></script>
+    <script src="./assets/js/navBar.js" defer></script>
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(); init()">
     <navBar class="navBar">
         <figure>
             <img src="./resources/navLogo.png" alt="logo">
         </figure>
         <div>
-            <button type="button" id="" onclick="currentPage('summary')">
+            <button type="button" id="summary" onclick="currentPage('summary')">
                 <figure>
                     <img src="./resources/symbols/summary.png" alt="summary">
                     <figcaption>Summary</figcaption>
                 </figure>
             </button>
-            <button type="button" id="" onclick="currentPage('addTask')">
+            <button type="button" id="addTask" onclick="currentPage('addTask')">
                 <figure>
                     <img src="./resources/symbols/add-task.png" alt="add-task">
                     <figcaption>Add Task</figcaption>
                 </figure>
             </button>
-            <button type="button" id="" onclick="currentPage('board')">
+            <button type="button" id="board" onclick="currentPage('board')">
                 <figure>
                     <img src="./resources/symbols/board.png" alt="board">
                     <figcaption>Board</figcaption>
                 </figure>
             </button>
-            <button type="button" id="" onclick="currentPage('contacts')">
+            <button type="button" id="contacts" onclick="currentPage('contacts')">
                 <figure>
                     <img src="./resources/symbols/contacts.png" alt="contacts">
                     <figcaption>Contacts</figcaption>
@@ -55,9 +56,9 @@
             </button>
         </div>
         <div>
-            <button type="button" id="privacy_policy" onclick="currentDataprotectionPage('privacy_policy')">Privacy
+            <button type="button" id="privacyPolicy" onclick="currentPage('privacyPolicy')">Privacy
                 Policy</button>
-            <button type="button" id="legal_notice" onclick="currentDataprotectionPage('legal_notice')">Legal
+            <button type="button" id="legalNotice" onclick="currentPage('legalNotice')">Legal
                 notice</button>
         </div>
     </navBar>
