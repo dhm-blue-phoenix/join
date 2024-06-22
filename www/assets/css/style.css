@@ -59,13 +59,13 @@ input:focus {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--back-color06);
+    background-color: transparent;
     cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--back-color05);
-    border-radius: 5px;
-    height: 400px;
+    border-radius: 10px;
+    height: 10px;
     cursor: pointer;
 }

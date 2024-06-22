@@ -3,7 +3,6 @@
 const ID_privacy_policy = document.getElementById('privacy_policy');
 const ID_legal_notice = document.getElementById('legal_notice');
 
-const CLASS_help = document.querySelector('.help');
 const CLASS_privacyPolicy = document.querySelector('.privacyPolicy');
 const CLASS_legalNotice = document.querySelector('.legalNotice');
 
@@ -31,7 +30,6 @@ function checkTheCurrentPage() {
  * @param {string} currentPage - Der Name der aktuellen Seite (z.B. 'privacy_policy', 'legal_notice', 'help').
  */
 function currentDataprotectionPage(currentPage) {
-    currentPage === 'help' && currentPageHelp();
     currentPage === 'privacy_policy' && currentPagePrivacyPolicy();
     currentPage === 'legal_notice' && currentPageLegalNotice();
 }
@@ -63,6 +61,7 @@ function removeLegalNoticeClass() {
     ID_legal_notice.classList.remove('currentPage');
     CLASS_legalNotice.classList.remove('activePage');
     ID_privacy_policy.classList.remove('nextPage');
+    return;
 }
 
 /**
@@ -72,6 +71,7 @@ function removePrivacyPolicyClass() {
     ID_privacy_policy.classList.remove('currentPage');
     CLASS_privacyPolicy.classList.remove('activePage');
     ID_legal_notice.classList.remove('nextPage');
+    return;
 }
 
 /**

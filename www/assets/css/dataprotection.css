@@ -69,7 +69,8 @@ main {
     background-color: var(--back-color06);
     position: absolute;
     width: calc(100% - 232px);
-    height: 100%;
+    height: calc(100% - 96px);
+    /* height: 100%; */
     top: 96px;
     left: 232px;
 }
@@ -80,6 +81,8 @@ main {
 .privacyPolicy,
 .legalNotice {
     display: none;
+    background-color: var(--back-color06);
+    padding-bottom: 80px;
 }
 
 .help div,
@@ -121,11 +124,18 @@ main {
     margin-right: 70px;
 }
 
+.help .contant section h2,
+.privacyPolicy .contant section h2,
+.legalNotice .contant section h2 {
+    font-weight: 700;
+    font-size: 27px;
+}
+
 .help .contant section h3,
 .privacyPolicy .contant section h3,
 .legalNotice .contant section h3 {
     font-weight: 700;
-    font-size: 27px;
+    font-size: 20px;
 }
 
 .help .contant section p,
@@ -133,10 +143,17 @@ main {
 .legalNotice .contant section p {
     font-weight: 400;
     font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
 
-/* --Spezifische Stile für .legalNotice */
-/* Spezifische Stile für die Seite "Legal Notice" */
+/* --Spezifische Stile für .legalNotice und help */
+/* Spezifische Stile für die Seite "Legal Notice und help" */
+.help .contant section ol {
+    font-weight: 700;
+    font-size: 27px;
+}
+
 .legalNotice .contant section ul {
     margin: 20px 0;
 }
