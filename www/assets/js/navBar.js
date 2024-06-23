@@ -11,7 +11,6 @@
 function currentPage(pageID) {
     config_navBar.forEach(element => element.disabled === true && (element.disabled = false, element.statusClass.nav = 'nextPage', element.statusClass.page = 'inactive'));
     config_navBar.forEach(element => pageID === element.id && (element.disabled = true, element.statusClass.nav = 'currentPage', element.statusClass.page = 'activePage'));
-    console.table(config_navBar)
     loadNavBarConfig();
 }
 

@@ -43,7 +43,7 @@ function init() {
  */
 async function loadConfigData() { // wird noch überarbeitet
   try {
-    const response = await fetch('./navBar.config');
+    const response = await fetch('./assets/json/configs/navbar.json');
     const data = await response.json();
     config_navBar = data;
   } catch (err) {
