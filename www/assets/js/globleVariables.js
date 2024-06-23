@@ -13,35 +13,4 @@
  * 
  * @type {Array.<NavBarConfigElement>}
  */
-let config_navBar = [
-    {
-        'id': 'summary',
-        'addClass': 'currentPage',
-        'disabled': true
-    },
-    {
-        'id': 'addTask',
-        'addClass': 'nextPage',
-        'disabled': false
-    },
-    {
-        'id': 'board',
-        'addClass': 'nextPage',
-        'disabled': false
-    },
-    {
-        'id': 'contacts',
-        'addClass': 'nextPage',
-        'disabled': false
-    },
-    {
-        'id': 'privacyPolicy',
-        'addClass': 'nextPage',
-        'disabled': false
-    },
-    {
-        'id': 'legalNotice',
-        'addClass': 'nextPage',
-        'disabled': false
-    }
-];
+let config_navBar = [];

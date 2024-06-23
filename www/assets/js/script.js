@@ -1,7 +1,14 @@
 // script.js
 
 /**
- * Asynchrone Funktion zum Einbinden von HTML-Inhalten
+ * Lädt den Inhalt von HTML-Dateien in Elemente, die das Attribut 'w3-include-html' enthalten.
+ * Die Funktion durchläuft alle Elemente mit dem Attribut 'w3-include-html' und ersetzt deren
+ * inneres HTML durch den Inhalt der geladenen Datei. Wenn die Datei nicht gefunden wird,
+ * wird der Inhalt des Elements auf "Page not found" gesetzt.
+ * 
+ * @async
+ * @function includeHTML
+ * @returns {Promise<void>} Ein Promise, das keinen Wert zurückgibt.
  */
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
@@ -21,6 +28,27 @@ async function includeHTML() {
  * Initialisiert die Anwendung durch Laden der Konfiguration für die Navigationsleiste.
  */
 function init() {
+  loadConfigData();
+}
+
+/**
+ * Lädt die Konfigurationsdaten für die Navigationsleiste aus der Datei './navBar.config'.
+ * Die geladenen Daten werden in das globale Array config_navBar gespeichert.
+ * Nach dem Laden der Konfiguration wird die Funktion loadNavBarConfig() aufgerufen,
+ * um die Navigationsleiste entsprechend der geladenen Daten zu aktualisieren.
+ * 
+ * @async
+ * @function loadConfigData
+ * @returns {Promise<void>} Ein Promise, das keinen Wert zurückgibt.
+ */
+async function loadConfigData() { // wird noch überarbeitet
+  try {
+    const response = await fetch('./navBar.config');
+    const data = await response.json();
+    config_navBar = data;
+  } catch (err) {
+    console.error(err);
+  }
   loadNavBarConfig();
 }
 
@@ -38,5 +66,4 @@ function loadNavBarConfig() {
       ID_ELEMENT.disabled = element.disabled
     ) : console.warn(`Element mit ID '${element.id}' wurde nicht gefunden.`);
   });
-  console.table(config_navBar);
 }

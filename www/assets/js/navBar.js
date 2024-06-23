@@ -11,7 +11,7 @@
 function currentPage(pageID) {
     config_navBar.forEach(element => element.disabled === true && (element.disabled = false, element.addClass = 'nextPage'));
     config_navBar.forEach(element => pageID === element.id && (element.disabled = true, element.addClass = 'currentPage'));
-    setThePageToAvtiv(pageID);
+    loadNavBarConfig();
 }
 
 function actionBack() {
