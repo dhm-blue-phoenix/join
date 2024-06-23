@@ -1,6 +1,11 @@
 /* login/start.css */
 
-.start figure {
+/**
+ * Stile für das Hauptcontainer des Start-Bereichs.
+ *
+ * @start - Hauptcontainer des Start-Bereichs.
+ */
+ .start figure {
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -8,11 +13,21 @@
     animation: aniStart .51s ease-in-out;
 }
 
+/**
+ * Stile für Bilder im Start-Bereich.
+ *
+ * @start-img - Bilder im Start-Bereich.
+ */
 .start figure img {
     width: 274px;
     height: 334px;
 }
 
+/**
+ * Animations-Keyframes für den Start-Bereich.
+ *
+ * @keyframes aniStart - Animationen für den Start-Bereich.
+ */
 @keyframes aniStart {
     from {
         display: flex;

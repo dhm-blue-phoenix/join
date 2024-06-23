@@ -1,164 +1,87 @@
 /* login/dataprotection.css */
 
-/* --nav */
-/* Stile für die Navigationsleiste der Datenschutzseite */
-.nav_dataprotection {
-    background-color: var(--back-color05);
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 232px;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.nav_dataprotection figure {
-    display: flex;
-    justify-content: center;
-    margin-top: 60px;
-}
-
-.nav_dataprotection figure img {
-    width: 100px;
-    height: 121px;
-}
-
-.nav_dataprotection div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 60px;
-}
-
-.nav_dataprotection div button {
-    width: 100%;
-    height: 60px;
-    color: var(--text-color06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-style: none;
-    background-color: transparent;
-}
-
-/* --header */
-/* Stile für den Header der Datenschutzseite */
-header {
-    background-color: var(--back-color04);
-    position: fixed;
-    width: calc(100% - 232px);
-    height: 96px;
-    display: flex;
-    align-items: center;
-    top: 0;
-    left: 232px;
-    box-shadow: #00000062 0px 0px 10px 0px;
-    z-index: 1;
-}
-
-header h1 {
-    margin-left: 150px;
-    font-weight: 400;
-    font-size: 20px;
-}
-
-/* --main */
-/* Stile für den Hauptbereich der Datenschutzseite */
-main {
-    background-color: var(--back-color06);
-    position: absolute;
-    width: calc(100% - 232px);
-    height: calc(100% - 96px);
-    /* height: 100%; */
-    top: 96px;
-    left: 232px;
-}
-
-/* --Gemeinsamer Stile für .help, .privacyPolicy und .legalNotice */
-/* Gemeinsame Stile für die Seiten "Help", "Privacy Policy" und "Legal Notice" */
-.help,
-.privacyPolicy,
-.legalNotice {
-    display: none;
-    background-color: var(--back-color06);
-    padding-bottom: 80px;
-}
-
-.help div,
-.privacyPolicy div,
-.legalNotice div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 70px;
-    margin-left: 70px;
-    margin-right: 70px;
-}
-
-.help div h2,
-.privacyPolicy div h2,
-.legalNotice div h2 {
-    font-weight: 700;
-    font-size: 61px;
-}
-
-.help div img,
-.privacyPolicy div img,
-.legalNotice div img {
-    width: 32px;
-    height: 32px;
-}
-
-.help div img:hover,
-.privacyPolicy div img:hover,
-.legalNotice div img:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.help .contant section,
-.privacyPolicy .contant section,
-.legalNotice .contant section {
-    margin: 30px;
-    margin-left: 70px;
-    margin-right: 70px;
-}
-
-.help .contant section h2,
-.privacyPolicy .contant section h2,
-.legalNotice .contant section h2 {
-    font-weight: 700;
-    font-size: 27px;
-}
-
-.help .contant section h3,
-.privacyPolicy .contant section h3,
-.legalNotice .contant section h3 {
-    font-weight: 700;
-    font-size: 20px;
-}
-
-.help .contant section p,
-.privacyPolicy .contant section p,
-.legalNotice .contant section p {
-    font-weight: 400;
-    font-size: 16px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
-
-/* --Spezifische Stile für .legalNotice und help */
-/* Spezifische Stile für die Seite "Legal Notice und help" */
-.help .contant section ol {
-    font-weight: 700;
-    font-size: 27px;
-}
-
-.legalNotice .contant section ul {
-    margin: 20px 0;
-}
-
-.help .contant section span,
-.legalNotice .contant section span {
-    color: var(--text-color05);
-}
+/**
+ * Definiert gemeinsame Stile für Elemente mit den Klassen .help, .privacyPolicy und .legalNotice.
+ */
+ .help,
+ .privacyPolicy,
+ .legalNotice {
+     background-color: var(--back-color06);
+     padding-bottom: 80px;
+ }
+ 
+ .help div,
+ .privacyPolicy div,
+ .legalNotice div {
+     display: flex;
+     justify-content: space-between;
+     margin-top: 70px;
+     margin-left: 70px;
+     margin-right: 70px;
+ }
+ 
+ .help div h2,
+ .privacyPolicy div h2,
+ .legalNotice div h2 {
+     font-weight: 700;
+     font-size: 61px;
+ }
+ 
+ .help div img,
+ .privacyPolicy div img,
+ .legalNotice div img {
+     width: 32px;
+     height: 32px;
+ }
+ 
+ .help div img:hover,
+ .privacyPolicy div img:hover,
+ .legalNotice div img:hover {
+     cursor: pointer;
+     transform: scale(1.1);
+ }
+ 
+ .help .contant section,
+ .privacyPolicy .contant section,
+ .legalNotice .contant section {
+     margin: 30px;
+     margin-left: 70px;
+     margin-right: 70px;
+ }
+ 
+ .help .contant section h2,
+ .privacyPolicy .contant section h2,
+ .legalNotice .contant section h2 {
+     font-weight: 700;
+     font-size: 27px;
+ }
+ 
+ .help .contant section h3,
+ .privacyPolicy .contant section h3,
+ .legalNotice .contant section h3 {
+     font-weight: 700;
+     font-size: 20px;
+ }
+ 
+ .help .contant section p,
+ .privacyPolicy .contant section p,
+ .legalNotice .contant section p {
+     font-weight: 400;
+     font-size: 16px;
+     margin-top: 16px;
+     margin-bottom: 16px;
+ }
+ 
+ .help .contant section ol {
+     font-weight: 700;
+     font-size: 27px;
+ }
+ 
+ .legalNotice .contant section ul {
+     margin: 20px 0;
+ }
+ 
+ .help .contant section span,
+ .legalNotice .contant section span {
+     color: var(--text-color05);
+ } 

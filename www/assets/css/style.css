@@ -1,8 +1,9 @@
 /* style.css */
 
-:root {
-    /* Definiert benutzerdefinierte CSS-Variablen für Farben */
-    
+/**
+ * Definiert benutzerdefinierte CSS-Variablen für Farben und allgemeine Stile.
+ */
+ :root {
     /* Hintergrundfarben */
     --back-color01: #f5f5f5;    /* Hellgrau */
     --back-color02: #2a3647;    /* Dunkelblau */
@@ -25,6 +26,9 @@
     --text-color06: #a8a8a8;    /* Grau */
 }
 
+/**
+ * Globale Stile, die auf alle HTML-Elemente angewendet werden.
+ */
 * {
     margin: 0;
     box-sizing: border-box;
@@ -33,6 +37,9 @@
     color: var(--text-color01);
 }
 
+/**
+ * Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
+ */
 img,
 button,
 a {
@@ -52,8 +59,12 @@ input:focus {
     outline: none;
 }
 
-/* --Stile für .nextPage und .currentPage */
-/* Stile für die Klassen .nextPage und .currentPage */
+/**
+ * Stile für Zustandsklassen .nextPage und .currentPage.
+ *
+ * @nextPage:hover - Stile bei Hover-Zustand.
+ * @currentPage - Stile für die aktuelle Seite.
+ */
 .nextPage:hover {
     font-weight: bold;
     transform: scale(1.1);
@@ -65,14 +76,18 @@ input:focus {
     cursor: default;
 }
 
-/* --Stile für .activePage */
-/* Stile für die Klasse .activePage */
+/**
+ * Stile für die Klasse .activePage.
+ *
+ * @activePage - Stile für eine aktive Seite.
+ */
 .activePage {
     display: block;
 }
 
-/* -- Scrollbar -- */
-/* Stile für die Scrollleiste */
+/**
+ * Stile für die Scrollleiste.
+ */
 ::-webkit-scrollbar {
     width: 10px;
 }

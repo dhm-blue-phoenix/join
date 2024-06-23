@@ -53,16 +53,20 @@ async function loadConfigData() { // wird noch überarbeitet
 }
 
 /**
- * Lädt die Konfiguration für die Navigationsleiste und aktualisiert die entsprechenden Klassen und Deaktivierungsstatus der Elemente.
- * Geht durch jedes Element in der Konfiguration und passt die entsprechenden Eigenschaften des HTML-Elements an.
+ * Lädt die Konfiguration für die Navigationsleiste und aktualisiert die entsprechenden Klassen
+ * und Deaktivierungsstatus der Elemente basierend auf der `config_navBar`-Konfiguration.
+ * Geht durch jedes Element in der Konfiguration und passt die entsprechenden Eigenschaften
+ * des HTML-Elements und der zugehörigen Klasse an.
  * Gibt eine Warnung aus, falls ein Element mit der angegebenen ID nicht gefunden wurde.
  */
 function loadNavBarConfig() {
   config_navBar.forEach(element => {
     let ID_ELEMENT = document.getElementById(element.id);
+    let CLASS_ELEMENT = document.querySelector(element.class);
     ID_ELEMENT ? (
-      ID_ELEMENT.classList.contains('currentPage') ? ID_ELEMENT.classList.remove('currentPage') : ID_ELEMENT.classList.remove('nextPage'),
-      ID_ELEMENT.classList.add(element.addClass),
+      ID_ELEMENT.classList.contains('currentPage') ? ID_ELEMENT.classList.remove('currentPage') & CLASS_ELEMENT.classList.remove('activePage') : ID_ELEMENT.classList.remove('nextPage') & CLASS_ELEMENT.classList.remove('inactive'),
+      ID_ELEMENT.classList.add(element.statusClass.nav),
+      CLASS_ELEMENT.classList.add(element.statusClass.page),
       ID_ELEMENT.disabled = element.disabled
     ) : console.warn(`Element mit ID '${element.id}' wurde nicht gefunden.`);
   });

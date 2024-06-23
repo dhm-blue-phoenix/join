@@ -5,7 +5,7 @@
 
 
 /* --header */
-/* Stile für den Header der Datenschutzseite */
+/* Stile für den Header */
 header {
     background-color: var(--back-color04);
     position: fixed;
@@ -26,12 +26,16 @@ header h1 {
 }
 
 /* --main */
-/* Stile für den Hauptbereich der Datenschutzseite */
+/* Stile für den Hauptbereich */
 main {
     background-color: var(--back-color06);
-    position: fixed;
+    position: absolute;
     width: calc(100% - 232px);
     height: calc(100% - 96px);
     top: 96px;
     left: 232px;
+}
+
+.inactive {
+    display: none;
 }

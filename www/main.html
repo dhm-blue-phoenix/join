@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./assets/css/dataprotection.css">
 
     <!-- JS - Scripte -->
-     <script src="./assets/js/globleVariables.js" defer></script>
+    <script src="./assets/js/globleVariables.js" defer></script>
     <script src="./assets/js/script.js" defer></script>
     <script src="./assets/js/navBar.js" defer></script>
 </head>
@@ -66,28 +66,42 @@
         <h1>Kanban Project Management Tool</h1>
     </header>
     <main>
+        <pages>
+            <summary-page class="summary">
+                <contant class="contant" w3-include-html="./components/summary.html"></contant>
+            </summary-page>
+            <addTask-page class="addTask">
+                <contant class="contant" w3-include-html="./components/addTask.html"></contant>
+            </addTask-page>
+            <board-page class="board">
+                <contant class="contant" w3-include-html="./components/board.html"></contant>
+            </board-page>
+            <contacts-page class="contacts">
+                <contant class="contant" w3-include-html="./components/contacts.html"></contant>
+            </contacts-page>
+        </pages>
         <dataprotection>
-            <help class="help">
+            <help-page class="help inactive">
                 <div>
                     <h2>Help</h2>
                     <img onclick="actionBack()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
                 </div>
                 <contant class="contant" w3-include-html="./components/dataprotection/help.html"></contant>
-            </help>
-            <privacy_policy class="privacyPolicy">
+            </help-page>
+            <privacy_policy-page class="privacyPolicy">
                 <div>
                     <h2>Privacy Policy</h2>
                     <img onclick="actionBack()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
                 </div>
                 <contant class="contant" w3-include-html="./components/dataprotection/privacyPolicy.html"></contant>
-            </privacy_policy>
-            <legal_notice class="legalNotice">
+            </privacy_policy-page>
+            <legal_notice-page class="legalNotice">
                 <div>
                     <h2>Legal Notice</h2>
                     <img onclick="actionBack()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
                 </div>
                 <contant class="contant" w3-include-html="./components/dataprotection/legalNotice.html"></contant>
-            </legal_notice>
+            </legal_notice-page>
         </dataprotection>
     </main>
 </body>

@@ -1,6 +1,9 @@
 /* nav.css */
 
-.navBar {
+/**
+ * Stile für die Seitenleiste (.navBar) der Anwendung.
+ */
+ .navBar {
     background-color: var(--back-color05);
     position: fixed;
     display: flex;

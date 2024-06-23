@@ -1,16 +1,17 @@
 // navBar.js
 
 /**
- * Ändert die aktuelle Seite basierend auf der übergebenen Seiten-ID und aktualisiert die Navigation.
- * Deaktiviert das aktuelle Navigations-Element und aktualisiert dessen Klasse auf 'nextPage'.
- * Aktiviert das Navigations-Element der neuen Seite und aktualisiert dessen Klasse auf 'currentPage'.
- * Schließlich setzt die Funktion die neue Seite als aktiv.
+ * Aktualisiert die Navigationsleiste basierend auf der übergebenen Seiten-ID.
+ * Deaktiviert das aktuelle Navigations-Element und aktualisiert dessen Status.
+ * Aktiviert das Navigations-Element der neuen Seite und aktualisiert dessen Status.
+ * Schließlich lädt die Funktion die aktualisierte Konfiguration der Navigationsleiste.
  * 
  * @param {string} pageID - Die ID der Seite, die aktiviert werden soll.
  */
 function currentPage(pageID) {
-    config_navBar.forEach(element => element.disabled === true && (element.disabled = false, element.addClass = 'nextPage'));
-    config_navBar.forEach(element => pageID === element.id && (element.disabled = true, element.addClass = 'currentPage'));
+    config_navBar.forEach(element => element.disabled === true && (element.disabled = false, element.statusClass.nav = 'nextPage', element.statusClass.page = 'inactive'));
+    config_navBar.forEach(element => pageID === element.id && (element.disabled = true, element.statusClass.nav = 'currentPage', element.statusClass.page = 'activePage'));
+    console.table(config_navBar)
     loadNavBarConfig();
 }
 
