@@ -1,0 +1,78 @@
+/* style.css */
+
+/**
+ * Definiert benutzerdefinierte CSS-Variablen für Farben und allgemeine Stile.
+ */
+ :root {
+    /* Hintergrundfarben */
+    --back-color01: #f5f5f5;
+    --back-color02: #2a3647;
+    --back-color03: #2ba0d2;
+    --back-color04: #ffffff;
+    --back-color05: #e2e2e2;
+
+    /* Rahmenfarben */
+    --bord-color01: #d1d1d1;
+    --bord-color02: #2a3647;
+    --bord-color03: #2ba0d2;
+
+    /* Textfarben */
+    --text-color01: #000000;
+    --text-color02: #ffffff;
+    --text-color03: #d1d1d1;
+    --text-color04: #2a3647;
+    --text-color05: #2ba0d2;
+    --text-color06: #a8a8a8;
+}
+
+/**
+ * Globale Stile, die auf alle HTML-Elemente angewendet werden.
+ */
+* {
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: sans-serif;
+    color: var(--text-color01);
+}
+
+/**
+ * Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
+ */
+ img,
+ button,
+ a {
+     -webkit-user-select: none;
+     user-select: none;
+ }
+ 
+ a {
+     text-decoration: none;
+ }
+ 
+ button {
+     cursor: pointer;
+ }
+ 
+ input:focus {
+     outline: none;
+ }
+ 
+ /**
+  * Stile für die Scrollleiste.
+  */
+ ::-webkit-scrollbar {
+     width: 10px;
+ }
+ 
+ ::-webkit-scrollbar-track {
+     background-color: transparent;
+     cursor: pointer;
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+     background-color: var(--back-color02);
+     border-radius: 10px;
+     height: 10px;
+     cursor: pointer;
+ }

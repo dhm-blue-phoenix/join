@@ -1,7 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "./www"
+			"name": "www",
+			"path": "www"
 		}
 	],
 	"settings": {

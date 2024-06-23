@@ -1,1 +1,0 @@
-Falls das Script sich nicht starten lässt, kann es daran liegen, dass man zuvor noch bei PowerShell den Befehl Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned ausführen muss.
