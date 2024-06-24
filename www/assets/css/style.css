@@ -10,6 +10,8 @@
     --back-color03: #2ba0d2;
     --back-color04: #ffffff;
     --back-color05: #e2e2e2;
+    --back-color06: #091931;
+    --back-color07: #42526d;
 
     /* Rahmenfarben */
     --bord-color01: #d1d1d1;
@@ -23,6 +25,7 @@
     --text-color04: #2a3647;
     --text-color05: #2ba0d2;
     --text-color06: #a8a8a8;
+    --text-color07: #CDCDCD;
 }
 
 /**

@@ -27,10 +27,11 @@ header h1 {
 /* --main */
 /* Stile für den Hauptbereich */
 main {
-    background-color: var(--back-color06);
     position: absolute;
     width: calc(100% - 232px);
     height: calc(100% - 96px);
     top: 96px;
     left: 232px;
+    padding: 64px;
+    background-color: var(--back-color01);
 }

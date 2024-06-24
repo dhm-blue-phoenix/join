@@ -11,15 +11,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- CSS-Style -->
-     <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/taskmanager/taskmanager.css">
 
-     <!-- JS-Script -->
-     <script src="./assets/js/script.js" defer></script>
+    <!-- JS-Script -->
+    <script src="./assets/js/script.js" defer></script>
 </head>
 
 <body onload="includeHTML()">
     <!-- Navigations Leiste -->
-    <navBar class="navBar" w3-include-html="./components/navBar.html"></navBar>
+    <div  w3-include-html="./components/navBar.html"></div>
     
     <!-- Titel -->
     <header>
@@ -27,7 +28,88 @@
     </header>
 
     <!-- Haupteil -->
-    <main></main>
+    <main>
+        <taskmanger class="taskmanger">
+            <div class="taskmangerHeader">
+              <h2>Add Task</h2>
+            </div>
+    
+            <div class="taskmanagerContent">
+    
+            <section class="layout">
+              <form>
+                <p>Title<i style="color: red">*</i></p>
+                <input required type="text" placeholder="Enter a title">
+              </form>
+    
+              <form>
+                <p>Description</p>
+                <textarea required placeholder="Enter a Description"></textarea>
+                </textarea>
+              </form>
+    
+              <form>
+                <p>Assigned to</p>
+                <select placeholder="Select contacts to assign">
+                    <option>Select contacts to assign</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+              </form>
+            </section>
+            <div class="trennline"></div>
+            <section class="layout">
+                <form>
+                  <p>Due date<i style="color: red">*</i></p>
+                  <input required type="date" placeholder="dd/mm/yyyy">
+                </form>
+      
+                <form>
+                  <p>Prio</p>
+                  <div class="taskPrio">
+                  <button>Urgent<img src="./resources/symbols/PrioUrgent.png"></button>
+                  <button>Medium<img src="./resources/symbols/PrioMedium.png"></button>
+                  <button>Low<img src="./resources/symbols/PrioLow.png"></button>
+                </div>
+                </form>
+      
+                <form>
+                    <p>Category<i style="color: red">*</i></p>
+                  <select placeholder="Select contacts to assign">
+                      <option>Select task category</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                  </select>
+                </form>
+    
+                <form>
+                    <p>Subtask</p>
+                    <div class="subtask">
+                 <input class="subtaskinput" type="text" placeholder="Add new subtask" id="subtask">
+                </div>
+                </form>
+              </section>
+        </div>
+        
+        <footer class="taskbottom">
+            <div>
+              <i style="color: red">*</i> This fields are required
+              </div>
+              <div>
+              <button class="taskbuttonclear">Clear &#128473</button>
+              <button class="taskbuttoncreat">Create Task <img src="/resources/symbols/check.svg" alt=""></button>
+            </div>
+              
+            </footer>
+          </taskmanger>
+
+    </main>
 </body>
 
 </html>

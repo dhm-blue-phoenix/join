@@ -1,0 +1,184 @@
+.taskmanger{
+  width: 946px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.taskmangerHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskmangerHeader h2 {
+  font-weight: 700;
+  font-size: 61px;
+}
+
+.taskmanagerContent {
+  display: flex;
+  gap: 32px;
+}
+
+.layout {
+  width: 440px;
+  height: 376px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  font-size: 18px;
+  gap: 32px;
+}
+
+.layout form {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.layout input {
+  width: 440px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  padding-block: 0;
+  padding-inline: 0;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 12px 21px 12px 21px;
+}
+
+.layout input::placeholder {
+  color: #d1d1d1;
+}
+
+.layout input[type="date"] {
+  text-transform: uppercase;
+}
+
+.layout textarea {
+  width: 440px !important;
+  height: 120px !important;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 12px 21px 12px 21px;
+}
+
+.layout textarea::placeholder {
+  color: #d1d1d1;
+}
+
+.layout select {
+  width: 440px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 12px 40px 12px 21px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url(/join/www/resources/symbols/arrow_drop_downaa.png);
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  cursor: pointer;
+}
+
+.trennline {
+  height: 424px;
+  border: 1px solid #d1d1d1;
+}
+
+.taskPrio {
+  width: 440px;
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.layout button {
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 12px 21px 12px 21px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  gap: 8px;
+  font-size: 21px;
+  background-color: var(--back-color04);
+}
+
+.layout button:hover {
+  background-color: #ffa800;
+  color: #fff;
+}
+
+.addSubtask {
+  width: 440px;
+  height: 48px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  padding-block: 0;
+  padding-inline: 0;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 12px 21px 12px 21px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.subtaskinput {
+  background-image: url(/resources/symbols/addSubtasks.svg);
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  cursor: pointer;
+}
+
+.taskbottom{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 48px;
+}
+
+.taskbuttonclear{
+  width: 110px;
+  height: 56px;
+  border: 1px solid var(--back-color02);
+  background-color: transparent;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  transition: 0.2s;
+  line-height: 55px;
+}
+
+.taskbuttonclear:hover{
+  border: 1px solid var(--back-color03);
+  color: var(--text-color05);
+}
+
+.taskbuttoncreat{
+  width: 183px;
+  height: 56px;
+  border: 1px solid var(--back-color02);
+  background-color: var(--back-color02);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 21px;
+  color: var( --text-color02);
+  transition: 0.2s;
+}
+
+.taskbuttoncreat:hover{
+  background-color: var(--back-color03);
+  border: 1px solid var(--back-color03);
+}
