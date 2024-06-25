@@ -4,6 +4,12 @@
 @import url('./navBar.css');
 @import url('./dataprotection.css');
 
+/* --body */
+/* Stile für den Body */
+body {
+    background-color: var(--back-color01);
+}
+
 /* --header */
 /* Stile für den Header */
 header {
@@ -33,6 +39,6 @@ main {
     height: calc(100% - 96px);
     top: 96px;
     left: 232px;
-    padding: 64px;
-    background-color: var(--back-color01);
+    overflow: auto;
+    padding-bottom: 40px;
 }

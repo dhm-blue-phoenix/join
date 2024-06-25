@@ -3,13 +3,6 @@
 /*
 * Definiert gemeinsame Stile für Elemente mit den Klassen .help, .privacyPolicy und .legalNotice.
 */
-.help,
-.privacyPolicy,
-.legalNotice {
-    background-color: var(--back-color06);
-    padding-bottom: 80px;
-}
-
 .help div,
 .privacyPolicy div,
 .legalNotice div {
@@ -70,6 +63,7 @@
     font-size: 16px;
     margin-top: 16px;
     margin-bottom: 16px;
+    line-height: 20px;
 }
 
 .help .contant section ol {
