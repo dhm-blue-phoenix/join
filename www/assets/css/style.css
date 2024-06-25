@@ -1,9 +1,9 @@
 /* style.css */
 
-/**
- * Definiert benutzerdefinierte CSS-Variablen für Farben und allgemeine Stile.
- */
- :root {
+/*
+* Definiert benutzerdefinierte CSS-Variablen für Farben und allgemeine Stile.
+*/
+:root {
     /* Hintergrundfarben */
     --back-color01: #f5f5f5;
     --back-color02: #2a3647;
@@ -28,9 +28,9 @@
     --text-color07: #CDCDCD;
 }
 
-/**
- * Globale Stile, die auf alle HTML-Elemente angewendet werden.
- */
+/*
+* Globale Stile, die auf alle HTML-Elemente angewendet werden.
+*/
 * {
     margin: 0;
     box-sizing: border-box;
@@ -39,43 +39,52 @@
     color: var(--text-color01);
 }
 
-/**
- * Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
- */
- img,
- button,
- a {
-     -webkit-user-select: none;
-     user-select: none;
- }
- 
- a {
-     text-decoration: none;
- }
- 
- button {
-     cursor: pointer;
- }
- 
- input:focus {
-     outline: none;
- }
- 
- /**
-  * Stile für die Scrollleiste.
-  */
- ::-webkit-scrollbar {
-     width: 10px;
- }
- 
- ::-webkit-scrollbar-track {
-     background-color: transparent;
-     cursor: pointer;
- }
- 
- ::-webkit-scrollbar-thumb {
-     background-color: var(--back-color02);
-     border-radius: 10px;
-     height: 10px;
-     cursor: pointer;
- }
+/*
+* Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
+*/
+img,
+button,
+a {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+input:focus {
+    outline: none;
+}
+
+
+/*
+* Stile für das makieren von text
+*/
+::selection {
+    background-color: var(--back-color02);
+    color: var(--text-color02);
+}
+
+/*
+* Stile für die Scrollleiste.
+*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--back-color02);
+    border-radius: 10px;
+    height: 10px;
+    cursor: pointer;
+}

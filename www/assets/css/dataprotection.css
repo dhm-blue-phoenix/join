@@ -1,0 +1,87 @@
+/* login/dataprotection.css */
+
+/*
+* Definiert gemeinsame Stile für Elemente mit den Klassen .help, .privacyPolicy und .legalNotice.
+*/
+.help,
+.privacyPolicy,
+.legalNotice {
+    background-color: var(--back-color06);
+    padding-bottom: 80px;
+}
+
+.help div,
+.privacyPolicy div,
+.legalNotice div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 70px;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.help div h2,
+.privacyPolicy div h2,
+.legalNotice div h2 {
+    font-weight: 700;
+    font-size: 61px;
+}
+
+.help div img,
+.privacyPolicy div img,
+.legalNotice div img {
+    width: 32px;
+    height: 32px;
+}
+
+.help div img:hover,
+.privacyPolicy div img:hover,
+.legalNotice div img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.help .contant section,
+.privacyPolicy .contant section,
+.legalNotice .contant section {
+    margin: 30px;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.help .contant section h2,
+.privacyPolicy .contant section h2,
+.legalNotice .contant section h2 {
+    font-weight: 700;
+    font-size: 27px;
+}
+
+.help .contant section h3,
+.privacyPolicy .contant section h3,
+.legalNotice .contant section h3 {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.help .contant section p,
+.privacyPolicy .contant section p,
+.legalNotice .contant section p {
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.help .contant section ol {
+    font-weight: 700;
+    font-size: 27px;
+}
+
+.legalNotice .contant section ul {
+    margin: 20px 0;
+}
+
+.help .contant section span,
+.legalNotice .contant section span {
+    color: var(--text-color05);
+}
