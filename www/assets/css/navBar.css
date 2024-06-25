@@ -1,8 +1,8 @@
 /* navBar.css */
 
-/**
- * Stile für die Seitenleiste (.navBar) der Anwendung.
- */
+/*
+  Stile für die Seitenleiste (.navBar) der Anwendung.
+*/
 nav {
   background-color: var(--back-color02);
   width: 232px;

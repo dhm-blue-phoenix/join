@@ -1,3 +1,9 @@
+/* addTask.css */
+
+/*
+  Styles für den Taskmanager-Bereich.
+  Definiert das Layout und die Stilelemente für die Taskverwaltung.
+*/
 .taskmanger {
   width: 946px;
   display: flex;

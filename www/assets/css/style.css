@@ -1,7 +1,7 @@
 /* style.css */
 
 /*
-* Definiert benutzerdefinierte CSS-Variablen für Farben und allgemeine Stile.
+    Definiert benutzerdefinierte CSS-Variablen für Farben und allgemeine Stile.
 */
 :root {
     /* Hintergrundfarben */
@@ -29,7 +29,7 @@
 }
 
 /*
-* Globale Stile, die auf alle HTML-Elemente angewendet werden.
+    Globale Stile, die auf alle HTML-Elemente angewendet werden.
 */
 * {
     margin: 0;
@@ -40,7 +40,7 @@
 }
 
 /*
-* Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
+    Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
 */
 img,
 button,
@@ -63,7 +63,7 @@ input:focus {
 
 
 /*
-* Stile für das makieren von text
+    Stile für das makieren von text
 */
 ::selection {
     background-color: var(--back-color02);
@@ -71,7 +71,7 @@ input:focus {
 }
 
 /*
-* Stile für die Scrollleiste.
+    Stile für die Scrollleiste.
 */
 ::-webkit-scrollbar {
     width: 10px;

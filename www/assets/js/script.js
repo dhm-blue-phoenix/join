@@ -23,3 +23,11 @@ async function includeHTML() {
     }
   }
 }
+
+/**
+ * Navigates the browser back to the previous page in history.
+ * @function actionBack
+ */
+function actionBack() {
+  window.history.back();
+}
