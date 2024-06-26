@@ -3,7 +3,7 @@
 /*
     Stile für das Hauptcontainer des Signup-Bereichs.
 */
- .signup {
+.signup {
     z-index: 0;
     background-color: var(--back-color01);
     overflow: hidden;
