@@ -1,9 +1,9 @@
 /* main.css */
 
 @import url('./style.css');
-@import url('./navBar.css');
-@import url('./addTask.css');
-@import url('./dataprotection.css');
+@import url('./main/navBar.css');
+@import url('./main/addTask.css');
+@import url('./main/dataprotection.css');
 
 /* --body */
 /* Stile für den Body */

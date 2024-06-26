@@ -53,6 +53,11 @@ a {
     text-decoration: none;
 }
 
+button:hover,
+a:hover {
+    transition: .1s ease-in-out;
+}
+
 button {
     cursor: pointer;
 }
@@ -60,7 +65,6 @@ button {
 input:focus {
     outline: none;
 }
-
 
 /*
     Stile für das makieren von text

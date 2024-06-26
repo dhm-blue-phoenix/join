@@ -1,0 +1,6 @@
+/* index.css */
+
+@import url('./style.css');
+@import url('./index/start.css');
+@import url('./index/login.css');
+@import url('./index/signup.css');

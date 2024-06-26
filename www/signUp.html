@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <title>Join</title>
+    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./resources/favicon.png">
+    <link rel="manifest" href="./manifest.webmanifest">
+
+    <!-- META - Daten -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- CSS-Style -->
+    <link rel="stylesheet" href="./assets/css/index.css">
+
+    <!-- JS-Script -->
+     <script src="./assets/js/script.js"></script>
+</head>
+
+<body class="signup">
+    <header>
+        <logo-container class="logo-container">
+            <img src="./resources/logo.png" alt="logo">
+        </logo-container>
+    </header>
+    <main>
+        <div class="formSignup">
+            <form onsubmit="formToCreateAnewUser(); return false">
+                <div class="formHeader">
+                    <figure onclick="actionBack()">
+                        <img src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
+                    </figure>
+                    <div>
+                        <h1>Sign up</h1>
+                        <hr>
+                    </div>
+                </div>
+                <div class="formInput">
+                    <input-container class="input-container">
+                        <input type="text" placeholder="Name" id="inputName" required>
+                        <img src="./resources/symbols/person.png" alt="person">
+                    </input-container>
+                    <input-container class="input-container">
+                        <input type="email" placeholder="Email" id="inputEmail" required>
+                        <img src="./resources/symbols/mail.png" alt="mail">
+                    </input-container>
+                    <input-container class="input-container">
+                        <input type="password" placeholder="Password" id="inputPassword" required>
+                        <img src="./resources/symbols/lock.png" alt="lock">
+                    </input-container>
+                    <input-container class="input-container" id="signupPasswordContainer">
+                        <input type="password" placeholder="Confirm Password" id="inputConfirmPassword" required>
+                        <img src="./resources/symbols/lock.png" alt="lock">
+                    </input-container>
+                    <!-- <span id="signupLoginWarning">Ups! your password don`t match</span> -->
+                    <div>
+                        <input type="checkbox" id="inputCheckbox">
+                        <label for="inputCheckbox">I accept the 
+                            <a href="./privacyPolicy.html">Privacy Policy</a>
+                        </label>
+                    </div>
+                </div>
+                <div class="formButtons">
+                    <button type="submit">Sign up</button>
+                </div>
+            </form>
+        </div>
+        <div class="successfulRegistration">
+            <span>You Signed Up successfully</span>
+        </div>
+    </main>
+    <footer>
+        <div>
+            <a href="./privacyPolicy.html">Privacy Policy</a>
+            <a href="./legalNotice.html">Legal notice</a>
+        </div>
+    </footer>
+</body>
+
+</html>
