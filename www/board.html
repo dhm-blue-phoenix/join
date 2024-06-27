@@ -1,33 +1,130 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
+  <head>
     <title>Join</title>
-    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="./resources/favicon.png">
+    <link
+      rel="shortcut icon"
+      href="./resources/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="./resources/favicon.png" />
 
     <!-- Meta-Tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- CSS-Style -->
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css" />
 
     <!-- JS-Script -->
     <script src="./assets/js/script.js" defer></script>
-</head>
+    <!-- <script src="./assets/js/darganddrop.js" defer></script> -->
 
-<body onload="includeHTML()">
+  </head>
+
+  <body onload="includeHTML()">
     <!-- Navigations Leiste -->
     <navBar class="navBar" w3-include-html="./components/navBar.html"></navBar>
 
     <!-- Titel -->
     <header>
-        <h1>Kanban Project Management Tool</h1>
+      <h1>Kanban Project Management Tool</h1>
     </header>
 
     <!-- Haupteil -->
-    <main></main>
-</body>
+    <main>
+      <div class="board">
+        <div class="BoardTop">
+          <h1>Board</h1>
+          <div>
+            <input id="boardSearch" type="search" placeholder="Find Task" />
+            <button style="color: black">
+              Add task <img src="./resources/symbols/add.png" alt="" />
+            </button>
+          </div>
+        </div>
 
+        <div class="taskBoard">
+          <div class="task">
+            <div class="taskheadline">
+              <h3>To do</h3>
+              <button>+</button>
+            </div>
+            <div class="taskList">
+              <div class="tasktnotfound">
+                <p>No task To do</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="taskheadline">
+              <h3>In progress</h3>
+              <button>+</button>
+            </div>
+            <div class="taskList">
+              <div class="taskcard">
+                <p class="taskcardtitle">User Story</p>
+                <div class="teskdescription">
+                  <h3>Kochwelt Page & Recipe Recommender</h3>
+                  <p>Build start page with recipe recommendation...</p>
+                </div>
+
+                <div class="taskprogress">
+                  <img
+                    style="height: 8px"
+                    src="./resources/symbols/Progressbar.png"
+                    alt=""
+                  />
+                  1/2 Subtasks
+                </div>
+
+                <div class="taskPersons">
+                    <div class="nameShortcutContent">
+                  <div id="nameShortcut" style="background-color: #ff68dc">
+                    DE
+                  </div>
+                  <div id="nameShortcut" style="margin-left: -10px;
+                 background-color: #ff822f">
+                    AM
+                  </div>
+                  <div id="nameShortcut" style="margin-left: -10px;
+                 background-color: #19e030">
+                    BZ
+                  </div>
+                </div>
+                <!-- <img src="./resources/symbols/boardmiddleprio.png" alt=""> -->
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="taskheadline">
+              <h3>Await feedback</h3>
+              <button>+</button>
+            </div>
+            <div class="taskList">
+              <div class="tasktnotfound">
+                <p>No task To do</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="taskheadline">
+              <h3>Done</h3>
+            </div>
+            <div class="taskList">
+              <div class="tasktnotfound">
+                <p>No task To do</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

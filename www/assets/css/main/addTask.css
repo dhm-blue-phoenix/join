@@ -178,7 +178,7 @@
 .taskbuttoncreat {
   width: 183px;
   height: 56px;
-  border: 1px solid var(--back-color02);
+  border: none;
   background-color: var(--back-color02);
   border-radius: 10px;
   font-weight: 700;
@@ -189,5 +189,5 @@
 
 .taskbuttoncreat:hover {
   background-color: var(--back-color03);
-  border: 1px solid var(--back-color03);
+  box-shadow: #00000062 0px 2px 4px 0px;
 }
