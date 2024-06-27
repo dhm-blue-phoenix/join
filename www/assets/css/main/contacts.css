@@ -1,0 +1,289 @@
+main {
+  padding-bottom: 0 !important;
+  overflow: hidden !important;
+}
+
+body {
+  overflow: hidden;
+}
+
+.contacts {
+  /* background-color: blanchedalmond; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.showContacts {
+  width: 456px;
+  background-color: var(--back-color04);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  box-shadow: #00000062 0px 0px 10px 0px;
+  z-index: 999;
+  flex-direction: column;
+  height: calc(100vh - 96px);
+  padding-top: 152px;
+  scrollbar-width: thin;
+}
+
+.showContactcard {
+  /* background-color: red; */
+  padding: 90px 0 0 45px;
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  flex-direction: column;
+}
+
+.showContactcard h2 {
+  font-size: 61px;
+}
+
+.showContactcard p {
+  font-size: 27px;
+}
+
+.showContactcard h3 {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.showContactcardTrennline {
+  background-color: var(--back-color03);
+  width: 3px;
+  height: 59px;
+}
+
+.addNewContactheader {
+  /* background-color: aquamarine; */
+  height: 101px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: #00000062 0px 2px 4px 0px;  */
+}
+
+.addNewContact {
+  width: 352px;
+  height: 56px;
+  border-radius: 10px;
+  padding: 5px 0 5px 0;
+  background-color: var(--back-color02);
+  border: 1px;
+  color: var(--text-color02);
+  font-size: 21px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  transition: 0.2s;
+}
+
+.addNewContact:hover {
+  background-color: var(--back-color03);
+  box-shadow: #00000062 0px 2px 4px 0px;
+}
+
+.Contactcards {
+  /* background-color: aquamarine; */
+  height: 100vh;
+}
+
+.letter {
+  width: 352px;
+  height: 58px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 17px 36px 17px 36px;
+}
+
+.ContactcardsTrennline {
+  background-color: var(--back-color05);
+  width: 352px;
+  height: 1px;
+  margin: 8px 0 8px 0;
+}
+
+.card {
+  width: 352px;
+  height: 78px;
+  padding: 15px 24px 15px 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 35px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.card a {
+  font-size: 16px;
+  color: var(--text-color08);
+}
+
+.card p {
+  font-size: 20px;
+}
+
+.card:hover {
+  /* wenn angeklickt dann --> background-color: var(--back-color02); */
+  background-color: var(--back-color01);
+  color: var(--text-color02) !important;
+}
+
+.card:hover p {
+  color: var(--text-color01);
+  /* wenn angeklickt dann --> color: var(--text-color02); */
+}
+
+.cardactive {
+  background-color: var(--back-color02);
+  width: 352px;
+  height: 78px;
+  padding: 15px 24px 15px 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 35px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.cardactive a {
+  font-size: 16px;
+  color: var(--text-color08);
+}
+
+.cardactive p {
+  font-size: 20px;
+  color: var(--text-color02);
+}
+
+#nameShortcut {
+  width: 42px;
+  height: 42px;
+  border: 2px solid; /* Added 'solid' to specify border style */
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color02);
+  font-size: 12px;
+  background-color: rgb(127, 44, 44);
+}
+
+.personTitle {
+  width: 569px;
+  height: 73px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+}
+
+.personCard {
+  width: 461px;
+  height: 120px;
+  display: flex;
+  gap: 54px;
+}
+
+.personShortcut {
+  width: 120px;
+  height: 120px;
+  background-color: rgb(255, 123, 0);
+  border-radius: 100%;
+  color: var(--text-color02);
+  font-size: 47px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--back-color04);
+}
+
+.personName {
+  width: 287px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.personName p {
+  font-size: 47px;
+  font-weight: 500;
+}
+
+.personInfo {
+  width: 287px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+  line-height: 19px;
+}
+
+.personInfo button {
+  width: 62px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  border: 0;
+  background-color: transparent; /* Hintergrund transparent */
+}
+
+.personInfo button:hover {
+  font-weight: bold;
+  color: var(--text-color05);
+}
+
+.personInfo img {
+  width: 16px; /* Sanfter Übergang */
+}
+
+.personInfo button:hover img {
+  filter: brightness(0) saturate(100%) invert(51%) sepia(32%) saturate(1006%)
+    hue-rotate(157deg) brightness(95%) contrast(95%);
+}
+
+.information {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.information h2 {
+  font-size: 16px;
+}
+
+.information a {
+  font-size: 16px;
+  color: var(--text-color08);
+}
+
+.information p {
+  font-size: 16px;
+}
+
+.information span {
+  font-size: 20px;
+  font-weight: 400;
+}
