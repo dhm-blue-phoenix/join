@@ -2,6 +2,7 @@
 
 @import url('./style.css');
 @import url('./main/navBar.css');
+@import url('./main/summary.css');
 @import url('./main/addTask.css');
 @import url('./main/dataprotection.css');
 @import url('./main/contacts.css');

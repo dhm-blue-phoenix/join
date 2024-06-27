@@ -13,6 +13,7 @@
     --back-color06: #091931;
     --back-color07: #42526d;
     --back-color07: #a8a8a8;
+    --back-color09: #d1d1d1;
 
     /* Rahmenfarben */
     --bord-color01: #d1d1d1;
@@ -37,6 +38,10 @@
     --name-shortcut5: #2ba0d2;
     --name-shortcut6: #a8a8a8;
     --name-shortcut7: #CDCDCD;
+
+    /* hr-color */
+    --hr-color01: #29ABE2;
+    --hr-color02: #d1d1d1;
 }
 
 /*
