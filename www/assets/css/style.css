@@ -12,7 +12,7 @@
     --back-color05: #e2e2e2;
     --back-color06: #091931;
     --back-color07: #42526d;
-    --back-color07: #a8a8a8;
+    --back-color07: #a8a8a8; /*!! der farbvariablenamen gehört geendert */
     --back-color09: #d1d1d1;
 
     /* Rahmenfarben */
@@ -29,6 +29,7 @@
     --text-color06: #a8a8a8;
     --text-color07: #CDCDCD;
     --text-color08: #007CEE;
+    --text-color09: #29abe2;
 
     /* nameShortcuts */
     --name-shortcut1: #ff822f;
@@ -62,6 +63,7 @@ img,
 button,
 a {
     -webkit-user-select: none;
+    -moz-user-select: none;
     user-select: none;
 }
 
