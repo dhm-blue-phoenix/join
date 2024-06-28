@@ -8,9 +8,7 @@
 .legalNotice div {
     display: flex;
     justify-content: space-between;
-    margin-top: 70px;
-    margin-left: 70px;
-    margin-right: 70px;
+    max-width: 1014px;
 }
 
 .help div h2,
@@ -37,9 +35,7 @@
 .help .contant section,
 .privacyPolicy .contant section,
 .legalNotice .contant section {
-    margin: 30px;
-    margin-left: 70px;
-    margin-right: 70px;
+max-width: 1014px;
 }
 
 .help .contant section h2,

@@ -171,8 +171,6 @@
 }
 
 .signup .formInput div label a:hover {
-    font-weight: bold;
-    transform: scale(1.1);
     text-decoration: underline;
 }
 
@@ -186,7 +184,7 @@
 }
 
 .signup .formInput div input[type='checkbox']:hover {
-    transform: scale(1.1);
+    
 }
 
 .signup .formSignup .formButtons button {

@@ -47,3 +47,15 @@ main {
     overflow: auto;
     padding-bottom: 40px;
 }
+
+.boardmain, .addtaskmain, .summarymain, .dataprotectionmain{
+    margin: 32px 64px;
+}
+
+.dataprotectionmain{
+    padding-bottom: 40px !important;
+}
+
+.contactsmain {
+    margin: 0;
+}

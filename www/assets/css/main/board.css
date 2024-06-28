@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  margin: 32px 64px;
   gap: 56px;
 }
 
@@ -29,7 +28,7 @@
   height: 48px;
   padding: 8px 16px 8px 16px;
   border-radius: 10px;
-  border: 1px solid var(--back-color07);
+  border: 1px solid var(--back-color08);
   display: flex;
   justify-content: center;
   align-items: center;
