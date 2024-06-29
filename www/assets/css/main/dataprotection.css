@@ -32,10 +32,17 @@
     transform: scale(1.1);
 }
 
+.help .contant,
+.privacyPolicy .contant,
+.legalNotice .contant {
+    display: flex;
+    flex-direction: column;
+}
+
 .help .contant section,
 .privacyPolicy .contant section,
 .legalNotice .contant section {
-max-width: 1014px;
+    max-width: 1014px;
 }
 
 .help .contant section h2,
