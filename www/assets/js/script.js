@@ -47,3 +47,10 @@ function taskCardpopup() {
 function closetaskCardpopup(){
   document.getElementById('taskCardpopup').classList.add('d-nonepopup');
 }
+
+function editcontactpopup() {
+  document.getElementById("editcontactpopup").classList.remove('d-nonepopup');
+}
+function closeeditcontactpopup(){
+  document.getElementById('editcontactpopup').classList.add('d-nonepopup');
+}
