@@ -15,6 +15,7 @@
 .taskmangerHeader {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 48px;
 }
 
 .taskmangerHeader h2 {
@@ -173,6 +174,7 @@
 .taskbuttonclear:hover {
   border: 1px solid var(--back-color03);
   color: var(--text-color05);
+  box-shadow: #00000062 0px 2px 4px 0px;
 }
 
 .taskbuttoncreat {
@@ -190,4 +192,139 @@
 .taskbuttoncreat:hover {
   background-color: var(--back-color03);
   box-shadow: #00000062 0px 2px 4px 0px;
+}
+
+.taskcardbig {
+  width: 370px;
+  /* background-color: var(--back-color05); */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.taskcardbigheader {
+  display: flex;
+  height: 36px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskcardbig h3 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.taskcardbig p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.taskcardbigprogress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.taskcardbigdate {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.taskcardbigdate p {
+  color: var(--text-color04);
+}
+
+.taskcardbigdate i {
+  font-size: 16px;
+  font-style: normal;
+}
+
+.taskcardbigpriority {
+  display: flex;
+  align-items: center;
+  gap: 33px;
+}
+
+.taskcardbigpriority p {
+  color: var(--text-color04);
+}
+
+.taskcardbigpriority i {
+  font-size: 16px;
+  font-style: normal;
+}
+
+.taskcardbigassignedto {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskcardbigassignedto p {
+  color: var(--text-color04);
+}
+
+.taskcardbigassignedto i {
+  font-size: 16px;
+  font-style: normal;
+}
+
+.taskcardbigassignedtoperson {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+  font-size: 16px;
+}
+
+.taskcardbigsubtasks{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+}
+
+.taskcardbigsubtaskscheckbox{
+  margin-left: 16px;
+  font-size: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.taskcardbigsubtaskscheckbox input{
+  cursor: pointer;
+  border: none;
+}
+
+.taskcardbigeditdelete{
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.taskcardbigeditdelete button{
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color04);
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.taskcardbigeditdelete button:hover{
+  opacity: 0.4;
+}
+
+.buttonstrennline{
+  width: 1px;
+  height: 24px;
+  background-color: var(--text-color06);
 }

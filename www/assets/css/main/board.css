@@ -138,6 +138,12 @@
   box-shadow: #78787862 0px 0px 5px 0px;
   padding: 16px;
   gap: 24px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.taskcard:hover {
+  box-shadow: #78787862 0px 0px 5px 2px;
 }
 
 .teskdescription {

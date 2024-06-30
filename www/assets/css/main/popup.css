@@ -1,0 +1,52 @@
+.bigcontainer {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+.smallcontainer {
+  background: var(--back-color04);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 20px;
+  padding: 24px;
+  /* opacity: 60%; */
+}
+
+.popupAddtaskHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.popupAddtaskHeader h2 {
+  font-weight: 700;
+  font-size: 61px;
+}
+
+.closepopup {
+    border: none;
+    background-color: transparent;
+    color: var(--text-color04);
+    font-weight: bold;
+    font-size: 42px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.closepopup:hover {
+    color: var(--text-color05);
+}
+
+.d-nonepopup {
+  display: none;
+}

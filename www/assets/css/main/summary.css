@@ -51,13 +51,14 @@ span {
     Layout und Styling des Hauptinhalts
 */
 .summary-main {
-    position: absolute;
+    position: fixed;
     width: 560px;
     height: 562px;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 999;
 }
 
 /*

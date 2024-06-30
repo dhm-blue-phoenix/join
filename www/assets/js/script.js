@@ -31,3 +31,19 @@ async function includeHTML() {
 function actionBack() {
   window.history.back();
 }
+
+// Öffnet und schließt das Popup-Window:
+
+function addtaskpopup() {
+  document.getElementById("addtaskpopup").classList.remove('d-nonepopup');
+}
+function closeaddtaskpopup(){
+  document.getElementById('addtaskpopup').classList.add('d-nonepopup');
+}
+
+function taskCardpopup() {
+  document.getElementById("taskCardpopup").classList.remove('d-nonepopup');
+}
+function closetaskCardpopup(){
+  document.getElementById('taskCardpopup').classList.add('d-nonepopup');
+}
