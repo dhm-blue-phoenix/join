@@ -23,7 +23,6 @@ body {
   overflow-x: hidden;
   scrollbar-width: thin;
   box-shadow: #00000062 0px 0px 10px 0px;
-  z-index: 999;
   flex-direction: column;
   height: calc(100vh - 96px);
   padding-top: 152px;

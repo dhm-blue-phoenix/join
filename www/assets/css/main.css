@@ -60,3 +60,33 @@ main {
 .contactsmain {
     margin: 0;
 }
+
+@media(max-width:1300px) {
+    main {
+        position: absolute;
+        width: calc(100% - 232px);
+        height: calc(100% - 96px);
+        left: 0;
+        overflow: auto;
+        padding-bottom: 40px;
+    }
+
+    header {
+        background-color: var(--back-color04);
+        position: absolute;
+        width: 100vw;
+        height: 96px;
+        display: flex;
+        align-items: center;
+        top: 0;
+        left: 0;
+        box-shadow: #00000062 0px 0px 10px 0px;
+        z-index: 1;
+    }
+    
+    header h1 {
+        margin-left: 150px;
+        font-weight: 400;
+        font-size: 20px;
+    }
+}
