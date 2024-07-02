@@ -213,6 +213,19 @@
 .hidethisaddbutton {
   display: none !important;
 }
+.taskbottommobile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+.taskbottommobilebuttons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 
 @media (max-width: 1300px) {
   .board {
@@ -318,5 +331,4 @@
   align-items: flex-start;
   gap: 8px;
 }
-
 }
