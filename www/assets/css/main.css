@@ -9,6 +9,8 @@
 @import url('./main/board.css');
 @import url('./main/popup.css');
 
+/* mobile */
+@import url('./mobil/dataprotection.css');
 
 /* --body */
 /* Stile für den Body */
@@ -54,7 +56,7 @@ main {
 }
 
 .dataprotectionmain{
-    padding-bottom: 40px !important;
+    padding-bottom: 80px !important;
 }
 
 .contactsmain {

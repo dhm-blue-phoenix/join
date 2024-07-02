@@ -105,7 +105,7 @@ input:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--back-color02);
+    background-color: var(--back-color08);
     border-radius: 10px;
     cursor: pointer;
 }
