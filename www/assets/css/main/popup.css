@@ -34,19 +34,32 @@
 }
 
 .closepopup {
-    border: none;
-    background-color: transparent;
-    color: var(--text-color04);
-    font-weight: bold;
-    font-size: 42px;
-    display: flex;
-    align-items: flex-start;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color04);
+  font-weight: bold;
+  font-size: 42px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .closepopup:hover {
-    color: var(--text-color05);
+  color: var(--text-color05);
 }
 
 .d-nonepopup {
   display: none;
+}
+
+@media (max-width: 1300px) {
+  .smallcontainer {
+    height: 72vh;
+    overflow-y: scroll;
+    padding: 24px !important;
+    width: 95vw;
+    overflow-x: hidden;
+  }
+  .taskcardbig {
+    width: 100%;
+  }
 }
