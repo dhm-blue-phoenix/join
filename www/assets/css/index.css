@@ -6,5 +6,5 @@
 @import url('./index/signup.css');
 
 /* mobil */
-@import url('./mobil/start.css');
-@import url('./mobil/login.css');
+@import url('./mobile/start.css');
+@import url('./mobile/login.css');
