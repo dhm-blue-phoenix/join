@@ -1,94 +1,105 @@
 /* main.css */
 
-@import url('./style.css');
-@import url('./main/navBar.css');
-@import url('./main/summary.css');
-@import url('./main/addTask.css');
-@import url('./main/dataprotection.css');
-@import url('./main/contacts.css');
-@import url('./main/board.css');
-@import url('./main/popup.css');
+@import url("./style.css");
+@import url("./main/navBar.css");
+@import url("./main/summary.css");
+@import url("./main/addTask.css");
+@import url("./main/dataprotection.css");
+@import url("./main/contacts.css");
+@import url("./main/board.css");
+@import url("./main/popup.css");
 
 /* mobile */
-@import url('./mobile/dataprotection.css');
+@import url("./mobile/dataprotection.css");
 
 /* --body */
 /* Stile für den Body */
 body {
-    background-color: var(--back-color01);
+  background-color: var(--back-color01);
 }
 
 /* --header */
 /* Stile für den Header */
 header {
-    background-color: var(--back-color04);
-    position: fixed;
-    width: calc(100% - 232px);
-    height: 96px;
-    display: flex;
-    align-items: center;
-    top: 0;
-    left: 232px;
-    box-shadow: #00000062 0px 0px 10px 0px;
-    z-index: 1;
+  background-color: var(--back-color04);
+  position: fixed;
+  width: calc(100% - 232px);
+  height: 96px;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 232px;
+  box-shadow: #00000062 0px 0px 10px 0px;
+  z-index: 1;
 }
 
 header h1 {
-    margin-left: 150px;
-    font-weight: 400;
-    font-size: 20px;
+  margin-left: 150px;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 /* --main */
 /* Stile für den Hauptbereich */
 main {
-    position: absolute;
-    width: calc(100% - 232px);
-    height: calc(100% - 96px);
-    top: 96px;
-    left: 232px;
-    overflow: auto;
-    padding-bottom: 40px;
+  position: absolute;
+  width: calc(100% - 232px);
+  height: calc(100% - 96px);
+  top: 96px;
+  left: 232px;
+  overflow: auto;
+  padding-bottom: 40px;
 }
 
-.boardmain, .addtaskmain, .summarymain, .dataprotectionmain{
-    margin: 32px 64px;
+.boardmain,
+.addtaskmain,
+.summarymain,
+.dataprotectionmain {
+  margin: 32px 64px;
 }
 
-.dataprotectionmain{
-    padding-bottom: 80px !important;
+.dataprotectionmain {
+  padding-bottom: 80px !important;
 }
 
 .contactsmain {
-    margin: 0;
+  margin: 0;
 }
 
-@media(max-width:1300px) {
-    main {
-        position: absolute;
-        width: calc(100% - 232px);
-        height: calc(100% - 96px);
-        left: 0;
-        overflow: auto;
-        padding-bottom: 40px;
-    }
+@media (max-width: 1300px) {
+  main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    padding-bottom: 40px;
+  }
 
-    header {
-        background-color: var(--back-color04);
-        position: absolute;
-        width: 100vw;
-        height: 96px;
-        display: flex;
-        align-items: center;
-        top: 0;
-        left: 0;
-        box-shadow: #00000062 0px 0px 10px 0px;
-        z-index: 1;
-    }
-    
-    header h1 {
-        margin-left: 150px;
-        font-weight: 400;
-        font-size: 20px;
-    }
+  header {
+    background-color: var(--back-color04);
+    position: absolute;
+    width: 100vw;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    box-shadow: #00000062 0px 0px 10px 0px;
+    z-index: 1;
+  }
+
+  header h1 {
+    margin-left: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+  .boardmain,
+  .addtaskmain,
+  .summarymain,
+  .dataprotectionmain {
+    margin: 0;
+  }
 }

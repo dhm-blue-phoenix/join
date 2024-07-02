@@ -147,9 +147,9 @@
 }
 
 .teskdescription {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
 }
 
 .teskdescription h3 {
@@ -158,10 +158,10 @@
 }
 
 .teskdescription p {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--text-color06);
-  }
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-color06);
+}
 
 .taskcardtitle {
   width: 113px;
@@ -177,35 +177,146 @@
   justify-content: center;
 }
 
-.taskprogress{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
+.taskprogress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
 }
 
-.taskPersons{
-    display: flex;
-    justify-content:flex-end;
+.taskPersons {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.taskPersons img{
-    width: 17px;
+.taskPersons img {
+  width: 17px;
 }
 
-.nameShortcutContent{
-    display: flex;
+.nameShortcutContent {
+  display: flex;
 }
 #nameShortcut {
-    width: 42px;
-    height: 42px;
-    border: 2px solid; /* Added 'solid' to specify border style */
-    border-radius: 100px;
+  width: 42px;
+  height: 42px;
+  border: 2px solid; /* Added 'solid' to specify border style */
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color02);
+  font-size: 12px;
+  background-color: rgb(127, 44, 44);
+}
+
+.hidethisaddbutton {
+  display: none !important;
+}
+
+@media (max-width: 1300px) {
+  .board {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-color02);
-    font-size: 12px;
-    background-color: rgb(127, 44, 44);
+    flex-direction: column;
+    gap: 56px;
+    height: 735px;
+    padding-top: 92px;
+    padding-bottom: 8px;
+    overflow-y: scroll;
   }
+
+  .BoardTop {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-direction: column;
+    padding: 0 10px;
+  }
+
+  .BoardTop div {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .BoardTop h1 {
+    font-size: 47px;
+  }
+
+  .hidethisbutton {
+    display: none !important;
+  }
+
+  .hidethisaddbutton {
+    display: flex !important;
+  }
+
+  .BoardTop button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: var(--back-color02);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--text-color02) !important;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #boardSearch {
+    width: 100%;
+    height: 48px;
+    padding: 8px 16px 8px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--back-color08);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .taskBoard {
+    display: flex;
+    gap: 26px;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .task {
+    width: 100%;
+    height: auto;
+    /* background-color: aquamarine; */
+}
+
+.tasktnotfound {
+  width: 100%;
+  height: 48px;
+  border: 1px dashed var(--back-color07);
+  border-radius: 10px;
+  background-color: var(--back-color05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+.taskList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+}

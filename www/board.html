@@ -94,8 +94,6 @@
               <img src="./resources/symbols/delete.svg" alt="" /> Delete
             </button>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -110,10 +108,16 @@
     <main class="boardmain">
       <div class="board">
         <div class="BoardTop">
-          <h1>Board</h1>
+          <div>
+            <h1>Board</h1>
+            <button class="hidethisaddbutton" onclick="addtaskpopup()">
+              <img src="./resources/symbols/add.png" alt="" />
+            </button>
+          </div>
+          
           <div>
             <input id="boardSearch" type="search" placeholder="Find Task" />
-            <button onclick="addtaskpopup()">
+            <button class="hidethisbutton" onclick="addtaskpopup()">
               Add task <img src="./resources/symbols/add.png" alt="" />
             </button>
           </div>
