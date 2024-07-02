@@ -366,6 +366,7 @@
     flex-direction: column;
     gap: 8px;
     padding: 0 8px;
+    margin-bottom: 84px;
   }
 
   .taskmanagerContent {
@@ -471,6 +472,9 @@
     width: 96%;
     flex-direction: column;
     gap: 8px;
+  }
+  .taskmanger {
+    margin-bottom: 22px;
   }
   .buttonsformobile {
     display: flex;
