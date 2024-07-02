@@ -184,10 +184,6 @@
     cursor: pointer;
 }
 
-.signup .formInput div input[type='checkbox']:hover {
-    
-}
-
 .signup .formSignup .formButtons button {
     width: 126px;
     height: 55px;
