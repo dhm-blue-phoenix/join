@@ -4,3 +4,7 @@
 @import url('./index/start.css');
 @import url('./index/login.css');
 @import url('./index/signup.css');
+
+/* mobil */
+@import url('./mobil/start.css');
+@import url('./mobil/login.css');

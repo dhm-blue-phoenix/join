@@ -16,7 +16,11 @@
     Stile für Bilder im Start-Bereich.
     @start-img - Bilder im Start-Bereich.
 */
-.start figure img {
+.start figure div {
+    background-image: url('../../../resources/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     width: 274px;
     height: 334px;
 }
@@ -32,10 +36,11 @@
         align-items: center;
         z-index: 9999;
         opacity: 1;
-        border-radius: 0 0 50% 0;
+        border-radius: 0 0 0 0;
     }
 
     to {
+        border-radius: 0 0 50% 0;
         transform: translate(-70%, -70%) scale(0);
         z-index: 0;
     }

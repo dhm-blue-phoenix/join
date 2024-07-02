@@ -1,0 +1,13 @@
+/* mobil/start.css */
+
+@media(max-width:1300px) {
+    .start figure {
+        background-color: var(--back-color02);
+    }
+
+    .start figure div {
+        background-image: url('../../../resources/logo.svg');
+        width: 100px;
+        height: 121px;
+    }
+}
