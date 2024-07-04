@@ -1,0 +1,181 @@
+/* main/summary.css */
+
+@media(max-width:1300px) {
+    /* .summary-contant {
+        margin: 0 8px;
+    } */
+
+    .summary-contant>div:nth-of-type(2) {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        background-color: yellowgreen;
+    }
+    
+    .summary-header {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .summary-header h2 {
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+
+    .summary-header hr {
+        transform: translate(0px, 40px);
+        width: 80px;
+        padding: 1px;
+    }
+
+    .summary-header span {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .summary-main {
+        width: 380px;
+        height: 384px;
+        justify-content: center;
+        z-index: 0;
+        margin-top: 10px;
+    }
+
+    .summary-main>div:nth-of-type(1) {
+        margin-bottom: -20px;
+    }
+
+    .summary-main>div:nth-of-type(1) figure,
+    .summary-main>div:nth-of-type(2) figure {
+        width: 186px;
+        height: 110px;
+        gap: 10px;
+    }
+
+    .summary-main>div:nth-of-type(1) figure .image,
+    .summary-main>div:nth-of-type(2) figure .image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .summary-main>div:nth-of-type(1) figure figcaption span:first-child,
+    .summary-main>div:nth-of-type(2) figure figcaption span:first-child {
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+
+    .summary-main>div:nth-of-type(1) figure figcaption span:last-child,
+    .summary-main>div:nth-of-type(2) figure figcaption span:last-child {
+        font-size: 14px;
+        line-height: 16.8px;
+    }
+
+    .summary-main>div:nth-of-type(2) {
+        height: 110px;
+        justify-content: center;
+    }
+
+    .summary-main > div:nth-of-type(2) div {
+        padding: 0;
+        width: 378px;
+    }
+
+    .summary-main>div:nth-of-type(2) figure {
+        padding-right: 40px;
+        height: 68px;
+    }
+
+    .summary-main>div:nth-of-type(2) div span:first-child {
+        font-size: 16px;
+        line-height: 19.2px;
+    }
+
+    .summary-main>div:nth-of-type(2) div span:last-child {
+        font-size: 14px;
+        line-height: 16.8px;
+    }
+
+    .summary-main>div:nth-of-type(3) {
+        margin-top: 10px;
+    }
+
+    .summary-main>div:nth-of-type(3) div {
+        width: 116px;
+        height: 116px;
+    }
+
+    .summary-main>div:nth-of-type(3) div span:first-child {
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+
+    .summary-main>div:nth-of-type(3) div span:last-child {
+        font-size: 14px;
+        line-height: 16.8px;
+    }
+    
+    /* user */
+    .summary-user {
+        display: none !important;
+        position: absolute;
+        width: 385px;
+        height: 136px;
+        gap: 3px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        transform: translate(630px, 270px);
+    }
+
+    .summary-user span:first-child {
+        font-weight: 500;
+        font-size: 47px;
+        line-height: 56.4px;
+    }
+
+    .summary-user span:last-child {
+        font-weight: 700;
+        font-size: 64px;
+        line-height: 76.8px;
+        color: var(--text-color09);
+    }
+
+    .summary-main>div:nth-of-type(1) figure:hover,
+    .summary-main>div:nth-of-type(2):hover,
+    .summary-main>div:nth-of-type(3) div:hover {
+        background-color: var(--back-color02);
+        box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.288);
+        transition: .2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .summary-main>div:nth-of-type(1) figure:first-child:hover,
+    .summary-main>div:nth-of-type(2):hover,
+    .summary-main>div:nth-of-type(3) div:first-child:hover {
+        transform: scale(1.05) translate(5px, 5px);
+    }
+
+    .summary-main>div:nth-of-type(1) figure:last-child:hover,
+    .summary-main>div:nth-of-type(3) div:last-child:hover {
+        transform: scale(1.05) translate(-5px, 5px);
+    }
+
+    .summary-main>div:nth-of-type(3) div:nth-of-type(2):hover {
+        transform: scale(1.05);
+    }
+
+    .summary-main>div:nth-of-type(1) figure:hover span,
+    .summary-main>div:nth-of-type(2):hover span,
+    .summary-main>div:nth-of-type(3) div:hover span {
+        color: var(--text-color02) !important;
+    }
+
+    .summary-main>div:nth-of-type(1) figure:hover .imgSrc1 {
+        background-image: url('../../../resources/symbols/summary-white-symbol01.png');
+    }
+
+    .summary-main>div:nth-of-type(1) figure:hover .imgSrc2 {
+        background-image: url('../../../resources/symbols/summary-white-symbol02.png');
+    }
+}
