@@ -1,20 +1,21 @@
 /* main/summary.css */
 
+/* Ist nicht (iPhone SE) Optimirt*/
 @media(max-width:1300px) {
-    /* .summary-contant {
-        margin: 0 8px;
-    } */
-
     .summary-contant>div:nth-of-type(2) {
         width: 100vw;
+        height: calc(100% - 20%);
         display: flex;
         justify-content: center;
-        background-color: yellowgreen;
+        align-items: flex-start;
+        margin-top: 40px;
     }
-    
+
     .summary-header {
         flex-direction: column;
         align-items: start;
+        width: 300px;
+        padding: 16px 0 0 16px;
     }
 
     .summary-header h2 {
@@ -38,11 +39,11 @@
         height: 384px;
         justify-content: center;
         z-index: 0;
-        margin-top: 10px;
+        margin-top: 25px;
     }
 
     .summary-main>div:nth-of-type(1) {
-        margin-bottom: -20px;
+        height: 133px;
     }
 
     .summary-main>div:nth-of-type(1) figure,
@@ -50,6 +51,10 @@
         width: 186px;
         height: 110px;
         gap: 10px;
+    }
+
+    .summary-main>div:nth-of-type(1) figure:first-child {
+        margin-right: 8px;
     }
 
     .summary-main>div:nth-of-type(1) figure .image,
@@ -75,7 +80,7 @@
         justify-content: center;
     }
 
-    .summary-main > div:nth-of-type(2) div {
+    .summary-main>div:nth-of-type(2) div {
         padding: 0;
         width: 378px;
     }
@@ -104,6 +109,11 @@
         height: 116px;
     }
 
+    .summary-main>div:nth-of-type(3) div:nth-of-type(1),
+    .summary-main>div:nth-of-type(3) div:nth-of-type(2) {
+        margin-right: 8px;
+    }
+
     .summary-main>div:nth-of-type(3) div span:first-child {
         font-size: 47px;
         line-height: 56.4px;
@@ -113,69 +123,14 @@
         font-size: 14px;
         line-height: 16.8px;
     }
-    
-    /* user */
+
     .summary-user {
-        display: none !important;
-        position: absolute;
-        width: 385px;
-        height: 136px;
-        gap: 3px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        transform: translate(630px, 270px);
-    }
-
-    .summary-user span:first-child {
-        font-weight: 500;
-        font-size: 47px;
-        line-height: 56.4px;
-    }
-
-    .summary-user span:last-child {
-        font-weight: 700;
-        font-size: 64px;
-        line-height: 76.8px;
-        color: var(--text-color09);
-    }
-
-    .summary-main>div:nth-of-type(1) figure:hover,
-    .summary-main>div:nth-of-type(2):hover,
-    .summary-main>div:nth-of-type(3) div:hover {
-        background-color: var(--back-color02);
-        box-shadow: 2px 3px 8px 3px rgba(0, 0, 0, 0.288);
-        transition: .2s ease-in-out;
-        cursor: pointer;
-    }
-
-    .summary-main>div:nth-of-type(1) figure:first-child:hover,
-    .summary-main>div:nth-of-type(2):hover,
-    .summary-main>div:nth-of-type(3) div:first-child:hover {
-        transform: scale(1.05) translate(5px, 5px);
-    }
-
-    .summary-main>div:nth-of-type(1) figure:last-child:hover,
-    .summary-main>div:nth-of-type(3) div:last-child:hover {
-        transform: scale(1.05) translate(-5px, 5px);
-    }
-
-    .summary-main>div:nth-of-type(3) div:nth-of-type(2):hover {
-        transform: scale(1.05);
-    }
-
-    .summary-main>div:nth-of-type(1) figure:hover span,
-    .summary-main>div:nth-of-type(2):hover span,
-    .summary-main>div:nth-of-type(3) div:hover span {
-        color: var(--text-color02) !important;
-    }
-
-    .summary-main>div:nth-of-type(1) figure:hover .imgSrc1 {
-        background-image: url('../../../resources/symbols/summary-white-symbol01.png');
-    }
-
-    .summary-main>div:nth-of-type(1) figure:hover .imgSrc2 {
-        background-image: url('../../../resources/symbols/summary-white-symbol02.png');
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        align-items: center;
+        transform: translate(0);
+        background-color: var(--back-color05);
+        display: none;
     }
 }
