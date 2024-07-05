@@ -55,7 +55,7 @@
   .smallcontainer {
     height: 90vh;
     overflow-y: scroll;
-    padding: 24px !important;
+    padding: 8px !important;
     width: 95vw;
     overflow-x: hidden;
   }
