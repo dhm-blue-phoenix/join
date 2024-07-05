@@ -18,7 +18,8 @@
   flex-direction: column;
   border-radius: 20px;
   padding: 24px;
-  /* opacity: 60%; */
+  height: 95vh;
+  overflow-y: auto;
 }
 
 .popupAddtaskHeader {

@@ -26,10 +26,11 @@
 .taskmanagerContent {
   display: flex;
   gap: 32px;
+  /* flex-direction: column; */
 }
 
 .layout {
-  width: 440px;
+  width: 100%;
   height: 376px;
   display: flex;
   justify-content: flex-start;
@@ -46,7 +47,7 @@
 }
 
 .layout input {
-  width: 440px;
+  /* width: 440px; */
   height: 48px;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
@@ -66,7 +67,7 @@
 }
 
 .layout textarea {
-  width: 440px !important;
+
   height: 120px !important;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
@@ -81,7 +82,7 @@
 }
 
 .layout select {
-  width: 440px;
+  /* width: 440px; */
   height: 48px;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
@@ -98,13 +99,21 @@
   cursor: pointer;
 }
 
+.popupcontent{
+  flex-direction: column;
+}
+
+.trennlinewidht {
+  border: 1px solid #d1d1d1;
+}
+
 .trennline {
   height: 424px;
   border: 1px solid #d1d1d1;
 }
 
 .taskPrio {
-  width: 440px;
+  /* width: 440px; */
   display: flex;
   gap: 8px;
   flex: 1;
@@ -151,6 +160,7 @@
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
   cursor: pointer;
+  width: 100%;
 }
 
 .taskbottom {
