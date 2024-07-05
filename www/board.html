@@ -28,12 +28,7 @@
     <!-- AddtaskPopup-Window -->
     <div id="addtaskpopup" class="bigcontainer d-nonepopup">
       <div class="smallcontainer">
-        <div class="popupAddtaskHeader">
-          <h2>Add Task</h2>
-          <button class="closepopup" onclick="closeaddtaskpopup()">
-            &#x2A2F;
-          </button>
-        </div>
+        
         <div w3-include-html="./components/addTaskboard.html"></div>
       </div>
     </div>
@@ -42,59 +37,8 @@
     <!-- TaskcardPopup-Window -->
     <div id="taskCardpopup" class="bigcontainer d-nonepopup">
       <div class="smallcontainer">
-        <div class="taskcardbig">
-          <div class="taskcardbigheader">
-            <p class="taskcardtitle">User Story</p>
-            <button class="closepopup" onclick="closetaskCardpopup()">
-              &#x2A2F;
-            </button>
-          </div>
-          <h3>Kochwelt Page & Recipe Recommender</h3>
-          <p>Build start page with recipe recommendation.</p>
-
-          <div class="taskcardbigdate">
-            <p>Due date:</p>
-            <i>10/05/2023</i>
-          </div>
-          <div class="taskcardbigpriority">
-            <p>Priority:</p>
-            <i>Medium <img src="./resources/symbols/boardmiddleprio.png" /></i>
-          </div>
-          <div class="taskcardbigassignedto">
-            <p>Assigned To:</p>
-            <div class="taskcardbigassignedtoperson">
-              <div id="nameShortcut" style="background-color: #19e030">BZ</div>
-              Benedikt Ziegler
-            </div>
-            <div class="taskcardbigassignedtoperson">
-              <div id="nameShortcut" style="background-color: #bf19e0">AM</div>
-              Anton Mayer
-            </div>
-            <div class="taskcardbigassignedtoperson">
-              <div id="nameShortcut" style="background-color: #ff2424">DE</div>
-              David Eisenberg
-            </div>
-          </div>
-          <div class="taskcardbigsubtasks">
-            <p>Subtasks:</p>
-            <div class="taskcardbigsubtaskscheckbox">
-              <input type="checkbox" /> Implement Recipe Recommendation
-            </div>
-            <div class="taskcardbigsubtaskscheckbox">
-              <input type="checkbox" /> Start Page Layout
-            </div>
-          </div>
-
-          <div class="taskcardbigeditdelete">
-            <button>
-              <img src="./resources/symbols/edit.png" alt="" /> Edit
-            </button>
-            <div class="buttonstrennline"></div>
-            <button>
-              <img src="./resources/symbols/delete.svg" alt="" /> Delete
-            </button>
-          </div>
-        </div>
+        
+        <div w3-include-html="./components/taskcard.html"></div>
       </div>
     </div>
     <!-- TaskcardPopup-Window Ende -->

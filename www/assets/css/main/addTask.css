@@ -362,11 +362,14 @@
   .taskmanger {
     width: 100%;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 8px;
     padding: 0 8px;
-    margin-bottom: 84px;
+    margin-bottom: 0;
+  }
+  .taskmangerbottom{
+    margin-bottom: 125px;
   }
 
   .taskmanagerContent {
@@ -450,8 +453,8 @@
   .popupAddtaskHeader {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 0 !important;
-    margin-top: 220px;
   }
 
   .popupAddtaskHeader h2 {
@@ -463,6 +466,16 @@
 }
 
 @media (max-width: 1000px) {
+  .taskbuttoncreat {
+    width: 183px;
+    height: 56px;
+    font-size: 16px;
+  }
+  .taskbuttonclear {
+    width: 110px;
+    height: 57px;
+    font-size: 16px;
+  }
   .taskbottom {
     width: 97.5%;
   }
@@ -473,8 +486,8 @@
     flex-direction: column;
     gap: 8px;
   }
-  .taskmanger {
-    margin-bottom: 22px;
+  .taskmangerbottom{
+    margin-bottom: 144px;
   }
   .buttonsformobile {
     display: flex;
@@ -491,12 +504,17 @@
     gap: 8px;
     flex: 1;
   }
-  .popupAddtaskHeader {
-    margin-top: 328px;
-  }
 }
 @media (max-width: 500px) {
   .taskbottom {
     width: 94.5%;
+  }
+  .popupAddtaskHeader h2 {
+    font-size: 32px !important;
+  }
+
+  .taskcardbig h3 {
+    font-size: 32px;
+    font-weight: 700;
   }
 }

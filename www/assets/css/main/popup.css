@@ -15,7 +15,6 @@
 .smallcontainer {
   background: var(--back-color04);
   display: flex;
-  justify-content: center;
   flex-direction: column;
   border-radius: 20px;
   padding: 24px;
@@ -53,7 +52,7 @@
 
 @media (max-width: 1300px) {
   .smallcontainer {
-    height: 72vh;
+    height: 90vh;
     overflow-y: scroll;
     padding: 24px !important;
     width: 95vw;
