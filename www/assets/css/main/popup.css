@@ -53,11 +53,11 @@
 
 @media (max-width: 1300px) {
   .smallcontainer {
-    height: 90vh;
+    height: 77vh;
     overflow-y: scroll;
-    padding: 8px !important;
     width: 95vw;
     overflow-x: hidden;
+    padding: 18px;
   }
   .taskcardbig {
     width: 100%;
