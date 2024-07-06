@@ -53,7 +53,6 @@
 
 @media (max-width: 1300px) {
   .smallcontainer {
-    height: 77vh;
     overflow-y: scroll;
     width: 95vw;
     overflow-x: hidden;
