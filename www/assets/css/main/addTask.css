@@ -521,6 +521,15 @@
     gap: 8px;
     flex: 1;
   }
+  .taskPrio img{
+    width: 14px;
+  }
+  .layout button {
+    height: 41px;
+    Padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
 
 @media (max-width: 500px) {
