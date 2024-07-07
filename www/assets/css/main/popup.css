@@ -18,7 +18,7 @@
   flex-direction: column;
   border-radius: 20px;
   padding: 24px;
-  height: 95vh;
+  max-height: 95vh;
   overflow-y: auto;
 }
 

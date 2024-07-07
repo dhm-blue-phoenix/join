@@ -255,7 +255,8 @@ body {
 }
 
 .personInfo button:hover img {
-  filter: brightness(0) saturate(100%) invert(51%) sepia(32%) saturate(1006%) hue-rotate(157deg) brightness(95%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(51%) sepia(32%) saturate(1006%)
+    hue-rotate(157deg) brightness(95%) contrast(95%);
 }
 
 .information {
@@ -311,7 +312,7 @@ body {
 }
 
 .editcontactpopupleftside img {
-  width: 54px
+  width: 54px;
 }
 
 .blueline {
@@ -346,19 +347,19 @@ body {
   font-weight: 400;
 }
 
-.editpersoninput input[type=text] {
+.editpersoninput input[type="text"] {
   background-image: url("../../../resources/symbols/person.png");
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
 }
 
-.editpersoninput input[type=email] {
+.editpersoninput input[type="email"] {
   background-image: url("../../../resources/symbols/mail.png");
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
 }
 
-.editpersoninput input[type=number] {
+.editpersoninput input[type="number"] {
   background-image: url("../../../resources/symbols/call.png");
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
@@ -425,16 +426,94 @@ body {
   box-shadow: #00000062 0px 2px 4px 0px;
 }
 
-
 @media (max-width: 1300px) {
-  .contactsmain{
+  .savebtn {
+    width: 99px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  .deletebtn {
+    width: 82px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  .testbuttons {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+  .closeeditcontactpopup {
+    position: relative;
+    top: -127%;
+    font-size: 33px;
+    left: 42%;
+    color: var(--back-color04);
+  }
+  .editpersoninput input {
+    width: 364px;
+    height: 41px;
+    border-radius: 8px;
+    border: 1px solid var(--back-color08);
+    padding-left: 16px;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .editpersoninput {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .personShortcut {
+    position: absolute;
+    top: 46.5%;
+    margin-bottom: 0 !important;
+  }
+  .editcontactpopuprightside {
+    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .editcontactpopupleftside {
+    width: 396px;
+    height: 391px;
+    background-color: var(--back-color02);
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 0px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 66px 24px;
+    gap: 12px;
+  }
+  .editcontactpopupleftside img {
+    display: none;
+  }
+  .editcontactpopupcontent {
+    flex-direction: column;
+    width: 396px;
+    height: 724px;
+  }
+
+  .contactsmain {
     overflow: hidden;
   }
   .contacts {
     flex-direction: column;
     overflow-x: hidden;
     width: 100%;
-}
+  }
 
   .showContacts {
     width: 100%;
