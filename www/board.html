@@ -18,9 +18,8 @@
 
     <!-- JS-Script -->
     <script src="./assets/js/script.js" defer></script>
-    <!-- <script src="./assets/js/darganddrop.js" defer></script> -->
+    <script src="./assets/js/draganddrop.js" defer></script>
   </head>
-
   <body onload="includeHTML()">
     <!-- Navigations Leiste -->
     <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
@@ -28,7 +27,6 @@
     <!-- AddtaskPopup-Window -->
     <div id="addtaskpopup" class="bigcontainer d-nonepopup">
       <div class="smallcontainer">
-        
         <div w3-include-html="./components/addTaskboard.html"></div>
       </div>
     </div>
@@ -37,7 +35,6 @@
     <!-- TaskcardPopup-Window -->
     <div id="taskCardpopup" class="bigcontainer d-nonepopup">
       <div class="smallcontainer">
-        
         <div w3-include-html="./components/taskcard.html"></div>
       </div>
     </div>
@@ -50,35 +47,30 @@
 
     <!-- Haupteil -->
     <main class="boardmain">
-
       <div class="BoardTop">
-          <div>
-            <h1>Board</h1>
-            <button class="hidethisaddbutton" onclick="addtaskpopup()">
-              <img src="./resources/symbols/add.png" alt="" />
-            </button>
-          </div>
-          
-          <div>
-            <input id="boardSearch" type="search" placeholder="Find Task" />
-            <button class="hidethisbutton" onclick="addtaskpopup()">
-              Add task <img src="./resources/symbols/add.png" alt="" />
-            </button>
-          </div>
+        <div>
+          <h1>Board</h1>
+          <button class="hidethisaddbutton" onclick="addtaskpopup()">
+            <img src="./resources/symbols/add.png" alt="" />
+          </button>
         </div>
+        <div>
+          <input id="boardSearch" type="search" placeholder="Find Task" />
+          <button class="hidethisbutton" onclick="addtaskpopup()">
+            Add task <img src="./resources/symbols/add.png" alt="" />
+          </button>
+        </div>
+      </div>
 
-        
       <div class="board">
-        
-
         <div class="taskBoard">
           <div class="task">
             <div class="taskheadline">
               <h3>To do</h3>
               <button onclick="addtaskpopup()">+</button>
             </div>
-            <div class="taskList">
-              <div class="tasktnotfound">
+            <div id="taskToDo" class="taskList">
+              <div id="tasktnotfounddrag" class="tasktnotfound">
                 <p>No task To do</p>
               </div>
             </div>
@@ -89,14 +81,19 @@
               <h3>In progress</h3>
               <button onclick="addtaskpopup()">+</button>
             </div>
-            <div class="taskList">
-              <div class="taskcard" onclick="taskCardpopup()">
+            <div id="taskInProgress" class="taskList">
+              <!-- Taskcard -->
+              <div
+                id="taskcardtoDrop"
+                class="taskcard"
+                draggable="true"
+                onclick="taskCardpopup()"
+              >
                 <p class="taskcardtitle">User Story</p>
                 <div class="teskdescription">
                   <h3>Kochwelt Page & Recipe Recommender</h3>
                   <p>Build start page with recipe recommendation...</p>
                 </div>
-
                 <div class="taskprogress">
                   <img
                     style="height: 8px"
@@ -105,7 +102,6 @@
                   />
                   1/2 Subtasks
                 </div>
-
                 <div class="taskPersons">
                   <div class="nameShortcutContent">
                     <div id="nameShortcut" style="background-color: #ff68dc">
@@ -124,8 +120,11 @@
                       BZ
                     </div>
                   </div>
-                  <!-- <img src="./resources/symbols/boardmiddleprio.png" alt=""> -->
                 </div>
+              </div>
+              <!-- Taskcard Ende -->
+              <div id="tasktnotfounddrag" class="tasktnotfound">
+                <p>No task To do</p>
               </div>
             </div>
           </div>
@@ -135,8 +134,8 @@
               <h3>Await feedback</h3>
               <button onclick="addtaskpopup()">+</button>
             </div>
-            <div class="taskList">
-              <div class="tasktnotfound">
+            <div id="taskAwaitFeedback" class="taskList">
+              <div id="tasktnotfounddrag" class="tasktnotfound">
                 <p>No task To do</p>
               </div>
             </div>
@@ -146,8 +145,8 @@
             <div class="taskheadline">
               <h3>Done</h3>
             </div>
-            <div class="taskList">
-              <div class="tasktnotfound">
+            <div id="taskDone" class="taskList">
+              <div id="tasktnotfounddrag" class="tasktnotfound">
                 <p>No task To do</p>
               </div>
             </div>
