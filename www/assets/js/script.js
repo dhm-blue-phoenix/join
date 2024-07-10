@@ -32,25 +32,42 @@ function actionBack() {
   window.history.back();
 }
 
+/**
+ * Fügt die Klasse 'd-nonepopup' zum Element mit der angegebenen ID hinzu.
+ * 
+ * @param {string} id - Die ID des HTML-Elements, zu dem die Klasse hinzugefügt werden soll.
+ */
+function addClass(id) {
+  document.getElementById(id).classList.add('d-nonepopup');
+}
+
+/**
+ * Entfernt die Klasse 'd-nonepopup' vom Element mit der angegebenen ID.
+ * 
+ * @param {string} id - Die ID des HTML-Elements, von dem die Klasse entfernt werden soll.
+ */
+function removeClass(id) {
+  document.getElementById(id).classList.remove('d-nonepopup');
+}
+
 // Öffnet und schließt das Popup-Window:
+// function addtaskpopup() {
+//   document.getElementById("addtaskpopup").classList.remove('d-nonepopup');
+// }
+// function closeaddtaskpopup(){
+//   document.getElementById('addtaskpopup').classList.add('d-nonepopup');
+// }
 
-function addtaskpopup() {
-  document.getElementById("addtaskpopup").classList.remove('d-nonepopup');
-}
-function closeaddtaskpopup(){
-  document.getElementById('addtaskpopup').classList.add('d-nonepopup');
-}
+// function taskCardpopup() {
+//   document.getElementById("taskCardpopup").classList.remove('d-nonepopup');
+// }
+// function closetaskCardpopup(){
+//   document.getElementById('taskCardpopup').classList.add('d-nonepopup');
+// }
 
-function taskCardpopup() {
-  document.getElementById("taskCardpopup").classList.remove('d-nonepopup');
-}
-function closetaskCardpopup(){
-  document.getElementById('taskCardpopup').classList.add('d-nonepopup');
-}
-
-function editcontactpopup() {
-  document.getElementById("editcontactpopup").classList.remove('d-nonepopup');
-}
-function closeeditcontactpopup(){
-  document.getElementById('editcontactpopup').classList.add('d-nonepopup');
-}
+// function editcontactpopup() {
+//   document.getElementById("editcontactpopup").classList.remove('d-nonepopup');
+// }
+// function closeeditcontactpopup(){
+//   document.getElementById('editcontactpopup').classList.add('d-nonepopup');
+// }

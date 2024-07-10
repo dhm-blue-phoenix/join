@@ -54,14 +54,14 @@
       <div class="BoardTop">
           <div>
             <h1>Board</h1>
-            <button class="hidethisaddbutton" onclick="addtaskpopup()">
+            <button class="hidethisaddbutton" onclick="removeClass('addtaskpopup')" type="button">
               <img src="./resources/symbols/add.png" alt="" />
             </button>
           </div>
           
           <div>
             <input id="boardSearch" type="search" placeholder="Find Task" />
-            <button class="hidethisbutton" onclick="addtaskpopup()">
+            <button class="hidethisbutton" onclick="removeClass('addtaskpopup')" type="button">
               Add task <img src="./resources/symbols/add.png" alt="" />
             </button>
           </div>
@@ -75,7 +75,7 @@
           <div class="task">
             <div class="taskheadline">
               <h3>To do</h3>
-              <button onclick="addtaskpopup()">+</button>
+              <button onclick="removeClass('addtaskpopup')" type="button">+</button>
             </div>
             <div class="taskList">
               <div class="tasktnotfound">
@@ -87,10 +87,10 @@
           <div class="task">
             <div class="taskheadline">
               <h3>In progress</h3>
-              <button onclick="addtaskpopup()">+</button>
+              <button onclick="removeClass('addtaskpopup')" type="button">+</button>
             </div>
             <div class="taskList">
-              <div class="taskcard" onclick="taskCardpopup()">
+              <div class="taskcard" onclick="removeClass('taskCardpopup')">
                 <p class="taskcardtitle">User Story</p>
                 <div class="teskdescription">
                   <h3>Kochwelt Page & Recipe Recommender</h3>
@@ -133,7 +133,7 @@
           <div class="task">
             <div class="taskheadline">
               <h3>Await feedback</h3>
-              <button onclick="addtaskpopup()">+</button>
+              <button onclick="removeClass('addtaskpopup')" type="button">+</button>
             </div>
             <div class="taskList">
               <div class="tasktnotfound">

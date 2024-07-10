@@ -34,7 +34,7 @@
         </div>
 
         <div class="editcontactpopuprightside">
-          <button class="closeeditcontactpopup" onclick="closeeditcontactpopup()">
+          <button class="closeeditcontactpopup" onclick="addClass('editcontactpopup')">
             &#x2A2F;
           </button>
           
@@ -64,7 +64,7 @@
       <div class="contacts">
         <div class="showContacts">
           <div class="addNewContactheader">
-            <button class="addNewContact" onclick="editcontactpopup()">
+            <button class="addNewContact" onclick="removeClass('editcontactpopup')">
               Add new contact
               <img src="./resources/symbols/person_add.svg" alt="" />
             </button>
@@ -203,7 +203,7 @@
             <div class="personName">
               <p>Anton Mayer</p>
               <div class="personInfo">
-                <button onclick="editcontactpopup()">
+                <button onclick="removeClass('editcontactpopup')">
                   <img src="./resources/symbols/edit.png" alt="" /> Edit
                 </button>
 
