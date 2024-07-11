@@ -185,6 +185,7 @@ span {
 .summary-main>div:nth-of-type(3) {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .summary-main>div:nth-of-type(3) div {
