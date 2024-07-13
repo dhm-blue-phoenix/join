@@ -87,6 +87,12 @@ body {
   box-shadow: #00000062 0px 2px 4px 0px;
 }
 
+.addNewContact p {
+  color: var(--text-color02);
+  font-size: 21px;
+  font-weight: 700;
+}
+
 .Contactcards {
   /* background-color: aquamarine; */
   height: 100vh;
@@ -255,8 +261,7 @@ body {
 }
 
 .personInfo button:hover img {
-  filter: brightness(0) saturate(100%) invert(51%) sepia(32%) saturate(1006%)
-    hue-rotate(157deg) brightness(95%) contrast(95%);
+  filter: brightness(0) saturate(100%) invert(51%) sepia(32%) saturate(1006%) hue-rotate(157deg) brightness(95%) contrast(95%);
 }
 
 .information {
@@ -433,20 +438,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
+
   .deletebtn {
     width: 82px;
     height: 51px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
+
   .testbuttons {
     width: 100%;
     height: auto;
     align-items: center;
     justify-content: center;
-}
+  }
+
   .closeeditcontactpopup {
     position: relative;
     top: -127%;
@@ -454,6 +462,7 @@ body {
     left: 42%;
     color: var(--back-color04);
   }
+
   .editpersoninput input {
     width: 364px;
     height: 41px;
@@ -463,6 +472,7 @@ body {
     font-size: 20px;
     font-weight: 400;
   }
+
   .editpersoninput {
     width: auto;
     display: flex;
@@ -471,11 +481,13 @@ body {
     flex-direction: column;
     gap: 16px;
   }
+
   .personShortcut {
     position: absolute;
     top: 46.5%;
     margin-bottom: 0 !important;
   }
+
   .editcontactpopuprightside {
     width: auto;
     display: flex;
@@ -483,6 +495,7 @@ body {
     flex-direction: column;
     gap: 32px;
   }
+
   .editcontactpopupleftside {
     width: 396px;
     height: 391px;
@@ -497,9 +510,11 @@ body {
     padding: 66px 24px;
     gap: 12px;
   }
+
   .editcontactpopupleftside img {
     display: none;
   }
+
   .editcontactpopupcontent {
     flex-direction: column;
     width: 396px;
@@ -509,6 +524,7 @@ body {
   .contactsmain {
     overflow: hidden;
   }
+
   .contacts {
     flex-direction: column;
     overflow-x: hidden;
@@ -517,15 +533,15 @@ body {
 
   .showContacts {
     width: 100%;
-    height: calc(100vh - 176px);
+    height: calc(100vh - 175px);
     justify-content: flex-start;
-    padding-top: 32px;
+    padding-top: 16px;
     /* overflow: hidden; */
     /* scrollbar-width: auto; */
   }
 
   .Contactcards {
-    width: 100vw;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -554,5 +570,28 @@ body {
   .cardactive {
     width: 100%;
     margin-bottom: 0;
+  }
+
+  .addNewContact {
+    position: fixed;
+    bottom: 95px;
+    right: 16px;
+    width: 56px;
+    height: 56px;
+    border-radius: 46px;
+    box-shadow: #00000062 0px 4px 4px 0px;
+  }
+  .addNewContact p{
+    display: none;
+  }
+}
+
+@media (max-width: 770px) {
+  .Contactcards {
+    width: 90%;
+  }
+
+  .addNewContactheader {
+    width: 90%;
   }
 }

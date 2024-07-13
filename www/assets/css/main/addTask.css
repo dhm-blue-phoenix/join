@@ -388,7 +388,7 @@
   }
 
   .taskmanagerContent {
-    width: 100%;
+    width: 60%;
     display: flex;
     gap: 8px;
     flex-direction: column;
@@ -510,6 +510,7 @@
   }
 
   .taskmanagerContent {
+    width: 90%;
     padding-bottom: 0;
   }
 

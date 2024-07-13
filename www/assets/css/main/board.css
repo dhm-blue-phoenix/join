@@ -149,11 +149,14 @@
   gap: 24px;
   cursor: pointer;
   transition: 0.1s;
-  transform-origin: center left; /* Set the transform origin to the center left */
+  transform-origin: center left;
+  /* Set the transform origin to the center left */
 }
+
 .taskcard:hover {
   box-shadow: #78787862 0px 0px 5px 2px;
-  transform: scale(1.02); /* Scale and rotate slightly on hover */
+  transform: scale(1.02);
+  /* Scale and rotate slightly on hover */
 }
 
 .taskcard.drag-over {
@@ -216,10 +219,12 @@
 .nameShortcutContent {
   display: flex;
 }
+
 #nameShortcut {
   width: 42px;
   height: 42px;
-  border: 2px solid; /* Added 'solid' to specify border style */
+  border: 2px solid;
+  /* Added 'solid' to specify border style */
   border-radius: 100px;
   display: flex;
   justify-content: center;
@@ -232,6 +237,7 @@
 .hidethisaddbutton {
   display: none !important;
 }
+
 .taskbottommobile {
   display: flex;
   flex-direction: column;
@@ -240,6 +246,7 @@
   width: 100%;
   gap: 8px;
 }
+
 .taskbottommobilebuttons {
   display: flex;
   justify-content: space-between;
@@ -275,7 +282,7 @@
   }
 
   .BoardTop div {
-    width: 100%;
+    width: 70%;
     display: flex;
     gap: 0;
     align-items: center;
@@ -325,11 +332,12 @@
     display: flex;
     gap: 26px;
     flex-direction: column;
-    width: 100%;
+    width: 70%;
     align-items: center;
     padding: 0 10px;
     padding-bottom: 14px;
   }
+
   .task {
     width: 100%;
     height: auto;
@@ -348,6 +356,7 @@
     font-size: 16px;
     font-weight: 400;
   }
+
   .taskList {
     display: flex;
     flex-direction: column;
@@ -356,4 +365,13 @@
     gap: 8px;
     height: auto;
   }
+}
+
+@media (max-width: 770px) {
+  .taskBoard {
+    width: 90%;
+  }
+  .BoardTop div {
+    width: 90%;
+}
 }
