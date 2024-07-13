@@ -574,24 +574,44 @@ body {
 
   .addNewContact {
     position: fixed;
-    bottom: 95px;
-    right: 16px;
+    bottom: 103px;
+    right: 32px;
     width: 56px;
     height: 56px;
     border-radius: 46px;
     box-shadow: #00000062 0px 4px 4px 0px;
   }
-  .addNewContact p{
+
+  .addNewContact p {
     display: none;
   }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 420px) {
   .Contactcards {
     width: 90%;
   }
 
   .addNewContactheader {
     width: 90%;
+  }
+
+  .editcontactpopupcontent {
+    flex-direction: column;
+    width: 95vw;
+  }
+
+  .editcontactpopupleftside {
+    width: auto;
+  }
+
+  .editpersoninput {
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .editpersoninput input {
+    width: 95%;
   }
 }
