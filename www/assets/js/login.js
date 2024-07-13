@@ -1,7 +1,8 @@
 // login.js
 
-const baseURL = 'https://join-393a6-default-rtdb.europe-west1.firebasedatabase.app';
-const patchUsers = '/users.json';
+const baseURL = localStorage.getItem('baseURL');
+const patchUsers = localStorage.getItem('patchUsers');
+console.info(baseURL + patchUsers);
 
 /**
  * Versucht, einen Benutzer mit den angegebenen Anmeldeinformationen einzuloggen.
@@ -10,13 +11,14 @@ const patchUsers = '/users.json';
 async function login() {
     const inputEmail = document.getElementById('userEmail');
     const inputPassword = document.getElementById('userPassword');
-    
     try {
         const users = await fetchUsers();
         const user = findUser(users, inputEmail.value, inputPassword.value);
+        console.info('find user');
         handleUserResult(user);
+        console.info('result user');
     } catch (error) {
-        console.error("Fehler beim Login:", error.message);
+        throw new Error("Fehler beim Login:", error.message);
     }
 }
 
@@ -26,15 +28,29 @@ async function login() {
  * @throws {Error} Wenn ein HTTP-Fehler auftritt oder die Daten nicht im erwarteten Format sind.
  */
 async function fetchUsers() {
-    const response = await fetch(baseURL + patchUsers);
+    try {
+        const response = await fetch(baseURL + patchUsers);
+        const data = await response.json();
+        validateResponse(response, data);
+        return data;
+    } catch (error) {
+        throw new Error("Fehler beim Abrufen der Benutzerdaten:", error);
+    }
+}
+
+/**
+ * Überprüft die API-Antwort und die Daten auf Fehler.
+ * @param {Response} response - Die Antwort der fetch-Anfrage.
+ * @param {any} data - Die Daten, die von der API zurückgegeben werden.
+ * @throws {Error} Wenn ein HTTP-Fehler auftritt oder die Daten nicht im erwarteten Format sind.
+ */
+function validateResponse(response, data) {
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const data = await response.json();
     if (!Array.isArray(data)) {
         throw new Error("Benutzerdaten sind nicht im erwarteten Format.");
     }
-    return data;
 }
 
 /**
@@ -52,13 +68,13 @@ function findUser(users, email, password) {
  * Verarbeitet das Ergebnis des Benutzerlogins.
  * @param {object | undefined} user - Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  */
-function handleUserResult(user) {
-    const loginPasswordContainer = document.getElementById('loginPasswordContainer');
-    if (user) {
-        loginPasswordContainer.style.borderColor = 'green';
-        console.table(user);
-    } else {
-        loginPasswordContainer.style.borderColor = 'brown';
-        console.log("Benutzer nicht gefunden oder falsches Passwort.");
-    }
+function handleUserResult(user) { // Ist noch nicht Fertig!
+    const container = document.getElementById('loginPasswordContainer');
+    user ? (
+        container.style.borderColor = 'green',
+        console.table(user)
+    ) : (
+        container.style.borderColor = 'brown',
+        console.log("Benutzer nicht gefunden oder falsches Passwort.")
+    )
 }

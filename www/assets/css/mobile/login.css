@@ -11,13 +11,21 @@
     transform: translate(0, 84vh);
   }
 
-  .login header .logo-container img {
+  .login header>div {
     position: fixed;
-    margin-top: 0;
-    margin-left: 0;
+    left: 0;
     width: 64px;
     height: 78.03px;
-    transform: translate(0, -83vh);
+    transform: translateY(-80vh);
+  }
+
+  .login header .logo-container {
+    z-index: 9999;
+  }
+
+  .login header .logo-container div {
+    width: 64px;
+    height: 78.03px; 
   }
 
   .login header nav {

@@ -1,13 +1,37 @@
 /* mobile/start.css */
 
-@media(max-width:1300px) {
-    .start figure {
-        background-color: var(--back-color02);
-    }
+header figure {
+    background-color: transparent;
+    animation: aniStart 1.2s ease-in-out;
+    border: 0;
+}
 
-    .start figure div {
+header figure>div {
+    background-image: url('../../../resources/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 100px;
+    height: 121px;
+    animation: aniStartLogo 1.2s ease-in-out;
+}
+
+@keyframes aniStart {
+    0% {
+        position: fixed;
+        background-color: var(--back-color02);
+        width: 100vw;
+        height: 100vh;
+        opacity: 1;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+    }
+}
+
+@keyframes aniStartLogo {
+    0% {
         background-image: url('../../../resources/logo.svg');
-        width: 100px;
-        height: 121px;
+        transform: translate(50vw, 50vh);
     }
 }
