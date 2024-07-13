@@ -1,7 +1,11 @@
 // login.js
 
-const baseURL = localStorage.getItem('baseURL');
-const patchUsers = localStorage.getItem('patchUsers');
+/**
+ * Holt die gespeicherten Daten aus dem lokalen Speicher.
+ * @type {Object|null}
+ */
+const storedDatabase = JSON.parse(localStorage.getItem('firebasedatabase'));
+storedDatabase || console.error('Keine gespeicherten Daten gefunden!');
 
 /**
  * Versucht, einen Benutzer mit den angegebenen Anmeldeinformationen einzuloggen.
@@ -21,12 +25,13 @@ async function login() {
 
 /**
  * Lädt die Benutzerdaten von der API.
- * @returns {Promise<Array>} Ein Array mit Benutzerdaten.
+ * @returns {Promise<Object[]>} Ein Array von Objekten mit Benutzerdaten.
  * @throws {Error} Wenn ein HTTP-Fehler auftritt oder die Daten nicht im erwarteten Format sind.
  */
 async function fetchUsers() {
+    const url = storedDatabase.baseURL + storedDatabase.patchUsers;
     try {
-        const response = await fetch(baseURL + patchUsers);
+        const response = await fetch(url);
         const data = await response.json();
         validateResponse(response, data);
         return data;
