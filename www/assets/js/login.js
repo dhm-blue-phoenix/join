@@ -2,7 +2,6 @@
 
 const baseURL = localStorage.getItem('baseURL');
 const patchUsers = localStorage.getItem('patchUsers');
-console.info(baseURL + patchUsers);
 
 /**
  * Versucht, einen Benutzer mit den angegebenen Anmeldeinformationen einzuloggen.
@@ -14,9 +13,7 @@ async function login() {
     try {
         const users = await fetchUsers();
         const user = findUser(users, inputEmail.value, inputPassword.value);
-        console.info('find user');
         handleUserResult(user);
-        console.info('result user');
     } catch (error) {
         throw new Error("Fehler beim Login:", error.message);
     }
