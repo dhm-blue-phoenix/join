@@ -6,6 +6,10 @@
  */
 const storedUserData = JSON.parse(localStorage.getItem('user'));
 
+/**
+ * DOM-Elemente für den Eingabebereich.
+ * @type {HTMLInputElement}
+ */
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
 
