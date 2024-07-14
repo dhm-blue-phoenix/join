@@ -32,12 +32,39 @@ header {
   left: 232px;
   box-shadow: #00000062 0px 0px 10px 0px;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
 }
 
 header h1 {
   margin-left: 150px;
   font-weight: 400;
   font-size: 20px;
+}
+
+header div {
+  display: flex;
+  align-items: center;
+}
+
+header div img {
+  width: 32px;
+  height: 32px;
+}
+.account-container {
+  background-color: var(--back-color04);
+  width: 56px;
+  height: 56px;
+  margin-right: 8px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: var(--bord-color02);
+  border-width: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color09);
+  font-weight: 900;
 }
 
 /* --main */

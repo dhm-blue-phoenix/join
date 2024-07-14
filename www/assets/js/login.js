@@ -5,7 +5,22 @@
  * @type {Object|null}
  */
 const storedDatabase = JSON.parse(localStorage.getItem('firebasedatabase'));
-storedDatabase || console.error('Keine gespeicherten Daten gefunden!');
+
+/**
+ * Verhindert das Standardverhalten des Ereignisses (z. B. das Neuladen der Seite),
+ * überprüft das Vorhandensein gespeicherter Daten für 'firebasedatabase' im localStorage
+ * und ruft die Login-Funktion auf, wenn gespeicherte Daten vorhanden sind.
+ * Wirft einen Fehler, wenn keine gespeicherten Daten für 'firebasedatabase' gefunden werden.
+ * @param {Event} event - Das Ereignisobjekt, das verhindert wird.
+ * @throws {Error} Wenn keine gespeicherten Daten für 'firebasedatabase' im localStorage gefunden werden.
+ */
+function initLogin(event) {
+    event.preventDefault();
+    if (!storedDatabase) {
+        throw new Error('Keine gespeicherten Daten für "firebasedatabase" im localStorage gefunden!');
+    }
+    login();
+}
 
 /**
  * Versucht, einen Benutzer mit den angegebenen Anmeldeinformationen einzuloggen.
@@ -18,8 +33,8 @@ async function login() {
         const users = await fetchUsers();
         const user = findUser(users, inputEmail.value, inputPassword.value);
         handleUserResult(user);
-    } catch (error) {
-        throw new Error("Fehler beim Login:", error.message);
+    } catch (err) {
+        console.error('Fehler beim Login:', err);
     }
 }
 
@@ -34,9 +49,9 @@ async function fetchUsers() {
         const response = await fetch(url);
         const data = await response.json();
         validateResponse(response, data);
-        return data;
-    } catch (error) {
-        throw new Error("Fehler beim Abrufen der Benutzerdaten:", error);
+        return Object.values(data);
+    } catch (err) {
+        throw new Error('Fehler beim Abrufen der Benutzerdaten:', err);
     }
 }
 
@@ -50,8 +65,8 @@ function validateResponse(response, data) {
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    if (!Array.isArray(data)) {
-        throw new Error("Benutzerdaten sind nicht im erwarteten Format.");
+    if (typeof data !== 'object' || Array.isArray(data)) {
+        throw new Error('Benutzerdaten sind nicht im erwarteten Format!');
     }
 }
 
@@ -68,15 +83,14 @@ function findUser(users, email, password) {
 
 /**
  * Verarbeitet das Ergebnis des Benutzerlogins.
+ * Navigiert zur Zusammenfassungsseite nach erfolgreichem Login.
  * @param {object | undefined} user - Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  */
-function handleUserResult(user) { // Ist noch nicht Fertig!
-    const container = document.getElementById('loginPasswordContainer');
-    user ? (
-        container.style.borderColor = 'green',
-        console.table(user)
-    ) : (
-        container.style.borderColor = 'brown',
-        console.log("Benutzer nicht gefunden oder falsches Passwort.")
-    )
+function handleUserResult(user) {
+    if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = './summary.html';
+    } else {
+        console.log('Benutzer nicht gefunden oder falsches Passwort.');
+    }
 }
