@@ -2,7 +2,7 @@
 
 /**
  * Holt die gespeicherten Daten aus dem lokalen Speicher.
- * @type {Object|null}
+ * @type {Array|null}
  */
 const storedUserData = JSON.parse(localStorage.getItem('user'));
 
@@ -19,20 +19,24 @@ const ID_account = document.getElementById('account');
  * @throws {Error} Wenn keine gespeicherten Benutzerdaten gefunden werden.
  */
 function showUserName() {
-    if (!storedUserData) {
-        throw new Error('Keine gespeicherten Daten zu "user" im localStorage gefunden!');
+    if (!storedUserData || !Array.isArray(storedUserData)) {
+        throw new Error('Keine gültigen gespeicherten Daten zu "user" im localStorage gefunden!');
     }
     displayUserName(storedUserData);
 }
 
 /**
  * Zeigt den Benutzernamen im angegebenen Container an.
- * @param {Object} userData - Die gespeicherten Benutzerdaten.
+ * @param {Array} userData - Die gespeicherten Benutzerdaten.
  */
 function displayUserName(userData) {
-    const initials = extractInitials(userData.name);
+    const userName = userData[1]; // Der Benutzername ist der zweite Eintrag im Array
+    if (!userName || typeof userName !== 'string') {
+        throw new Error('Ungültige Benutzerdaten: "name" fehlt oder ist kein String');
+    }
+    const initials = extractInitials(userName);
     ID_account.textContent = initials;
-    ID_username.textContent = userData.name;
+    ID_username.textContent = userName;
 }
 
 /**

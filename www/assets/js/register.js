@@ -37,8 +37,8 @@ function initRegister(event) {
  */
 function register() {
     const formData = loadFormData();
-    const checkPW = checkPassword(formData.pw, formData.cfpw);
-    processResult(checkPW, formData);
+    checkPassword(formData.pw, formData.cfpw);
+    checkIsNewUser(formData);
 }
 
 /**
@@ -58,10 +58,27 @@ function loadFormData() {
  * Überprüft, ob das eingegebene Passwort und die Bestätigung übereinstimmen.
  * @param {string} pw - Das eingegebene Passwort.
  * @param {string} cfpw - Die Bestätigung des Passworts.
- * @returns {boolean} true, wenn das Passwort übereinstimmt, sonst false.
+ * @throws {Error} Wenn das Passwort nicht übereinstimmt.
  */
 function checkPassword(pw, cfpw) {
-    return pw === cfpw;
+    if (pw !== cfpw) {
+        throw new Error('Das Passwort stimmt nicht überein!');
+    }
+}
+
+/**
+ * Überprüft, ob der Benutzer bereits existiert.
+ * @param {Object} newUser - Das Objekt mit den Benutzerdaten.
+ */
+async function checkIsNewUser(newUser) {
+    try {
+        const userPromise = dataResponse(newUser.email, newUser.pw);
+        const promise = await userPromise;
+        const user = Object.values(promise);
+        console.log(true);
+    } catch (err) {
+        console.log(false);
+    }
 }
 
 /**
@@ -72,12 +89,12 @@ function checkPassword(pw, cfpw) {
  * @param {Object} newUser - Das Objekt mit den Benutzerdaten.
  */
 function processResult(value, newUser) {
-    value ? (
-        clearForm(),
-        uploadNewUser(newUser)
-    ) : (
-        console.error('Passwort Stimmt nicht Überein!')
-    );
+    if (value) {
+        clearForm();
+        uploadNewUser(newUser);
+    } else {
+        console.error('Passwort stimmt nicht überein!');
+    }
 }
 
 /**
@@ -110,6 +127,11 @@ async function uploadNewUser(userData) {
             throw new Error('Fehler beim Hochladen der aktualisierten Benutzerdaten');
         }
     } catch (err) {
-        throw new Error('Fehler beim Hochladen:', err);
+        throw new Error('Fehler beim Hochladen: ' + err.message);
     }
 }
+
+/**
+ * Es fehlt noch die Überprüfung, ob der Nutzer bereits angelegt ist.
+ * Es fehlt noch die Weiterleitung zur Summary.html.
+ */
