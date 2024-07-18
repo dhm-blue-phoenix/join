@@ -29,25 +29,11 @@ function initLogin(event) {
 async function login() {
     const inputEmail = document.getElementById('userEmail');
     const inputPassword = document.getElementById('userPassword');
-    const userPromise = await dataResponse(inputEmail.value, inputPassword.value);
-    userPromise.then(promise => {
-        const user = Object.values(promise);
-        handleUserResult(user);   
-    }).catch(err => {
-        console.error(err);
-    });
-}
-
-/**
- * Verarbeitet das Ergebnis des Benutzerlogins.
- * Navigiert zur Zusammenfassungsseite nach erfolgreichem Login.
- * @param {object | undefined} user - Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
- */
-function handleUserResult(user) {
-    if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = './summary.html';
-    } else {
-        console.log('Benutzer nicht gefunden oder falsches Passwort.');
+    try {
+        const userPromise = await dataResponse(inputEmail.value, inputPassword.value);
+        const user = Object.values(userPromise);
+        handleUserResult(user);
+    } catch (error) {
+        console.warn('Benutzer nicht gefunden oder falsches Passwort!');
     }
 }

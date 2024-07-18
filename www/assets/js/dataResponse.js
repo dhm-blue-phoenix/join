@@ -10,9 +10,8 @@
 async function dataResponse(email, pw) {
     try {
         const users = await fetchUsers();
-        const user = await findUser(users, email, pw);
-        return user;
-    } catch (error) {
+        return user = await findUser(users, email, pw);
+    } catch (err) {
         throw new Error(`Fehler beim Abrufen oder Suchen des Benutzers: ${error.message}`);
     }
 }
@@ -29,7 +28,7 @@ async function fetchUsers() {
         const data = await response.json();
         validateResponse(response, data);
         return Object.values(data);
-    } catch (error) {
+    } catch (err) {
         throw new Error(`Fehler beim Abrufen der Benutzerdaten: ${error.message}`);
     }
 }
@@ -58,4 +57,14 @@ function validateResponse(response, data) {
  */
 function findUser(users, email, password) {
     return users.find(user => user.email === email && user.password === password);
+}
+
+/**
+ * Verarbeitet das Ergebnis des Benutzerlogins.
+ * Navigiert zur Zusammenfassungsseite nach erfolgreichem Login.
+ * @param {object | undefined} user - Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
+ */
+function handleUserResult(user) {
+    sessionStorage.setItem('user', JSON.stringify(user));
+    window.location.href = './summary.html';
 }

@@ -4,7 +4,7 @@
  * Holt die gespeicherten Daten aus dem lokalen Speicher.
  * @type {Array|null}
  */
-const storedUserData = JSON.parse(localStorage.getItem('user'));
+const storedUserData = JSON.parse(sessionStorage.getItem('user'));
 
 /**
  * DOM-Elemente für den Eingabebereich.
@@ -30,7 +30,7 @@ function showUserName() {
  * @param {Array} userData - Die gespeicherten Benutzerdaten.
  */
 function displayUserName(userData) {
-    const userName = userData[1]; // Der Benutzername ist der zweite Eintrag im Array
+    const userName = userData[1];
     if (!userName || typeof userName !== 'string') {
         throw new Error('Ungültige Benutzerdaten: "name" fehlt oder ist kein String');
     }

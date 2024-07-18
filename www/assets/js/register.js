@@ -45,7 +45,7 @@ function register() {
  * Lädt die Formulardaten aus den Eingabefeldern.
  * @returns {Object} Ein Objekt mit den gesammelten Formulardaten (Name, E-Mail, Passwort).
  */
-function loadFormData() {  
+function loadFormData() {
     return {
         'name': ID_inputName.value,
         'email': ID_inputEmail.value,
@@ -72,12 +72,13 @@ function checkPassword(pw, cfpw) {
  */
 async function checkIsNewUser(newUser) {
     try {
-        const userPromise = dataResponse(newUser.email, newUser.pw);
-        const promise = await userPromise;
+        const userPromise = await dataResponse(newUser.email, newUser.pw);
+        const promise = userPromise;
         const user = Object.values(promise);
-        console.log(true);
+        console.warn('Register wurde beendet!\nVolgender Benutzer wurde gefunden in der Datenbank gefunden:', user);
+        clearForm();
     } catch (err) {
-        console.log(false);
+        processResult(false, newUser);
     }
 }
 
@@ -89,11 +90,11 @@ async function checkIsNewUser(newUser) {
  * @param {Object} newUser - Das Objekt mit den Benutzerdaten.
  */
 function processResult(value, newUser) {
-    if (value) {
+    if (!value) {
         clearForm();
         uploadNewUser(newUser);
     } else {
-        console.error('Passwort stimmt nicht überein!');
+        console.error('Benutzer konnte nicht Registriert werden!');
     }
 }
 
@@ -115,23 +116,21 @@ function clearForm() {
  */
 async function uploadNewUser(userData) {
     const url = storedDatabase.baseURL + storedDatabase.patchUsers;
+    const user = { 'email': userData.email, 'name': userData.name, 'password': userData.pw }
+    const storedUser = [ userData.email, userData.name, userData.pw ]
     try {
         const patchResponse = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 'email': userData.email, 'name': userData.name, 'password': userData.pw})
+            body: JSON.stringify(user)
         });
         if (!patchResponse.ok) {
             throw new Error('Fehler beim Hochladen der aktualisierten Benutzerdaten');
         }
+        handleUserResult(storedUser);
     } catch (err) {
         throw new Error('Fehler beim Hochladen: ' + err.message);
     }
 }
-
-/**
- * Es fehlt noch die Überprüfung, ob der Nutzer bereits angelegt ist.
- * Es fehlt noch die Weiterleitung zur Summary.html.
- */
