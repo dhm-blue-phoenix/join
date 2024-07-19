@@ -65,6 +65,6 @@ function findUser(users, email, password) {
  * @param {object | undefined} user - Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  */
 function handleUserResult(user) {
-    sessionStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
     window.location.href = './summary.html';
 }

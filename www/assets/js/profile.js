@@ -4,7 +4,7 @@
  * Holt die gespeicherten Daten aus dem lokalen Speicher.
  * @type {Array|null}
  */
-const storedUserData = JSON.parse(sessionStorage.getItem('user'));
+const storedUserData = JSON.parse(localStorage.getItem('user'));
 
 /**
  * DOM-Elemente für den Eingabebereich.
