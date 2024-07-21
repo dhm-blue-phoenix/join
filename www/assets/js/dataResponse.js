@@ -29,7 +29,11 @@ async function fetchUsers() {
         validateResponse(response, data);
         return Object.values(data);
     } catch (err) {
-        throw new Error(`Fehler beim Abrufen der Benutzerdaten: ${error.message}`);
+        if (err.status = 404) {
+            console.error(`Status: ${err.status}\nKeine Verbindung zum Server!`);
+            return;
+        };
+        console.error(`Fehler beim Abrufen der Benutzerdaten: ${err.message}`);
     }
 }
 
@@ -41,10 +45,12 @@ async function fetchUsers() {
  */
 function validateResponse(response, data) {
     if (!response.ok) {
-        throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+        console.error(`HTTP-Fehler! Status: ${response.status}`);
+        return;
     }
     if (typeof data !== 'object' || Array.isArray(data)) {
-        throw new Error('Benutzerdaten sind nicht im erwarteten Format!');
+        console.error('Benutzerdaten sind nicht im erwarteten Format!');
+        return;
     }
 }
 

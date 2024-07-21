@@ -75,7 +75,7 @@ async function checkIsNewUser(newUser) {
         const userPromise = await dataResponse(newUser.email, newUser.pw);
         const promise = userPromise;
         const user = Object.values(promise);
-        console.warn('Register wurde beendet!\nVolgender Benutzer wurde gefunden in der Datenbank gefunden:', user);
+        console.warn('Register wurde beendet!\nVolgender Benutzer wurde in der Datenbank gefunden:', user);
         clearForm();
     } catch (err) {
         processResult(false, newUser);
@@ -116,8 +116,8 @@ function clearForm() {
  */
 async function uploadNewUser(userData) {
     const url = storedDatabase.baseURL + storedDatabase.patchUsers;
-    const user = { 'email': userData.email, 'name': userData.name, 'password': userData.pw }
-    const storedUser = [ userData.email, userData.name, userData.pw ]
+    const user = { 'email': userData.email, 'name': userData.name, 'password': userData.pw };
+    const storedUser = [ userData.email, userData.name, userData.pw ];
     try {
         const patchResponse = await fetch(url, {
             method: 'POST',
