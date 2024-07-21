@@ -12,7 +12,7 @@ const storedUserData = JSON.parse(localStorage.getItem('user'));
  */
 function autoLogin() {
     if (!storedUserData) {
-        console.warn('Keine gespeicherten Daten für "user" im localStorage gefunden!'); // [!] cosnole.warn. Wird noch Entfernt!
+        console.warn('Keine gespeicherten Daten für "user" im localStorage gefunden!'); // [!] cosnole.warn; Wird noch Entfernt!
         return;
     }
     login(storedUserData[0], storedUserData[2]);
@@ -47,7 +47,7 @@ async function login(storedEmail, storedPW) {
         const user = Object.values(userPromise);
         handleUserResult(user);
     } catch (error) {
-        console.warn('Benutzer nicht gefunden oder falsches Passwort!');
+        console.warn('Benutzer nicht gefunden oder falsches Passwort!'); // [!] console.warn; Wird noch angepasst für den User!
     }
 }
 

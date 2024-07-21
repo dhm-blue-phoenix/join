@@ -62,7 +62,7 @@ function loadFormData() {
  */
 function checkPassword(pw, cfpw) {
     if (pw !== cfpw) {
-        throw new Error('Das Passwort stimmt nicht überein!');
+        throw new Error('Das Passwort stimmt nicht überein!');  // [!] Wird noch angepasst für den User!
     }
 }
 
@@ -75,7 +75,7 @@ async function checkIsNewUser(newUser) {
         const userPromise = await dataResponse(newUser.email, newUser.pw);
         const promise = userPromise;
         const user = Object.values(promise);
-        console.warn('Register wurde beendet!\nVolgender Benutzer wurde in der Datenbank gefunden:', user);
+        console.warn('Register wurde beendet!\nVolgender Benutzer wurde in der Datenbank gefunden:', user);  // [!] Wird noch Entfernt!
         clearForm();
     } catch (err) {
         processResult(false, newUser);
@@ -94,7 +94,7 @@ function processResult(value, newUser) {
         clearForm();
         uploadNewUser(newUser);
     } else {
-        console.error('Benutzer konnte nicht Registriert werden!');
+        console.warn('Benutzer konnte nicht Registriert werden!');  // [!] console.warn; Wird noch angepasst für den User!
     }
 }
 
