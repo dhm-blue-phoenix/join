@@ -1,48 +1,40 @@
-// profile.js
-
 /**
- * Holt die gespeicherten Daten aus dem lokalen Speicher.
- * @type {Array|null}
+ * Holt die gespeicherten Daten aus dem lokalen Storage.
  */
-const storedUserData = JSON.parse(localStorage.getItem('user'));
+const storedUserData = localStorage.getItem('userData');
 
 /**
- * DOM-Elemente für den Eingabebereich.
- * @type {HTMLInputElement}
+ * Holt die HTML-Elemente für die Eingabefelder.
  */
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
 
 /**
- * Zeigt den Benutzernamen im angegebenen Container an, falls gespeicherte Benutzerdaten vorhanden sind.
- * Wirft einen Fehler, wenn keine gespeicherten Benutzerdaten gefunden werden.
- * @throws {Error} Wenn keine gespeicherten Benutzerdaten gefunden werden.
+ * Zeigt das Benutzerprofil an.
+ * ----------------------------
+ * Diese Funktion liest die gespeicherten Benutzerdaten aus und zeigt den Benutzernamen
+ * und die Initialen an.
  */
-function showUserName() {
-    if (!storedUserData || !Array.isArray(storedUserData)) {
-        throw new Error('Keine gültigen gespeicherten Daten zu "user" im localStorage gefunden!');
+function showUserProfile() {
+    try {
+        const userData = JSON.parse(storedUserData);
+        const userName = userData.name;
+        const initials = extractInitials(userName);
+        ID_account.textContent = initials;
+        ID_username.textContent = userName;
+    } catch(err) {
+        console.error('Keine Benutzerdaten gefunden.', err);
     }
-    displayUserName(storedUserData);
 }
 
 /**
- * Zeigt den Benutzernamen im angegebenen Container an.
- * @param {Array} userData - Die gespeicherten Benutzerdaten.
- */
-function displayUserName(userData) {
-    const userName = userData[1];
-    if (!userName || typeof userName !== 'string') {
-        throw new Error('Ungültige Benutzerdaten: "name" fehlt oder ist kein String');
-    }
-    const initials = extractInitials(userName);
-    ID_account.textContent = initials;
-    ID_username.textContent = userName;
-}
-
-/**
- * Extrahiert die Initialen aus dem Benutzernamen.
- * @param {string} userName - Der Name des Benutzers.
- * @returns {string} Die Initialen des Benutzers in Großbuchstaben.
+ * Extrahiert die Initialen aus einem Benutzernamen.
+ * -------------------------------------------------
+ * Diese Funktion teilt den Benutzernamen in einzelne Namensteile auf, extrahiert den
+ * ersten Buchstaben jedes Namens und gibt diese als Initialen zurück.
+ * -------------------------------------------------
+ * @param {String} userName Der Benutzername.
+ * @returns {String} Die Initialen des Benutzers.
  */
 function extractInitials(userName) {
     return userName.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
