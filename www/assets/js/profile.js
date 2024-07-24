@@ -1,11 +1,5 @@
-/**
- * Holt die gespeicherten Daten aus dem lokalen Storage.
- */
 const storedUserData = localStorage.getItem('userData');
 
-/**
- * Holt die HTML-Elemente für die Eingabefelder.
- */
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
 

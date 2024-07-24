@@ -1,12 +1,6 @@
-/**
- * Holt die gespeicherten Daten aus dem lokalen Storage.
- */
 const storedAutoLogin = localStorage.getItem('autoLogin');
 const storedUserData = localStorage.getItem('userData');
 
-/**
- * Holt die HTML-Elemente für die Eingabefelder.
- */
 const ID_inputEmail = document.getElementById('userEmail');
 const ID_inputPW = document.getElementById('userPassword');
 const ID_inputCheckbox = document.getElementById('inputCheckbox');

@@ -1,6 +1,3 @@
-/**
- * Holt die HTML-Elemente für die Eingabefelder.
- */
 const ID_inputName = document.getElementById('inputName');
 const ID_inputEmail = document.getElementById('inputEmail');
 const ID_inputPW = document.getElementById('inputPassword');
