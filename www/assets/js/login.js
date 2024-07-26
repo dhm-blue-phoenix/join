@@ -1,5 +1,5 @@
 const storedAutoLogin = localStorage.getItem('autoLogin');
-const storedUserData = localStorage.getItem('userData');
+const storedUserID = localStorage.getItem('userID');
 
 const ID_inputEmail = document.getElementById('userEmail');
 const ID_inputPW = document.getElementById('userPassword');
@@ -7,11 +7,18 @@ const ID_inputCheckbox = document.getElementById('inputCheckbox');
 
 /**
  * Wenn Auto-Login aktiviert ist, füllt die Eingabefelder mit den gespeicherten Daten.
+ * -----------------------------------------------------------------------------------
+ * Diese Funktion wird aufgerufen, wenn die Seite geladen wird und der Auto-Login 
+ * aktiviert ist. Sie füllt die Eingabefelder mit den gespeicherten Benutzerdaten.
  */
-function autoLogin() {
-    if (storedAutoLogin) {
-        const user = JSON.parse(storedUserData);
-        ID_inputEmail.value = user.email;
+async function autoLogin() {
+    if (storedAutoLogin === 'true') {
+        const uid = storedUserID;
+        const user = await findUserById(uid);
+        console.table(user);
+        ID_inputEmail.value = user[1];
+        ID_inputPW.value = user[3];
+        ID_inputCheckbox.checked = true;
     }
 }
 
@@ -27,15 +34,15 @@ function autoLogin() {
 async function initLogin(event) {
     event.preventDefault();
     const statusCheckbox = ID_inputCheckbox.checked;
-    const formData = await lodeFormData();
-    const userData = await dataResponse(formData);
-    if (userData === undefined) return console.warn('Benutzer nicht gefunden!'); // [!] Ändern zu Benutzer-Feedback
+    const formData = await loadFormData();
+    const user = await dataResponse(formData);
+    if (user === undefined) return console.warn('Benutzer nicht gefunden!'); // [!] Ändern zu Benutzer-Feedback
     if (statusCheckbox) {
-        await saveUser({ 'email': userData.email, 'name': userData.name }, true);
+        await saveLocalUserID(user[0], true);
     } else {
-        await saveUserName(userData.name);
+        await saveSessionUserID(user[0], false);
     };
-    lodeWindow();
+    loadWindow(user[1].name);
 }
 
 /**
@@ -46,7 +53,7 @@ async function initLogin(event) {
  * ----------------------------------------------
  * @returns {Object} Ein Objekt mit den Formulardaten.
  */
-function lodeFormData() {
+function loadFormData() {
     return {
         'email': ID_inputEmail.value,
         'pw': ID_inputPW.value
@@ -54,28 +61,33 @@ function lodeFormData() {
 }
 
 /**
- * Speichert die Benutzerdaten im lokalen Storage.
- * -----------------------------------------------
- * Diese Funktion speichert die Benutzerdaten und den Auto-Login-Status im lokalen
- * Storage.
- * -----------------------------------------------
- * @param {Object} userData Ein Objekt mit den Benutzerdaten.
+ * Speichert die Benutzer-ID und den Auto-Login-Status im lokalen Storage.
+ * -----------------------------------------------------------------------
+ * Diese Funktion speichert die Benutzer-ID und den Auto-Login-Status im lokalen 
+ * Storage. Zuvor wird der Benutzer-ID- Eintrag im Session-Storage gelöscht.
+ * -----------------------------------------------------------------------
+ * @param {String} userID Die eindeutige Benutzer-ID.
  * @param {Boolean} autoLogin Der Auto-Login-Status.
  */
-function saveUser(userData, autoLogin) {
-    localStorage.setItem('userData', JSON.stringify(userData));
+function saveLocalUserID(userID, autoLogin) {
+    sessionStorage.removeItem('userID');
+    localStorage.setItem('userID', userID);
     localStorage.setItem('autoLogin', autoLogin);
 }
 
 /**
- * Speichert den Benutzernamen im lokalen Storage.
- * -----------------------------------------------
- * Diese Funktion speichert den Benutzernamen und setzt den Auto-Login-Status auf false.
- * -----------------------------------------------
- * @param {String} userName Der Benutzername.
+ * Speichert die Benutzer-ID im Session-Storage und den Auto-Login-Status im lokalen Storage.
+ * ------------------------------------------------------------------------------------------
+ * Diese Funktion speichert die Benutzer-ID im Session-Storage und den Auto-Login-Status 
+ * im lokalen Storage. Zuvor wird der Benutzer-ID-Eintrag im lokalen Storage gelöscht.
+ * ------------------------------------------------------------------------------------------
+ * @param {String} userID Die eindeutige Benutzer-ID.
+ * @param {Boolean} autoLogin Der Auto-Login-Status.
  */
-function saveUserName(userName) {
-    saveUser({ 'email': '', 'name': userName }, false);
+function saveSessionUserID(userID, autoLogin) {
+    localStorage.removeItem('userID');
+    sessionStorage.setItem('userID', userID);
+    localStorage.setItem('autoLogin', autoLogin);
 }
 
 /**
@@ -83,6 +95,6 @@ function saveUserName(userName) {
  * -----------------------
  * Diese Funktion leitet den Benutzer zur nächsten Seite weiter.
  */
-function lodeWindow() {
-    window.location.href = './summary.html';
+function loadWindow(username) {
+    window.location.href = `./summary.html?username=` + username;
 }

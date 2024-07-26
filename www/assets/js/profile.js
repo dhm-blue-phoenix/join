@@ -1,24 +1,34 @@
-const storedUserData = localStorage.getItem('userData');
-
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
 
 /**
  * Zeigt das Benutzerprofil an.
  * ----------------------------
- * Diese Funktion liest die gespeicherten Benutzerdaten aus und zeigt den Benutzernamen
- * und die Initialen an.
+ * Holt den Benutzernamen aus der URL und zeigt ihn dann im Profil an.
+ * ----------------------------
+ * @async
  */
-function showUserProfile() {
+async function showUserProfile() {
     try {
-        const userData = JSON.parse(storedUserData);
-        const userName = userData.name;
-        const initials = extractInitials(userName);
+        const username = lodeUsernameFromURL();
+        if(username === null) {
+            return;
+        }
+        const initials = extractInitials(username);
         ID_account.textContent = initials;
-        ID_username.textContent = userName;
-    } catch(err) {
+        ID_username.textContent = username;
+    } catch (err) {
         console.error('Keine Benutzerdaten gefunden.', err);
     }
+}
+
+/**
+ * Holt den Benutzernamen aus der URL.
+ * -----------------------------------
+ * @returns {string} - Der Benutzername aus der URL oder null, wenn kein Benutzername in der URL vorhanden ist.
+ */
+function lodeUsernameFromURL() {
+    return new URLSearchParams(window.location.search).get("username"); 
 }
 
 /**

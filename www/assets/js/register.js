@@ -18,15 +18,15 @@ async function initRegister(event) {
     event.preventDefault();
     const statusCheckbox = ID_inputCheckbox.checked;
     if (!statusCheckbox) return console.warn('Checkbox muss true sein!'); // [!] Ändern zu Benutzer-Feedback
-    const formData = await lodeFormData();
+    const formData = await loadFormData();
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
     const userData = await dataResponse(formData);
     if (userData === undefined) {
-        await dataUpload({ 'email': formData.email, 'name': formData.name, 'password': formData.pw });
+        await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none'});
         console.warn('Benutzer wurde erfolgreich registriert!'); // [!] Ändern zu Benutzer-Feedback
-        setTimeout(() => window.location.href = './index.html', 3000);
+        window.location.href = './index.html'; // [!] Ist noch ausbaufähig!
     }
-    console.warn('Benutzer wurde in der Datenbank gefunden!'); // [!] Ändern zu Benutzer-Feedback
+    console.warn('Benutzer ist in der Datenbank bereits vorhanden!'); // [!] Ändern zu Benutzer-Feedback
 }
 
 /**
@@ -37,7 +37,7 @@ async function initRegister(event) {
  * ----------------------------------------------
  * @returns {Object} Ein Objekt mit den Formulardaten.
  */
-function lodeFormData() {
+function loadFormData() {
     const formData = {
         'name': ID_inputName.value,
         'email': ID_inputEmail.value,
