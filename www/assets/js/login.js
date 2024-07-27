@@ -35,7 +35,7 @@ async function initLogin(event) {
     event.preventDefault();
     const statusCheckbox = ID_inputCheckbox.checked;
     const formData = await loadFormData();
-    const user = await dataResponse(formData);
+    const user = await loadUserData(formData);
     if (user === undefined) return console.warn('Benutzer nicht gefunden!'); // [!] Ändern zu Benutzer-Feedback
     if (statusCheckbox) {
         await saveLocalUserID(user[0], true);

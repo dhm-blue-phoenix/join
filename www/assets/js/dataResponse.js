@@ -9,12 +9,12 @@ const baseURL = "https://join-393a6-default-rtdb.europe-west1.firebasedatabase.a
  * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
  * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  */
-async function dataResponse(find) {
+async function loadUserData(find) {
     try {
         const users = await retrievingData('');
         const user = await findUser(users[0], find);
         return user;
-    } catch (err) {}
+    } catch (err) { }
 }
 
 /**
@@ -51,6 +51,18 @@ async function retrievingData(patch) {
 }
 
 /**
+ * Lädt die Kontakte.
+ * ------------------
+ * Diese Funktion lädt die Kontakte aus der Datenbank und gibt sie zurück.
+ * ------------------
+ * @param {Object} patch Ein Patch-Objekt, das die zu ladenden Kontakte spezifiziert.
+ * @returns {Promise} Ein Promise, das die geladenen Kontakte zurückgibt.
+ */
+async function loadContactsData(patch) {
+    return await retrievingData(patch);
+}
+
+/**
  * Fügt einen neuen Benutzer zur Firebase Realtime Database hinzu.
  * ---------------------------------------------------------------
  * Diese Funktion sendet eine POST-Anfrage an die Datenbank, um einen neuen Benutzer 
@@ -73,9 +85,18 @@ async function uploadData(data) {
     }
 }
 
-async function uploadPatchData(userId, data) {
+/**
+ * Lädt Patch-Daten auf den Server hoch.
+ * -------------------------------------
+ * Diese Funktion sendet die übergebenen Daten an den Server und speichert sie 
+ * unter dem angegebenen Patch.
+ * -------------------------------------
+ * @param {String} patch Der Pfad, unter dem die Daten gespeichert werden sollen.
+ * @param {Object} data Die zu speichernden Daten.
+ */
+async function uploadPatchData(patch, data) {
     try {
-        const patchResponse = await fetch(baseURL + 'users/' + userId + '/contacts.json', {
+        const patchResponse = await fetch(baseURL + patch + '.json', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

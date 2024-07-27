@@ -20,7 +20,7 @@ async function initRegister(event) {
     if (!statusCheckbox) return console.warn('Checkbox muss true sein!'); // [!] Ändern zu Benutzer-Feedback
     const formData = await loadFormData();
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
-    const userData = await dataResponse(formData);
+    const userData = await loadUserData(formData);
     if (userData === undefined) {
         await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none'});
         console.warn('Benutzer wurde erfolgreich registriert!'); // [!] Ändern zu Benutzer-Feedback
