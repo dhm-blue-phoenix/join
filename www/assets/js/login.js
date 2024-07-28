@@ -11,22 +11,25 @@ const ID_inputCheckbox = document.getElementById('inputCheckbox');
  * @returns {Array<string|null>} - Ein Array mit der E-Mail-Adresse und dem Passwort aus der URL, 
  *                                 oder null, wenn keine Daten in der URL vorhanden sind.
  */
-function lodeUsernameFromURL() {
+function loadUsernameFromURL() {
     const encodeEmail = new URLSearchParams(window.location.search).get("formEmail");
     const encodePw = new URLSearchParams(window.location.search).get("formPw");
     return [encodeEmail, encodePw];
 }
 
 /**
- * Wenn Auto-Login aktiviert ist, füllt die Eingabefelder mit den gespeicherten Daten.
- * -----------------------------------------------------------------------------------
- * Diese Funktion wird aufgerufen, wenn die Seite geladen wird und der Auto-Login 
- * aktiviert ist. Sie füllt die Eingabefelder mit den gespeicherten Benutzerdaten.
- * Wenn Auto-Login nicht aktiviert ist, aber Benutzerdaten in der URL vorhanden sind, 
- * werden diese verwendet, um die Eingabefelder zu füllen.
+ * Initialisiert den Login-Prozess.
+ * --------------------------------
+ * Diese Funktion wird aufgerufen, wenn der Benutzer den Login-Button klickt.
+ * Sie überprüft, ob die Checkbox für den Auto-Login aktiviert ist und führt den
+ * Login-Prozess durch.
+ * --------------------------------
+ * func loadUserData() - findet man in der dataResponse.js
+ * --------------------------------
+ * @param {Event} event Das Ereignis, das den Login-Prozess auslöst.
  */
 async function autoLogin() {
-    const encode = lodeUsernameFromURL();
+    const encode = loadUsernameFromURL();
     let userData;
     if (userData !== null) {
         userData = [encode[0], encode[1]];
@@ -41,13 +44,14 @@ async function autoLogin() {
 }
 
 /**
- * Initialisiert den Login-Prozess.
- * --------------------------------
- * Diese Funktion wird aufgerufen, wenn der Benutzer den Login-Button klickt.
- * Sie überprüft, ob die Checkbox für den Auto-Login aktiviert ist und führt den
- * Login-Prozess durch.
- * --------------------------------
- * @param {Event} event Das Ereignis, das den Login-Prozess auslöst.
+ * Lädt die Formulardaten aus den Eingabefeldern.
+ * ----------------------------------------------
+ * Diese Funktion liest die Werte aus den Eingabefeldern für E-Mail und Passwort und
+ * gibt sie als Objekt zurück.
+ * ---------------------------------------------
+ * func loadUserData() - findet man in der dataResponse.js
+ * ---------------------------------------------
+ * @returns {Object} Ein Objekt mit den Formulardaten.
  */
 async function initLogin(event) {
     event.preventDefault();
@@ -82,7 +86,7 @@ function loadFormData() {
  * Speichert die Benutzer-ID und den Auto-Login-Status im lokalen Storage.
  * -----------------------------------------------------------------------
  * Diese Funktion speichert die Benutzer-ID und den Auto-Login-Status im lokalen 
- * Storage. Zuvor wird der Benutzer-ID- Eintrag im Session-Storage gelöscht.
+ * Storage. Zuvor wird der Benutzer-ID-Eintrag im Session-Storage gelöscht.
  * -----------------------------------------------------------------------
  * @param {String} userID Die eindeutige Benutzer-ID.
  * @param {Boolean} autoLogin Der Auto-Login-Status.

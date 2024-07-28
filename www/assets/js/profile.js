@@ -10,6 +10,8 @@ const ID_account = document.getElementById('account');
  * Lädt den Benutzernamen über die gespeicherte Benutzer-ID, extrahiert die Initialen
  * und zeigt beides im Profil an.
  * ----------------------------
+ * func extractInitials() - findet man in der extractInitials.js
+ * ----------------------------
  * @async
  * @function
  * @throws {Error} Wenn keine Benutzerdaten gefunden werden.
@@ -42,6 +44,8 @@ function checkStored() {
  * Lädt den Benutzernamen anhand der gespeicherten Benutzer-ID.
  * ------------------------------------------------------------
  * Ruft die Benutzer-ID von der Funktion checkStored() ab und sucht den Benutzernamen mittels der Benutzer-ID.
+ * ------------------------------------------------------------
+ * func findUserById() - findet man in der dataResponse.js
  * ------------------------------------------------------------
  * @async
  * @returns {string} Der Benutzername des gefundenen Benutzers.

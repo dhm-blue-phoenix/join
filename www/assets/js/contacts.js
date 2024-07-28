@@ -29,6 +29,8 @@ async function initCard() {
  * Diese Funktion lädt die Kontakte des aktuellen Benutzers aus der Datenbank,
  * sortiert sie alphabetisch und gruppiert sie nach Anfangsbuchstaben.
  * ------------------------------------------
+ * func loadContactsData() - findet man in der dataResponse.js
+ * ------------------------------------------
  */
 async function loadContacts() {
     try {
@@ -137,6 +139,8 @@ function openContact(cardId, personName, personEmail, personTel) {
 
 /**
  * Rendert die detaillierten Kontaktdaten.
+ * ---------------------------------------
+ * func extractInitials() - findet man in der extractInitials.js
  * ---------------------------------------
  * @param {string} name Der Name des Kontakts.
  * @param {string} email Die E-Mail-Adresse des Kontakts.

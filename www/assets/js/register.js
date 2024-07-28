@@ -2,7 +2,6 @@ const ID_inputName = document.getElementById('inputName');
 const ID_inputEmail = document.getElementById('inputEmail');
 const ID_inputPW = document.getElementById('inputPassword');
 const ID_inputCFPW = document.getElementById('inputConfirmPassword');
-const ID_inputCheckbox = document.getElementById('inputCheckbox');
 
 /**
  * Initialisiert den Registrierungsprozess.
@@ -12,12 +11,13 @@ const ID_inputCheckbox = document.getElementById('inputCheckbox');
  * mit der Bestätigung übereinstimmt. Wenn alles korrekt ist, wird die Registrierung
  * durchgeführt und der Benutzer wird auf die Startseite weitergeleitet.
  * ----------------------------------------
+ * func loadUserData() - findet man in der dataResponse.js
+ * func uploadData() - findet man in der dataResponse.js
+ * ----------------------------------------
  * @param {Event} event Das Ereignis, das den Registrierungsprozess auslöst.
  */
 async function initRegister(event) {
     event.preventDefault();
-    // const statusCheckbox = ID_inputCheckbox.checked;
-    // if (!statusCheckbox) return console.warn('Checkbox muss true sein!'); [!] Ändern zu Benutzer-Feedback
     const formData = await loadFormData();
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
     const userData = await loadUserData(formData);
