@@ -16,8 +16,8 @@ const ID_inputCheckbox = document.getElementById('inputCheckbox');
  */
 async function initRegister(event) {
     event.preventDefault();
-    const statusCheckbox = ID_inputCheckbox.checked;
-    if (!statusCheckbox) return console.warn('Checkbox muss true sein!'); // [!] Ändern zu Benutzer-Feedback
+    // const statusCheckbox = ID_inputCheckbox.checked;
+    // if (!statusCheckbox) return console.warn('Checkbox muss true sein!'); [!] Ändern zu Benutzer-Feedback
     const formData = await loadFormData();
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
     const userData = await loadUserData(formData);
