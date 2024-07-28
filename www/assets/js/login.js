@@ -28,13 +28,13 @@ function lodeUsernameFromURL() {
 async function autoLogin() {
     const encode = lodeUsernameFromURL();
     let userData;
-    if (storedAutoLogin === 'true') {
+    if (userData !== null) {
+        userData = [encode[0], encode[1]];
+        ID_inputCheckbox.checked = false;
+    } else if (storedAutoLogin === 'true') {
         const user = await findUserById(storedUserID);
         userData = [user[1], user[3]];
         ID_inputCheckbox.checked = true;
-    } else if (userData !== null) {
-        userData = [encode[0], encode[1]];
-        ID_inputCheckbox.checked = false;
     }
     ID_inputEmail.value = userData[0];
     ID_inputPW.value = userData[1];
