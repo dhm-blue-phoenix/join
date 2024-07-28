@@ -6,20 +6,38 @@ const ID_inputPW = document.getElementById('userPassword');
 const ID_inputCheckbox = document.getElementById('inputCheckbox');
 
 /**
+ * Holt die Benutzerdaten aus der URL.
+ * -----------------------------------
+ * @returns {Array<string|null>} - Ein Array mit der E-Mail-Adresse und dem Passwort aus der URL, 
+ *                                 oder null, wenn keine Daten in der URL vorhanden sind.
+ */
+function lodeUsernameFromURL() {
+    const encodeEmail = new URLSearchParams(window.location.search).get("formEmail");
+    const encodePw = new URLSearchParams(window.location.search).get("formPw");
+    return [encodeEmail, encodePw];
+}
+
+/**
  * Wenn Auto-Login aktiviert ist, füllt die Eingabefelder mit den gespeicherten Daten.
  * -----------------------------------------------------------------------------------
  * Diese Funktion wird aufgerufen, wenn die Seite geladen wird und der Auto-Login 
  * aktiviert ist. Sie füllt die Eingabefelder mit den gespeicherten Benutzerdaten.
+ * Wenn Auto-Login nicht aktiviert ist, aber Benutzerdaten in der URL vorhanden sind, 
+ * werden diese verwendet, um die Eingabefelder zu füllen.
  */
 async function autoLogin() {
+    const encode = lodeUsernameFromURL();
+    let userData;
     if (storedAutoLogin === 'true') {
-        const uid = storedUserID;
-        const user = await findUserById(uid);
-        console.table(user);
-        ID_inputEmail.value = user[1];
-        ID_inputPW.value = user[3];
+        const user = await findUserById(storedUserID);
+        userData = [user[1], user[3]];
         ID_inputCheckbox.checked = true;
+    } else if (userData !== null) {
+        userData = [encode[0], encode[1]];
+        ID_inputCheckbox.checked = false;
     }
+    ID_inputEmail.value = userData[0];
+    ID_inputPW.value = userData[1];
 }
 
 /**

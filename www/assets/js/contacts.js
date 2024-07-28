@@ -143,7 +143,8 @@ function openContact(cardId, personName, personEmail, personTel) {
  * @param {string} tel Die Telefonnummer des Kontakts.
  */
 function renderPerson(name, email, tel) {
-    ID_personShortcut.textContent = '[!]'; // [!] Ist noch nicht Fertig
+    const initails = extractInitials(name);
+    ID_personShortcut.textContent = initails;
     ID_personName.textContent = name;
     ID_personEmail.textContent = email;
     ID_personTel.textContent = tel;

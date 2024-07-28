@@ -22,11 +22,10 @@ async function initRegister(event) {
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
     const userData = await loadUserData(formData);
     if (userData === undefined) {
-        await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none'});
+        await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none' });
         console.warn('Benutzer wurde erfolgreich registriert!'); // [!] Ändern zu Benutzer-Feedback
-        window.location.href = './index.html'; // [!] Ist noch ausbaufähig!
-    }
-    console.warn('Benutzer ist in der Datenbank bereits vorhanden!'); // [!] Ändern zu Benutzer-Feedback
+        window.location.href = './index.html?formEmail=' + formData.email + '&formPw=' + formData.pw;
+    } else console.warn('Benutzer ist in der Datenbank bereits vorhanden!'); // [!] Ändern zu Benutzer-Feedback
 }
 
 /**
