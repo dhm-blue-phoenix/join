@@ -36,7 +36,6 @@ async function showUserProfile() {
 function checkStored() {
     if (storedLocalUserID !== null) return userID = storedLocalUserID;
     if (storedSessionUserID !== null) return userID = storedSessionUserID;
-    return null;
 }
 
 /**
@@ -50,7 +49,6 @@ function checkStored() {
  */
 async function loadUserName() {
     let userID = checkStored();
-    if (!userID) throw new Error('Keine Benutzer-ID gefunden');
     const userData = await findUserById(userID);
-    return userData[2];  // Annahme: userData[2] enthält den Benutzernamen
+    return userData[2];
 }
