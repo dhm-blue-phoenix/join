@@ -1,75 +1,54 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <title>Join</title>
-    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="./resources/favicon.png">
-    <link rel="manifest" href="./manifest.webmanifest">
-
+    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="./resources/favicon.png"/>
+    <link rel="manifest" href="./manifest.webmanifest"/>
     <!-- META - Daten -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, width=device-width">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="Ein Programm zum Verwalten ihrer Aufgaben">
-
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta name="description" content="Ein Programm zum Verwalten ihrer Aufgaben"/>
     <!-- CSS-Style -->
-    <link rel="stylesheet" href="./assets/css/index.css">
-
+    <link rel="stylesheet" href="./assets/css/index.css"/>
     <!-- JS-Script -->
     <script src="./assets/js/login.js" defer></script>
     <script src="./assets/js/dataResponse.js" defer></script>
 </head>
-
-<body onload="autoLogin();">
-    <section class="login">
-        <header>
-            <div>
-                <figure class="logo-container">
-                    <div></div>
-                </figure>
+<body class="bg" onload="autoLogin();">
+    <!-- <div id="logoanimationcontaienr" class="logoanimationcontaienr">
+    </div> -->
+    <header class="loginheader">
+        <img class="logo" src="./resources/logologin.svg" alt="">
+        <div class="signupcontainerheader">
+            <p>Not a Join user?</p>
+            <a href="signUp.html"><button class="signupbtn">Sign up</button></a>
+        </div>
+    </header>
+    <form onsubmit="initLogin(event);" class="maincontainer">
+        <div class="logincontainer">
+            <div class="loginheadline">
+                <h2>Log in</h2>
+                <div class="headline"></div>
             </div>
-            <nav>
-                <span>Not a Join user?</span>
-                <a href="./signUp.html">Sign up</a>
-            </nav>
-        </header>
-        <main>
-            <div class="formLogin">
-                <form onsubmit="initLogin(event);">
-                    <div class="formHeader">
-                        <h1>Log in</h1>
-                        <hr>
-                    </div>
-                    <div class="formInput">
-                        <label class="input-container">
-                            <input type="email" placeholder="Email" id="userEmail" required>
-                            <img src="./resources/symbols/mail.png" alt="Email">
-                        </label>
-                        <label class="input-container" id="loginPasswordContainer">
-                            <input type="password" placeholder="Password" id="userPassword" required>
-                            <img src="./resources/symbols/lock.png" alt="lock">
-                        </label>
-                        <span id="loginWarning">Wrong password Ups! Try again.</span>
-                        <div>
-                            <input type="checkbox" id="inputCheckbox">
-                            <label for="inputCheckbox">Remember me</label>
-                        </div>
-                    </div>
-                    <div class="formButtons">
-                        <button type="submit">Login</button>
-                        <button type="button" onclick="window.location.href='./summary.html'">Guest Log in</button>
-                    </div>
-                </form>
+            <div class="loginarea">
+                <input class="loginemail" type="email" placeholder="Email" id="userEmail" required/>
+                <input class="loginepassword" type="password" placeholder="Password" id="userPassword" required/>
+                <div class="loginareafooter">
+                    <input class="checkbox" type="checkbox" id="inputCheckbox"/>
+                    <p>Remember me</p>
+                </div>
             </div>
-        </main>
-        <footer>
-            <div>
-                <a href="./privacyPolicy.html">Privacy Policy</a>
-                <a href="./legalNotice.html">Legal notice</a>
+            <div class="loginbtnscontainer">
+                <button class="loginbtn">Log in</button>
+                <a href="summary.html"><button class="guestloginbtn" onclick="window.location.href='./summary.html'">Guest Log in</button></a>
             </div>
-        </footer>
-    </section>
+        </form>
+    </div>
+    <footer class="loginfooter">
+        <a href="privacyPolicy.html">Privacy Policy</a>
+        <a href="legalNotice.html">Legal notice</a>
+    </footer>
 </body>
-
 </html>

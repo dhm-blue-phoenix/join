@@ -1,83 +1,72 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
+  <head>
     <title>Join</title>
-    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="./resources/favicon.png">
-    <link rel="manifest" href="./manifest.webmanifest">
+    <link
+      rel="shortcut icon"
+      href="./resources/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="./resources/favicon.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
 
     <!-- META - Daten -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, width=device-width">
-    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
 
     <!-- CSS-Style -->
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/index.css" />
 
     <!-- JS-Script -->
     <script src="./assets/js/register.js" defer></script>
     <script src="./assets/js/dataResponse.js" defer></script>
-</head>
+  </head>
 
-<body class="signup">
-    <header>
-        <figure class="logo-container">
-            <img src="./resources/logo.png" alt="logo">
-        </figure>
+  <body class="bg">
+    <header class="signupheader">
+      <img class="logo" src="./resources/logologin.svg" alt="">
     </header>
-    <main>
-        <div class="formSignup">
-            <form onsubmit="initRegister(event);">
-                <div class="formHeader">
-                    <figure onclick="actionBack()">
-                        <img src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
-                    </figure>
-                    <div>
-                        <h1>Sign up</h1>
-                        <hr>
-                    </div>
-                </div>
-                <div class="formInput">
-                    <label for="inputName" class="input-container">
-                        <input type="text" placeholder="Name" id="inputName" required>
-                        <img src="./resources/symbols/person.png" alt="person">
-                    </label>
-                    <label class="input-container">
-                        <input type="email" placeholder="Email" id="inputEmail" required>
-                        <img src="./resources/symbols/mail.png" alt="mail">
-                    </label>
-                    <label class="input-container">
-                        <input type="password" placeholder="Password" id="inputPassword" required>
-                        <img src="./resources/symbols/lock.png" alt="lock">
-                    </label>
-                    <label class="input-container" id="signupPasswordContainer">
-                        <input type="password" placeholder="Confirm Password" id="inputConfirmPassword" required>
-                        <img src="./resources/symbols/lock.png" alt="lock">
-                    </label>
-                    <!-- <span id="signupLoginWarning">Ups! your password don`t match</span> -->
-                    <div>
-                        <input type="checkbox" id="inputCheckbox">
-                        <label for="inputCheckbox">I accept the 
-                            <a href="./privacyPolicy.html">Privacy Policy</a>
-                        </label>
-                    </div>
-                </div>
-                <div class="formButtons">
-                    <button type="submit">Sign up</button>
-                </div>
-            </form>
+    <div class="maincontainer">
+      <form class="signupcontainer" onsubmit="initRegister(event);">
+        <div class="signupheadline">
+          <img 
+            onclick="actionBack()"
+            class="arrow-left-line"
+            src="./resources/symbols/arrow-left-line.png"
+            alt=""
+          />
+          <div class="topheadline">
+            <h2>Sign up</h2>
+            <div class="headline"></div>
+          </div>
         </div>
-        <div class="successfulRegistration">
-            <span>You Signed Up successfully</span>
+        <div class="signupinputcontainer">
+          <input class="signupinput person" type="text" placeholder="Name" id="inputName" required/>
+          <input class="signupinput mail" type="email" placeholder="Email" id="inputEmail" required/>
+          <input
+            class="signupinput lock"
+            type="password"
+            placeholder="Password"
+            id="inputPassword" required
+          />
+          <input
+            class="signupinput lock"
+            type="password"
+            placeholder="Confirm Password"
+            id="inputConfirmPassword" required
+          />
         </div>
-    </main>
-    <footer>
-        <div>
-            <a href="./privacyPolicy.html">Privacy Policy</a>
-            <a href="./legalNotice.html">Legal notice</a>
+        <div class="privacypolicycontainer">
+          <input required class="checkbox" type="checkbox" id="inputCheckbox"/>
+          <p>i accept the <a href="privacyPolicy.html">Privacy policy</a></p>
         </div>
+        <button class="signupbtn2">Sign up</button>
+      </form>
+    </div>
+    <footer class="signupfooter">
+      <a href="privacyPolicy.html">Privacy Policy</a>
+      <a href="legalNotice.html">Legal notice</a>
     </footer>
-</body>
-
+  </body>
 </html>

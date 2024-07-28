@@ -1,101 +1,111 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
+  <head>
     <title>Join</title>
-    <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="./resources/favicon.png">
+    <link
+      rel="shortcut icon"
+      href="./resources/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="apple-touch-icon" href="./resources/favicon.png" />
 
     <!-- Meta-Tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- CSS-Style -->
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css" />
 
     <!-- JS-Script -->
     <script src="./assets/js/script.js" defer></script>
     <script src="./assets/js/profile.js" defer></script>
     <script src="./assets/js/extractInitials.js" defer></script>
     <script src="./assets/js/dataResponse.js" defer></script>
-</head>
+  </head>
 
-<body onload="includeHTML(); showUserProfile();">
+  <body onload="includeHTML(); showUserProfile();">
     <!-- Navigations Leiste -->
     <navBar class="navBar" w3-include-html="./components/navBar.html"></navBar>
 
     <!-- Titel -->
     <header>
-        <h1>Kanban Project Management Tool</h1>
-        <div>
-            <img src="./resources/symbols/help.png" alt="help">
-            <div class="account-container" id="account">
-                G
-            </div>
-        </div>
+      <h1>Kanban Project Management Tool</h1>
+      <div>
+        <img src="./resources/symbols/help.png" alt="help" />
+        <div class="account-container" id="account">G</div>
+      </div>
     </header>
 
     <!-- Haupteil -->
     <main class="summarymain">
-        <section class="summary-contant">
-            <div class="summary-header">
-                <h2>Join 360</h2>
-                <hr>
-                <span>Key Metrics at a Glance</span>
+      <div class="summarytop">
+        <div class="summarytopcontent">
+        <h1>Join 360</h1>
+        <div class="toptrenn">
+        <div class="verticaltrennline"></div>
+        <p>Key Metrics at a Glance</p>
+        <div class="horizontaltrennline"></div>
+    </div>
+    </div>
+      </div>
+      <div class="content">
+      <div class="summarymaincontainer">
+        <div class="summarybtncontainer">
+          <div class="summarybtn todo">
+            <img src="./resources/symbols/summary-symbol01.png" alt="">
+            <div class="innersummarybtn">
+              <h2>1</h2>
+              To-do
             </div>
-            <div>
-                <section class="summary-main">
-                    <div>
-                        <figure>
-                            <img-symbol class="image imgSrc1"></img-symbol>
-                            <figcaption>
-                                <span>1</span>
-                                <span>To-do</span>
-                            </figcaption>
-                        </figure>
-                        <figure>
-                            <img-symbol class="image imgSrc2"></img-symbol>
-                            <figcaption>
-                                <span>1</span>
-                                <span>Done</span>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <div>
-                        <figure>
-                            <img-symbol class="image imgSrc3"></img-symbol>
-                            <figcaption>
-                                <span>1</span>
-                                <span>Urgent</span>
-                            </figcaption>
-                        </figure>
-                        <div>
-                            <span>October 16, 2022</span>
-                            <span>Upcoming Deadline</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <span>5</span>
-                            <span>Tasks in Board</span>
-                        </div>
-                        <div>
-                            <span>2</span>
-                            <span>Tasks in Progress</span>
-                        </div>
-                        <div>
-                            <span>2</span>
-                            <span>Awaiting Feedback</span>
-                        </div>
-                    </div>
-                </section>
-                <section class="summary-user">
-                    <span>Good morning,</span>
-                    <span class="userName" id="username">Guest</span>
-                </section>
+          </div>
+          <div class="summarybtn done">
+            <img src="./resources/symbols/summary-symbol02.png" alt="">
+            <div class="innersummarybtn">
+              <h2>1</h2>
+              Done
             </div>
-        </section>
+          </div>
+        </div>
+        <div class="summarybtncontainer">
+          <div class="summarybtn urgent">
+            <img src="./resources/symbols/summary-symbol03.png" alt="">
+            <div class="innersummarybtn">
+              <h2>1</h2>
+              Urgent
+            </div>
+            <div class="innersummarybtntrennline"></div>
+            <div class="summaryurgentdate">
+                <h3>October 16, 2022</h3>
+                <p>Upcoming Deadline</p>
+            </div>
+          </div>
+        </div>
+        <div class="summarybtncontainer">
+          <div class="summarybtn tasksinboard">
+            <div class="innersummarybtn">
+                <h2>5</h2>
+                <p>Tasks in Board</p>
+              </div>
+          </div>
+          <div class="summarybtn tasksinprogress">
+            <div class="innersummarybtn">
+                <h2>2</h2>
+                <p>Tasks In Progress</p>
+              </div>
+          </div>
+          <div class="summarybtn awaitingfeedback">
+            <div class="innersummarybtn">
+                <h2>2</h2>
+                <p>Awaiting Feedback</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="welcomenotecontainer">
+        <p>Good morning,</p>
+        <h2 id="username">Sofia Müller</h2>
+      </div>
+    </div>
     </main>
-</body>
-
+  </body>
 </html>

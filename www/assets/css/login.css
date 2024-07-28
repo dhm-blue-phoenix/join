@@ -329,7 +329,8 @@
 
 @media (max-height: 500px) {
   .loginfooter {
-    display: none;
+    position: relative;
+    top: 320px;
   }
 
   .logo {
@@ -337,10 +338,9 @@
   }
 
   .loginheader {
-    /* height: 100vh; */
+    margin-top: 116px;
     padding: 0 3vw;
-    /* align-items: flex-start; */
-    margin-top: 80px;
+    align-items: center;
   }
 
   .loginbtnscontainer {
@@ -350,17 +350,14 @@
   }
 
   .loginarea {
-    gap: 16px;
+    gap: 4px;
   }
 
   .logincontainer {
     position: absolute;
-    top: 0;
-    height: 100vh;
+    top: 7vh;
+    height: auto;
     gap: 16px;
-    padding: 16px 0;
-    border-radius: 0;
-    justify-content: flex-start;
   }
 
   .maincontainer {
