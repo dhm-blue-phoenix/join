@@ -1,19 +1,22 @@
+const storedLocalUserID = localStorage.getItem('userID');
+const storedSessionUserID = sessionStorage.getItem('userID');
+
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
 
 /**
  * Zeigt das Benutzerprofil an.
  * ----------------------------
- * Holt den Benutzernamen aus der URL und zeigt ihn dann im Profil an.
+ * Lädt den Benutzernamen über die gespeicherte Benutzer-ID, extrahiert die Initialen
+ * und zeigt beides im Profil an.
  * ----------------------------
  * @async
+ * @function
+ * @throws {Error} Wenn keine Benutzerdaten gefunden werden.
  */
 async function showUserProfile() {
     try {
-        const username = lodeUsernameFromURL();
-        if(username === null) {
-            return;
-        }
+        const username = await loadUserName();
         const initials = extractInitials(username);
         ID_account.textContent = initials;
         ID_username.textContent = username;
@@ -23,10 +26,31 @@ async function showUserProfile() {
 }
 
 /**
- * Holt den Benutzernamen aus der URL.
- * -----------------------------------
- * @returns {string} - Der Benutzername aus der URL oder null, wenn kein Benutzername in der URL vorhanden ist.
+ * Überprüft die gespeicherten Benutzer-IDs.
+ * -----------------------------------------
+ * Prüft, ob eine Benutzer-ID entweder im lokalen Speicher oder in der Sitzung gespeichert ist,
+ * und gibt diese zurück.
+ * -----------------------------------------
+ * @returns {string|null} Die gespeicherte Benutzer-ID oder null, falls keine gefunden wurde.
  */
-function lodeUsernameFromURL() {
-    return new URLSearchParams(window.location.search).get("username"); 
+function checkStored() {
+    if (storedLocalUserID !== null) return userID = storedLocalUserID;
+    if (storedSessionUserID !== null) return userID = storedSessionUserID;
+    return null;
+}
+
+/**
+ * Lädt den Benutzernamen anhand der gespeicherten Benutzer-ID.
+ * ------------------------------------------------------------
+ * Ruft die Benutzer-ID von der Funktion checkStored() ab und sucht den Benutzernamen mittels der Benutzer-ID.
+ * ------------------------------------------------------------
+ * @async
+ * @returns {string} Der Benutzername des gefundenen Benutzers.
+ * @throws {Error} Wenn der Benutzer nicht gefunden wird.
+ */
+async function loadUserName() {
+    let userID = checkStored();
+    if (!userID) throw new Error('Keine Benutzer-ID gefunden');
+    const userData = await findUserById(userID);
+    return userData[2];  // Annahme: userData[2] enthält den Benutzernamen
 }

@@ -60,7 +60,7 @@ async function initLogin(event) {
     } else {
         await saveSessionUserID(user[0], false);
     };
-    loadWindow(user[1].name);
+    loadWindow();
 }
 
 /**
@@ -113,6 +113,6 @@ function saveSessionUserID(userID, autoLogin) {
  * -----------------------
  * Diese Funktion leitet den Benutzer zur nächsten Seite weiter.
  */
-function loadWindow(username) {
-    window.location.href = `./summary.html?username=` + username;
+function loadWindow() {
+    window.location.href = './summary.html';
 }
