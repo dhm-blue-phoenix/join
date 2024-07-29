@@ -51,15 +51,45 @@ async function retrievingData(patch) {
 }
 
 /**
- * Lädt die Kontakte.
- * ------------------
- * Diese Funktion lädt die Kontakte aus der Datenbank und gibt sie zurück.
- * ------------------
- * @param {Object} patch Ein Patch-Objekt, das die zu ladenden Kontakte spezifiziert.
- * @returns {Promise} Ein Promise, das die geladenen Kontakte zurückgibt.
+ * Lädt die Kontaktkarten vom Server.
+ * ----------------------------------
+ * Diese Funktion wird verwendet, um die Kontaktkarten für die Anzeige zu laden.
+ * ----------------------------------
+ * @param {string} patch - Der Pfad zum Abrufen der Daten.
+ * @returns {array} Ein Array von Kontaktkarten.
  */
-async function loadContactsData(patch) {
-    return await retrievingData(patch);
+async function lodeContactsCard(patch) {
+    const data = await retrievingData(patch);
+    const contactCarts = Object.values(data[0]);
+    return contactCarts;
+}
+
+/**
+ * Lädt die ID eines Kontakts basierend auf seiner E-Mail-Adresse.
+ * ---------------------------------------------------------------
+ * Diese Funktion wird verwendet, um die ID eines Kontakts für weitere Verarbeitung zu laden.
+ * ---------------------------------------------------------------
+ * @param {string} patch - Der Pfad zum Abrufen der Daten.
+ * @param {string} email - Die E-Mail-Adresse des Kontakts.
+ * @returns {string} Die ID des Kontakts.
+ */
+async function loadContactsId(patch, email) {
+    const data = await retrievingData(patch);
+    const contactId = await findContactId(data[0], email);
+    return contactId[0];
+}
+
+/**
+ * Findet die ID eines Kontakts basierend auf seiner E-Mail-Adresse.
+ * -----------------------------------------------------------------
+ * Diese Funktion wird verwendet, um die ID eines Kontakts in den Kontaktdaten zu suchen.
+ * -----------------------------------------------------------------
+ * @param {object} contacts - Ein Objekt mit Kontaktdaten.
+ * @param {string} findEmail - Die E-Mail-Adresse des Kontakts.
+ * @returns {array} Ein Array mit der ID des Kontakts.
+ */
+async function findContactId(contacts, findEmail) {
+    return Object.entries(contacts).find(([id, contact]) => contact.email === findEmail);
 }
 
 /**

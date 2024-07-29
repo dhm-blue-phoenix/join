@@ -7,6 +7,9 @@ const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
+const ID_personOptions = document.getElementById('personOptions');
+const ID_personEdit = document.getElementById('');
+const ID_personDel = document.getElementById('personDelete');
 
 let userID;
 let lastCart;
@@ -35,7 +38,7 @@ async function initCard() {
 async function loadContacts() {
     try {
         lodeUserId();
-        const tempContacts = await loadContactsData('users/' + userID + '/contacts');
+        const tempContacts = await lodeContactsCard(`users/${userID}/`);
         sortContacts(tempContacts);
     } catch (err) { }
 }
@@ -79,8 +82,9 @@ function sortContacts(data) {
 /**
  * Rendert die Kontakt-Karten mit eindeutigen IDs.
  * -----------------------------------------------
- * Diese Funktion rendert die Kontakt-Karten basierend auf den geladenen Kontakten
- * und weist jeder Karte eine eindeutige ID zu.
+ * Diese Funktion rendert die Kontakt-Karten basierend 
+ * auf den geladenen Kontakten und weist jeder Karte 
+ * eine eindeutige ID zu.
  * -----------------------------------------------
  */
 function renderCards() {
@@ -140,6 +144,9 @@ function openContact(cardId, personName, personEmail, personTel) {
 /**
  * Rendert die detaillierten Kontaktdaten.
  * ---------------------------------------
+ * Diese Funktion wird verwendet, um die Kontaktdaten
+ * in der Benutzeroberfläche anzuzeigen.
+ * ---------------------------------------
  * func extractInitials() - findet man in der extractInitials.js
  * ---------------------------------------
  * @param {string} name Der Name des Kontakts.
@@ -152,6 +159,19 @@ function renderPerson(name, email, tel) {
     ID_personName.textContent = name;
     ID_personEmail.textContent = email;
     ID_personTel.textContent = tel;
+    ID_personOptions.innerHTML = HtmlPersonOptions(email);
+}
+
+function HtmlPersonOptions(email) {
+    const html = `
+        <button onclick="removeClass('editcontactpopup')">
+          <img src="./resources/symbols/edit.png" alt=""/> Edit
+        </button>
+        <button onclick="delContact('${email}')">
+          <img src="./resources/symbols/delete.svg" alt=""/> Delete
+        </button>
+    `;
+    return html;
 }
 
 /**
@@ -168,10 +188,15 @@ function removeLastCart(card) {
     lastCart = card;
 }
 
+// [!] In Bearbeitung
+async function delContact(email) {
+    const contactId = await loadContactsId(`users/${userID}/`, email);
+    console.log('contactId:', contactId);
+}
+
+
 function addContact() { }
 function editContact() { }
-function delContact() { }
-
 
 
 
