@@ -71,3 +71,21 @@ function removeClass(id) {
 // function closeeditcontactpopup(){
 //   document.getElementById('editcontactpopup').classList.add('d-nonepopup');
 // }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const accountContainer = document.getElementById('account');
+  const dropdownContent = document.getElementById('dropdownContent');
+
+  accountContainer.addEventListener('click', () => {
+    dropdownContent.classList.toggle('show');
+  });
+
+  // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
+  window.addEventListener('click', (event) => {
+    if (!event.target.matches('.account-container')) {
+      if (dropdownContent.classList.contains('show')) {
+        dropdownContent.classList.remove('show');
+      }
+    }
+  });
+});

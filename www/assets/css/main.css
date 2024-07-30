@@ -66,6 +66,11 @@ header div img {
   align-items: center;
   color: var(--text-color09);
   font-weight: 900;
+  cursor: pointer;
+}
+
+.account-container:hover {
+  box-shadow: #00000062 2px 2px 4px 0px;
 }
 
 /* --main */
