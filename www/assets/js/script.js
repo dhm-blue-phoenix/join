@@ -26,7 +26,7 @@ async function includeHTML() {
 
 /**
  * Navigates the browser back to the previous page in history.
- * @function actionBack
+ * -----------------------------------------------------------
  */
 function actionBack() {
   window.history.back();
@@ -34,7 +34,7 @@ function actionBack() {
 
 /**
  * Fügt die Klasse 'd-nonepopup' zum Element mit der angegebenen ID hinzu.
- * 
+ * -----------------------------------------------------------------------
  * @param {string} id - Die ID des HTML-Elements, zu dem die Klasse hinzugefügt werden soll.
  */
 function addClass(id) {
@@ -43,7 +43,7 @@ function addClass(id) {
 
 /**
  * Entfernt die Klasse 'd-nonepopup' vom Element mit der angegebenen ID.
- * 
+ * ---------------------------------------------------------------------
  * @param {string} id - Die ID des HTML-Elements, von dem die Klasse entfernt werden soll.
  */
 function removeClass(id) {

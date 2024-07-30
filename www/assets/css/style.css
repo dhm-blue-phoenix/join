@@ -85,6 +85,10 @@ input:focus {
     outline: none;
 }
 
+.d-none {
+    display: none !important;
+}
+
 /*
     Stile für das makieren von text
 */

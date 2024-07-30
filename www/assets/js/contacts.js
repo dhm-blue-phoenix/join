@@ -2,6 +2,7 @@ const storedLocalUserID = localStorage.getItem('userID');
 const storedSessionUserID = sessionStorage.getItem('userID');
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
+const CLASS_dnone = document.querySelectorAll('.d-none');
 
 const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
@@ -13,7 +14,7 @@ const ID_personDel = document.getElementById('personDelete');
 
 let userID;
 let lastCart;
-let contacts = {};
+let contacts;
 
 /**
  * Initialisiert die Kontakt-Karten.
@@ -37,6 +38,7 @@ async function initCard() {
  */
 async function loadContacts() {
     try {
+        contacts = {};
         lodeUserId();
         const tempContacts = await lodeContactsCard(`users/${userID}/`);
         sortContacts(tempContacts);
@@ -134,6 +136,7 @@ function htmlCard(key, id, name, email, tel) {
  */
 function openContact(cardId, personName, personEmail, personTel) {
     const card = document.getElementById(cardId);
+    CLASS_dnone.forEach(element => { element.classList.remove('d-none'); });
     card.classList.add('cardactive');
     card.classList.remove('card');
     card.style.pointerEvents = "none";
@@ -162,6 +165,15 @@ function renderPerson(name, email, tel) {
     ID_personOptions.innerHTML = HtmlPersonOptions(email);
 }
 
+/**
+ * Erstellt die HTML-Optionen für einen Kontakt.
+ * ---------------------------------------------
+ * Diese Funktion erstellt die HTML-Elemente für die Bearbeiten- und Löschen-Schaltflächen
+ * für einen Kontakt.
+ * ---------------------------------------------
+ * @param {string} email Die E-Mail-Adresse des Kontakts.
+ * @returns {string} Die HTML-Optionen als String.
+ */
 function HtmlPersonOptions(email) {
     const html = `
         <button onclick="removeClass('editcontactpopup')">
@@ -188,32 +200,21 @@ function removeLastCart(card) {
     lastCart = card;
 }
 
-// [!] In Bearbeitung
+/**
+ * Löscht den Kontakt mit der angegebenen E-Mail-Adresse.
+ * ------------------------------------------------------
+ * func loadContactsId() - findet man in der extractInitials.js
+ * func deletContactById() - findet man in der extractInitials.js
+ * ------------------------------------------------------
+ * @async
+ * @param {string} email Die E-Mail-Adresse des Kontakts.
+ */
 async function delContact(email) {
     const contactId = await loadContactsId(`users/${userID}/`, email);
-    console.log('contactId:', contactId);
+    await deletContactById(`users/${userID}/contacts/${contactId}`);
+    await initCard();
 }
 
 
 function addContact() { }
 function editContact() { }
-
-
-
-
-
-// [!] Wird noch gelöscht
-async function betta() {
-    let userID;
-    const contact = {
-        'name': 'Ava Adams',
-        'email': 'ava.adams@example.com',
-        'tel': '00309032111'
-    };
-    if (storedLocalUserID) { userID = storedLocalUserID; }
-    else if (storedSessionUserID) { userID = storedSessionUserID; }
-    else { throw new Error('Es ist ein Problem aufgetreten!'); }
-    await uploadPatchData('users/' + userId + '/contacts');
-    const tempContacts = await loadContactsData('users/' + userID + '/contacts');
-}
-

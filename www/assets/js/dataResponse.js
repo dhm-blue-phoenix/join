@@ -93,6 +93,39 @@ async function findContactId(contacts, findEmail) {
 }
 
 /**
+ * Löscht einen Kontakt anhand der angegebenen ID.
+ * -----------------------------------------------
+ * @async
+ * @param {string} patch - Der Pfad zum Kontakt, der gelöscht werden soll.
+ * @returns {Promise<void>}
+ */
+async function deletContactById(patch) {
+    await deleteData(patch);
+}
+
+/**
+ * Löscht Daten von der Server-Seite.
+ * ----------------------------------
+ * @async
+ * @param {string} patch - Der Pfad zu den Daten, die gelöscht werden sollen.
+ * @throws {Error} Wenn die Anfrage fehlschlägt.
+ * @returns {Promise<void>}
+ */
+async function deleteData(patch) {
+    try {
+        const deleteResponse = await fetch(baseURL + patch + '.json', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        await checkAnswer(deleteResponse);
+    } catch (err) {
+        handleError(err);
+    }
+}
+
+/**
  * Fügt einen neuen Benutzer zur Firebase Realtime Database hinzu.
  * ---------------------------------------------------------------
  * Diese Funktion sendet eine POST-Anfrage an die Datenbank, um einen neuen Benutzer 
