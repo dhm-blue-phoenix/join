@@ -40,17 +40,17 @@
           <button class="closeeditcontactpopup" onclick="addClass('editcontactpopup')">
             &#x2A2F;
           </button>
-          
-            <div class="personShortcut" style="margin-bottom: 75px;">AM</div>
-            <div class="editpersoninput">
-              <input type="text">
-              <input type="email">
-              <input type="number">
+          <!-- Wichtiger abschnit für die editContact function -->
+            <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut"></div>
+            <form class="editpersoninput" onsubmit="addContact();">
+              <input type="text" id="editPersionName">
+              <input type="email" id="editPersionEmail">
+              <input type="number" id="esitPersionTel">
               <div class="testbuttons">
                 <button class="deletebtn">Delete</button>
                 <button class="savebtn"><img src="./resources/symbols/check.svg" alt=""> Save</button>
               </div>
-            </div>
+            </form>
 
         </div>
       </div>
@@ -64,9 +64,9 @@
         <img src="./resources/symbols/help.png" alt="help" />
         <div class="account-container" id="account">SM</div>
         <div class="dropdown-content" id="dropdownContent">
-          <a href="#profile">Legal Notice</a>
-          <a href="#settings">Privacy Policy</a>
-          <a href="#logout">Log out</a>
+          <a href="./legalNotice.html">Legal Notice</a>
+          <a href="./privacyPolicy.html">Privacy Policy</a>
+          <a href="./index.html">Log out</a>
         </div>
       </div>
     </header>

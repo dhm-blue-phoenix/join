@@ -12,6 +12,11 @@ const ID_personOptions = document.getElementById('personOptions');
 const ID_personEdit = document.getElementById('');
 const ID_personDel = document.getElementById('personDelete');
 
+const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
+const ID_editPersionName = document.getElementById('editPersionName');
+const ID_editPersionEmail = document.getElementById('editPersionEmail');
+const ID_esitPersionTel = document.getElementById('esitPersionTel');
+
 const ID_dnonePersonCard = document.getElementById('dnonePersonCard');
 const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
 const ID_dnoneInfo = document.getElementById('dnoneInfo');
@@ -245,5 +250,10 @@ function dnonePersionCard() {
 }
 
 // [!] In Bearbeitung
-function addContact() { }
+function addContact(event) {
+    event.preventDefault();
+    // [1()] render contact data for form
+    // [2()] [wird noch ersetzt] log edit data
+    // [3()] 
+}
 function editContact() { }
