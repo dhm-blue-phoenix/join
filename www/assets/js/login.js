@@ -26,6 +26,7 @@ function loadUsernameFromURL() {
  * --------------------------------
  * func loadUserData() - findet man in der dataResponse.js
  * --------------------------------
+ * @async
  * @param {Event} event Das Ereignis, das den Login-Prozess auslöst.
  */
 async function autoLogin() {
@@ -51,6 +52,7 @@ async function autoLogin() {
  * ---------------------------------------------
  * func loadUserData() - findet man in der dataResponse.js
  * ---------------------------------------------
+ * @async
  * @returns {Object} Ein Objekt mit den Formulardaten.
  */
 async function initLogin(event) {

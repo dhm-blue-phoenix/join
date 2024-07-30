@@ -6,6 +6,7 @@ const baseURL = "https://join-393a6-default-rtdb.europe-west1.firebasedatabase.a
  * Diese Funktion ruft die Benutzerdaten aus der Datenbank ab und sucht nach einem 
  * Benutzer, der mit den übergebenen Daten übereinstimmt.
  * --------------------------------------------------------------
+ * @async
  * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
  * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  */
@@ -23,6 +24,7 @@ async function loadUserData(find) {
  * Diese Funktion durchsucht die Liste der Benutzer nach einem Benutzer, der mit den 
  * übergebenen Daten übereinstimmt.
  * ----------------------------------------------------
+ * @async
  * @param {Array} users Die Liste der Benutzer.
  * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
  * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
@@ -37,6 +39,7 @@ async function findUser(users, find) {
  * Diese Funktion ruft die Benutzerdaten aus der Datenbank ab und gibt sie als Liste 
  * zurück.
  * ----------------------------------------------------------
+ * @async
  * @returns {Array} Die Liste der Benutzer.
  */
 async function retrievingData(patch) {
@@ -55,6 +58,7 @@ async function retrievingData(patch) {
  * ----------------------------------
  * Diese Funktion wird verwendet, um die Kontaktkarten für die Anzeige zu laden.
  * ----------------------------------
+ * @async
  * @param {string} patch - Der Pfad zum Abrufen der Daten.
  * @returns {array} Ein Array von Kontaktkarten.
  */
@@ -69,6 +73,7 @@ async function lodeContactsCard(patch) {
  * ---------------------------------------------------------------
  * Diese Funktion wird verwendet, um die ID eines Kontakts für weitere Verarbeitung zu laden.
  * ---------------------------------------------------------------
+ * @async
  * @param {string} patch - Der Pfad zum Abrufen der Daten.
  * @param {string} email - Die E-Mail-Adresse des Kontakts.
  * @returns {string} Die ID des Kontakts.
@@ -84,6 +89,7 @@ async function loadContactsId(patch, email) {
  * -----------------------------------------------------------------
  * Diese Funktion wird verwendet, um die ID eines Kontakts in den Kontaktdaten zu suchen.
  * -----------------------------------------------------------------
+ * @async
  * @param {object} contacts - Ein Objekt mit Kontaktdaten.
  * @param {string} findEmail - Die E-Mail-Adresse des Kontakts.
  * @returns {array} Ein Array mit der ID des Kontakts.
@@ -131,6 +137,7 @@ async function deleteData(patch) {
  * Diese Funktion sendet eine POST-Anfrage an die Datenbank, um einen neuen Benutzer 
  * hinzuzufügen.
  * ---------------------------------------------------------------
+ * @async
  * @param {Object} data Ein Objekt mit den Benutzerdaten, die hinzugefügt werden sollen.
  */
 async function uploadData(data) {
@@ -154,6 +161,7 @@ async function uploadData(data) {
  * Diese Funktion sendet die übergebenen Daten an den Server und speichert sie 
  * unter dem angegebenen Patch.
  * -------------------------------------
+ * @async
  * @param {String} patch Der Pfad, unter dem die Daten gespeichert werden sollen.
  * @param {Object} data Die zu speichernden Daten.
  */
@@ -177,6 +185,7 @@ async function uploadPatchData(patch, data) {
  * -----------------------------------------------------------
  * Diese Funktion wirft einen Fehler, wenn die Antwort nicht erfolgreich war.
  * -----------------------------------------------------------
+ * @async
  * @param {Response} response Die Antwort auf die Anfrage.
  */
 async function checkAnswer(response) {
@@ -201,6 +210,7 @@ function handleError(err) {
  * -------------------------------------------------------------------------------------
  * Diese Funktion ruft die Benutzerdaten eines bestimmten Benutzers aus der Datenbank ab.
  * -------------------------------------------------------------------------------------
+ * @async 
  * @param {String} uid Die eindeutige Benutzer-ID.
  * @returns {Object} Die Benutzerdaten des bestimmten Benutzers.
  */

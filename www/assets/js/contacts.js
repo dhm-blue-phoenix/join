@@ -12,6 +12,10 @@ const ID_personOptions = document.getElementById('personOptions');
 const ID_personEdit = document.getElementById('');
 const ID_personDel = document.getElementById('personDelete');
 
+const ID_dnonePersonCard = document.getElementById('dnonePersonCard');
+const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
+const ID_dnoneInfo = document.getElementById('dnoneInfo');
+
 let userID;
 let lastCart;
 let contacts;
@@ -21,6 +25,8 @@ let contacts;
  * ---------------------------------
  * Diese Funktion lädt die Kontakte des aktuellen Benutzers und rendert die Kontakt-Karten.
  * ---------------------------------
+ * @async
+ * @returns {Promise<void>}
  */
 async function initCard() {
     await loadContacts();
@@ -35,6 +41,8 @@ async function initCard() {
  * ------------------------------------------
  * func loadContactsData() - findet man in der dataResponse.js
  * ------------------------------------------
+ * @async
+ * @returns {Promise<void>}
  */
 async function loadContacts() {
     try {
@@ -51,6 +59,7 @@ async function loadContacts() {
  * Diese Funktion lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
  * Wenn keine ID gefunden wird, wird ein Fehler geworfen.
  * ---------------------------------------------------------------
+ * @returns {void}
  */
 function lodeUserId() {
     if (storedLocalUserID) {
@@ -69,6 +78,7 @@ function lodeUserId() {
  * und gruppiert sie nach Anfangsbuchstaben.
  * ------------------------------------------------------------------------
  * @param {Array} data Die zu sortierenden Kontakte.
+ * @returns {void}
  */
 function sortContacts(data) {
     const sortedContacts = data.sort((a, b) => a.name.localeCompare(b.name));
@@ -88,6 +98,7 @@ function sortContacts(data) {
  * auf den geladenen Kontakten und weist jeder Karte 
  * eine eindeutige ID zu.
  * -----------------------------------------------
+ * @returns {void}
  */
 function renderCards() {
     const carts = CLASS_Contactcards;
@@ -113,6 +124,7 @@ function renderCards() {
  * @param {number} id Die ID des Kontakts.
  * @param {string} name Der Name des Kontakts.
  * @param {string} email Die E-Mail-Adresse des Kontakts.
+ * @param {string} tel Die Telefonnummer des Kontakts.
  * @returns {string} Die HTML-Karte als String.
  */
 function htmlCard(key, id, name, email, tel) {
@@ -133,6 +145,7 @@ function htmlCard(key, id, name, email, tel) {
  * @param {string} personName Der Name des Kontakts.
  * @param {string} personEmail Die E-Mail-Adresse des Kontakts.
  * @param {string} personTel Die Telefonnummer des Kontakts.
+ * @returns {void}
  */
 function openContact(cardId, personName, personEmail, personTel) {
     const card = document.getElementById(cardId);
@@ -155,6 +168,7 @@ function openContact(cardId, personName, personEmail, personTel) {
  * @param {string} name Der Name des Kontakts.
  * @param {string} email Die E-Mail-Adresse des Kontakts.
  * @param {string} tel Die Telefonnummer des Kontakts.
+ * @returns {void}
  */
 function renderPerson(name, email, tel) {
     const initails = extractInitials(name);
@@ -190,6 +204,7 @@ function HtmlPersonOptions(email) {
  * Entfernt die letzte aktive Kontakt-Karte.
  * -----------------------------------------
  * @param {HTMLElement} card Die aktuell aktive Kontakt-Karte.
+ * @returns {void}
  */
 function removeLastCart(card) {
     if (lastCart !== undefined) {
@@ -208,13 +223,27 @@ function removeLastCart(card) {
  * ------------------------------------------------------
  * @async
  * @param {string} email Die E-Mail-Adresse des Kontakts.
+ * @returns {Promise<void>}
  */
 async function delContact(email) {
     const contactId = await loadContactsId(`users/${userID}/`, email);
     await deletContactById(`users/${userID}/contacts/${contactId}`);
     await initCard();
+    dnonePersionCard();
 }
 
+/**
+ * Fügt den Klassen "d-none" hinzu, um die Personenkarte
+ * und die zugehörigen Infos zu verbergen.
+ * -----------------------------------------------------
+ * @returns {void}
+ */
+function dnonePersionCard() {
+    ID_dnonePersonCard.classList.add('d-none');
+    ID_dnoneInfoHeadline.classList.add('d-none');
+    ID_dnoneInfo.classList.add('d-none');
+}
 
+// [!] In Bearbeitung
 function addContact() { }
 function editContact() { }
