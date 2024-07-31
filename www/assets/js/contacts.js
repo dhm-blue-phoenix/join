@@ -275,7 +275,7 @@ async function addContact(event) {
         if (findContact === undefined) {
             await uploadPatchData(`users/${userID}/contacts/`, formData);
             console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
-        } else console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
+        } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
         dnoneAddContact();
     } catch (err) {
         console.error('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!', err);
