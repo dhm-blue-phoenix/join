@@ -19,12 +19,18 @@ const ID_inputCFPW = document.getElementById('inputConfirmPassword');
 async function initRegister(event) {
     event.preventDefault();
     const formData = await loadFormData();
+    const signedUpContainerBG = document.getElementById('signedUpContainerBG');
+    const signedUpContainer = document.getElementById('signedUpContainer');
+    signedUpContainer.innerHTML = '';
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
     const userData = await loadUserData(formData);
     if (userData === undefined) {
         await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none' });
-        console.warn('Benutzer wurde erfolgreich registriert!'); // [!] Ändern zu Benutzer-Feedback
-        window.location.href = './index.html?formEmail=' + formData.email + '&formPw=' + formData.pw;
+        signedUpContainerBG.classList.remove('d-nonepopup');
+        signedUpContainer.innerHTML = '<p>You Signed Up successfully</p>';
+        setTimeout(function () {
+            window.location.href = './index.html?formEmail=' + formData.email + '&formPw=' + formData.pw;
+        }, 2000); // 2000 Millisekunden = 2 Sekunden
     } else console.warn('Benutzer ist in der Datenbank bereits vorhanden!'); // [!] Ändern zu Benutzer-Feedback
 }
 
