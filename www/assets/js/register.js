@@ -3,6 +3,9 @@ const ID_inputEmail = document.getElementById('inputEmail');
 const ID_inputPW = document.getElementById('inputPassword');
 const ID_inputCFPW = document.getElementById('inputConfirmPassword');
 
+const signedUpContainerBG = document.getElementById('signedUpContainerBG');
+const signedUpContainer = document.getElementById('signedUpContainer');
+
 /**
  * Initialisiert den Registrierungsprozess.
  * ----------------------------------------
@@ -19,8 +22,6 @@ const ID_inputCFPW = document.getElementById('inputConfirmPassword');
 async function initRegister(event) {
     event.preventDefault();
     const formData = await loadFormData();
-    const signedUpContainerBG = document.getElementById('signedUpContainerBG');
-    const signedUpContainer = document.getElementById('signedUpContainer');
     signedUpContainer.innerHTML = '';
     if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
     const userData = await loadUserData(formData);

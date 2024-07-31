@@ -32,18 +32,15 @@ function loadUsernameFromURL() {
 async function autoLogin() {
     const encode = loadUsernameFromURL();
     let userData;
-    console.log('storedAutoLogin', storedAutoLogin);
     if (userData !== null) {
         userData = [encode[0], encode[1]];
-        console.log('1', userData);
         ID_inputCheckbox.checked = false;
-    // } else if (storedAutoLogin === 'true') /*[!] Da ist ein fehler! */ {
+    }
+    if (storedAutoLogin === 'true') {
         const user = await findUserById(storedUserID);
         userData = [user[1], user[3]];
-        console.log('2', userData);
         ID_inputCheckbox.checked = true;
     }
-    console.log('userData[0]', userData[0], 'userData[1]', userData[1]);
     ID_inputEmail.value = userData[0];
     ID_inputPW.value = userData[1];
 }
