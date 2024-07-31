@@ -275,7 +275,8 @@ async function addContact(event) {
         if (findContact === undefined) {
             await uploadPatchData(`users/${userID}/contacts/`, formData);
             console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
-        } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
+        } else console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
+        dnoneAddContact();
     } catch (err) {
         console.error('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!', err);
     }
@@ -296,6 +297,19 @@ function lodeFormData(name, email, tel) {
         'tel': tel
     };
     return formData;
+}
+
+/**
+ * Schließt das Popup-Fenster zum Hinzufügen eines neuen Kontakts und leert die Eingabefelder.
+ * -------------------------------------------------------------------------------------------
+ * Diese Funktion wird aufgerufen, wenn der Benutzer den Kontakt erfolgreich hinzugefügt hat.
+ * Sie versteckt das Popup-Fenster und setzt die Werte der Eingabefelder zurück.
+ */
+function dnoneAddContact() {
+    document.getElementById('addcontactpopup').classList.add('d-nonepopup');
+    ID_addPersionName.value = '',
+    ID_addPersionEmail.value = '',
+    ID_addPersionTel.value = ''
 }
 
 function editContact() { /*- Edit Contact Function -*/ }
