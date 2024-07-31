@@ -81,7 +81,7 @@ async function lodeContactsCard(patch) {
 async function loadContactsId(patch, email) {
     const data = await retrievingData(patch);
     const contactId = await findContactId(data[0], email);
-    return contactId[0];
+    return contactId;
 }
 
 /**

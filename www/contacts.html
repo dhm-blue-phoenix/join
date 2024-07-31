@@ -70,13 +70,13 @@
             &#x2A2F;
           </button>
             <img class="usericon" src="./resources/symbols/usericon.png" alt="">
-            <form class="editpersoninput" onsubmit="addContact();">
-              <input type="text" id="addPersionName" placeholder="Name">
-              <input type="email" id="addPersionEmail" placeholder="Email">
-              <input type="number" id="addPersionTel" placeholder="Phone">
+            <form class="editpersoninput" onsubmit="addContact(event);">
+              <input type="text" id="addPersionName" placeholder="Name" required>
+              <input type="email" id="addPersionEmail" placeholder="Email" required>
+              <input type="number" id="addPersionTel" placeholder="Phone" required>
               <div class="testbuttons">
-                <button class="cancelbtn">Cancel  &#128473</button>
-                <button class="creatbtn"><img src="./resources/symbols/check.svg" alt="">Create contact</button>
+                <button class="cancelbtn" onclick="addClass('addcontactpopup')">Cancel  &#128473</button>
+                <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create contact</button>
               </div>
             </form>
 

@@ -12,10 +12,14 @@ const ID_personOptions = document.getElementById('personOptions');
 const ID_personEdit = document.getElementById('');
 const ID_personDel = document.getElementById('personDelete');
 
+const ID_addPersionName = document.getElementById('addPersionName');
+const ID_addPersionEmail = document.getElementById('addPersionEmail');
+const ID_addPersionTel = document.getElementById('addPersionTel');
+
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_editPersionName = document.getElementById('editPersionName');
 const ID_editPersionEmail = document.getElementById('editPersionEmail');
-const ID_esitPersionTel = document.getElementById('esitPersionTel');
+const ID_editPersionTel = document.getElementById('esitPersionTel');
 
 const ID_dnonePersonCard = document.getElementById('dnonePersonCard');
 const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
@@ -232,7 +236,7 @@ function removeLastCart(card) {
  */
 async function delContact(email) {
     const contactId = await loadContactsId(`users/${userID}/`, email);
-    await deletContactById(`users/${userID}/contacts/${contactId}`);
+    await deletContactById(`users/${userID}/contacts/${contactId[0]}`);
     await initCard();
     dnonePersionCard();
 }
@@ -249,11 +253,49 @@ function dnonePersionCard() {
     ID_dnoneInfo.classList.add('d-none');
 }
 
-// [!] In Bearbeitung
-function addContact(event) {
+/**
+ * Fügt einen neuen Kontakt hinzu.
+ * -------------------------------
+ * Diese Funktion wird aufgerufen,
+ * wenn das Formular zum Hinzufügen eines neuen Kontakts abgeschickt wird.
+ * Sie überprüft, ob der Kontakt bereits in der Kontaktliste existiert,
+ * und fügt ihn hinzu, wenn er nicht existiert.
+ * -------------------------------
+ * func lodeContactsCard() - findet man in der extractInitials.js
+ * -------------------------------
+ * @async
+ * @param {Event} event - Das Ereignis, das durch das Absenden des Formulars ausgelöst wird.
+ */
+async function addContact(event) {
     event.preventDefault();
-    // [1()] render contact data for form
-    // [2()] [wird noch ersetzt] log edit data
-    // [3()] 
+    try {
+        const formData = lodeFormData(ID_addPersionName.value, ID_addPersionEmail.value, ID_addPersionTel.value);
+        const contactCards = await lodeContactsCard(`users/${userID}`);
+        const findContact = contactCards.find(contact => contact.email === formData.email);
+        if (findContact === undefined) {
+            await uploadPatchData(`users/${userID}/contacts/`, formData);
+            console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
+        } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
+    } catch (err) {
+        console.warn('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!');
+    }
 }
-function editContact() { }
+
+/**
+ * Lädt die Formulardaten aus den Eingabefeldern.
+ * ----------------------------------------------
+ * @param {string} name - Der Wert des Namens-Eingabefelds.
+ * @param {string} email - Der Wert des E-Mail-Eingabefelds.
+ * @param {string} tel - Der Wert des Telefon-Eingabefelds.
+ * @returns {Object} Das Formulardaten-Objekt.
+ */
+function lodeFormData(name, email, tel) {
+    const formData = {
+        'name': name,
+        'email': email,
+        'tel': tel
+    };
+    return formData;
+}
+
+function editContact() { /*- Edit Contact Function -*/ }
