@@ -27,8 +27,8 @@
     <!-- Navigations Leiste -->
     <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
 
-    <!-- AddtaskPopup-Window -->
-    <div id="editcontactpopup" class="bigcontainer d-nonepopup">
+    <!-- Editcontact-Window -->
+    <!-- <div id="editcontactpopup" class="bigcontainer d-nonepopup">
       <div class="editcontactpopupcontent">
         <div class="editcontactpopupleftside">
           <img src="./resources/logo.svg" alt="" />
@@ -40,7 +40,7 @@
           <button class="closeeditcontactpopup" onclick="addClass('editcontactpopup')">
             &#x2A2F;
           </button>
-          <!-- Wichtiger abschnit für die editContact function -->
+
             <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut"></div>
             <form class="editpersoninput" onsubmit="addContact();">
               <input type="text" id="editPersionName">
@@ -49,6 +49,34 @@
               <div class="testbuttons">
                 <button class="deletebtn">Delete</button>
                 <button class="savebtn"><img src="./resources/symbols/check.svg" alt=""> Save</button>
+              </div>
+            </form>
+
+        </div>
+      </div>
+    </div> -->
+    <!-- AddtaskPopup-Window -->
+    <div id="addcontactpopup" class="bigcontainer d-nonepopup">
+      <div class="editcontactpopupcontent">
+        <div class="editcontactpopupleftside">
+          <img src="./resources/logo.svg" alt="" />
+          <h1>Add contact</h1>
+          <p>Tasks are better with a team!</p>
+          <div class="blueline"></div>
+        </div>
+
+        <div class="editcontactpopuprightside">
+          <button class="closeeditcontactpopup" onclick="addClass('addcontactpopup')">
+            &#x2A2F;
+          </button>
+            <img class="usericon" src="./resources/symbols/usericon.png" alt="">
+            <form class="editpersoninput" onsubmit="addContact();">
+              <input type="text" id="addPersionName" placeholder="Name">
+              <input type="email" id="addPersionEmail" placeholder="Email">
+              <input type="number" id="addPersionTel" placeholder="Phone">
+              <div class="testbuttons">
+                <button class="cancelbtn">Cancel  &#128473</button>
+                <button class="creatbtn"><img src="./resources/symbols/check.svg" alt="">Create contact</button>
               </div>
             </form>
 
@@ -76,7 +104,7 @@
       <div class="contacts">
         <div class="showContacts">
           <div class="addNewContactheader">
-            <button class="addNewContact" onclick="removeClass('editcontactpopup')">
+            <button class="addNewContact" onclick="removeClass('addcontactpopup')">
               <p>Add new contact</p>
               <img src="./resources/symbols/person_add.svg" alt="" />
             </button>
@@ -96,7 +124,7 @@
             <div class="personName">
               <p id="personName"></p>
               <div class="personInfo" id="personOptions">
-                <button onclick="removeClass('editcontactpopup')">
+                <button onclick="removeClass('addcontactpopup')">
                   <img src="./resources/symbols/edit.png" alt="" /> Edit
                 </button>
 
