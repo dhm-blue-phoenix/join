@@ -277,7 +277,7 @@ async function addContact(event) {
             console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
         } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
-        console.warn('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!');
+        console.error('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!', err);
     }
 }
 
