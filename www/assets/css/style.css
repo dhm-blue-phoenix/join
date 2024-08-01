@@ -133,7 +133,7 @@ input:focus {
   .dropdown-content a {
     width: 100%;
     color: black;
-    padding: 12px 24px;
+    padding: 4px 24px;
     text-decoration: none;
     display: flex;
     justify-content: flex-start;

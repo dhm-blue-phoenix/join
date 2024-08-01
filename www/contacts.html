@@ -41,12 +41,12 @@
             &#x2A2F;
           </button>
 
-            <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut"></div>
+            <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut">SM</div>
             <form class="editpersoninput" onsubmit="addContact();">
               <input type="text" id="editPersionName">
               <input type="email" id="editPersionEmail">
               <input type="number" id="esitPersionTel">
-              <div class="testbuttons">
+              <div class="bottombuttons">
                 <button class="deletebtn">Delete</button>
                 <button class="savebtn"><img src="./resources/symbols/check.svg" alt=""> Save</button>
               </div>
@@ -57,24 +57,24 @@
     </div> -->
     <!-- AddtaskPopup-Window -->
     <div id="addcontactpopup" class="bigcontainer d-nonepopup">
-      <div class="editcontactpopupcontent">
-        <div class="editcontactpopupleftside">
+      <div class="addcontactpopupcontent">
+        <div class="addcontactpopupleftside">
           <img src="./resources/logo.svg" alt="" />
           <h1>Add contact</h1>
           <p>Tasks are better with a team!</p>
           <div class="blueline"></div>
         </div>
 
-        <div class="editcontactpopuprightside">
-          <button class="closeeditcontactpopup" onclick="addClass('addcontactpopup')">
+        <div class="addcontactpopuprightside">
+          <button class="closeaddcontactpopup" onclick="addClass('addcontactpopup')">
             &#x2A2F;
           </button>
             <img class="usericon" src="./resources/symbols/usericon.png" alt="">
-            <form class="editpersoninput" onsubmit="addContact(event);">
+            <form class="addpersoninput" onsubmit="addContact(event);">
               <input type="text" id="addPersionName" placeholder="Name" required>
               <input type="email" id="addPersionEmail" placeholder="Email" required>
               <input type="number" id="addPersionTel" placeholder="Phone" required>
-              <div class="testbuttons">
+              <div class="bottombuttons">
                 <button class="cancelbtn" onclick="addClass('addcontactpopup')">Cancel  &#128473</button>
                 <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create contact</button>
               </div>
@@ -92,6 +92,7 @@
         <img src="./resources/symbols/help.png" alt="help" />
         <div class="account-container" id="account">SM</div>
         <div class="dropdown-content" id="dropdownContent">
+          <a href="./help.html">Help</a>
           <a href="./legalNotice.html">Legal Notice</a>
           <a href="./privacyPolicy.html">Privacy Policy</a>
           <a href="./index.html">Log out</a>
