@@ -162,3 +162,11 @@ input:focus {
       opacity: 1;
     }
   }
+
+  .logolegalandprivacy{
+    width: 64px;
+    /* margin: 32px; */
+    position: fixed;
+    top: 16px;
+    left: 16px;
+  }
