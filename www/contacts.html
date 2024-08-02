@@ -28,7 +28,7 @@
     <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
 
     <!-- Editcontact-Window -->
-    <!-- <div id="editcontactpopup" class="bigcontainer d-nonepopup">
+    <div id="editcontactpopup" class="bigcontainer d-nonepopup">
       <div class="editcontactpopupcontent">
         <div class="editcontactpopupleftside">
           <img src="./resources/logo.svg" alt="" />
@@ -42,19 +42,19 @@
           </button>
 
             <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut">SM</div>
-            <form class="editpersoninput" onsubmit="addContact();">
-              <input type="text" id="editPersionName">
-              <input type="email" id="editPersionEmail">
-              <input type="number" id="esitPersionTel">
+            <form class="editpersoninput" onsubmit="editContact(event);">
+              <input type="text" id="editPersionName" required>
+              <input type="email" id="editPersionEmail" required>
+              <input type="number" id="esitPersionTel" required>
               <div class="bottombuttons">
                 <button class="deletebtn">Delete</button>
-                <button class="savebtn"><img src="./resources/symbols/check.svg" alt=""> Save</button>
+                <button class="savebtn"><img src="./resources/symbols/check.svg" alt="">Save</button>
               </div>
             </form>
 
         </div>
       </div>
-    </div> -->
+    </div>
     <!-- AddtaskPopup-Window -->
     <div id="addcontactpopup" class="bigcontainer d-nonepopup">
       <div class="addcontactpopupcontent">
@@ -90,7 +90,7 @@
       <h1>Kanban Project Management Tool</h1>
       <div>
         <img src="./resources/symbols/help.png" alt="help" />
-        <div class="account-container" id="account">SM</div>
+        <div class="account-container" id="account">GU</div>
         <div class="dropdown-content" id="dropdownContent">
           <a href="./help.html">Help</a>
           <a href="./legalNotice.html">Legal Notice</a>

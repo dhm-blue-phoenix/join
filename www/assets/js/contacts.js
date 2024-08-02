@@ -312,4 +312,9 @@ function dnoneAddContact() {
     ID_addPersionTel.value = ''
 }
 
-function editContact() { /*- Edit Contact Function -*/ }
+async function editContact(event, ) {
+    event.preventDefault();
+    // const contactId = await loadContactsId(`users/${userID}/`, email);
+    // const formData = lodeFormData(ID_editPersionName.value, ID_addPersionEmail.value, ID_addPersionTel.value);
+    console.warn('[LOG-01] Open Function:', contactId);
+}

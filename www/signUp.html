@@ -44,18 +44,29 @@
         </div>
         <div class="signupinputcontainer">
           <input class="signupinput person" type="text" placeholder="Name" id="inputName" required/>
-          <input class="signupinput mail" type="email" placeholder="Email" id="inputEmail" required/>
+          <input class="signupinput mail"
+            type="email"
+            placeholder="Email"
+            id="inputEmail"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            title="Bitte eine gültige E-Mail-Adresse eingeben. Beispiel: beispiel@domain.de"
+            required/>
           <input
             class="signupinput lock"
             type="password"
             placeholder="Password"
-            id="inputPassword" required
+            minlength="8" 
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W]).{8,}" 
+            id="inputPassword"
+            title="Mindestens 8 Zeichen, mindestens ein Großbuchstabe, eine Zahl und ein Sonderzeichen"
+            required
           />
           <input
             class="signupinput lock"
             type="password"
             placeholder="Confirm Password"
-            id="inputConfirmPassword" required
+            id="inputConfirmPassword"
+            required
           />
         </div>
         <div class="privacypolicycontainer">
