@@ -40,10 +40,10 @@ let lastCart;
 let contacts;
 
 // [(!)-TEST] - Wird wieder entfernt!
-setInterval(() => { 
-    let randomNumber =  Math.floor(Math.random() * 7);
-    console.log('[LOG] randomNumber:', randomNumber, 'shortColor:', shortcutColors[randomNumber]);
-}, 4000);
+// setInterval(() => { 
+//     let randomNumber =  Math.floor(Math.random() * 7);
+//     console.log('[LOG] randomNumber:', randomNumber, 'shortColor:', shortcutColors[randomNumber]);
+// }, 4000);
 
 /**
  * Initialisiert die Kontakt-Karten.
@@ -292,9 +292,7 @@ async function addContact(event) {
         } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
         addClass('addcontactpopup');
         dnoneAddContact();
-    } catch (err) {
-        console.error('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!', err);
-    }
+    } catch (err) { }
 }
 
 /**
