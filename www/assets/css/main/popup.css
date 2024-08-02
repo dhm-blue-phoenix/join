@@ -13,12 +13,13 @@
   z-index: 9999;
 }
 .smallcontainer {
+  width: 95vw;
   background: var(--back-color04);
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  padding: 24px;
-  max-height: 95vh;
+  padding: 16px;
+  max-height: 80vh;
   overflow-y: auto;
 }
 
