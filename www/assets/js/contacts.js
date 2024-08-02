@@ -1,5 +1,5 @@
-// const storedLocalUserID = localStorage.getItem('userID');
-// const storedSessionUserID = sessionStorage.getItem('userID');
+const storedLocalUserID = localStorage.getItem('userID');
+const storedSessionUserID = sessionStorage.getItem('userID');
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 const CLASS_dnone = document.querySelectorAll('.d-none');
@@ -25,10 +25,25 @@ const ID_dnonePersonCard = document.getElementById('dnonePersonCard');
 const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
 const ID_dnoneInfo = document.getElementById('dnoneInfo');
 
+let shortcutColors = [
+    '#ff822f',
+    '#ffffff',
+    '#d1d1d1',
+    '#2a3647',
+    '#2ba0d2',
+    '#a8a8a8',
+    '#CDCDCD'
+];
 let userID;
 let editContactId;
 let lastCart;
 let contacts;
+
+// [(!)-TEST] - Wird wieder entfernt!
+setInterval(() => { 
+    let randomNumber =  Math.floor(Math.random() * 7);
+    console.log('[LOG] randomNumber:', randomNumber, 'shortColor:', shortcutColors[randomNumber]);
+}, 4000);
 
 /**
  * Initialisiert die Kontakt-Karten.
@@ -60,7 +75,9 @@ async function loadContacts() {
         lodeUserId();
         const tempContacts = await lodeContactsCard(`users/${userID}/`);
         sortContacts(tempContacts);
-    } catch (err) { }
+    } catch (err) {
+        console.error('[ERROR] loadContacts:', err);
+    }
 }
 
 /**
@@ -72,13 +89,9 @@ async function loadContacts() {
  * @returns {void}
  */
 function lodeUserId() {
-    if (storedLocalUserID) {
-        userID = storedLocalUserID;
-    } else if (storedSessionUserID) {
-        userID = storedSessionUserID;
-    } else {
-        throw new Error('Es ist ein Problem aufgetreten!');
-    };
+    if (storedLocalUserID) return userID = storedLocalUserID;
+    if (storedSessionUserID) return userID = storedSessionUserID;
+    throw new Error('Es ist ein Problem aufgetreten!');
 }
 
 /**

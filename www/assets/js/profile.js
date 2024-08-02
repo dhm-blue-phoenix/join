@@ -1,5 +1,5 @@
-const storedLocalUserID = localStorage.getItem('userID');
-const storedSessionUserID = sessionStorage.getItem('userID');
+const storedLocalUserProfileId = localStorage.getItem('userID');
+const storedSessionUserProfileId = sessionStorage.getItem('userID');
 
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
@@ -22,9 +22,7 @@ async function showUserProfile() {
         const initials = extractInitials(username);
         ID_account.textContent = initials;
         ID_username && (ID_username.textContent = username);
-    } catch (err) {
-        console.error('Keine Benutzerdaten gefunden.', err);
-    }
+    } catch (err) {}
 }
 
 /**
@@ -36,8 +34,9 @@ async function showUserProfile() {
  * @returns {string|null} Die gespeicherte Benutzer-ID oder null, falls keine gefunden wurde.
  */
 function checkStored() {
-    if (storedLocalUserID !== null) return userID = storedLocalUserID;
-    if (storedSessionUserID !== null) return userID = storedSessionUserID;
+    if (storedLocalUserProfileId !== null) return userID = storedLocalUserProfileId;
+    if (storedSessionUserProfileId !== null) return userID = storedSessionUserProfileId;
+    throw new Error('Es ist ein Problem aufgetreten!');
 }
 
 /**
