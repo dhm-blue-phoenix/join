@@ -1,4 +1,4 @@
-// script.js
+console.clear();
 
 /**
  * Lädt den Inhalt von HTML-Dateien in Elemente, die das Attribut 'w3-include-html' enthalten.

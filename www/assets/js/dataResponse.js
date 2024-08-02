@@ -110,12 +110,13 @@ async function deletContactById(patch) {
 }
 
 /**
- * Löscht Daten von der Server-Seite.
- * ----------------------------------
+ * Löscht Daten aus der Firebase Realtime Database.
+ * ------------------------------------------------
+ * Diese Funktion sendet eine DELETE-Anfrage an die Datenbank, um die Ressource
+ * am angegebenen Pfad zu entfernen.
+ * ------------------------------------------------
  * @async
- * @param {string} patch - Der Pfad zu den Daten, die gelöscht werden sollen.
- * @throws {Error} Wenn die Anfrage fehlschlägt.
- * @returns {Promise<void>}
+ * @param {string} patch Der Pfad zur Ressource, die gelöscht werden soll.
  */
 async function deleteData(patch) {
     try {
@@ -126,6 +127,32 @@ async function deleteData(patch) {
             },
         });
         await checkAnswer(deleteResponse);
+    } catch (err) {
+        handleError(err);
+    }
+}
+
+/**
+ * Aktualisiert Daten in der Firebase Realtime Database.
+ * -----------------------------------------------------
+ * Diese Funktion sendet eine PUT-Anfrage an die Datenbank, um vorhandene Daten
+ * zu aktualisieren. Der angegebene Pfad und die Daten werden verwendet, um die
+ * Zielressource zu bestimmen und deren Inhalte zu überschreiben.
+ * -----------------------------------------------------
+ * @async
+ * @param {string} patch Der Pfad zur Ressource, die aktualisiert werden soll.
+ * @param {Object} data Ein Objekt mit den Daten, die die vorhandenen Inhalte überschreiben sollen.
+ */
+async function updateData(patch, data) {
+    try {
+        const updateResponse = await fetch(baseURL + patch + '.json', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        await checkAnswer(updateResponse);
     } catch (err) {
         handleError(err);
     }

@@ -45,9 +45,9 @@
             <form class="editpersoninput" onsubmit="editContact(event);">
               <input type="text" id="editPersionName" required>
               <input type="email" id="editPersionEmail" required>
-              <input type="number" id="esitPersionTel" required>
+              <input type="number" id="editPersionTel" required>
               <div class="bottombuttons">
-                <button class="deletebtn">Delete</button>
+                <button class="deletebtn" onclick="dnoneEditContact()">Delete</button>
                 <button class="savebtn"><img src="./resources/symbols/check.svg" alt="">Save</button>
               </div>
             </form>
@@ -75,7 +75,7 @@
               <input type="email" id="addPersionEmail" placeholder="Email" required>
               <input type="number" id="addPersionTel" placeholder="Phone" required>
               <div class="bottombuttons">
-                <button class="cancelbtn" onclick="addClass('addcontactpopup')">Cancel  &#128473</button>
+                <button class="cancelbtn" onclick="dnoneAddContact()">Cancel  &#128473</button>
                 <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create contact</button>
               </div>
             </form>

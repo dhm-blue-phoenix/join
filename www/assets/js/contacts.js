@@ -19,13 +19,14 @@ const ID_addPersionTel = document.getElementById('addPersionTel');
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_editPersionName = document.getElementById('editPersionName');
 const ID_editPersionEmail = document.getElementById('editPersionEmail');
-const ID_editPersionTel = document.getElementById('esitPersionTel');
+const ID_editPersionTel = document.getElementById('editPersionTel');
 
 const ID_dnonePersonCard = document.getElementById('dnonePersonCard');
 const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
 const ID_dnoneInfo = document.getElementById('dnoneInfo');
 
 let userID;
+let editContactId;
 let lastCart;
 let contacts;
 
@@ -137,7 +138,7 @@ function renderCards() {
  * @returns {string} Die HTML-Karte als String.
  */
 function htmlCard(key, id, name, email, tel) {
-    card = `
+    const card = `
         <div class="card" id="${key.toLowerCase() + id}" onclick="openContact('${key.toLowerCase() + id}', '${name}', '${email}', '${tel}')">
             <div id="nameShortcut" style="background-color: rgb(255, 112, 16)">${name.split(' ').map(namePart => namePart[0]).join('').toUpperCase()}</div>
             <div class="namemail">
@@ -172,7 +173,7 @@ function openContact(cardId, personName, personEmail, personTel) {
  * Diese Funktion wird verwendet, um die Kontaktdaten
  * in der Benutzeroberfläche anzuzeigen.
  * ---------------------------------------
- * func extractInitials() - findet man in der extractInitials.js
+ * func extractInitials() - findet man in der dataResponse.js
  * ---------------------------------------
  * @param {string} name Der Name des Kontakts.
  * @param {string} email Die E-Mail-Adresse des Kontakts.
@@ -199,7 +200,7 @@ function renderPerson(name, email, tel) {
  */
 function HtmlPersonOptions(email) {
     const html = `
-        <button onclick="removeClass('editcontactpopup')">
+        <button onclick="openEditPopup('${email}')">
           <img src="./resources/symbols/edit.png" alt=""/> Edit
         </button>
         <button onclick="delContact('${email}')">
@@ -227,8 +228,8 @@ function removeLastCart(card) {
 /**
  * Löscht den Kontakt mit der angegebenen E-Mail-Adresse.
  * ------------------------------------------------------
- * func loadContactsId() - findet man in der extractInitials.js
- * func deletContactById() - findet man in der extractInitials.js
+ * func loadContactsId() - findet man in der dataResponse.js
+ * func deletContactById() - findet man in der dataResponse.js
  * ------------------------------------------------------
  * @async
  * @param {string} email Die E-Mail-Adresse des Kontakts.
@@ -261,7 +262,7 @@ function dnonePersionCard() {
  * Sie überprüft, ob der Kontakt bereits in der Kontaktliste existiert,
  * und fügt ihn hinzu, wenn er nicht existiert.
  * -------------------------------
- * func lodeContactsCard() - findet man in der extractInitials.js
+ * func lodeContactsCard() - findet man in der dataResponse.js
  * -------------------------------
  * @async
  * @param {Event} event - Das Ereignis, das durch das Absenden des Formulars ausgelöst wird.
@@ -276,6 +277,7 @@ async function addContact(event) {
             await uploadPatchData(`users/${userID}/contacts/`, formData);
             console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
         } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
+        addClass('addcontactpopup');
         dnoneAddContact();
     } catch (err) {
         console.error('Beim Hochladen des Contacts ist etwas Fehlgeschlagen!', err);
@@ -306,15 +308,86 @@ function lodeFormData(name, email, tel) {
  * Sie versteckt das Popup-Fenster und setzt die Werte der Eingabefelder zurück.
  */
 function dnoneAddContact() {
-    document.getElementById('addcontactpopup').classList.add('d-nonepopup');
-    ID_addPersionName.value = '',
-    ID_addPersionEmail.value = '',
+    ID_addPersionName.value = '';
+    ID_addPersionEmail.value = '';
     ID_addPersionTel.value = ''
 }
 
-async function editContact(event, ) {
+/**
+ * Öffnet ein Bearbeitungspopup für einen Kontakt basierend auf der E-Mail-Adresse.
+ * --------------------------------------------------------------------------------
+ * Diese Funktion entfernt die CSS-Klasse, die das Bearbeitungspopup versteckt,
+ * lädt die Kontakt-ID basierend auf der E-Mail-Adresse und füllt das Formular
+ * mit den vorhandenen Kontaktdaten.
+ * --------------------------------------------------------------------------------
+ * @async
+ * @param {string} email Die E-Mail-Adresse des Kontakts, der bearbeitet werden soll.
+ */
+async function openEditPopup(email) {
+    try {
+        removeClass('editcontactpopup');
+        const contactId = await loadContactsId(`users/${userID}/`, email);
+        importFromEditFormData(contactId[1]);
+        editContactId = contactId[0];
+    } catch (err) { }
+}
+
+/**
+ * Importiert die Kontaktdaten in das Bearbeitungsformular.
+ * --------------------------------------------------------
+ * Diese Funktion aktualisiert die Felder des Bearbeitungsformulars
+ * mit den übergebenen Kontaktdaten.
+ * --------------------------------------------------------
+ * func extractInitials() - findet man in der extractInitials.js
+ * --------------------------------------------------------
+ * @param {Object} contactData Ein Objekt mit den Kontaktdaten.
+ * @param {string} contactData.name Der Name des Kontakts.
+ * @param {string} contactData.email Die E-Mail-Adresse des Kontakts.
+ * @param {string} contactData.tel Die Telefonnummer des Kontakts.
+ */
+function importFromEditFormData(contactData) {
+    ID_editPersionShortcut.textContent = extractInitials(contactData.name);
+    ID_editPersionName.value = contactData.name;
+    ID_editPersionEmail.value = contactData.email;
+    ID_editPersionTel.value = contactData.tel
+}
+
+/**
+ * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.
+ * -----------------------------------------------------------------
+ * Diese Funktion wird ausgelöst, wenn das Bearbeitungsformular abgeschickt wird.
+ * Sie lädt die neuen Formulardaten, aktualisiert den Kontakt in der Datenbank
+ * und initialisiert die Kontaktkarte neu.
+ * -----------------------------------------------------------------
+ * func updateData() - findet man in der dataResponse.js
+ * -----------------------------------------------------------------
+ * @async
+ * @param {Event} event Das Event-Objekt, das durch das Abschicken des Formulars ausgelöst wird.
+ */
+async function editContact(event,) {
     event.preventDefault();
-    // const contactId = await loadContactsId(`users/${userID}/`, email);
-    // const formData = lodeFormData(ID_editPersionName.value, ID_addPersionEmail.value, ID_addPersionTel.value);
-    console.warn('[LOG-01] Open Function:', contactId);
+    try {
+        const formData = lodeFormData(ID_editPersionName.value, ID_editPersionEmail.value, ID_editPersionTel.value);
+        await updateData(`users/${userID}/contacts/${editContactId}`, formData);
+        initCard();
+        addClass('editcontactpopup');
+        dnoneEditContact();
+        dnonePersionCard();
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+/**
+ * Schließt das Bearbeitungspopup für einen Kontakt und leert die Eingabefelder.
+ * ----------------------------------------------------------------------------
+ * Diese Funktion wird aufgerufen, um das Bearbeitungspopup zu verstecken, nachdem
+ * der Benutzer die Bearbeitung eines Kontakts abgeschlossen hat oder abbricht.
+ * Sie setzt alle Eingabefelder im Popup zurück.
+ */
+function dnoneEditContact() {
+    ID_editPersionShortcut.value = '';
+    ID_editPersionName.value = '';
+    ID_editPersionEmail.value = '';
+    ID_editPersionTel.value = ''
 }
