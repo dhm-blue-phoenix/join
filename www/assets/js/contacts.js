@@ -1,5 +1,5 @@
-const storedLocalUserID = localStorage.getItem('userID');
-const storedSessionUserID = sessionStorage.getItem('userID');
+// const storedLocalUserID = localStorage.getItem('userID');
+// const storedSessionUserID = sessionStorage.getItem('userID');
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 const CLASS_dnone = document.querySelectorAll('.d-none');

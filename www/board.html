@@ -1,164 +1,156 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <title>Join</title>
-    <link
-      rel="shortcut icon"
-      href="./resources/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="apple-touch-icon" href="./resources/favicon.png" />
 
-    <!-- Meta-Tags -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <title>Join</title>
+  <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="./resources/favicon.png" />
 
-    <!-- CSS-Style -->
-    <link rel="stylesheet" href="./assets/css/main.css" />
+  <!-- Meta-Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- JS-Script -->
-    <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/draganddrop.js" defer></script>
-  </head>
-  <body onload="includeHTML()">
-    <!-- Navigations Leiste -->
-    <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
+  <!-- CSS-Style -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
 
-    <!-- AddtaskPopup-Window -->
-    <div id="addtaskpopup" class="bigcontainer d-nonepopup">
-      <div class="smallcontainer">
-        <div w3-include-html="./components/addTaskboard.html"></div>
+  <!-- JS-Script -->
+  <script src="./assets/js/script.js" defer></script>
+  <script src="./assets/js/profile.js" defer></script>
+  <script src="./assets/js/extractInitials.js" defer></script>
+  <script src="./assets/js/dataResponse.js" defer></script>
+  <script src="./assets/js/draganddrop.js" defer></script>
+</head>
+
+<body onload="includeHTML(); showUserProfile();">
+  <!-- Navigations Leiste -->
+  <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
+
+  <!-- AddtaskPopup-Window -->
+  <div id="addtaskpopup" class="bigcontainer d-nonepopup">
+    <div class="smallcontainer">
+      <div w3-include-html="./components/addTaskboard.html"></div>
+    </div>
+  </div>
+  <!-- AddtaskPopup-Window Ende -->
+
+  <!-- TaskcardPopup-Window -->
+  <div id="taskCardpopup" class="bigcontainer d-nonepopup">
+    <div class="smallcontainer">
+      <div w3-include-html="./components/taskcard.html"></div>
+    </div>
+  </div>
+  <!-- TaskcardPopup-Window Ende -->
+
+  <!-- Titel -->
+  <header>
+    <h1>Kanban Project Management Tool</h1>
+    <div>
+      <img src="./resources/symbols/help.png" alt="help" />
+      <div class="account-container" id="account">GU</div>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="./help.html">Help</a>
+        <a href="./legalNotice.html">Legal Notice</a>
+        <a href="./privacyPolicy.html">Privacy Policy</a>
+        <a href="./index.html">Log out</a>
       </div>
     </div>
-    <!-- AddtaskPopup-Window Ende -->
+  </header>
 
-    <!-- TaskcardPopup-Window -->
-    <div id="taskCardpopup" class="bigcontainer d-nonepopup">
-      <div class="smallcontainer">
-        <div w3-include-html="./components/taskcard.html"></div>
-      </div>
-    </div>
-    <!-- TaskcardPopup-Window Ende -->
-
-    <!-- Titel -->
-    <header>
-      <h1>Kanban Project Management Tool</h1>
+  <!-- Haupteil -->
+  <main class="boardmain">
+    <div class="BoardTop">
       <div>
-        <img src="./resources/symbols/help.png" alt="help" />
-        <div class="account-container" id="account">GU</div>
-        <div class="dropdown-content" id="dropdownContent">
-          <a href="./help.html">Help</a>
-          <a href="./legalNotice.html">Legal Notice</a>
-          <a href="./privacyPolicy.html">Privacy Policy</a>
-          <a href="./index.html">Log out</a>
-        </div>
+        <h1>Board</h1>
+        <button class="hidethisaddbutton" onclick="removeClass('addtaskpopup')">
+          <img src="./resources/symbols/add.png" alt="" />
+        </button>
       </div>
-    </header>
-
-    <!-- Haupteil -->
-    <main class="boardmain">
-      <div class="BoardTop">
-          <div>
-            <h1>Board</h1>
-            <button class="hidethisaddbutton" onclick="removeClass('addtaskpopup')">
-              <img src="./resources/symbols/add.png" alt="" />
-            </button>
-          </div>
-          <div>
-            <input id="boardSearch" type="search" placeholder="Find Task" />
-            <button class="hidethisbutton" onclick="removeClass('addtaskpopup')">
-              Add task <img src="./resources/symbols/add.png" alt="" />
-            </button>
-          </div>
-        </div>
+      <div>
+        <input id="boardSearch" type="search" placeholder="Find Task" />
+        <button class="hidethisbutton" onclick="removeClass('addtaskpopup')">
+          Add task <img src="./resources/symbols/add.png" alt="" />
+        </button>
       </div>
+    </div>
+    </div>
 
-      <div class="board">
-        <div class="taskBoard">
-          <div class="task">
-            <div class="taskheadline">
-              <h3>To do</h3>
-              <button onclick="removeClass('addtaskpopup')">+</button>
+    <div class="board">
+      <div class="taskBoard">
+        <div class="task">
+          <div class="taskheadline">
+            <h3>To do</h3>
+            <button onclick="removeClass('addtaskpopup')">+</button>
+          </div>
+          <div id="taskToDo" class="taskList">
+            <div id="tasktnotfounddrag" class="tasktnotfound">
+              <p>No task To do</p>
             </div>
-            <div id="taskToDo" class="taskList">
-              <div id="tasktnotfounddrag" class="tasktnotfound">
-                <p>No task To do</p>
+          </div>
+        </div>
+
+        <div class="task">
+          <div class="taskheadline">
+            <h3>In progress</h3>
+            <button onclick="removeClass('addtaskpopup')">+</button>
+          </div>
+          <div id="taskInProgress" class="taskList">
+            <!-- Taskcard -->
+            <div id="taskcardtoDrop" class="taskcard" draggable="true" onclick="removeClass('taskCardpopup')">
+              <p class="taskcardtitle">User Story</p>
+              <div class="teskdescription">
+                <h3>Kochwelt Page & Recipe Recommender</h3>
+                <p>Build start page with recipe recommendation...</p>
               </div>
-            </div>
-          </div>
-
-          <div class="task">
-            <div class="taskheadline">
-              <h3>In progress</h3>
-              <button onclick="removeClass('addtaskpopup')">+</button>
-            </div>
-            <div id="taskInProgress"  class="taskList">
-              <!-- Taskcard -->
-              <div id="taskcardtoDrop" class="taskcard" draggable="true" onclick="removeClass('taskCardpopup')">
-                <p class="taskcardtitle">User Story</p>
-                <div class="teskdescription">
-                  <h3>Kochwelt Page & Recipe Recommender</h3>
-                  <p>Build start page with recipe recommendation...</p>
-                </div>
-                <div class="taskprogress">
-                  <img
-                    style="height: 8px"
-                    src="./resources/symbols/Progressbar.png"
-                    alt=""
-                  />
-                  1/2 Subtasks
-                </div>
-                <div class="taskPersons">
-                  <div class="nameShortcutContent">
-                    <div id="nameShortcut" style="background-color: #ff68dc">
-                      DE
-                    </div>
-                    <div
-                      id="nameShortcut"
-                      style="margin-left: -10px; background-color: #ff822f"
-                    >
-                      AM
-                    </div>
-                    <div
-                      id="nameShortcut"
-                      style="margin-left: -10px; background-color: #19e030"
-                    >
-                      BZ
-                    </div>
+              <div class="taskprogress">
+                <img style="height: 8px" src="./resources/symbols/Progressbar.png" alt="" />
+                1/2 Subtasks
+              </div>
+              <div class="taskPersons">
+                <div class="nameShortcutContent">
+                  <div id="nameShortcut" style="background-color: #ff68dc">
+                    DE
+                  </div>
+                  <div id="nameShortcut" style="margin-left: -10px; background-color: #ff822f">
+                    AM
+                  </div>
+                  <div id="nameShortcut" style="margin-left: -10px; background-color: #19e030">
+                    BZ
                   </div>
                 </div>
               </div>
-              <!-- Taskcard Ende -->
-              <div id="tasktnotfounddrag" class="tasktnotfound">
-                <p>No task To do</p>
-              </div>
+            </div>
+            <!-- Taskcard Ende -->
+            <div id="tasktnotfounddrag" class="tasktnotfound">
+              <p>No task To do</p>
             </div>
           </div>
+        </div>
 
-          <div class="task">
-            <div class="taskheadline">
-              <h3>Await feedback</h3>
-              <button onclick="removeClass('addtaskpopup')">+</button>
-            </div>
-            <div id="taskAwaitFeedback" class="taskList">
-              <div id="tasktnotfounddrag" class="tasktnotfound">
-                <p>No task To do</p>
-              </div>
+        <div class="task">
+          <div class="taskheadline">
+            <h3>Await feedback</h3>
+            <button onclick="removeClass('addtaskpopup')">+</button>
+          </div>
+          <div id="taskAwaitFeedback" class="taskList">
+            <div id="tasktnotfounddrag" class="tasktnotfound">
+              <p>No task To do</p>
             </div>
           </div>
+        </div>
 
-          <div class="task">
-            <div class="taskheadline">
-              <h3>Done</h3>
-            </div>
-            <div id="taskDone" class="taskList">
-              <div id="tasktnotfounddrag" class="tasktnotfound">
-                <p>No task To do</p>
-              </div>
+        <div class="task">
+          <div class="taskheadline">
+            <h3>Done</h3>
+          </div>
+          <div id="taskDone" class="taskList">
+            <div id="tasktnotfounddrag" class="tasktnotfound">
+              <p>No task To do</p>
             </div>
           </div>
         </div>
       </div>
-    </main>
-  </body>
+    </div>
+  </main>
+</body>
+
 </html>

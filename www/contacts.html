@@ -1,149 +1,149 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <title>Join</title>
-    <link
-      rel="shortcut icon"
-      href="./resources/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="apple-touch-icon" href="./resources/favicon.png" />
 
-    <!-- Meta-Tags -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <title>Join</title>
+  <link rel="shortcut icon" href="./resources/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="./resources/favicon.png" />
 
-    <!-- CSS-Style -->
-    <link rel="stylesheet" href="./assets/css/main.css" />
+  <!-- Meta-Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- JS-Script -->
-    <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/contacts.js" defer></script>
-    <script src="./assets/js/dataResponse.js" defer></script>
-    <script src="./assets/js/extractInitials.js" defer></script>
-  </head>
+  <!-- CSS-Style -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
 
-  <body onload="includeHTML(); initCard();">
-    <!-- Navigations Leiste -->
-    <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
+  <!-- JS-Script -->
+  <script src="./assets/js/script.js" defer></script>
+  <script src="./assets/js/profile.js" defer></script>
+  <script src="./assets/js/extractInitials.js" defer></script>
+  <script src="./assets/js/dataResponse.js" defer></script>
+  <script src="./assets/js/contacts.js" defer></script>
+</head>
 
-    <!-- Editcontact-Window -->
-    <div id="editcontactpopup" class="bigcontainer d-nonepopup">
-      <div class="editcontactpopupcontent">
-        <div class="editcontactpopupleftside">
-          <img src="./resources/logo.svg" alt="" />
-          <h1>Edit contact</h1>
-          <div class="blueline"></div>
-        </div>
+<body onload="includeHTML(); initCard(); showUserProfile();">
+  <!-- Navigations Leiste -->
+  <nav class="navBar" w3-include-html="./components/navBar.html"></nav>
 
-        <div class="editcontactpopuprightside">
-          <button class="closeeditcontactpopup" onclick="addClass('editcontactpopup')">
-            &#x2A2F;
-          </button>
+  <!-- Editcontact-Window -->
+  <div id="editcontactpopup" class="bigcontainer d-nonepopup">
+    <div class="editcontactpopupcontent">
+      <div class="editcontactpopupleftside">
+        <img src="./resources/logo.svg" alt="" />
+        <h1>Edit contact</h1>
+        <div class="blueline"></div>
+      </div>
 
-            <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut">SM</div>
-            <form class="editpersoninput" onsubmit="editContact(event);">
-              <input type="text" id="editPersionName" required>
-              <input type="email" id="editPersionEmail" required>
-              <input type="number" id="editPersionTel" required>
-              <div class="bottombuttons">
-                <button class="deletebtn" onclick="dnoneEditContact()">Delete</button>
-                <button class="savebtn"><img src="./resources/symbols/check.svg" alt="">Save</button>
-              </div>
-            </form>
+      <div class="editcontactpopuprightside">
+        <button class="closeeditcontactpopup" onclick="addClass('editcontactpopup')">
+          &#x2A2F;
+        </button>
 
-        </div>
+        <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut">SM</div>
+        <form class="editpersoninput" onsubmit="editContact(event);">
+          <input type="text" id="editPersionName" required>
+          <input type="email" id="editPersionEmail" required>
+          <input type="number" id="editPersionTel" required>
+          <div class="bottombuttons">
+            <button class="deletebtn" onclick="dnoneEditContact()">Delete</button>
+            <button class="savebtn"><img src="./resources/symbols/check.svg" alt="">Save</button>
+          </div>
+        </form>
+
       </div>
     </div>
-    <!-- AddtaskPopup-Window -->
-    <div id="addcontactpopup" class="bigcontainer d-nonepopup">
-      <div class="addcontactpopupcontent">
-        <div class="addcontactpopupleftside">
-          <img src="./resources/logo.svg" alt="" />
-          <h1>Add contact</h1>
-          <p>Tasks are better with a team!</p>
-          <div class="blueline"></div>
-        </div>
+  </div>
+  <!-- AddtaskPopup-Window -->
+  <div id="addcontactpopup" class="bigcontainer d-nonepopup">
+    <div class="addcontactpopupcontent">
+      <div class="addcontactpopupleftside">
+        <img src="./resources/logo.svg" alt="" />
+        <h1>Add contact</h1>
+        <p>Tasks are better with a team!</p>
+        <div class="blueline"></div>
+      </div>
 
-        <div class="addcontactpopuprightside">
-          <button class="closeaddcontactpopup" onclick="addClass('addcontactpopup')">
-            &#x2A2F;
-          </button>
-            <img class="usericon" src="./resources/symbols/usericon.png" alt="">
-            <form class="addpersoninput" onsubmit="addContact(event);">
-              <input type="text" id="addPersionName" placeholder="Name" required>
-              <input type="email" id="addPersionEmail" placeholder="Email" required>
-              <input type="number" id="addPersionTel" placeholder="Phone" required>
-              <div class="bottombuttons">
-                <button class="cancelbtn" onclick="dnoneAddContact()">Cancel  &#128473</button>
-                <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create contact</button>
-              </div>
-            </form>
+      <div class="addcontactpopuprightside">
+        <button class="closeaddcontactpopup" onclick="addClass('addcontactpopup')">
+          &#x2A2F;
+        </button>
+        <img class="usericon" src="./resources/symbols/usericon.png" alt="">
+        <form class="addpersoninput" onsubmit="addContact(event);">
+          <input type="text" id="addPersionName" placeholder="Name" required>
+          <input type="email" id="addPersionEmail" placeholder="Email" required>
+          <input type="number" id="addPersionTel" placeholder="Phone" required>
+          <div class="bottombuttons">
+            <button class="cancelbtn" onclick="dnoneAddContact()">Cancel &#128473</button>
+            <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create
+              contact</button>
+          </div>
+        </form>
 
-        </div>
       </div>
     </div>
-    <!-- AddtaskPopup-Window Ende -->
+  </div>
+  <!-- AddtaskPopup-Window Ende -->
 
-    <!-- Titel -->
-    <header>
-      <h1>Kanban Project Management Tool</h1>
-      <div>
-        <img src="./resources/symbols/help.png" alt="help" />
-        <div class="account-container" id="account">GU</div>
-        <div class="dropdown-content" id="dropdownContent">
-          <a href="./help.html">Help</a>
-          <a href="./legalNotice.html">Legal Notice</a>
-          <a href="./privacyPolicy.html">Privacy Policy</a>
-          <a href="./index.html">Log out</a>
-        </div>
+  <!-- Titel -->
+  <header>
+    <h1>Kanban Project Management Tool</h1>
+    <div>
+      <img src="./resources/symbols/help.png" alt="help" />
+      <div class="account-container" id="account">GU</div>
+      <div class="dropdown-content" id="dropdownContent">
+        <a href="./help.html">Help</a>
+        <a href="./legalNotice.html">Legal Notice</a>
+        <a href="./privacyPolicy.html">Privacy Policy</a>
+        <a href="./index.html">Log out</a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Haupteil -->
-    <main class="contactsmain">
-      <div class="contacts">
-        <div class="showContacts">
-          <div class="addNewContactheader">
-            <button class="addNewContact" onclick="removeClass('addcontactpopup')">
-              <p>Add new contact</p>
-              <img src="./resources/symbols/person_add.svg" alt="" />
-            </button>
-          </div>
-          <div class="Contactcards">No List</div>
+  <!-- Haupteil -->
+  <main class="contactsmain">
+    <div class="contacts">
+      <div class="showContacts">
+        <div class="addNewContactheader">
+          <button class="addNewContact" onclick="removeClass('addcontactpopup')">
+            <p>Add new contact</p>
+            <img src="./resources/symbols/person_add.svg" alt="" />
+          </button>
+        </div>
+        <div class="Contactcards">No List</div>
+      </div>
+
+      <div class="showContactcard">
+        <div class="personTitle">
+          <h2>Contacts</h2>
+          <div class="showContactcardTrennline"></div>
+          <p>Better with a team</p>
         </div>
 
-        <div class="showContactcard">
-          <div class="personTitle">
-            <h2>Contacts</h2>
-            <div class="showContactcardTrennline"></div>
-            <p>Better with a team</p>
-          </div>
+        <div class="personCard d-none" id="dnonePersonCard">
+          <div class="personShortcut" id="personShortcut"></div>
+          <div class="personName">
+            <p id="personName"></p>
+            <div class="personInfo" id="personOptions">
+              <button onclick="removeClass('addcontactpopup')">
+                <img src="./resources/symbols/edit.png" alt="" /> Edit
+              </button>
 
-          <div class="personCard d-none" id="dnonePersonCard">
-            <div class="personShortcut" id="personShortcut"></div>
-            <div class="personName">
-              <p id="personName"></p>
-              <div class="personInfo" id="personOptions">
-                <button onclick="removeClass('addcontactpopup')">
-                  <img src="./resources/symbols/edit.png" alt="" /> Edit
-                </button>
-
-                <button>
-                  <img src="./resources/symbols/delete.svg" alt="" /> Delete
-                </button>
-              </div>
+              <button>
+                <img src="./resources/symbols/delete.svg" alt="" /> Delete
+              </button>
             </div>
           </div>
-          <h3 class="d-none" id="dnoneInfoHeadline">Contact Information</h3>
-          <div class="information d-none" id="dnoneInfo">
-            <h2>Email</h2>
-            <a href="#mail" id="personEmail"></a>
-            <h2>Phone</h2>
-            <p id="personTel"></p>
-          </div>
+        </div>
+        <h3 class="d-none" id="dnoneInfoHeadline">Contact Information</h3>
+        <div class="information d-none" id="dnoneInfo">
+          <h2>Email</h2>
+          <a href="#mail" id="personEmail"></a>
+          <h2>Phone</h2>
+          <p id="personTel"></p>
         </div>
       </div>
-    </main>
-  </body>
+    </div>
+  </main>
+</body>
+
 </html>

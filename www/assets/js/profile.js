@@ -21,7 +21,7 @@ async function showUserProfile() {
         const username = await loadUserName();
         const initials = extractInitials(username);
         ID_account.textContent = initials;
-        ID_username.textContent = username;
+        ID_username && (ID_username.textContent = username);
     } catch (err) {
         console.error('Keine Benutzerdaten gefunden.', err);
     }
