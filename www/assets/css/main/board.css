@@ -369,9 +369,10 @@
 
 @media (max-width: 770px) {
   .taskBoard {
-    width: 90%;
+    width: 95vw;
+    padding: 8px 0;
   }
   .BoardTop div {
-    width: 90%;
+    width: 95vw;
 }
 }

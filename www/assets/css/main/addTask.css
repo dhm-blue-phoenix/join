@@ -188,7 +188,7 @@
 
 .taskbuttoncreat {
   width: 183px;
-  height: 56px;
+  height: 57px;
   border: none;
   background-color: var(--back-color02);
   border-radius: 10px;
@@ -338,9 +338,26 @@
   background-color: var(--text-color06);
 }
 
+.footercontent{
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttonsformobile{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 @media (max-width: 1300px) {
+  .footercontent{
+    display: flex;
+  }
   .addtaskmain {
-    height: calc(100vh - 283px);
+    height: calc(100vh - 251px);
   }
 
   .layout button {
@@ -392,7 +409,7 @@
   }
 
   .taskmanagerContent {
-    width: 100%;
+    width: 70%;
     display: flex;
     gap: 8px;
     flex-direction: column;
@@ -458,8 +475,8 @@
   .taskbottom {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items:center;
     margin-top: auto;
     position: fixed;
     bottom: 80px;
@@ -509,8 +526,7 @@
 
   .buttonsformobile {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 12px;
   }
 
@@ -541,6 +557,9 @@
   .taskmangerHeader h2 {
     width: 90%;
   }
+  .taskmanagerContent {
+    width: 100%;
+}
 }
 
 @media (max-width: 500px) {

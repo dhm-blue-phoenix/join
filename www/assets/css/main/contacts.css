@@ -24,7 +24,7 @@ body {
   box-shadow: #00000062 0px 0px 10px 0px;
   flex-direction: column;
   height: calc(100vh - 96px);
-  padding-top: 152px;
+  /* padding-top: 152px; */
 }
 
 .showContactcard {
@@ -62,7 +62,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 32px;
+  /* margin-top: 32px; */
   /* box-shadow: #00000062 0px 2px 4px 0px;  */
 }
 
