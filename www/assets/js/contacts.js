@@ -39,12 +39,6 @@ let editContactId;
 let lastCart;
 let contacts;
 
-// [(!)-TEST] - Wird wieder entfernt!
-// setInterval(() => { 
-//     let randomNumber =  Math.floor(Math.random() * 7);
-//     console.log('[LOG] randomNumber:', randomNumber, 'shortColor:', shortcutColors[randomNumber]);
-// }, 4000);
-
 /**
  * Initialisiert die Kontakt-Karten.
  * ---------------------------------
@@ -133,7 +127,7 @@ function renderCards() {
         `;
         contacts[key].forEach((contact, cardId) => {
             const contactCard = document.createElement('div');
-            contactCard.innerHTML = htmlCard(key, cardId, contact.name, contact.email, contact.tel);
+            contactCard.innerHTML = htmlCard(key, cardId, contact.name, contact.email, contact.tel, contact.shortcutBackColor);
             carts.appendChild(contactCard);
         });
     });
@@ -150,10 +144,10 @@ function renderCards() {
  * @param {string} tel Die Telefonnummer des Kontakts.
  * @returns {string} Die HTML-Karte als String.
  */
-function htmlCard(key, id, name, email, tel) {
+function htmlCard(key, id, name, email, tel, shortcutBackColor) {
     const card = `
-        <div class="card" id="${key.toLowerCase() + id}" onclick="openContact('${key.toLowerCase() + id}', '${name}', '${email}', '${tel}')">
-            <div id="nameShortcut" style="background-color: rgb(255, 112, 16)">${name.split(' ').map(namePart => namePart[0]).join('').toUpperCase()}</div>
+        <div class="card" id="${key.toLowerCase() + id}" onclick="openContact('${key.toLowerCase() + id}', '${name}', '${email}', '${tel}', '${shortcutBackColor}')">
+            <div id="nameShortcut" style="background-color: ${shortcutBackColor}">${name.split(' ').map(namePart => namePart[0]).join('').toUpperCase()}</div>
             <div class="namemail">
             <p>${name}</p>
             <a href="#Mail">${email}</a>
@@ -170,13 +164,13 @@ function htmlCard(key, id, name, email, tel) {
  * @param {string} personTel Die Telefonnummer des Kontakts.
  * @returns {void}
  */
-function openContact(cardId, personName, personEmail, personTel) {
+function openContact(cardId, personName, personEmail, personTel, persionShortBackColor) {  
     const card = document.getElementById(cardId);
     CLASS_dnone.forEach(element => { element.classList.remove('d-none'); });
     card.classList.add('cardactive');
     card.classList.remove('card');
     card.style.pointerEvents = "none";
-    renderPerson(personName, personEmail, personTel);
+    renderPerson(personName, personEmail, personTel, persionShortBackColor);
     removeLastCart(card);
 }
 
@@ -191,11 +185,13 @@ function openContact(cardId, personName, personEmail, personTel) {
  * @param {string} name Der Name des Kontakts.
  * @param {string} email Die E-Mail-Adresse des Kontakts.
  * @param {string} tel Die Telefonnummer des Kontakts.
+ * @param {string} persionShortBackColor Die Hintergrundfahrbe des shortcuts
  * @returns {void}
  */
-function renderPerson(name, email, tel) {
+function renderPerson(name, email, tel, shortcutBackColor) {
     const initails = extractInitials(name);
     ID_personShortcut.textContent = initails;
+    ID_personShortcut.style.backgroundColor = shortcutBackColor;
     ID_personName.textContent = name;
     ID_personEmail.textContent = email;
     ID_personTel.textContent = tel;
@@ -249,10 +245,14 @@ function removeLastCart(card) {
  * @returns {Promise<void>}
  */
 async function delContact(email) {
-    const contactId = await loadContactsId(`users/${userID}/`, email);
-    await deletContactById(`users/${userID}/contacts/${contactId[0]}`);
-    await initCard();
-    dnonePersionCard();
+    try {
+        const contactId = await loadContactsId(`users/${userID}/`, email);
+        await deletContactById(`users/${userID}/contacts/${contactId[0]}`);
+        await initCard();
+        dnonePersionCard();
+    } catch (err) {
+        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+    }
 }
 
 /**
@@ -283,33 +283,43 @@ function dnonePersionCard() {
 async function addContact(event) {
     event.preventDefault();
     try {
-        const formData = lodeFormData(ID_addPersionName.value, ID_addPersionEmail.value, ID_addPersionTel.value);
+        const contactData = createFormData(ID_addPersionName.value, ID_addPersionEmail.value, ID_addPersionTel.value);
         const contactCards = await lodeContactsCard(`users/${userID}`);
-        const findContact = contactCards.find(contact => contact.email === formData.email);
+        const findContact = contactCards.find(contact => contact.email === contactData.email);
         if (findContact === undefined) {
-            await uploadPatchData(`users/${userID}/contacts/`, formData);
+            await uploadPatchData(`users/${userID}/contacts/`, contactData);
             console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
         } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
         addClass('addcontactpopup');
+        initCard();
         dnoneAddContact();
-    } catch (err) { }
+        dnonePersionCard();
+    } catch (err) {
+        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+    }
 }
 
 /**
- * Lädt die Formulardaten aus den Eingabefeldern.
- * ----------------------------------------------
+ * Erstellt ein Formulardaten-Objekt aus den Eingabefeldern.
+ * ---------------------------------------------------------
+ * Diese Funktion nimmt die Werte aus den Namens-, E-Mail- und Telefon-Eingabefeldern und erstellt
+ * ein Objekt, das diese Informationen zusammen mit einer zufälligen Hintergrundfarbe für das Kürzel enthält.
+ * Die Hintergrundfarbe wird zufällig aus einem vordefinierten Array von Farben ausgewählt.
+ * ---------------------------------------------------------
  * @param {string} name - Der Wert des Namens-Eingabefelds.
  * @param {string} email - Der Wert des E-Mail-Eingabefelds.
  * @param {string} tel - Der Wert des Telefon-Eingabefelds.
- * @returns {Object} Das Formulardaten-Objekt.
+ * @returns {Object} Das Formulardaten-Objekt mit den Feldern 'shortcutBackColor', 'name', 'email', und 'tel'.
  */
-function lodeFormData(name, email, tel) {
-    const formData = {
+function createFormData(name, email, tel) {
+    const randomNumber =  Math.floor(Math.random() * shortcutColors.length);
+    const contactData = {
+        'shortcutBackColor': shortcutColors[randomNumber],
         'name': name,
         'email': email,
         'tel': tel
     };
-    return formData;
+    return contactData;
 }
 
 /**
@@ -340,7 +350,9 @@ async function openEditPopup(email) {
         const contactId = await loadContactsId(`users/${userID}/`, email);
         importFromEditFormData(contactId[1]);
         editContactId = contactId[0];
-    } catch (err) { }
+    } catch (err) {
+        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+    }
 }
 
 /**
@@ -358,6 +370,7 @@ async function openEditPopup(email) {
  */
 function importFromEditFormData(contactData) {
     ID_editPersionShortcut.textContent = extractInitials(contactData.name);
+    ID_editPersionShortcut.style.backgroundColor = contactData.shortcutBackColor;
     ID_editPersionName.value = contactData.name;
     ID_editPersionEmail.value = contactData.email;
     ID_editPersionTel.value = contactData.tel
@@ -385,8 +398,25 @@ async function editContact(event,) {
         dnoneEditContact();
         dnonePersionCard();
     } catch (err) {
-        console.log(err);
+        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
     }
+}
+
+/**
+ * Lädt die Formulardaten aus den Eingabefeldern.
+ * ----------------------------------------------
+ * @param {string} name - Der Wert des Namens-Eingabefelds.
+ * @param {string} email - Der Wert des E-Mail-Eingabefelds.
+ * @param {string} tel - Der Wert des Telefon-Eingabefelds.
+ * @returns {Object} Das Formulardaten-Objekt.
+ */
+function lodeFormData(name, email, tel) {
+    const formData = {
+        'name': name,
+        'email': email,
+        'tel': tel
+    };
+    return formData;
 }
 
 /**

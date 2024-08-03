@@ -1,5 +1,3 @@
-console.clear();
-
 /**
  * Lädt den Inhalt von HTML-Dateien in Elemente, die das Attribut 'w3-include-html' enthalten.
  * Die Funktion durchläuft alle Elemente mit dem Attribut 'w3-include-html' und ersetzt deren
