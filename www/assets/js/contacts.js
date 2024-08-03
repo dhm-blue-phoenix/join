@@ -26,13 +26,13 @@ const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
 const ID_dnoneInfo = document.getElementById('dnoneInfo');
 
 let shortcutColors = [
-    '#ff822f',
-    '#ffffff',
-    '#d1d1d1',
-    '#2a3647',
-    '#2ba0d2',
-    '#a8a8a8',
-    '#CDCDCD'
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#FF33A1",
+    "#33FFF0",
+    "#FFB833",
+    "#8E33FF"
 ];
 let userID;
 let editContactId;
@@ -388,7 +388,7 @@ function importFromEditFormData(contactData) {
  * @async
  * @param {Event} event Das Event-Objekt, das durch das Abschicken des Formulars ausgelöst wird.
  */
-async function editContact(event,) {
+async function editContact(event) {
     event.preventDefault();
     try {
         const formData = lodeFormData(ID_editPersionName.value, ID_editPersionEmail.value, ID_editPersionTel.value);
@@ -411,7 +411,9 @@ async function editContact(event,) {
  * @returns {Object} Das Formulardaten-Objekt.
  */
 function lodeFormData(name, email, tel) {
+    const style = window.getComputedStyle(ID_editPersionShortcut);
     const formData = {
+        'shortcutBackColor': style.backgroundColor, 
         'name': name,
         'email': email,
         'tel': tel
