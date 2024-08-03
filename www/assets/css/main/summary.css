@@ -194,7 +194,6 @@ p {
 .urgent:hover {
   transform: scale(1.05) translate(0, 0);
   position: fixed;
-  z-index: 9999;
 }
 
 .tasksinboard:hover {
@@ -271,6 +270,11 @@ p {
   .urgent {
     position: unset;
     width: 100%;
+    z-index: 0;
+  }
+  .urgent:hover {
+    position: unset;
+    z-index: 0;
   }
   .tasksinboard,
   .tasksinprogress,
@@ -305,28 +309,28 @@ p {
   }
   .summarymaincontainer {
     margin-top: 32px;
-    width: 90%;
+    width: 90vw;
     height: 384px;
-    gap: 5%;
+    gap: 0;
   }
   .summarybtncontainer {
     width: 100%;
-    gap: 5%;
+    gap: 8px;
   }
   .todo,
   .done {
-    height: 110px;
+    height: 120px;
     gap: 10px;
     border-radius: 20px;
   }
   .urgent {
-    height: 110px;
+    height: 120px;
     gap: 5%;
   }
   .tasksinboard,
   .tasksinprogress,
   .awaitingfeedback {
-    height: 110px;
+    height: 120px;
   }
   .summarybtn img {
     width: 40px;
