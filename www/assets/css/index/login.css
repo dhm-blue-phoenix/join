@@ -281,9 +281,17 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 415px) {
   .logincontainer {
     width: 90vw !important;
   }
+  .loginheader {
+    padding: 8px 0 0 16px;
+  }
+  .maincontainer {
+    margin-top: 8px;
+  }
+  .signupcontainerheader {
+    bottom: 8vh;
+  }
 }
-

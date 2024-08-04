@@ -508,17 +508,26 @@
   .taskbuttoncreat {
     width: 183px;
     height: 56px;
-    font-size: 16px;
   }
 
   .taskbuttonclear {
     width: 110px;
     height: 57px;
-    font-size: 16px;
   }
 }
 
 @media (max-width: 770px) {
+  .taskbuttoncreat {
+    font-size: 18px;
+  }
+
+  .taskbuttonclear {
+    font-size: 18px;
+  }
+  .footercontent{
+    width: 99%;
+    font-size: 16px;
+  }
   .taskbottom {
     flex-direction: column;
     gap: 8px;
@@ -571,4 +580,10 @@
     font-size: 32px;
     font-weight: 700;
   }
+    .footercontent{
+      flex-direction: column;
+    }
+    .addtaskmain {
+      height: calc(100vh - 267px);
+    }
 }

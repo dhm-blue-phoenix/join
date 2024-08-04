@@ -127,6 +127,7 @@ function renderCards() {
         `;
         contacts[key].forEach((contact, cardId) => {
             const contactCard = document.createElement('div');
+            contactCard.classList.add('cardcontent');
             contactCard.innerHTML = htmlCard(key, cardId, contact.name, contact.email, contact.tel, contact.shortcutBackColor);
             carts.appendChild(contactCard);
         });
@@ -164,7 +165,7 @@ function htmlCard(key, id, name, email, tel, shortcutBackColor) {
  * @param {string} personTel Die Telefonnummer des Kontakts.
  * @returns {void}
  */
-function openContact(cardId, personName, personEmail, personTel, persionShortBackColor) {  
+function openContact(cardId, personName, personEmail, personTel, persionShortBackColor) {
     const card = document.getElementById(cardId);
     CLASS_dnone.forEach(element => { element.classList.remove('d-none'); });
     card.classList.add('cardactive');
@@ -312,7 +313,7 @@ async function addContact(event) {
  * @returns {Object} Das Formulardaten-Objekt mit den Feldern 'shortcutBackColor', 'name', 'email', und 'tel'.
  */
 function createFormData(name, email, tel) {
-    const randomNumber =  Math.floor(Math.random() * shortcutColors.length);
+    const randomNumber = Math.floor(Math.random() * shortcutColors.length);
     const contactData = {
         'shortcutBackColor': shortcutColors[randomNumber],
         'name': name,
@@ -413,7 +414,7 @@ async function editContact(event) {
 function lodeFormData(name, email, tel) {
     const style = window.getComputedStyle(ID_editPersionShortcut);
     const formData = {
-        'shortcutBackColor': style.backgroundColor, 
+        'shortcutBackColor': style.backgroundColor,
         'name': name,
         'email': email,
         'tel': tel

@@ -590,6 +590,14 @@ body {
 }
 
 @media (max-width: 1300px) {
+  .cardcontent{
+    width: 352px;
+  }
+  .card {
+    width: 100%;
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
   .creatbtn {
     width: 202px;
     height: 51px;
@@ -757,7 +765,7 @@ body {
 
   .showContacts {
     width: 100%;
-    height: calc(100vh - 175px);
+    height: calc(100vh - 178px);
     justify-content: flex-start;
     padding-top: 16px;
     /* overflow: hidden; */
@@ -765,7 +773,7 @@ body {
   }
 
   .Contactcards {
-    /* width: 70%; */
+    width: 80vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -784,11 +792,6 @@ body {
 
   .ContactcardsTrennline {
     display: none;
-  }
-
-  .card {
-    width: 100%;
-    margin-bottom: 0;
   }
 
   .cardactive {
@@ -818,8 +821,16 @@ body {
   .addcontactpopupleftside img {
     display: none;
   }
+  .addNewContactheader {
+    height: auto;
+  }
 }
 
+@media (max-width: 600px) {
+  .cardcontent {
+    width: 95% !important;
+}
+}
 @media (max-width: 420px) {
   .addpersoninput {
     width: 92%;
