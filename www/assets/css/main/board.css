@@ -140,7 +140,7 @@
 
 .taskcard {
   width: 246px;
-  height: 263px;
+  height: auto;
   border-radius: 24px;
   background-color: var(--back-color04);
   display: flex;
@@ -259,7 +259,27 @@
 
 @media (max-width: 1300px) {
   .boardmain {
+    margin: 32px 64px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .taskcard {
+    cursor: default;
+  }
+
+  .taskcard:hover {
+    box-shadow: #78787862 0px 0px 5px 0px;
+    transform: scale(1.00);
+    /* Scale and rotate slightly on hover */
+  }
+
+  .taskcard[draggable="true"] {
+    cursor: default;
+  }
+  .boardmain {
     height: calc(100vh - 176px);
+    margin: 0 !important;
   }
 
   .board {
@@ -361,12 +381,21 @@
   }
 
   .taskList {
+    width: 100%;
+    height: auto;
+    max-height: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 8px;
+    overflow: auto;
+    overflow-y: hidden;
+    padding: 16px;
+  }
+  .taskList.drag-over {
     height: auto;
+    border: 1px dashed var(--back-color07);
   }
 }
 
@@ -377,12 +406,49 @@
   }
   .BoardTop div {
     width: 95vw;
+  }
 }
-}
-.showthiswidht{
+.showthiswidht {
   width: auto !important;
 }
 
-.boardmobile{
+.boardmobile {
   width: auto !important;
+}
+.taskbottommobile {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .taskbottommobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    gap: 8px;
+  }
+
+  #taskCategorySelect {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  #moveTaskButton {
+    padding: 8px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #moveTaskButton:hover {
+    background-color: #0056b3;
+  }
+  .taskcard {
+    gap: 8px;
+  }
 }
