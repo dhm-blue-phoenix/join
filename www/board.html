@@ -19,6 +19,34 @@
   <script src="./assets/js/extractInitials.js" defer></script>
   <script src="./assets/js/dataResponse.js" defer></script>
   <script src="./assets/js/draganddrop.js" defer></script>
+  <script>
+    function showTaskCardPopup() {
+      document.getElementById('taskCardpopup').classList.remove('d-nonepopup');
+      document.getElementById('TaskcardPopupanimation').classList.remove('hide');
+      document.getElementById('TaskcardPopupanimation').classList.add('show');
+    }
+    
+    function hideTaskCardPopup() {
+      document.getElementById('TaskcardPopupanimation').classList.remove('show');
+      document.getElementById('TaskcardPopupanimation').classList.add('hide');
+      setTimeout(function() {
+        document.getElementById('taskCardpopup').classList.add('d-nonepopup');
+      }, 200); // wait for the animation to finish before adding d-nonepopup
+    }
+    function showaddTaskCardPopup() {
+      document.getElementById('addtaskpopup').classList.remove('d-nonepopup');
+      document.getElementById('addTaskcardPopupanimation').classList.remove('hide');
+      document.getElementById('addTaskcardPopupanimation').classList.add('show');
+    }
+    
+    function hideaddTaskCardPopup() {
+      document.getElementById('addTaskcardPopupanimation').classList.remove('show');
+      document.getElementById('addTaskcardPopupanimation').classList.add('hide');
+      setTimeout(function() {
+        document.getElementById('addtaskpopup').classList.add('d-nonepopup');
+      }, 200); // wait for the animation to finish before adding d-nonepopup
+    }
+    </script> 
 </head>
 
 <body onload="includeHTML(); showUserProfile();">
@@ -27,7 +55,7 @@
 
   <!-- AddtaskPopup-Window -->
   <div id="addtaskpopup" class="bigcontainer d-nonepopup">
-    <div class="smallcontainer showthiswidht mobile">
+    <div id="addTaskcardPopupanimation" class="smallcontainer showthiswidht mobile">
       <div w3-include-html="./components/addTaskboard.html"></div>
     </div>
   </div>
@@ -35,7 +63,7 @@
 
   <!-- TaskcardPopup-Window -->
   <div id="taskCardpopup" class="bigcontainer d-nonepopup">
-    <div class="smallcontainer">
+    <div id="TaskcardPopupanimation" class="smallcontainer">
       <div w3-include-html="./components/taskcard.html"></div>
     </div>
   </div>
@@ -61,13 +89,13 @@
     <div class="BoardTop">
       <div>
         <h1>Board</h1>
-        <button class="hidethisaddbutton" onclick="removeClass('addtaskpopup')">
+        <button class="hidethisaddbutton" onclick="showaddTaskCardPopup()">
           <img src="./resources/symbols/add.png" alt="" />
         </button>
       </div>
       <div>
         <input id="boardSearch" type="text" placeholder="Find Task" />
-        <button class="hidethisbutton" onclick="removeClass('addtaskpopup')">
+        <button class="hidethisbutton" onclick="showaddTaskCardPopup()">
           Add task <img src="./resources/symbols/add.png" alt="" />
         </button>
       </div>
@@ -79,7 +107,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>To do</h3>
-            <button onclick="removeClass('addtaskpopup')">+</button>
+            <button onclick="showaddTaskCardPopup()">+</button>
           </div>
           <div id="taskToDo" class="taskList">
             <div id="tasktnotfounddrag" class="tasktnotfound">
@@ -91,11 +119,11 @@
         <div class="task">
           <div class="taskheadline">
             <h3>In progress</h3>
-            <button onclick="removeClass('addtaskpopup')">+</button>
+            <button onclick="showaddTaskCardPopup()">+</button>
           </div>
           <div id="taskInProgress" class="taskList">
             <!-- Taskcard -->
-<div id="taskcardtoDrop" class="taskcard" draggable="true" onclick="removeClass('taskCardpopup')">
+<div id="taskcardtoDrop" class="taskcard" draggable="true" onclick="showTaskCardPopup()">
   <p class="taskcardtitle">User Story</p>
   <div class="teskdescription">
     <h3>Kochwelt Page & Recipe Recommender</h3>
@@ -134,7 +162,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>Await feedback</h3>
-            <button onclick="removeClass('addtaskpopup')">+</button>
+            <button onclick="showaddTaskCardPopup()">+</button>
           </div>
           <div id="taskAwaitFeedback" class="taskList">
             <div id="tasktnotfounddrag" class="tasktnotfound">
@@ -146,6 +174,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>Done</h3>
+            <button onclick="showaddTaskCardPopup()">+</button>
           </div>
           <div id="taskDone" class="taskList">
             <div id="tasktnotfounddrag" class="tasktnotfound">
