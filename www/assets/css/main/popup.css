@@ -53,3 +53,8 @@
 }
 
 
+@media (max-width: 550px) {
+  .smallcontainer {
+    width: 95vw;
+}
+}

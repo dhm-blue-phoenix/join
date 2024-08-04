@@ -379,3 +379,10 @@
     width: 95vw;
 }
 }
+.showthiswidht{
+  width: auto !important;
+}
+
+.boardmobile{
+  width: auto !important;
+}
