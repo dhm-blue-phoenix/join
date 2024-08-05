@@ -291,7 +291,6 @@ async function addContact(event) {
             await uploadPatchData(`users/${userID}/contacts/`, contactData);
             console.warn('Benutzer erfolgreich Hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
         } else return console.warn('Benutzer existiert Bereits!'); // [!] Ändern zu Benutzer-Feedback
-        addClass('addcontactpopup');
         initCard();
         dnoneAddContact();
         dnonePersionCard();
@@ -330,6 +329,7 @@ function createFormData(name, email, tel) {
  * Sie versteckt das Popup-Fenster und setzt die Werte der Eingabefelder zurück.
  */
 function dnoneAddContact() {
+    addClass('addcontactpopup');
     ID_addPersionName.value = '';
     ID_addPersionEmail.value = '';
     ID_addPersionTel.value = ''
@@ -395,7 +395,6 @@ async function editContact(event) {
         const formData = lodeFormData(ID_editPersionName.value, ID_editPersionEmail.value, ID_editPersionTel.value);
         await updateData(`users/${userID}/contacts/${editContactId}`, formData);
         initCard();
-        addClass('editcontactpopup');
         dnoneEditContact();
         dnonePersionCard();
     } catch (err) {
@@ -430,6 +429,7 @@ function lodeFormData(name, email, tel) {
  * Sie setzt alle Eingabefelder im Popup zurück.
  */
 function dnoneEditContact() {
+    addClass('editcontactpopup');
     ID_editPersionShortcut.value = '';
     ID_editPersionName.value = '';
     ID_editPersionEmail.value = '';
