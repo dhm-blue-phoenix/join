@@ -48,27 +48,6 @@ function removeClass(id) {
   document.getElementById(id).classList.remove('d-nonepopup');
 }
 
-// Öffnet und schließt das Popup-Window:
-// function addtaskpopup() {
-//   document.getElementById("addtaskpopup").classList.remove('d-nonepopup');
-// }
-// function closeaddtaskpopup(){
-//   document.getElementById('addtaskpopup').classList.add('d-nonepopup');
-// }
-
-// function taskCardpopup() {
-//   document.getElementById("taskCardpopup").classList.remove('d-nonepopup');
-// }
-// function closetaskCardpopup(){
-//   document.getElementById('taskCardpopup').classList.add('d-nonepopup');
-// }
-
-// function editcontactpopup() {
-//   document.getElementById("editcontactpopup").classList.remove('d-nonepopup');
-// }
-// function closeeditcontactpopup(){
-//   document.getElementById('editcontactpopup').classList.add('d-nonepopup');
-// }
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const accountContainer = document.getElementById('account');
@@ -87,3 +66,59 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
   });
 });
+
+
+function showTaskCardPopup() {
+  document.getElementById('taskCardpopup').classList.remove('d-nonepopup');
+  document.getElementById('TaskcardPopupanimation').classList.remove('hide');
+  document.getElementById('TaskcardPopupanimation').classList.add('show');
+}
+
+function hideTaskCardPopup() {
+  document.getElementById('TaskcardPopupanimation').classList.remove('show');
+  document.getElementById('TaskcardPopupanimation').classList.add('hide');
+  setTimeout(function() {
+    document.getElementById('taskCardpopup').classList.add('d-nonepopup');
+  }, 200); // wait for the animation to finish before adding d-nonepopup
+}
+function showaddTaskCardPopup() {
+  document.getElementById('addtaskpopup').classList.remove('d-nonepopup');
+  document.getElementById('addTaskcardPopupanimation').classList.remove('hide');
+  document.getElementById('addTaskcardPopupanimation').classList.add('show');
+}
+
+function hideaddTaskCardPopup() {
+  document.getElementById('addTaskcardPopupanimation').classList.remove('show');
+  document.getElementById('addTaskcardPopupanimation').classList.add('hide');
+  setTimeout(function() {
+    document.getElementById('addtaskpopup').classList.add('d-nonepopup');
+  }, 200); // wait for the animation to finish before adding d-nonepopup
+}
+
+function showaddContactCardPopup() {
+  document.getElementById('addcontactpopup').classList.remove('d-nonepopup');
+  document.getElementById('addcontactpopupanimation').classList.remove('hide');
+  document.getElementById('addcontactpopupanimation').classList.add('show');
+}
+
+function hideaddContactCardPopup() {
+  document.getElementById('addcontactpopupanimation').classList.remove('show');
+  document.getElementById('addcontactpopupanimation').classList.add('hide');
+  setTimeout(function() {
+    document.getElementById('addcontactpopup').classList.add('d-nonepopup');
+  }, 200); // wait for the animation to finish before adding d-nonepopup
+}
+
+function showEditContactCardPopup() {
+  document.getElementById('addcontactpopup').classList.remove('d-nonepopup');
+  document.getElementById('addcontactpopupanimation').classList.remove('hide');
+  document.getElementById('addcontactpopupanimation').classList.add('show');
+}
+
+function hideEditContactCardPopup() {
+  document.getElementById('addcontactpopupanimation').classList.remove('show');
+  document.getElementById('addcontactpopupanimation').classList.add('hide');
+  setTimeout(function() {
+    document.getElementById('addcontactpopup').classList.add('d-nonepopup');
+  }, 200); // wait for the animation to finish before adding d-nonepopup
+}

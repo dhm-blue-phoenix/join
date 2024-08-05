@@ -19,34 +19,6 @@
   <script src="./assets/js/extractInitials.js" defer></script>
   <script src="./assets/js/dataResponse.js" defer></script>
   <script src="./assets/js/draganddrop.js" defer></script>
-  <script>
-    function showTaskCardPopup() {
-      document.getElementById('taskCardpopup').classList.remove('d-nonepopup');
-      document.getElementById('TaskcardPopupanimation').classList.remove('hide');
-      document.getElementById('TaskcardPopupanimation').classList.add('show');
-    }
-    
-    function hideTaskCardPopup() {
-      document.getElementById('TaskcardPopupanimation').classList.remove('show');
-      document.getElementById('TaskcardPopupanimation').classList.add('hide');
-      setTimeout(function() {
-        document.getElementById('taskCardpopup').classList.add('d-nonepopup');
-      }, 200); // wait for the animation to finish before adding d-nonepopup
-    }
-    function showaddTaskCardPopup() {
-      document.getElementById('addtaskpopup').classList.remove('d-nonepopup');
-      document.getElementById('addTaskcardPopupanimation').classList.remove('hide');
-      document.getElementById('addTaskcardPopupanimation').classList.add('show');
-    }
-    
-    function hideaddTaskCardPopup() {
-      document.getElementById('addTaskcardPopupanimation').classList.remove('show');
-      document.getElementById('addTaskcardPopupanimation').classList.add('hide');
-      setTimeout(function() {
-        document.getElementById('addtaskpopup').classList.add('d-nonepopup');
-      }, 200); // wait for the animation to finish before adding d-nonepopup
-    }
-    </script> 
 </head>
 
 <body onload="includeHTML(); showUserProfile();">
@@ -141,7 +113,7 @@
     </div>
   </div>
   <!-- New select and button elements -->
-  <div class="taskbottommobile">
+  <div class="taskbottommobilesmall">
     <select id="taskCategorySelect">
       <option value="taskToDo">To do</option>
       <option value="taskInProgress">In progress</option>

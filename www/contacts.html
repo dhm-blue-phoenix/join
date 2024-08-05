@@ -27,7 +27,7 @@
 
   <!-- Editcontact-Window -->
   <div id="editcontactpopup" class="bigcontainer d-nonepopup">
-    <div class="editcontactpopupcontent">
+    <div id="editcontactpopupanimation" class="editcontactpopupcontent">
       <div class="editcontactpopupleftside">
         <img src="./resources/logo.svg" alt="" />
         <h1>Edit contact</h1>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="editcontactpopuprightside">
-        <button class="closeeditcontactpopup" onclick="addClass('editcontactpopup')">
+        <button class="closeeditcontactpopup" onclick="hideEditContactCardPopup()">
           &#x2A2F;
         </button>
 
@@ -55,7 +55,7 @@
   </div>
   <!-- AddtaskPopup-Window -->
   <div id="addcontactpopup" class="bigcontainer d-nonepopup">
-    <div class="addcontactpopupcontent">
+    <div id="addcontactpopupanimation" class="addcontactpopupcontent">
       <div class="addcontactpopupleftside">
         <img src="./resources/logo.svg" alt="" />
         <h1>Add contact</h1>
@@ -64,7 +64,7 @@
       </div>
 
       <div class="addcontactpopuprightside">
-        <button class="closeaddcontactpopup" onclick="addClass('addcontactpopup')">
+        <button class="closeaddcontactpopup" onclick="hideaddContactCardPopup()">
           &#x2A2F;
         </button>
         <img class="usericon" src="./resources/symbols/usericon.png" alt="">
@@ -104,7 +104,7 @@
     <div class="contacts">
       <div class="showContacts">
         <div class="addNewContactheader">
-          <button class="addNewContact" onclick="removeClass('addcontactpopup')">
+          <button class="addNewContact" onclick="showaddContactCardPopup()">
             <p>Add new contact</p>
             <img src="./resources/symbols/person_add.svg" alt="" />
           </button>
@@ -124,7 +124,7 @@
           <div class="personName">
             <p id="personName"></p>
             <div class="personInfo" id="personOptions">
-              <button onclick="removeClass('addcontactpopup')">
+              <button onclick="showEditContactCardPopup()">
                 <img src="./resources/symbols/edit.png" alt="" /> Edit
               </button>
 

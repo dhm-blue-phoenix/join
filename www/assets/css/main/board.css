@@ -413,7 +413,7 @@
 }
 
 
-.taskbottommobile {
+.taskbottommobilesmall {
   display: none;
 }
 
@@ -422,7 +422,7 @@
 }
 
 @media (max-width: 1100px) {
-  .taskbottommobile {
+  .taskbottommobilesmall {
     display: flex;
     flex-direction: column;
     justify-content: center;
