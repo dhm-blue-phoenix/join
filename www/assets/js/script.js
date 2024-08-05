@@ -110,7 +110,7 @@ function hideaddContactCardPopup() {
 }
 
 function showEditContactCardPopup() {
-  document.getElementById('addcontactpopup').classList.remove('d-nonepopup');
+  document.getElementById('editcontactpopup').classList.remove('d-nonepopup');
   document.getElementById('addcontactpopupanimation').classList.remove('hide');
   document.getElementById('addcontactpopupanimation').classList.add('show');
 }
@@ -119,6 +119,6 @@ function hideEditContactCardPopup() {
   document.getElementById('addcontactpopupanimation').classList.remove('show');
   document.getElementById('addcontactpopupanimation').classList.add('hide');
   setTimeout(function() {
-    document.getElementById('addcontactpopup').classList.add('d-nonepopup');
+    document.getElementById('editcontactpopup').classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }
