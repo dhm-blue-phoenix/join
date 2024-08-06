@@ -70,7 +70,7 @@ async function loadContacts() {
         const tempContacts = await lodeContactsCard(`users/${userID}/`);
         sortContacts(tempContacts);
     } catch (err) {
-        console.error('[ERROR] loadContacts:', err);
+        console.error(`[ERROR] loadContacts: ${err}`);
     }
 }
 
@@ -252,7 +252,7 @@ async function delContact(email) {
         await initCard();
         dnonePersionCard();
     } catch (err) {
-        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
     }
 }
 
@@ -295,7 +295,7 @@ async function addContact(event) {
         dnoneAddContact();
         dnonePersionCard();
     } catch (err) {
-        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
     }
 }
 
@@ -352,7 +352,7 @@ async function openEditPopup(email) {
         importFromEditFormData(contactId[1]);
         editContactId = contactId[0];
     } catch (err) {
-        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
     }
 }
 
@@ -398,7 +398,7 @@ async function editContact(event) {
         dnoneEditContact();
         dnonePersionCard();
     } catch (err) {
-        console.error('Es ist ein Schwerwigender Fehler aufgetreten!', err);
+        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
     }
 }
 

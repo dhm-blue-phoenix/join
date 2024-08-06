@@ -1,8 +1,6 @@
 const storedLocalUserID = localStorage.getItem('userID');
 const storedSessionUserID = sessionStorage.getItem('userID');
 
-// const ID
-
 const ID_taskTitle = document.getElementById('taskTitle');
 const ID_taskDescription = document.getElementById('taskDescription');
 const ID_select01 = document.getElementById('select01');
