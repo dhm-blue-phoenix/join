@@ -135,7 +135,12 @@
 }
 
 .layout button:hover {
-  background-color: #ffa800;
+  background-color: #b47b07;
+  color: #fff;
+}
+
+.layout .activBtnPrio {
+  background-color: #b47b07;
   color: #fff;
 }
 

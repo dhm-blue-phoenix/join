@@ -22,7 +22,7 @@
   <script src="./assets/js/addTask.js" defer></script>
 </head>
 
-<body onload="includeHTML(); showUserProfile();">
+<body onload="includeHTML(); showUserProfile(); setBtnPrio('medium'); lodeUserId();">
   <!-- Navigations Leiste -->
   <div w3-include-html="./components/navBar.html"></div>
 
@@ -64,12 +64,13 @@
               <div>
                 <p>Assigned to</p>
                 <select required id="select01">
-                  <option value="0">Select contacts to assign</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option></option>
+                  <option disabled>Select contacts to assign</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </div>
             </section>
@@ -83,9 +84,9 @@
               <div>
                 <p>Prio</p>
                 <div class="taskPrio">
-                  <button>Urgent<img src="./resources/symbols/PrioUrgent.png"></button>
-                  <button>Medium<img src="./resources/symbols/boardmiddleprio.png"></button>
-                  <button>Low<img src="./resources/symbols/PrioLow.png"></button>
+                  <button type="button" id="urgent" onclick="setBtnPrio('urgent')">Urgent<img src="./resources/symbols/PrioUrgent.png"></button>
+                  <button type="button" id="medium" onclick="setBtnPrio('medium')" class="activBtnPrio">Medium<img src="./resources/symbols/boardmiddleprio.png"></button>
+                  <button type="button" id="low" onclick="setBtnPrio('low')">Low<img src="./resources/symbols/PrioLow.png"></button>
                 </div>
               </div>
       
@@ -93,12 +94,12 @@
                 <p>Category<i style="color: red">*</i></p>
                 <select required id="select02">
                   <option></option>
-                  <option value="0">Select task category</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option disabled>Select task category</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
                 </select>
               </div>
       

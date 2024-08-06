@@ -229,7 +229,7 @@ async function checkAnswer(response) {
  * @param {Error} err Der aufgetretene Fehler.
  */
 function handleError(err) {
-    console.error('Es ist ein Problem aufgetreten:\n', err);
+    throw new Error(`Es ist ein Problem aufgetreten: ${err}`);
 }
 
 /**
