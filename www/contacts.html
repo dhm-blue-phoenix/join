@@ -112,17 +112,37 @@
         <div class="Contactcards">No List</div>
       </div>
 
-      <div class="showContactcard">
+      <div id="showContactcard" class="showContactcard">
         <div class="personTitle">
           <h2>Contacts</h2>
           <div class="showContactcardTrennline"></div>
           <p>Better with a team</p>
+          <div class="showContactcardTrennlinemobile"></div>
+          <img class="hidecontactcardarrow" onclick="hidecontact()" src="./resources/symbols/arrow-left-line.png" alt="arrow-left-line">
         </div>
 
         <div class="personCard d-none" id="dnonePersonCard">
-          <div class="personShortcut" id="personShortcut"></div>
+          <div class="personShortcut personShortcutmobile" id="personShortcut"></div>
           <div class="personName">
             <p id="personName"></p>
+
+            <button id="editdeletcontact" class="addEditDeletContactmobile">
+            <img src="./resources/symbols/dots.png" alt=""></button>
+
+            <div class="dropdownedlitdelete" id="dropdownEditDeletContact">
+              <div id="personOptions" class="personOptionscss">
+              <button onclick="showEditContactCardPopup()">
+                <img src="./resources/symbols/edit.png" alt="" /> Edit
+              </button>
+
+              <button>
+                <img src="./resources/symbols/delete.svg" alt="" /> Delete
+              </button>
+            </div>
+            </div>
+
+
+
             <div class="personInfo" id="personOptions">
               <button onclick="showEditContactCardPopup()">
                 <img src="./resources/symbols/edit.png" alt="" /> Edit

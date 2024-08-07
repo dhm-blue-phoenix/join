@@ -67,6 +67,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+  const accountContainer = document.getElementById('editdeletcontact');
+  const dropdownContent = document.getElementById('dropdownEditDeletContact');
+
+  accountContainer.addEventListener('click', () => {
+    dropdownContent.classList.toggle('show');
+  });
+
+  // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
+  window.addEventListener('click', (event) => {
+    if (!event.target.matches('.addEditDeletContactmobile')) {
+      if (dropdownContent.classList.contains('show')) {
+        dropdownContent.classList.remove('show');
+      }
+    }
+  });
+});
+
 
 function showTaskCardPopup() {
   document.getElementById('taskCardpopup').classList.remove('d-nonepopup');
