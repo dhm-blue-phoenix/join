@@ -28,7 +28,7 @@ let lastBtnPrio = 'medium';
 function lodeUserId() {
     if (storedLocalUserID) return userID = storedLocalUserID;
     if (storedSessionUserID) return userID = storedSessionUserID;
-    throw new Error('Es ist ein Problem aufgetreten!');
+    throw new Error('User ID wurde nicht gefunden!');
 }
 
 /**
