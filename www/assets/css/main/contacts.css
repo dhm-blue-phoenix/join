@@ -17,14 +17,12 @@ body {
   width: 456px;
   background-color: var(--back-color04);
   display: flex;
-  justify-content: center;
   align-items: center;
   overflow: scroll;
   overflow-x: hidden;
   box-shadow: #00000062 0px 0px 10px 0px;
   flex-direction: column;
   height: calc(100vh - 96px);
-  /* padding-top: 152px; */
 }
 
 .showContactcard {
@@ -62,7 +60,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 32px; */
+  margin-top: 16px;
   /* box-shadow: #00000062 0px 2px 4px 0px;  */
 }
 
@@ -767,7 +765,7 @@ body {
     width: 100%;
     height: calc(100vh - 178px);
     justify-content: flex-start;
-    padding-top: 16px;
+    /* padding-top: 16px; */
     /* overflow: hidden; */
     /* scrollbar-width: auto; */
   }
@@ -778,7 +776,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 0 16px 0 16px;
-    gap: 16px;
+    gap: 8px;
   }
 
   .showContactcard {
@@ -823,6 +821,7 @@ body {
   }
   .addNewContactheader {
     height: auto;
+    margin-top: 0;
   }
 }
 
