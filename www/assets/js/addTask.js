@@ -39,6 +39,8 @@ function lodeUserId() {
  * lädt die eingegebenen Formulardaten in ein globales `taskForm`-Objekt,
  * lädt diese Daten auf den Server hoch und leert die Eingabefelder.
  * -------------------------------------------------
+ * func uploadPatchData() - findet man in der dataResponse.js
+ * -------------------------------------------------
  * @param {Event} event - Das Ereignis, das beim Absenden des Formulars ausgelöst wird.
  *                        Es wird verwendet, um das Standard-Absendeverhalten des Browsers zu verhindern.
  */
