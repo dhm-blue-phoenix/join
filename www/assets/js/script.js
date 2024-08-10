@@ -52,6 +52,18 @@ function removeClass(id) {
   document.getElementById(id).classList.remove('d-nonepopup');
 }
 
+/**
+ * Entfernt die Klasse 'd-nonepopup' vom Element mit der angegebenen ID.
+ * ====================================================================================================
+ * @param {string} id - Die ID des HTML-Elements, von dem die Klasse entfernt werden soll.
+ * ====================================================================================================
+ */
+
+
+/**
+ * Öffnet und schließt die Dropliste für den Account 
+ * ====================================================================================================
+ */
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const accountContainer = document.getElementById('account');
