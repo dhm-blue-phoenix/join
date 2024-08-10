@@ -1,3 +1,5 @@
+const currentWindow = window.location.pathname;
+
 /**
  * Lädt den Inhalt von HTML-Dateien in Elemente, die das Attribut 'w3-include-html' enthalten.
  * Die Funktion durchläuft alle Elemente mit dem Attribut 'w3-include-html' und ersetzt deren
@@ -32,8 +34,9 @@ function actionBack() {
 
 /**
  * Fügt die Klasse 'd-nonepopup' zum Element mit der angegebenen ID hinzu.
- * -----------------------------------------------------------------------
+ * ====================================================================================================
  * @param {string} id - Die ID des HTML-Elements, zu dem die Klasse hinzugefügt werden soll.
+ * ====================================================================================================
  */
 function addClass(id) {
   document.getElementById(id).classList.add('d-nonepopup');
@@ -41,8 +44,9 @@ function addClass(id) {
 
 /**
  * Entfernt die Klasse 'd-nonepopup' vom Element mit der angegebenen ID.
- * ---------------------------------------------------------------------
+ * ====================================================================================================
  * @param {string} id - Die ID des HTML-Elements, von dem die Klasse entfernt werden soll.
+ * ====================================================================================================
  */
 function removeClass(id) {
   document.getElementById(id).classList.remove('d-nonepopup');
@@ -67,23 +71,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  const accountContainer = document.getElementById('editdeletcontact');
-  const dropdownContent = document.getElementById('dropdownEditDeletContact');
+if (currentWindow.includes('contacts.html')) {
+  // [???] Frage ist das nur für contact oder erfült das auch noch auf einer anderen seite einen zweck?
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const accountContainer = document.getElementById('editdeletcontact');
+    const dropdownContent = document.getElementById('dropdownEditDeletContact');
 
-  accountContainer.addEventListener('click', () => {
-    dropdownContent.classList.toggle('show');
-  });
+    accountContainer.addEventListener('click', () => {
+      dropdownContent.classList.toggle('show');
+    });
 
-  // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
-  window.addEventListener('click', (event) => {
-    if (!event.target.matches('.addEditDeletContactmobile')) {
-      if (dropdownContent.classList.contains('show')) {
-        dropdownContent.classList.remove('show');
+    // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
+    window.addEventListener('click', (event) => {
+      if (!event.target.matches('.addEditDeletContactmobile')) {
+        if (dropdownContent.classList.contains('show')) {
+          dropdownContent.classList.remove('show');
+        }
       }
-    }
+    });
   });
-});
+}
 
 
 function showTaskCardPopup() {
@@ -95,7 +102,7 @@ function showTaskCardPopup() {
 function hideTaskCardPopup() {
   document.getElementById('TaskcardPopupanimation').classList.remove('show');
   document.getElementById('TaskcardPopupanimation').classList.add('hide');
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('taskCardpopup').classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }
@@ -108,7 +115,7 @@ function showaddTaskCardPopup() {
 function hideaddTaskCardPopup() {
   document.getElementById('addTaskcardPopupanimation').classList.remove('show');
   document.getElementById('addTaskcardPopupanimation').classList.add('hide');
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('addtaskpopup').classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }
@@ -122,7 +129,7 @@ function showaddContactCardPopup() {
 function hideaddContactCardPopup() {
   document.getElementById('addcontactpopupanimation').classList.remove('show');
   document.getElementById('addcontactpopupanimation').classList.add('hide');
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('addcontactpopup').classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }
@@ -136,7 +143,7 @@ function showEditContactCardPopup() {
 function hideEditContactCardPopup() {
   document.getElementById('addcontactpopupanimation').classList.remove('show');
   document.getElementById('addcontactpopupanimation').classList.add('hide');
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('editcontactpopup').classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }

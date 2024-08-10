@@ -19,11 +19,12 @@ let lastBtnPrio = 'medium';
 
 /**
  * Lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
- * ---------------------------------------------------------------
+ * ====================================================================================================
  * Diese Funktion lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
  * Wenn keine ID gefunden wird, wird ein Fehler geworfen.
- * ---------------------------------------------------------------
+ * ====================================================================================================
  * @returns {void}
+ * ====================================================================================================
  */
 function lodeUserId() {
     if (storedLocalUserID) return userID = storedLocalUserID;
@@ -33,16 +34,17 @@ function lodeUserId() {
 
 /**
  * Initialisiert das Hinzufügen einer neuen Aufgabe.
- * -------------------------------------------------
+ * ====================================================================================================
  * Diese Funktion wird aufgerufen, wenn das Formular zum Hinzufügen einer neuen Aufgabe
  * gesendet wird. Sie verhindert das Standard-Absendeverhalten des Formulars,
  * lädt die eingegebenen Formulardaten in ein globales `taskForm`-Objekt,
  * lädt diese Daten auf den Server hoch und leert die Eingabefelder.
- * -------------------------------------------------
+ * ====================================================================================================
  * func uploadPatchData() - findet man in der dataResponse.js
- * -------------------------------------------------
+ * ====================================================================================================
  * @param {Event} event - Das Ereignis, das beim Absenden des Formulars ausgelöst wird.
  *                        Es wird verwendet, um das Standard-Absendeverhalten des Browsers zu verhindern.
+ * ====================================================================================================
  */
 async function initAddTask(event) {
     event.preventDefault();
@@ -58,10 +60,11 @@ async function initAddTask(event) {
 
 /**
  * Setzt die Eingabefelder des Formulars zurück.
- * ---------------------------------------------
+ * ====================================================================================================
  * Diese Funktion leert alle Eingabefelder des Formulars, indem sie die Werte
  * auf leere Zeichenfolgen zurücksetzt, um die Benutzeroberfläche nach dem Absenden
  * des Formulars zu bereinigen.
+ * ====================================================================================================
  */
 function clearInput() {
     ID_taskTitle.value = '';
@@ -73,11 +76,12 @@ function clearInput() {
 
 /**
  * Lädt die Formulardaten in ein globales `taskForm`-Objekt.
- * ---------------------------------------------------------
+ * ====================================================================================================
  * Diese Funktion liest die aktuellen Werte der Formulareingaben für Titel,
  * Beschreibung, Zuweisung, Datum und Kategorie und speichert sie in einem
  * globalen `taskForm`-Objekt. Dadurch werden die eingegebenen Daten für die
  * weitere Verarbeitung oder Speicherung verfügbar gemacht.
+ * ====================================================================================================
  */
 function loadFormData() {
     taskForm.title = ID_taskTitle.value;
@@ -90,14 +94,15 @@ function loadFormData() {
 
 /**
  * Setzt die Priorität der Aufgabe und aktualisiert die UI entsprechend.
- * ---------------------------------------------------------------------
+ * ====================================================================================================
  * Diese Funktion setzt einen Button, der eine bestimmte Priorität darstellt,
  * auf aktiv, deaktiviert ihn und speichert die Priorität im globalen
  * `taskForm`-Objekt. Wenn zuvor ein anderer Prioritäts-Button aktiv war,
  * wird dessen Status zurückgesetzt.
- * ---------------------------------------------------------------------
+ * ====================================================================================================
  * @param {string} prio - Die Priorität, die für die Aufgabe gesetzt wird.
  *                        Dies entspricht der ID des Buttons, der die Priorität darstellt.
+ * ====================================================================================================
  */
 function setBtnPrio(prio) {
     lastBtn();
@@ -109,10 +114,11 @@ function setBtnPrio(prio) {
 
 /**
  * Setzt den Status des zuletzt aktiven Prioritäts-Buttons zurück.
- * ---------------------------------------------------------------
+ * ====================================================================================================
  * Diese Funktion wird aufgerufen, um den Zustand des Buttons, der zuvor
  * als aktiv markiert wurde, zurückzusetzen. Der Button wird wieder
  * klickbar gemacht und die aktive CSS-Klasse wird entfernt.
+ * ====================================================================================================
  */
 function lastBtn() {
     document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');

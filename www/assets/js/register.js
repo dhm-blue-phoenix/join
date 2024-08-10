@@ -8,16 +8,17 @@ const signedUpContainer = document.getElementById('signedUpContainer');
 
 /**
  * Initialisiert den Registrierungsprozess.
- * ----------------------------------------
+ * ====================================================================================================
  * Diese Funktion wird aufgerufen, wenn der Benutzer den Registrierungsbutton klickt.
  * Sie überprüft, ob die Checkbox für die AGBs akzeptiert wurde und ob das Passwort
  * mit der Bestätigung übereinstimmt. Wenn alles korrekt ist, wird die Registrierung
  * durchgeführt und der Benutzer wird auf die Startseite weitergeleitet.
- * ----------------------------------------
+ * ====================================================================================================
  * func loadUserData() - findet man in der dataResponse.js
  * func uploadData() - findet man in der dataResponse.js
- * ----------------------------------------
+ * ====================================================================================================
  * @param {Event} event Das Ereignis, das den Registrierungsprozess auslöst.
+ * ====================================================================================================
  */
 async function initRegister(event) {
     event.preventDefault();
@@ -37,11 +38,12 @@ async function initRegister(event) {
 
 /**
  * Lädt die Formulardaten aus den Eingabefeldern.
- * ----------------------------------------------
+ * ====================================================================================================
  * Diese Funktion liest die Werte aus den Eingabefeldern für Name, E-Mail, Passwort und
  * Passwort-Bestätigung und gibt sie als Objekt zurück.
- * ----------------------------------------------
+ * ====================================================================================================
  * @returns {Object} Ein Objekt mit den Formulardaten.
+ * ====================================================================================================
  */
 function loadFormData() {
     const formData = {
