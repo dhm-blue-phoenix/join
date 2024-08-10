@@ -17,7 +17,7 @@
   <script src="./assets/js/script.js" defer></script>
   <script src="./assets/js/profile.js" type="module" defer></script>
   <script src="./assets/js/dataResponse.js" defer></script>
-  <script src="./assets/js/contacts.js" type="module" defer></script>
+  <script src="./assets/js/initContact.js" type="module" defer></script>
 </head>
 
 <body onload="includeHTML();">
@@ -144,12 +144,11 @@
 
 
             <div class="personInfo" id="personOptions">
-              <button onclick="showEditContactCardPopup()">
-                <img src="./resources/symbols/edit.png" alt="" /> Edit
+              <button type="button" id="editContactBtn">
+                <img src="./resources/symbols/edit.png" alt=""/> Edit
               </button>
-
-              <button>
-                <img src="./resources/symbols/delete.svg" alt="" /> Delete
+              <button type="button" id="delContactBtn">
+                <img src="./resources/symbols/delete.svg" alt=""/> Delete
               </button>
             </div>
           </div>

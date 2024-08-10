@@ -1,10 +1,13 @@
-import { extractInitials } from "./extractInitials.js";
+import { extractInitials } from './extractInitials.js';
+import { deleteContact } from './deleteContact.js';
+import { editContact } from './editContact.js';
 
 const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
-const ID_personOptions = document.getElementById('personOptions');
+const BTN_ID = ['delContactBtn', 'editContactBtn'];
+const FUNC = { delete: deleteContact, edit: editContact };
 
 const CLASS_dnone = document.querySelectorAll('.d-none');
 
@@ -14,7 +17,8 @@ let lastCart;
  * Zeigt die Details eines Kontakts an und aktiviert die Kontaktkarte.
  * ====================================================================================================
  * Diese Funktion zeigt die Kontaktkarte mit der angegebenen ID an, entfernt die "d-none" Klasse von 
- * Elementen, rendert die Kontaktdaten und entfernt die letzte aktive Kontaktkarte.
+ * Elementen, rendert die Kontaktdaten und entfernt die letzte aktive Kontaktkarte. Zusätzlich werden 
+ * die Attribute der Bearbeiten- und Löschen-Buttons gesetzt und Event-Listener für diese Buttons hinzugefügt.
  * ====================================================================================================
  * @param {string} cardId Die ID der Kontakt-Karte, die angezeigt werden soll.
  * @param {string} personName Der Name des Kontakts.
@@ -26,9 +30,11 @@ let lastCart;
  */
 export function showContactDetails(cardId, personName, personEmail, personTel, persionShortBackColor) {
     const card = document.getElementById(cardId);
-    if (!card) return console.error('Element with ID', cardId, 'not found.');
+    if (!card) throw new Error('Element with ID', cardId, 'not found.');
     setCardActive(CLASS_dnone, card);
     updateContactDetails(personName, personEmail, personTel, persionShortBackColor);
+    setBtnAttribute(personEmail);
+    addEventFromBtn();
     deselectPreviousCard(card);
 }
 
@@ -53,15 +59,15 @@ function setCardActive(dnone, card) {
 /**
  * Aktualisiert die detaillierten Kontaktdaten im Benutzerinterface.
  * ====================================================================================================
- * Diese Funktion zeigt die Kontaktdaten des angegebenen Kontakts in den entsprechenden HTML-Elementen an
- * und fügt die Event-Listener für die Bearbeiten- und Löschen-Schaltflächen hinzu.
+ * Diese Funktion zeigt die Kontaktdaten des angegebenen Kontakts in den entsprechenden HTML-Elementen an.
+ * Es werden keine Event-Listener hinzugefügt; dies geschieht in den nachfolgenden Funktionen.
  * ====================================================================================================
- * func extractInitials() - findet man in der ./extractInitials.js
+ * func extractInitials() - findet man in der './extractInitials.js'
  * ====================================================================================================
  * @param {string} name Der Name des Kontakts.
  * @param {string} email Die E-Mail-Adresse des Kontakts.
  * @param {string} tel Die Telefonnummer des Kontakts.
- * @param {string} persionShortBackColor Die Hintergrundfahrbe des shortcuts
+ * @param {string} shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
  * @returns {void}
  * ====================================================================================================
  */
@@ -72,47 +78,47 @@ function updateContactDetails(name, email, tel, shortcutBackColor) {
     ID_personName.textContent = name;
     ID_personEmail.textContent = email;
     ID_personTel.textContent = tel;
-    ID_personOptions.innerHTML = generateContactOptions(email);
-    
-    // Event-Listener hinzufügen, nachdem die Optionen gerendert wurden
-    addContactOptionEventListeners(email);
 }
 
 /**
- * Generiert die HTML-Optionen für Bearbeiten- und Löschen-Schaltflächen eines Kontakts.
+ * Setzt die Attribute für die Bearbeiten- und Löschen-Buttons.
  * ====================================================================================================
- * Diese Funktion erstellt HTML-Code für zwei Schaltflächen: eine zum Bearbeiten und eine zum Löschen 
- * des Kontakts. Der Code wird als String zurückgegeben.
+ * Diese Funktion fügt den Bearbeiten- und Löschen-Buttons das Attribut "data-email" mit der angegebenen 
+ * E-Mail-Adresse hinzu. Dies wird benötigt, um die E-Mail-Adresse beim Klicken auf die Buttons zu übergeben.
  * ====================================================================================================
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @returns {string} Die HTML-Optionen als String.
- * ====================================================================================================
- */
-const generateContactOptions = (email) => `
-    <button id="edit-${email}">
-      <img src="./resources/symbols/edit.png" alt=""/> Edit
-    </button>
-    <button id="delete-${email}">
-      <img src="./resources/symbols/delete.svg" alt=""/> Delete
-    </button>
-`;
-
-/**
- * Fügt Event-Listener für die Bearbeiten- und Löschen-Schaltflächen hinzu.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, nachdem die Kontaktdaten gerendert wurden, um die Event-Listener
- * für die generierten Schaltflächen hinzuzufügen.
- * ====================================================================================================
- * @param {string} email Die E-Mail-Adresse des Kontakts.
+ * @param {string} email Die E-Mail-Adresse des Kontakts, die den Buttons zugewiesen wird.
  * @returns {void}
+ * ====================================================================================================
  */
-function addContactOptionEventListeners(email) {
-    const editButton = document.getElementById(`edit-${email}`);
-    const deleteButton = document.getElementById(`delete-${email}`);
-    console.log('deleteButton', deleteButton);
-    if (editButton) editButton.addEventListener('click', () => openEditPopup(email));
-    if (deleteButton) deleteButton.addEventListener('click', () => delContact());
+function setBtnAttribute(email) {
+    BTN_ID.forEach((id) => document.getElementById(id).setAttribute('data-email', email));
 }
+
+/**
+ * Fügt Event-Listener zu den Bearbeiten- und Löschen-Schaltflächen hinzu.
+ * ====================================================================================================
+ * Diese Funktion durchsucht eine Liste von Button-IDs und fügt jedem Button einen Event-Listener hinzu.
+ * Beim Klicken auf einen Button wird basierend auf der ID des Buttons entweder die Bearbeiten- oder
+ * die Löschen-Funktion aufgerufen, indem die E-Mail-Adresse des zu bearbeitenden oder zu löschenden Kontakts
+ * als Parameter übergeben wird.
+ * ====================================================================================================
+ * func deleteContact(email) - Funktion zum Löschen eines Kontakts, definiert in './deleteContact.js'.
+ * func editContactBtn(email) - Funktion zum Bearbeiten eines Kontakts, definiert in './editContactBtn.js'.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+function addEventFromBtn() {
+    BTN_ID.forEach((id) => {
+        document.getElementById(id).addEventListener('click', (event) => {
+            const target = event.currentTarget;
+            const email = target.getAttribute('data-email');
+            const action = target.id.includes('del') ? 'delete' : 'edit';
+            FUNC[action](email);
+        });
+    });
+}
+
 
 /**
  * Entfernt die Klasse der zuletzt aktiven Kontaktkarte und setzt den Zustand zurück.
@@ -125,10 +131,10 @@ function addContactOptionEventListeners(email) {
  * ====================================================================================================
  */
 function deselectPreviousCard(card) {
-    if (lastCart !== undefined) {
-        lastCart.classList.remove('cardactive');
-        lastCart.classList.add('card');
-        lastCart.style.pointerEvents = "";
-    }
+    lastCart !== undefined && (
+        lastCart.classList.remove('cardactive'),
+        lastCart.classList.add('card'),
+        lastCart.style.pointerEvents = ""
+    );
     lastCart = card;
 }
