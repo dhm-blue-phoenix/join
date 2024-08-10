@@ -1,7 +1,5 @@
-import { extractInitials } from "./module/extractInitials.js";
-
-const storedLocalUserId = localStorage.getItem('userID');
-const storedSessionUserID = sessionStorage.getItem('userID');
+import { extractInitials } from './module/extractInitials.js';
+import { loadUserIdFromStored } from './module/loadUserIdFromStored.js';
 
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * ====================================================================================================
  */
 async function loadUserName() {
-    let userID = checkStored();
+    let userID = loadUserIdFromStored();
     const userData = await findUserById(userID);
     return userData[2];
 }
