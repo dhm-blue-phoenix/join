@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 if (currentWindow.includes('contacts.html')) {
-  // [???] Frage ist das nur für contact oder erfült das auch noch auf einer anderen seite einen zweck?
   document.addEventListener('DOMContentLoaded', (event) => {
     const accountContainer = document.getElementById('editdeletcontact');
     const dropdownContent = document.getElementById('dropdownEditDeletContact');

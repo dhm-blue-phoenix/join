@@ -374,8 +374,3 @@ function dnoneEditContact() {
     ID_editPersionEmail.value = '';
     ID_editPersionTel.value = ''
 }
-
-function hidecontact() {
-    let showContactcard = document.getElementById('showContactcard');
-    showContactcard.classList.add('d-none');
-}
