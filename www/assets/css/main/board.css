@@ -264,9 +264,9 @@
 }
 
 @media (max-width: 1100px) {
-  .taskcard {
+  /* .taskcard {
     cursor: default;
-  }
+  } */
 
   .taskcard:hover {
     box-shadow: #78787862 0px 0px 5px 0px;
@@ -408,9 +408,9 @@
     width: 95vw;
   }
 }
-.showthiswidht {
+/* .showthiswidht {
   width: auto !important;
-}
+} */
 
 
 .taskbottommobilesmall {

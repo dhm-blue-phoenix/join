@@ -201,8 +201,8 @@
   .arrow-left-line {
     position: fixed;
     cursor: pointer;
-    top: 43px;
-    right: 30px;
+    top: 17px;
+    right: 17px;
   }
 
   .signupbtn2 {
@@ -211,8 +211,9 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 415px) {
   .signupcontainer {
+    margin-top: 34px;
     width: 90vw !important;
   }
 }

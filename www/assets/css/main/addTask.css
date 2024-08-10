@@ -12,6 +12,13 @@
   gap: 48px;
 }
 
+.taskmangermobil {
+  /* width: 946px; */
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
 .taskmangerHeader {
   display: flex;
   justify-content: space-between;

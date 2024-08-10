@@ -13,7 +13,7 @@
   z-index: 9999;
 }
 .smallcontainer {
-  width: 525px;
+  width: 694px;
   background: var(--back-color04);
   display: flex;
   flex-direction: column;
@@ -52,8 +52,13 @@
   display: none;
 }
 
+@media (max-width: 1300px) {
+  .smallcontainer {
+    width: 60vw !important;
+}
+}
 
-@media (max-width: 550px) {
+@media (max-width: 770px) {
   .smallcontainer {
     width: 95vw !important;
 }
