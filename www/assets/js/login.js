@@ -60,11 +60,19 @@ async function autoLogin() {
  * ====================================================================================================
  */
 async function initLogin(event) {
+    // Fehlerfelder leeren
+    // document.getElementById('passwordError').style.display = 'none';
+    document.getElementById('emailError').style.display = 'none';
+    
     event.preventDefault();
     const statusCheckbox = ID_inputCheckbox.checked;
     const formData = await loadFormData();
     const user = await loadUserData(formData);
-    if (user === undefined) return console.warn('Benutzer nicht gefunden!'); // [!] Ändern zu Benutzer-Feedback
+    if (user === undefined) {
+        document.getElementById('emailError').textContent = 'Benutzer nicht gefunden!';
+        document.getElementById('emailError').style.display = 'block';
+        return;
+    } // Benutzer-Feedback Ende
     if (statusCheckbox) {
         await saveLocalUserID(user[0], true);
     } else {
