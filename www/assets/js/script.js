@@ -102,3 +102,8 @@ function hidePopup(id, remove) {
     document.getElementById(remove).classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }
+
+
+function hideContactcard(id){
+    document.getElementById(id).classList.add('d-nonepopup');
+}

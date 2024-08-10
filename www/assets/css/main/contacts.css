@@ -864,12 +864,7 @@ body {
   }
 
   .showContactcard {
-    position: absolute;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--back-color01);
-    padding: 16px 16px;
+    display: none;
   }
 
   .letter {
