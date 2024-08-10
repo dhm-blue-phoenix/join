@@ -51,6 +51,7 @@
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             title="Bitte eine gültige E-Mail-Adresse eingeben. Beispiel: beispiel@domain.de"
             required/>
+            <span id="emailError" class="error-message"></span> <!-- Error für E-Mail -->
           <input
             class="signupinput lock"
             type="password"
@@ -68,6 +69,7 @@
             id="inputConfirmPassword"
             required
           />
+          <span id="passwordError" class="error-message"></span> <!-- Error für Passwort -->
         </div>
         <div class="privacypolicycontainer">
           <input required class="checkbox" type="checkbox" id="inputCheckbox"/>
