@@ -626,8 +626,8 @@ body {
     box-shadow: #00000062 0px 2px 4px 0px;
   }
   .personName p {
+    font-weight: 700;
     font-size: 36px;
-    font-weight: 500;
   }
   .personInfo {
     display: none;
