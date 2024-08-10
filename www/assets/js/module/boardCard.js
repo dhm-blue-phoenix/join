@@ -1,6 +1,6 @@
 export const HtmlCard = (value, title, description, assigned, date, prio, category) => `
 <!-- Taskcard -->
-<div id="taskcardtoDrop" class="taskcard" draggable="true" onclick="showTaskCardPopup()">
+<div id="taskcardtoDrop" class="taskcard" draggable="true" onclick="showPopup('TaskcardPopupanimation', 'taskCardpopup')">
     <p class="taskcardtitle">${title}</p>
     <div class="teskdescription">
         <h3>Kochwelt Page & Recipe Recommender</h3>
