@@ -22,19 +22,36 @@ const signedUpContainer = document.getElementById('signedUpContainer');
  */
 async function initRegister(event) {
     event.preventDefault();
+    
+    // Fehlerfelder leeren
+    document.getElementById('passwordError').style.display = 'none';
+    document.getElementById('emailError').style.display = 'none';
+    
     const formData = await loadFormData();
     signedUpContainer.innerHTML = '';
-    if (formData.pw !== formData.cfpw) return console.warn('Das Passwort stimmt nicht überein!'); // [!] Ändern zu Benutzer-Feedback
+
+    if (formData.pw !== formData.cfpw) {
+        document.getElementById('passwordError').textContent = 'Das Passwort stimmt nicht überein!';
+        document.getElementById('passwordError').style.display = 'block';
+        return;
+    }
+
     const userData = await loadUserData(formData);
-    if (userData === undefined) {
-        await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none' });
-        signedUpContainerBG.classList.remove('d-nonepopup');
-        signedUpContainer.innerHTML = '<p>You Signed Up successfully</p>';
-        setTimeout(function () {
-            window.location.href = './index.html?formEmail=' + formData.email + '&formPw=' + formData.pw;
-        }, 2000); // 2000 Millisekunden = 2 Sekunden
-    } else console.warn('Benutzer ist in der Datenbank bereits vorhanden!'); // [!] Ändern zu Benutzer-Feedback
+    
+    if (userData !== undefined) {
+        document.getElementById('emailError').textContent = 'Benutzer ist in der Datenbank bereits vorhanden!';
+        document.getElementById('emailError').style.display = 'block';
+        return;
+    }
+    
+    await uploadData({ 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none' });
+    signedUpContainerBG.classList.remove('d-nonepopup');
+    signedUpContainer.innerHTML = '<p>You Signed Up successfully</p>';
+    setTimeout(function () {
+        window.location.href = './index.html?formEmail=' + formData.email + '&formPw=' + formData.pw;
+    }, 2000); // 2000 Millisekunden = 2 Sekunden
 }
+
 
 /**
  * Lädt die Formulardaten aus den Eingabefeldern.

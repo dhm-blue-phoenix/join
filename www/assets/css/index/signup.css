@@ -201,8 +201,8 @@
   .arrow-left-line {
     position: fixed;
     cursor: pointer;
-    top: 43px;
-    right: 30px;
+    top: 17px;
+    right: 17px;
   }
 
   .signupbtn2 {
@@ -211,15 +211,14 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 415px) {
   .signupcontainer {
+    margin-top: 34px;
     width: 90vw !important;
   }
 }
 
-
-
-.signedUpContainerBG{
+.signedUpContainerBG {
   width: 100vw;
   height: 100vh;
   background-color: #f5f5f549;
@@ -231,7 +230,7 @@
   justify-content: center;
   z-index: 2;
 }
-.signedUpContainer{
+.signedUpContainer {
   width: 312px;
   height: 74px;
   border-radius: 20px;
@@ -242,12 +241,19 @@
   box-shadow: #292929 0px 0px 2px 0px;
 }
 
-.signedUpContainer p{
+.signedUpContainer p {
   color: var(--text-color02);
   font-size: 20px;
   font-weight: 400;
 }
 
-.d-nonepopup{
+.d-nonepopup {
   display: none !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  display: none;
 }

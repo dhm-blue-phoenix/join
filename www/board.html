@@ -43,6 +43,7 @@
 
   <!-- Titel -->
   <header>
+    <img src="./resources/logo.png" class="logoheader" alt="">
     <h1>Kanban Project Management Tool</h1>
     <div>
       <img src="./resources/symbols/help.png" alt="help" />
@@ -61,13 +62,13 @@
     <div class="BoardTop">
       <div>
         <h1>Board</h1>
-        <button class="hidethisaddbutton" onclick="showaddTaskCardPopup()">
+        <button class="hidethisaddbutton" onclick="showPopup('addTaskcardPopupanimation', 'addtaskpopup')">
           <img src="./resources/symbols/add.png" alt="" />
         </button>
       </div>
       <div>
         <input id="boardSearch" type="text" placeholder="Find Task" />
-        <button class="hidethisbutton" onclick="showaddTaskCardPopup()">
+        <button class="hidethisbutton" onclick="showPopup('addTaskcardPopupanimation', 'addtaskpopup')">
           Add task <img src="./resources/symbols/add.png" alt="" />
         </button>
       </div>
@@ -79,7 +80,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>To do</h3>
-            <button onclick="showaddTaskCardPopup()">+</button>
+            <button onclick="showPopup('addTaskcardPopupanimation', 'addtaskpopup')">+</button>
           </div>
           <div id="taskToDo" class="taskList">
             <div id="tasktnotfounddrag" class="tasktnotfound">
@@ -91,7 +92,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>In progress</h3>
-            <button onclick="showaddTaskCardPopup()">+</button>
+            <button onclick="showPopup('addTaskcardPopupanimation', 'addtaskpopup')">+</button>
           </div>
           <div id="taskInProgress" class="taskList">
             
@@ -104,7 +105,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>Await feedback</h3>
-            <button onclick="showaddTaskCardPopup()">+</button>
+            <button onclick="showPopup('addTaskcardPopupanimation', 'addtaskpopup')">+</button>
           </div>
           <div id="taskAwaitFeedback" class="taskList">
             <div id="tasktnotfounddrag" class="tasktnotfound">
@@ -116,7 +117,7 @@
         <div class="task">
           <div class="taskheadline">
             <h3>Done</h3>
-            <button onclick="showaddTaskCardPopup()">+</button>
+            <button onclick="showPopup('addTaskcardPopupanimation', 'addtaskpopup')">+</button>
           </div>
           <div id="taskDone" class="taskList">
             <div id="tasktnotfounddrag" class="tasktnotfound">

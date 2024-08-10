@@ -63,7 +63,7 @@
       </div>
 
       <div class="addcontactpopuprightside">
-        <button class="closeaddcontactpopup" onclick="hideaddContactCardPopup()">
+        <button class="closeaddcontactpopup" onclick="hidePopup('addcontactpopupanimation', 'addcontactpopup')">
           &#x2A2F;
         </button>
         <img class="usericon" src="./resources/symbols/usericon.png" alt="">
@@ -85,6 +85,7 @@
 
   <!-- Titel -->
   <header>
+    <img src="./resources/logo.png" class="logoheader" alt="">
     <h1>Kanban Project Management Tool</h1>
     <div>
       <img src="./resources/symbols/help.png" alt="help" />
@@ -103,7 +104,7 @@
     <div class="contacts">
       <div class="showContacts">
         <div class="addNewContactheader">
-          <button class="addNewContact" onclick="showaddContactCardPopup()">
+          <button class="addNewContact" onclick="showPopup('addcontactpopupanimation', 'addcontactpopup')">
             <p>Add new contact</p>
             <img src="./resources/symbols/person_add.svg" alt="" />
           </button>
