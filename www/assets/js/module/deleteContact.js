@@ -1,7 +1,8 @@
 import { dnonePersionCard } from './dnone.js';
 import { showContactCards } from './showContactCards.js';
-import { loadUserIdFromStored } from './loadUserIdFromStored.js';
-import { getContactId } from './getContactId.js';
+import { loadUserIdFromStored } from './modules.js';
+import { getContactId } from './modules.js';
+import { deletContactById } from './dataResponse.js';
 
 /**
  * Löscht den Kontakt anhand der angegebenen E-Mail-Adresse.

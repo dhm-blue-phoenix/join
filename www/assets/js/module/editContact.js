@@ -1,7 +1,8 @@
-import { loadUserIdFromStored } from './loadUserIdFromStored.js';
+import { loadUserIdFromStored } from './modules.js';
 import { editContactId } from './showContactEditPopup.js';
 import { showContactCards } from './showContactCards.js';
 import { dnonePersionCard, resetEditContactForm } from './dnone.js';
+import { updateData } from './dataResponse.js';
 
 /**
  * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.

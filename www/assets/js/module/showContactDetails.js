@@ -1,4 +1,4 @@
-import { extractInitials } from './extractInitials.js';
+import { extractInitials } from './modules.js';
 import { deleteContact } from './deleteContact.js';
 import { showContactEditPopup } from './showContactEditPopup.js';
 

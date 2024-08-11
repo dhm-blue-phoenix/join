@@ -1,5 +1,6 @@
 import { showContactDetails } from './showContactDetails.js';
-import { loadUserIdFromStored } from './loadUserIdFromStored.js';
+import { loadUserIdFromStored } from './modules.js';
+import { lodeContactsCard } from './dataResponse.js';
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 
@@ -27,7 +28,7 @@ export async function showContactCards() {
  * nach Anfangsbuchstaben. Bei einem Fehler wird eine Fehlermeldung in die Konsole ausgegeben.
  * ====================================================================================================
  * func loadUserIdFromStored() - findet man in der './loadUserIdFromStored.js'
- * func lodeContactsCard() - findet man in der ''
+ * func lodeContactsCard() - findet man in der './dataResponse.js'
  * ====================================================================================================
  * @returns {void}
  * ====================================================================================================

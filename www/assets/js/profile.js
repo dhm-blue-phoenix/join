@@ -1,5 +1,6 @@
-import { extractInitials } from './module/extractInitials.js';
-import { loadUserIdFromStored } from './module/loadUserIdFromStored.js';
+import { extractInitials } from './module/modules.js';
+import { loadUserIdFromStored } from './module/modules.js';
+import { findUserById } from './module/dataResponse.js';
 
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * ====================================================================================================
  * Ruft die Benutzer-ID von der Funktion checkStored() ab und sucht den Benutzernamen mittels der Benutzer-ID.
  * ====================================================================================================
- * func findUserById() - findet man in der dataResponse.js
+ * func findUserById() - findet man in der './module/dataResponse.js'
  * ====================================================================================================
  * @async
  * @returns {string} Der Benutzername des gefundenen Benutzers.

@@ -1,6 +1,6 @@
-import { loadUserIdFromStored } from './loadUserIdFromStored.js';
-import { getContactId } from './getContactId.js';
-import { extractInitials } from './extractInitials.js';
+import { loadUserIdFromStored } from './modules.js';
+import { getContactId } from './modules.js';
+import { extractInitials } from './modules.js';
 
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_editPersionName = document.getElementById('editPersionName');
