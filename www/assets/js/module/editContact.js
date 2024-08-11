@@ -3,11 +3,6 @@ import { editContactId } from './showContactEditPopup.js';
 import { showContactCards } from './showContactCards.js';
 import { dnonePersionCard, resetEditContactForm } from './dnone.js';
 
-const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
-const ID_editPersionName = document.getElementById('editPersionName');
-const ID_editPersionEmail = document.getElementById('editPersionEmail');
-const ID_editPersionTel = document.getElementById('editPersionTel');
-
 /**
  * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.
  * ====================================================================================================
@@ -15,7 +10,12 @@ const ID_editPersionTel = document.getElementById('editPersionTel');
  * Sie lädt die neuen Formulardaten, aktualisiert den Kontakt in der Datenbank
  * und initialisiert die Kontaktkarte neu.
  * ====================================================================================================
- * func updateData() - findet man in der dataResponse.js
+ * func updateData()            - findet man in der 'dataResponse.js'
+ * func loadUserIdFromStored()  - findet man in der './loadUserIdFromStored.js'
+ * func editContactId()         - findet man in der './showContactEditPopup.js'
+ * func showContactCards()      - findet man in der './showContactCards.js'
+ * func dnonePersionCard()      - findet man in der './dnone.js'
+ * func resetEditContactForm()  - findet man in der './dnone.js'
  * ====================================================================================================
  * @async
  * @param {Event} event Das Event-Objekt, das durch das Abschicken des Formulars ausgelöst wird.

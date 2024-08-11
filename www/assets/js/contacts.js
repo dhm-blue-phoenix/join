@@ -116,23 +116,5 @@ function createFormData(name, email, tel) {
 
 
 
-/**
- * Lädt die Formulardaten aus den Eingabefeldern.
- * ====================================================================================================
- * @param {string} name - Der Wert des Namens-Eingabefelds.
- * @param {string} email - Der Wert des E-Mail-Eingabefelds.
- * @param {string} tel - Der Wert des Telefon-Eingabefelds.
- * @returns {Object} Das Formulardaten-Objekt.
- * ====================================================================================================
- */
-function lodeFormData(name, email, tel) {
-    const style = window.getComputedStyle(ID_editPersionShortcut);
-    const formData = {
-        'shortcutBackColor': style.backgroundColor,
-        'name': name,
-        'email': email,
-        'tel': tel
-    };
-    return formData;
-}
+
 

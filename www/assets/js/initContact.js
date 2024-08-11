@@ -1,6 +1,7 @@
 import { showContactCards } from './module/showContactCards.js';
 import { editContact } from './module/editContact.js';
 
+const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_editPersionForm = document.getElementById('editContactForm');
 const ID_editPersionName = document.getElementById('editPersionName');
 const ID_editPersionEmail = document.getElementById('editPersionEmail');
@@ -49,16 +50,19 @@ function initEditForm(event) {
 /**
  * Lädt die Formulardaten aus den Eingabefeldern.
  * ====================================================================================================
- * Diese Funktion sammelt die Werte aus den Eingabefeldern für Name, E-Mail und Telefonnummer und
- * erstellt ein Objekt, das diese Daten enthält. Dieses Objekt wird zurückgegeben und kann für
- * weitere Verarbeitung, wie das Bearbeiten eines Kontakts, verwendet werden.
- * ====================================================================================================
- * @param {string} name - Der Name des Kontakts.
- * @param {string} email - Die E-Mail-Adresse des Kontakts.
- * @param {string} tel - Die Telefonnummer des Kontakts.
- * @returns {Object} Ein Objekt mit den gesammelten Formulardaten.
+ * @param {string} name - Der Wert des Namens-Eingabefelds.
+ * @param {string} email - Der Wert des E-Mail-Eingabefelds.
+ * @param {string} tel - Der Wert des Telefon-Eingabefelds.
+ * @returns {Object} Das Formulardaten-Objekt.
  * ====================================================================================================
  */
 function loadFormData(name, email, tel) {
-    return { name, email, tel };
+    const style = window.getComputedStyle(ID_editPersionShortcut);
+    const formData = {
+        'shortcutBackColor': style.backgroundColor,
+        'name': name,
+        'email': email,
+        'tel': tel
+    };
+    return formData;
 }
