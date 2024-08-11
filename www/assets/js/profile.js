@@ -47,18 +47,3 @@ async function loadUserName() {
     const userData = await findUserById(userID);
     return userData[2];
 }
-
-/**
- * Überprüft die gespeicherten Benutzer-IDs.
- * ====================================================================================================
- * Prüft, ob eine Benutzer-ID entweder im lokalen Speicher oder in der Sitzung gespeichert ist,
- * und gibt diese zurück.
- * ====================================================================================================
- * @returns {string|null} Die gespeicherte Benutzer-ID oder null, falls keine gefunden wurde.
- * ====================================================================================================
- */
-function checkStored() {
-    if (storedLocalUserId !== null) return storedLocalUserId;
-    if (storedSessionUserID !== null) return storedSessionUserID;
-    throw new Error('Benutzer ID nicht gefunden!');
-}

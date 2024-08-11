@@ -111,63 +111,8 @@ function createFormData(name, email, tel) {
 
 
 
-/**
- * Schließt das Popup-Fenster zum Hinzufügen eines neuen Kontakts und leert die Eingabefelder.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn der Benutzer den Kontakt erfolgreich hinzugefügt hat.
- * Sie versteckt das Popup-Fenster und setzt die Werte der Eingabefelder zurück.
- * ====================================================================================================
- */
-function dnoneAddContact() {
-    addClass('addcontactpopup');
-    ID_addPersionName.value = '';
-    ID_addPersionEmail.value = '';
-    ID_addPersionTel.value = ''
-}
 
-/**
- * Öffnet ein Bearbeitungspopup für einen Kontakt basierend auf der E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion entfernt die CSS-Klasse, die das Bearbeitungspopup versteckt,
- * lädt die Kontakt-ID basierend auf der E-Mail-Adresse und füllt das Formular
- * mit den vorhandenen Kontaktdaten.
- * ====================================================================================================
- * @async
- * @param {string} email Die E-Mail-Adresse des Kontakts, der bearbeitet werden soll.
- * ====================================================================================================
- */
-async function openEditPopup(email) {
-    try {
-        removeClass('editcontactpopup');
-        const contactId = await loadContactsId(`users/${userID}/`, email);
-        importFromEditFormData(contactId[1]);
-        editContactId = contactId[0];
-    } catch (err) {
-        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
-    }
-}
 
-/**
- * Importiert die Kontaktdaten in das Bearbeitungsformular.
- * ====================================================================================================
- * Diese Funktion aktualisiert die Felder des Bearbeitungsformulars
- * mit den übergebenen Kontaktdaten.
- * ====================================================================================================
- * func extractInitials() - findet man in der extractInitials.js
- * ====================================================================================================
- * @param {Object} contactData Ein Objekt mit den Kontaktdaten.
- * @param {string} contactData.name Der Name des Kontakts.
- * @param {string} contactData.email Die E-Mail-Adresse des Kontakts.
- * @param {string} contactData.tel Die Telefonnummer des Kontakts.
- * ====================================================================================================
- */
-function importFromEditFormData(contactData) {
-    ID_editPersionShortcut.textContent = extractInitials(contactData.name);
-    ID_editPersionShortcut.style.backgroundColor = contactData.shortcutBackColor;
-    ID_editPersionName.value = contactData.name;
-    ID_editPersionEmail.value = contactData.email;
-    ID_editPersionTel.value = contactData.tel
-}
 
 
 
