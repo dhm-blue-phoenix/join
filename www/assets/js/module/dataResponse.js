@@ -203,7 +203,7 @@ async function uploadData(data) {
  * @param {Object} data Die zu speichernden Daten.
  * ====================================================================================================
  */
-async function uploadPatchData(patch, data) {
+export async function uploadPatchData(patch, data) {
     try {
         const patchResponse = await fetch(baseURL + patch + '.json', {
             method: 'POST',

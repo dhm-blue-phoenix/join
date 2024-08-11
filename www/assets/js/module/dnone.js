@@ -9,7 +9,7 @@ const ID_editPersion = ['editPersionShortcut', 'editPersionName', 'editPersionEm
  * Sie versteckt das Popup-Fenster und setzt die Werte der Eingabefelder zurück.
  * ====================================================================================================
  */
-export function reset() {
+export function resetAddContactForm() {
     addClass('addcontactpopup');
     ID_addPersion.forEach((id) => document.getElementById(id).value = '');
 }
