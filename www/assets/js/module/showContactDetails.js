@@ -1,13 +1,13 @@
 import { extractInitials } from './extractInitials.js';
 import { deleteContact } from './deleteContact.js';
-import { showEditPopup } from './showEditPopup.js';
+import { showContactEditPopup } from './showContactEditPopup.js';
 
 const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
 const BTN_ID = ['delContactBtn', 'editContactBtn'];
-const FUNC = { delete: deleteContact, edit: showEditPopup };
+const FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
 const CLASS_dnone = document.querySelectorAll('.d-none');
 

@@ -7,6 +7,8 @@ const ID_editPersionName = document.getElementById('editPersionName');
 const ID_editPersionEmail = document.getElementById('editPersionEmail');
 const ID_editPersionTel = document.getElementById('editPersionTel');
 
+export let editContactId;
+
 /**
  * Zeigt das Bearbeitungs-Popup für einen Kontakt an.
  * ====================================================================================================
@@ -20,12 +22,13 @@ const ID_editPersionTel = document.getElementById('editPersionTel');
  * @param {string} email Die E-Mail-Adresse des Kontakts, der bearbeitet werden soll.
  * ====================================================================================================
 */
-export async function showEditPopup(email) {
+export async function showContactEditPopup(email) {
     try {
         removeClass('editcontactpopup');
         const userID = loadUserIdFromStored();
         const contactId = await getContactId(userID, email);
         importFromEditFormData(contactId[1]);
+        editContactId = contactId[0];
     } catch (err) {
         console.error(`Es ist ein Problem beim Öffnen des Edid Popups aufgetreten! ${err}`);
     }

@@ -1,4 +1,4 @@
-import { dnonePersionCard } from './dnonePersionCard.js';
+import { dnonePersionCard } from './dnone.js';
 import { showContactCards } from './showContactCards.js';
 import { loadUserIdFromStored } from './loadUserIdFromStored.js';
 import { getContactId } from './getContactId.js';

@@ -136,18 +136,3 @@ function lodeFormData(name, email, tel) {
     return formData;
 }
 
-/**
- * Schließt das Bearbeitungspopup für einen Kontakt und leert die Eingabefelder.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, um das Bearbeitungspopup zu verstecken, nachdem
- * der Benutzer die Bearbeitung eines Kontakts abgeschlossen hat oder abbricht.
- * Sie setzt alle Eingabefelder im Popup zurück.
- * ====================================================================================================
- */
-function dnoneEditContact() {
-    addClass('editcontactpopup');
-    ID_editPersionShortcut.value = '';
-    ID_editPersionName.value = '';
-    ID_editPersionEmail.value = '';
-    ID_editPersionTel.value = ''
-}

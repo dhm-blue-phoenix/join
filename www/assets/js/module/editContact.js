@@ -1,3 +1,12 @@
+import { loadUserIdFromStored } from './loadUserIdFromStored.js';
+import { editContactId } from './showContactEditPopup.js';
+import { showContactCards } from './showContactCards.js';
+import { dnonePersionCard, resetEditContactForm } from './dnone.js';
+
+const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
+const ID_editPersionName = document.getElementById('editPersionName');
+const ID_editPersionEmail = document.getElementById('editPersionEmail');
+const ID_editPersionTel = document.getElementById('editPersionTel');
 
 /**
  * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.
@@ -12,15 +21,15 @@
  * @param {Event} event Das Event-Objekt, das durch das Abschicken des Formulars ausgelöst wird.
  * ====================================================================================================
  */
-export async function editContact(event) {
-    event.preventDefault();
+export async function editContact(formData) {
     try {
-        const formData = lodeFormData(ID_editPersionName.value, ID_editPersionEmail.value, ID_editPersionTel.value);
+        const userID = loadUserIdFromStored();
         await updateData(`users/${userID}/contacts/${editContactId}`, formData);
-        initCard();
-        dnoneEditContact();
+        showContactCards();
+        resetEditContactForm();
         dnonePersionCard();
     } catch (err) {
-        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
+        console.error(`Es ist ein Problem beim Bearbeiten des Kontakts aufgetreten! ${err}`);
     }
 }
+
