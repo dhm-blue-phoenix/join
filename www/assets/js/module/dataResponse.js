@@ -11,7 +11,7 @@ const baseURL = "https://join-393a6-default-rtdb.europe-west1.firebasedatabase.a
  * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  * ====================================================================================================
  */
-async function loadUserData(find) {
+export async function loadUserData(find) {
     try {
         const users = await retrievingData('');
         const user = await findUser(users[0], find);

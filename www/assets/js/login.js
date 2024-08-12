@@ -1,3 +1,5 @@
+import {findUserById,loadUserData } from './module/dataResponse.js'
+
 const storedAutoLogin = localStorage.getItem('autoLogin');
 const storedUserID = localStorage.getItem('userID');
 
@@ -32,6 +34,12 @@ function loadUsernameFromURL() {
  * ====================================================================================================
  */
 async function autoLogin() {
+    
+}
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    document.querySelector('.maincontainer').addEventListener('submit', initLogin);
     const encode = loadUsernameFromURL();
     let userData;
     if (userData !== null) {
@@ -45,7 +53,8 @@ async function autoLogin() {
     }
     ID_inputEmail.value = userData[0];
     ID_inputPW.value = userData[1];
-}
+});
+
 
 /**
  * Lädt die Formulardaten aus den Eingabefeldern.
