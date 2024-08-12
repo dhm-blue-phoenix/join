@@ -18,7 +18,6 @@ let userID;
 export async function showContactCards() {
     await fetchContacts();
     displaySortedContacts();
-    console.log('Contacts:', contacts);
 }
 
 /**

@@ -102,9 +102,6 @@ function setBtnAttribute(email) {
  * die Löschen-Funktion aufgerufen, indem die E-Mail-Adresse des zu bearbeitenden oder zu löschenden Kontakts
  * als Parameter übergeben wird.
  * ====================================================================================================
- * func deleteContact(email) - Funktion zum Löschen eines Kontakts, definiert in './deleteContact.js'.
- * func editContactBtn(email) - Funktion zum Bearbeiten eines Kontakts, definiert in './editContactBtn.js'.
- * ====================================================================================================
  * @returns {void}
  * ====================================================================================================
  */
@@ -115,6 +112,7 @@ function addEventFromBtn() {
             const email = target.getAttribute('data-email');
             const action = target.id.includes('del') ? 'delete' : 'edit';
             FUNC[action](email);
+            console.log(action);
         });
     });
 }

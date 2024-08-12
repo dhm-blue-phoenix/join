@@ -36,6 +36,7 @@ let shortcutColors = [
  * func showContactCards() - findet man in der './module/showContactCards.js'
  * ====================================================================================================
  */
+document.removeEventListener('DOMContentLoaded');
 document.addEventListener('DOMContentLoaded', async () => {
     showContactCards();
     ID_addContactForm && ID_addContactForm.addEventListener('submit', initAddForm);

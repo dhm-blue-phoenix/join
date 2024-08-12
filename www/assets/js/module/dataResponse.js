@@ -180,6 +180,9 @@ async function checkAnswer(response) {
     if (!response.ok) {
         throw new Error(`[HTTP] Status: ${response.status} - ${response.statusText}`);
     }
+    if (Object.entries(response).length === 0) {
+        throw console.warn('Keine Daten gefunden!');
+    }
 }
 
 /**
@@ -191,5 +194,5 @@ async function checkAnswer(response) {
  * ====================================================================================================
  */
 function handleError(err) {
-    throw new Error(`Es ist ein Problem in 'dataResponse' aufgetreten: ${err}`);
+    throw err;
 }
