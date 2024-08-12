@@ -13,7 +13,7 @@ const ID_account = document.getElementById('account');
  * 3. Extrahiert die Initialen aus dem Benutzernamen.
  * 4. Zeigt den Benutzernamen und die Initialen im Profil an.
  * ====================================================================================================
- * func extractInitials() - findet man in der ./module/extractInitials.js
+ * func extractInitials() - findet man in der ./module/modules.js
  * ====================================================================================================
  * @async
  * @function
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ID_account.textContent = initials;
         ID_username && (ID_username.textContent = username);
     } catch (err) {
-        console.error('Es ist ein Problem beim Laden des Benutzerprofils aufgetreten!', err);
+        console.error(`Es ist ein Problem beim Laden des Benutzerprofils aufgetreten! ${err}`);
     }
 });
 
