@@ -19,6 +19,7 @@ let userID;
 export async function showContactCards() {
     await fetchContacts();
     displaySortedContacts();
+    console.log('Contacts:', contacts);
 }
 
 /**
@@ -27,7 +28,7 @@ export async function showContactCards() {
  * Diese Funktion ruft die Kontaktdaten von einem Remote-Server ab und organisiert sie 
  * nach Anfangsbuchstaben. Bei einem Fehler wird eine Fehlermeldung in die Konsole ausgegeben.
  * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './loadUserIdFromStored.js'
+ * func loadUserIdFromStored() - findet man in der './modules.js'
  * func lodeContactsCard() - findet man in der './dataResponse.js'
  * ====================================================================================================
  * @returns {void}
@@ -35,7 +36,7 @@ export async function showContactCards() {
  */
 async function fetchContacts() {
     try {
-        contacts = {};
+        contacts = {};        
         userID = loadUserIdFromStored();
         const tempContacts = await lodeContactsCard(`users/${userID}/`);
         organizeContacts(tempContacts);

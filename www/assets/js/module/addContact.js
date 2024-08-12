@@ -13,7 +13,7 @@ import { lodeContactsCard, uploadPatchData } from './dataResponse.js';
  * Die Funktion verwendet die Hilfsfunktion `lodeContactsCard()` zum Abrufen der bestehenden Kontakte
  * und `uploadPatchData()` zum Hinzufügen des neuen Kontakts zur Datenbank.
  * ====================================================================================================
- * func lodeContactsCard() - findet man in der dataResponse.js
+ * func lodeContactsCard() - findet man in der './dataResponse.js'
  * ====================================================================================================
  * @async
  * @param {Object} contactData - Die Daten des hinzuzufügenden Kontakts.
@@ -29,10 +29,7 @@ export async function addContact(contactData) {
         const contactCards = await lodeContactsCard(`users/${userID}`);
         if (isContactExists(contactCards, contactData.email)) return console.warn('Benutzer existiert bereits!'); // [!] Ändern zu Benutzer-Feedback
         await uploadPatchData(`users/${userID}/contacts/`, contactData);
-        console.warn('Benutzer erfolgreich hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
-        showContactCards();
-        resetAddContactForm();
-        dnonePersionCard();
+        await updateContactDisplay();
     } catch (err) {
         console.error(`Es ist ein schwerwiegender Fehler aufgetreten! ${err}`);
     }
@@ -51,4 +48,26 @@ export async function addContact(contactData) {
  */
 function isContactExists(contactCards, email) {
     return contactCards.some(contact => contact.email === email);
+}
+
+/**
+ * Aktualisiert die Anzeige der Kontaktkarten.
+ * ====================================================================================================
+ * Diese Funktion aktualisiert die Anzeige, um die Änderungen bei den Kontakten widerzuspiegeln 
+ * und versteckt bei Bedarf die Kontaktkarte.
+ * ====================================================================================================
+ * func showContactCards()      - zu finden in './showContactCards.js'
+ * func resetAddContactForm()   - zu finden in './dnone.js'
+ * func dnonePersionCard()      - zu finden in './dnone.js'
+ * ====================================================================================================
+ * @async
+ * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Anzeige erfolgreich aktualisiert wurde.
+ * @throws {Error} Wenn ein Fehler bei der Aktualisierung der Anzeige auftritt.
+ * ====================================================================================================
+ */
+async function updateContactDisplay() {
+    await showContactCards();
+    resetAddContactForm();
+    dnonePersionCard();
+    console.warn('Benutzer erfolgreich hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
 }

@@ -1,7 +1,6 @@
 import { dnonePersionCard } from './dnone.js';
 import { showContactCards } from './showContactCards.js';
-import { loadUserIdFromStored } from './modules.js';
-import { getContactId } from './modules.js';
+import { loadUserIdFromStored, getContactId } from './modules.js';
 import { deletContactById } from './dataResponse.js';
 
 /**
@@ -10,8 +9,8 @@ import { deletContactById } from './dataResponse.js';
  * Diese Funktion lädt die ID des Kontakts basierend auf der E-Mail-Adresse, löscht dann den Kontakt und 
  * aktualisiert die Ansicht, um die Änderungen widerzuspiegeln.
  * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './loadUserIdFromStored.js'
- * func getContactId() - findet man in der './getContactId.js'
+ * func loadUserIdFromStored() - findet man in der './modules.js'
+ * func getContactId() - findet man in der './modules.js'
  * ====================================================================================================
  * @async
  * @param {string} email Die E-Mail-Adresse des Kontakts, der gelöscht werden soll.
@@ -55,7 +54,7 @@ async function removeContact(userID, contactId) {
  * und versteckt die Kontaktkarte bei Bedarf.
  * ====================================================================================================
  * func showContactCards() - findet man in der './showContactCards.js'
- * func dnonePersionCard() - findet man in der './dnonePersionCard.js'
+ * func dnonePersionCard() - findet man in der './dnone.js'
  * ====================================================================================================
  * @async
  * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Anzeige erfolgreich aktualisiert wurde.
