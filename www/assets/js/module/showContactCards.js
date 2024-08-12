@@ -1,6 +1,5 @@
 import { showContactDetails } from './showContactDetails.js';
-import { loadUserIdFromStored } from './modules.js';
-import { lodeContactsCard } from './dataResponse.js';
+import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 
@@ -29,7 +28,7 @@ export async function showContactCards() {
  * nach Anfangsbuchstaben. Bei einem Fehler wird eine Fehlermeldung in die Konsole ausgegeben.
  * ====================================================================================================
  * func loadUserIdFromStored() - findet man in der './modules.js'
- * func lodeContactsCard() - findet man in der './dataResponse.js'
+ * func loadElementByPatch() - findet man in der './modules.js'
  * ====================================================================================================
  * @returns {void}
  * ====================================================================================================
@@ -38,7 +37,7 @@ async function fetchContacts() {
     try {
         contacts = {};        
         userID = loadUserIdFromStored();
-        const tempContacts = await lodeContactsCard(`users/${userID}/`);
+        const tempContacts = await loadElementByPatch(`users/${userID}/`);
         organizeContacts(tempContacts);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden der Kontakte aufgetreten: ${err}`);

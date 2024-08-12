@@ -1,7 +1,7 @@
-import { loadUserIdFromStored } from './modules.js';
+import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
 import { showContactCards } from './showContactCards.js';
 import { dnonePersionCard, resetAddContactForm } from './dnone.js';
-import { lodeContactsCard, uploadPatchData } from './dataResponse.js';
+import { uploadPatchData } from './dataResponse.js';
 
 /**
  * Fügt einen neuen Kontakt zur Kontaktliste hinzu.
@@ -10,10 +10,10 @@ import { lodeContactsCard, uploadPatchData } from './dataResponse.js';
  * ob der Kontakt bereits in der Kontaktliste existiert. Falls der Kontakt nicht vorhanden ist,
  * wird er zur Liste hinzugefügt. Andernfalls wird eine Warnung ausgegeben, dass der Kontakt bereits existiert.
  * ==================================================================================================== 
- * Die Funktion verwendet die Hilfsfunktion `lodeContactsCard()` zum Abrufen der bestehenden Kontakte
+ * Die Funktion verwendet die Hilfsfunktion `loadElementByPatch()` zum Abrufen der bestehenden Kontakte
  * und `uploadPatchData()` zum Hinzufügen des neuen Kontakts zur Datenbank.
  * ====================================================================================================
- * func lodeContactsCard() - findet man in der './dataResponse.js'
+ * func loadElementByPatch() - findet man in der './modules.js'
  * ====================================================================================================
  * @async
  * @param {Object} contactData - Die Daten des hinzuzufügenden Kontakts.
@@ -26,7 +26,7 @@ import { lodeContactsCard, uploadPatchData } from './dataResponse.js';
 export async function addContact(contactData) {
     try {
         const userID = loadUserIdFromStored();
-        const contactCards = await lodeContactsCard(`users/${userID}`);
+        const contactCards = await loadElementByPatch(`users/${userID}`);
         if (isContactExists(contactCards, contactData.email)) return console.warn('Benutzer existiert bereits!'); // [!] Ändern zu Benutzer-Feedback
         await uploadPatchData(`users/${userID}/contacts/`, contactData);
         await updateContactDisplay();

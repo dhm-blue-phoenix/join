@@ -1,7 +1,6 @@
 import { dnonePersionCard } from './dnone.js';
 import { showContactCards } from './showContactCards.js';
-import { loadUserIdFromStored, getContactId } from './modules.js';
-import { deletContactById } from './dataResponse.js';
+import { loadUserIdFromStored, getContactId, deletElementById } from './modules.js';
 
 /**
  * Löscht den Kontakt anhand der angegebenen E-Mail-Adresse.
@@ -34,7 +33,7 @@ export async function deleteContact(email) {
  * ====================================================================================================
  * Diese Funktion löscht den Kontakt anhand der angegebenen Benutzer- und Kontakt-ID aus der Datenbank.
  * ====================================================================================================
- * func deletContactById() - findet man in der './dataResponse.js'
+ * func deletElementById() - findet man in der './modules.js'
  * ====================================================================================================
  * @async
  * @param {string} userID Die ID des Benutzers.
@@ -44,7 +43,7 @@ export async function deleteContact(email) {
  * ====================================================================================================
  */
 async function removeContact(userID, contactId) {
-    await deletContactById(`users/${userID}/contacts/${contactId[0]}`);
+    await deletElementById(`users/${userID}/contacts/${contactId[0]}`);
 }
 
 /**

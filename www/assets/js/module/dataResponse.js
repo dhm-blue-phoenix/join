@@ -36,6 +36,40 @@ async function findUser(users, find) {
 }
 
 /**
+ * Holt die Benutzerdaten eines bestimmten Benutzers aus der Firebase Realtime Database.
+ * ====================================================================================================
+ * Diese Funktion ruft die Benutzerdaten eines bestimmten Benutzers aus der Datenbank ab.
+ * ====================================================================================================
+ * @async 
+ * @param {String} uid Die eindeutige Benutzer-ID.
+ * @returns {Object} Die Benutzerdaten des bestimmten Benutzers.
+ * ====================================================================================================
+ */
+export async function findUserById(uid) {
+    return await retrievingData('users/' + uid);
+}
+
+
+
+
+
+
+
+
+
+
+// dataResponse 
+// ||
+// ||
+// \/
+
+
+
+
+
+
+
+/**
  * Holt die Benutzerdaten aus der Firebase Realtime Database.
  * ====================================================================================================
  * Diese Funktion ruft die Benutzerdaten aus der Datenbank ab und gibt sie als Liste 
@@ -45,7 +79,7 @@ async function findUser(users, find) {
  * @returns {Array} Die Liste der Benutzer.
  * ====================================================================================================
  */
-async function retrievingData(patch) {
+export async function retrievingData(patch) {
     try {
         const response = await fetch(baseURL + patch + '.json');
         await checkAnswer(response);
@@ -54,66 +88,6 @@ async function retrievingData(patch) {
     } catch (err) {
         handleError(err);
     }
-}
-
-/**
- * Lädt die Kontaktkarten vom Server.
- * ====================================================================================================
- * Diese Funktion wird verwendet, um die Kontaktkarten für die Anzeige zu laden.
- * ====================================================================================================
- * @async
- * @param {string} patch - Der Pfad zum Abrufen der Daten.
- * @returns {array} Ein Array von Kontaktkarten.
- * ====================================================================================================
- */
-export async function lodeContactsCard(patch) {
-    const data = await retrievingData(patch);
-    const contactCarts = Object.values(data[0]);
-    return contactCarts;
-}
-
-/**
- * Lädt die ID eines Kontakts basierend auf seiner E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion wird verwendet, um die ID eines Kontakts für weitere Verarbeitung zu laden.
- * ====================================================================================================
- * @async
- * @param {string} patch - Der Pfad zum Abrufen der Daten.
- * @param {string} email - Die E-Mail-Adresse des Kontakts.
- * @returns {string} Die ID des Kontakts.
- * ====================================================================================================
- */
-export async function loadContactsId(patch, email) {
-    const data = await retrievingData(patch);
-    const contactId = await findContactId(data[0], email);
-    return contactId;
-}
-
-/**
- * Findet die ID eines Kontakts basierend auf seiner E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion wird verwendet, um die ID eines Kontakts in den Kontaktdaten zu suchen.
- * ====================================================================================================
- * @async
- * @param {object} contacts - Ein Objekt mit Kontaktdaten.
- * @param {string} findEmail - Die E-Mail-Adresse des Kontakts.
- * @returns {array} Ein Array mit der ID des Kontakts.
- * ====================================================================================================
- */
-async function findContactId(contacts, findEmail) {
-    return Object.entries(contacts).find(([id, contact]) => contact.email === findEmail);
-}
-
-/**
- * Löscht einen Kontakt anhand der angegebenen ID.
- * ====================================================================================================
- * @async
- * @param {string} patch - Der Pfad zum Kontakt, der gelöscht werden soll.
- * @returns {Promise<void>}
- * ====================================================================================================
- */
-export async function deletContactById(patch) {
-    await deleteData(patch);
 }
 
 /**
@@ -126,7 +100,7 @@ export async function deletContactById(patch) {
  * @param {string} patch Der Pfad zur Ressource, die gelöscht werden soll.
  * ====================================================================================================
  */
-async function deleteData(patch) {
+export async function deleteData(patch) {
     try {
         const deleteResponse = await fetch(baseURL + patch + '.json', {
             method: 'DELETE',
@@ -162,31 +136,6 @@ export async function updateData(patch, data) {
             body: JSON.stringify(data)
         });
         await checkAnswer(updateResponse);
-    } catch (err) {
-        handleError(err);
-    }
-}
-
-/**
- * Fügt einen neuen Benutzer zur Firebase Realtime Database hinzu.
- * ====================================================================================================
- * Diese Funktion sendet eine POST-Anfrage an die Datenbank, um einen neuen Benutzer 
- * hinzuzufügen.
- * ====================================================================================================
- * @async
- * @param {Object} data Ein Objekt mit den Benutzerdaten, die hinzugefügt werden sollen.
- * ====================================================================================================
- */
-async function uploadData(data) {
-    try {
-        const patchResponse = await fetch(baseURL + 'users.json', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        await checkAnswer(patchResponse);
     } catch (err) {
         handleError(err);
     }
@@ -242,19 +191,5 @@ async function checkAnswer(response) {
  * ====================================================================================================
  */
 function handleError(err) {
-    throw new Error(`Es ist ein Problem aufgetreten: ${err}`);
-}
-
-/**
- * Holt die Benutzerdaten eines bestimmten Benutzers aus der Firebase Realtime Database.
- * ====================================================================================================
- * Diese Funktion ruft die Benutzerdaten eines bestimmten Benutzers aus der Datenbank ab.
- * ====================================================================================================
- * @async 
- * @param {String} uid Die eindeutige Benutzer-ID.
- * @returns {Object} Die Benutzerdaten des bestimmten Benutzers.
- * ====================================================================================================
- */
-export async function findUserById(uid) {
-    return await retrievingData('users/' + uid);
+    throw new Error(`Es ist ein Problem in 'dataResponse' aufgetreten: ${err}`);
 }

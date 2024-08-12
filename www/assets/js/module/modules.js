@@ -1,4 +1,4 @@
-import { loadContactsId } from './dataResponse.js';
+import { retrievingData, deleteData } from './dataResponse.js';
 
 const storedLocalUserID = localStorage.getItem('userID');
 const storedSessionUserID = sessionStorage.getItem('userID');
@@ -35,7 +35,7 @@ export function loadUserIdFromStored() {
  * ====================================================================================================
  */
 export async function getContactId(userID, email) {
-    return await loadContactsId(`users/${userID}/`, email);
+    return await loadElementById(`users/${userID}/`, email);
 }
 
 /**
@@ -50,4 +50,80 @@ export async function getContactId(userID, email) {
  */
 export function extractInitials(username) {
     return username.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
+}
+
+/**
+ * Lädt Elemente basierend auf dem angegebenen Pfad.
+ * ====================================================================================================
+ * Diese Funktion ruft die Daten von einem angegebenen Pfad ab und extrahiert die Kontaktkarten
+ * aus den Daten. Die Kontaktkarten werden als Array zurückgegeben.
+ * ====================================================================================================
+ * func retrievingData() - findet man in der './dataResponse.js'
+ * ====================================================================================================
+ * @async
+ * @param {string} patch Der Pfad, von dem die Daten abgerufen werden sollen.
+ * @returns {Promise<Array>} Ein Promise, das ein Array von Kontaktkarten zurückgibt.
+ * @throws {Error} Wenn ein Fehler beim Abrufen der Daten auftritt.
+ * ====================================================================================================
+ */
+export async function loadElementByPatch(patch) {
+    const data = await retrievingData(patch);
+    const contactCarts = Object.values(data[0]);
+    return contactCarts;
+}
+
+/**
+ * Lädt ein Element basierend auf der ID und E-Mail.
+ * ====================================================================================================
+ * Diese Funktion ruft die Daten von einem angegebenen Pfad ab und sucht nach einem Kontakt
+ * mit der angegebenen E-Mail-Adresse. Die Kontakt-ID wird zurückgegeben.
+ * ====================================================================================================
+ * func retrievingData() - findet man in der './dataResponse.js' 
+ * ====================================================================================================
+ * @async
+ * @param {string} patch Der Pfad, von dem die Daten abgerufen werden sollen.
+ * @param {string} email Die E-Mail-Adresse des gesuchten Kontakts.
+ * @returns {Promise<string>} Ein Promise, das die Kontakt-ID zurückgibt.
+ * @throws {Error} Wenn ein Fehler beim Abrufen oder Suchen der Daten auftritt.
+ * ====================================================================================================
+ */
+export async function loadElementById(patch, email) {
+    const data = await retrievingData(patch);
+    const contactId = await findElementById(data[0], email);
+    return contactId;
+}
+
+/**
+ * Sucht ein Element in den Kontakten basierend auf der E-Mail-Adresse.
+ * ====================================================================================================
+ * Diese Funktion durchsucht die Kontakte und gibt das erste Element zurück, dessen E-Mail-Adresse
+ * mit der angegebenen übereinstimmt.
+ * ====================================================================================================
+ * @param {Object} contacts Ein Objekt, das die zu durchsuchenden Kontakte enthält.
+ * @param {string} findEmail Die E-Mail-Adresse, die gesucht wird.
+ * @returns {[string, Object]} Ein Array mit der Kontakt-ID und dem Kontakt-Objekt.
+ * @throws {Error} Wenn ein Fehler beim Suchen des Kontakts auftritt.
+ * ====================================================================================================
+ */
+async function findElementById(contacts, findEmail) {
+    return Object.entries(contacts).find(([id, contact]) => contact.email === findEmail);
+}
+
+/**
+ * Löscht ein Element basierend auf dem angegebenen Pfad.
+ * ====================================================================================================
+ * Diese Funktion löscht Daten von einem angegebenen Pfad und gibt eine Konsolennachricht aus,
+ * um die Aktion zu bestätigen.
+ * ====================================================================================================
+ * func deleteData() - findet man in der './dataResponse.js'
+ * ====================================================================================================
+ * @async
+ * @param {string} patch Der Pfad, von dem die Daten gelöscht werden sollen.
+ * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Daten erfolgreich gelöscht wurden.
+ * @throws {Error} Wenn ein Fehler beim Löschen der Daten auftritt.
+ * ====================================================================================================
+ */
+export async function deletElementById(patch) {
+    console.log('LÖSCHE:', patch);
+    await deleteData(patch);
 }
