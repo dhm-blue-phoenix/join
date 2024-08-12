@@ -1,3 +1,5 @@
+import {loadUserData,uploadPatchData } from './module/dataResponse.js'
+
 const ID_inputName = document.getElementById('inputName');
 const ID_inputEmail = document.getElementById('inputEmail');
 const ID_inputPW = document.getElementById('inputPassword');
@@ -5,6 +7,11 @@ const ID_inputCFPW = document.getElementById('inputConfirmPassword');
 
 const signedUpContainerBG = document.getElementById('signedUpContainerBG');
 const signedUpContainer = document.getElementById('signedUpContainer');
+
+document.addEventListener('DOMContentLoaded', async () => {
+    document.querySelector('.signupcontainer').addEventListener('submit', initRegister);
+});
+
 
 /**
  * Initialisiert den Registrierungsprozess.
@@ -44,7 +51,7 @@ async function initRegister(event) {
         return;
     }
     
-    await uploadPatchData('user', { 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': { 'none': '' }, 'tasks': { 'none': '' } });
+    await uploadPatchData('users', { 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': { 'none': '' }, 'tasks': { 'none': '' } });
     signedUpContainerBG.classList.remove('d-nonepopup');
     signedUpContainer.innerHTML = '<p>You Signed Up successfully</p>';
     setTimeout(function () {
