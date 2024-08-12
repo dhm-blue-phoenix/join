@@ -58,7 +58,7 @@ export async function findUserById(uid) {
 
 
 
-// dataResponse 
+// dataResponse neu 
 // ||
 // ||
 // \/
@@ -179,9 +179,6 @@ export async function uploadPatchData(patch, data) {
 async function checkAnswer(response) {
     if (!response.ok) {
         throw new Error(`[HTTP] Status: ${response.status} - ${response.statusText}`);
-    }
-    if (Object.entries(response).length === 0) {
-        throw console.warn('Keine Daten gefunden!');
     }
 }
 

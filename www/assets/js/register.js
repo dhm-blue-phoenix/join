@@ -44,7 +44,7 @@ async function initRegister(event) {
         return;
     }
     
-    await uploadPatchData('user', { 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': 'none', 'tasks': 'none' });
+    await uploadPatchData('user', { 'email': formData.email, 'name': formData.name, 'password': formData.pw, 'contacts': { 'none': '' }, 'tasks': { 'none': '' } });
     signedUpContainerBG.classList.remove('d-nonepopup');
     signedUpContainer.innerHTML = '<p>You Signed Up successfully</p>';
     setTimeout(function () {

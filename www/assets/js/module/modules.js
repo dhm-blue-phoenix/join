@@ -124,6 +124,5 @@ async function findElementById(contacts, findEmail) {
  * ====================================================================================================
  */
 export async function deletElementById(patch) {
-    console.log('LÖSCHE:', patch);
     await deleteData(patch);
 }

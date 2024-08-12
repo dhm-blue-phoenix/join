@@ -24,24 +24,57 @@ let shortcutColors = [
 ];
 
 /**
- * Initialisiert die Kontaktkartenanzeige nach dem Laden des DOM-Inhalts.
+ * Initialisiert die Kontaktkartenanzeige und fügt Event-Listener zu den Formularen hinzu.
  * ====================================================================================================
- * Diese Funktion wird ausgeführt, sobald der gesamte DOM-Inhalt geladen und analysiert wurde.
+ * Diese Funktion wird aufgerufen, sobald der gesamte DOM-Inhalt geladen und analysiert wurde. 
  * Sie ruft die Funktion `showContactCards` auf, um die Kontaktkarten im Benutzerinterface darzustellen.
- * Die Funktion sorgt dafür, dass alle notwendigen Daten geladen und die Kontaktkarten korrekt gerendert werden,
- * bevor der Benutzer mit ihnen interagieren kann.
- * Anschließend wird ein Event-Listener zum Formular hinzugefügt, der die `initEditForm`-Funktion
- * bei einem Formular-Submit auslöst.
+ * Anschließend werden Event-Listener für das Formular zum Hinzufügen von Kontakten und das Formular zum 
+ * Bearbeiten von Kontakten hinzugefügt. Diese Listener rufen die Funktionen `initAddForm` und `initEditForm` 
+ * auf, wenn die jeweiligen Formulare abgeschickt werden.
  * ====================================================================================================
  * func showContactCards() - findet man in der './module/showContactCards.js'
+ * @returns {void}
  * ====================================================================================================
  */
-document.removeEventListener('DOMContentLoaded');
 document.addEventListener('DOMContentLoaded', async () => {
     showContactCards();
-    ID_addContactForm && ID_addContactForm.addEventListener('submit', initAddForm);
-    ID_editPersionForm && ID_editPersionForm.addEventListener('submit', initEditForm);
+    addEventFromAddContact();
+    addEventFromEditContact();
 });
+
+/**
+ * Fügt einen Event-Listener zum Formular zum Hinzufügen eines Kontakts hinzu.
+ * ====================================================================================================
+ * Diese Funktion überprüft, ob das Formular für das Hinzufügen eines Kontakts (`ID_addContactForm`) existiert.
+ * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt und ein neuer Event-Listener
+ * hinzugefügt. Dieser Event-Listener ruft die `initAddForm`-Funktion auf, wenn das Formular abgeschickt wird.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const addEventFromAddContact = () => {
+    ID_addContactForm && (
+        ID_addContactForm.removeEventListener('submit', initAddForm),
+        ID_addContactForm.addEventListener('submit', initAddForm)
+    )
+};
+
+/**
+ * Fügt einen Event-Listener zum Formular zum Bearbeiten eines Kontakts hinzu.
+ * ====================================================================================================
+ * Diese Funktion überprüft, ob das Formular für das Bearbeiten eines Kontakts (`ID_editPersionForm`) existiert.
+ * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt und ein neuer Event-Listener
+ * hinzugefügt. Dieser Event-Listener ruft die `initEditForm`-Funktion auf, wenn das Formular abgeschickt wird.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const addEventFromEditContact = () => {
+    ID_editPersionForm && (
+        ID_editPersionForm.removeEventListener('submit', initEditForm),
+        ID_editPersionForm.addEventListener('submit', initEditForm)
+    )
+};
 
 /**
  * Initialisiert das Hinzufügen eines neuen Kontakts.

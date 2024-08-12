@@ -46,19 +46,21 @@ async function fetchContacts() {
 /**
  * Organisiert die Kontaktdaten nach dem Anfangsbuchstaben des Namens.
  * ====================================================================================================
- * Diese Funktion sortiert die Kontaktdaten alphabetisch nach dem Namen und speichert sie in einem 
- * Objekt, das nach dem Anfangsbuchstaben des Namens strukturiert ist.
+ * Diese Funktion filtert den ungültigen Eintrag aus den Kontaktdaten heraus, sortiert die 
+ * verbleibenden Kontakte alphabetisch nach ihrem Namen und organisiert sie in einem Objekt, 
+ * das nach dem Anfangsbuchstaben des Namens strukturiert ist.
  * ====================================================================================================
  * @param {Array<Object>} data Eine Liste von Kontaktdatenobjekten.
  * @param {string} data[].name Der Name des Kontakts.
  * @param {string} data[].email Die E-Mail-Adresse des Kontakts.
  * @param {string} data[].tel Die Telefonnummer des Kontakts.
  * @param {string} data[].shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * @returns {void}
+ * @returns {Object} Ein Objekt, in dem die Kontakte nach dem Anfangsbuchstaben ihres Namens gruppiert sind.
  * ====================================================================================================
  */
 function organizeContacts(data) {
-    const sortedContacts = data.sort((a, b) => a.name.localeCompare(b.name));
+    const validContacts = data.filter(contact => contact && contact.name);
+    const sortedContacts = validContacts.sort((a, b) => a.name.localeCompare(b.name));
     sortedContacts.forEach((contact) => {
         const firstLetter = contact.name.charAt(0).toLowerCase();
         if (!contacts[firstLetter]) {

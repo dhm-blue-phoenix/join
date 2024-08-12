@@ -107,16 +107,29 @@ function setBtnAttribute(email) {
  */
 function addEventFromBtn() {
     BTN_ID.forEach((id) => {
-        document.getElementById(id).addEventListener('click', (event) => {
-            const target = event.currentTarget;
-            const email = target.getAttribute('data-email');
-            const action = target.id.includes('del') ? 'delete' : 'edit';
-            FUNC[action](email);
-            console.log(action);
-        });
+        const element = document.getElementById(id);
+        element && (
+            element.removeEventListener('click', handleButtonClick),
+            element.addEventListener('click', handleButtonClick)
+        );
     });
 }
 
+/**
+ * Handler für die Klick-Ereignisse der Buttons.
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn ein Button geklickt wird. Sie bestimmt, welche Aktion ausgeführt
+ * werden soll (bearbeiten oder löschen), und ruft die entsprechende Funktion mit der E-Mail-Adresse auf.
+ * ====================================================================================================
+ * @param {Event} event - Das Klick-Ereignis.
+ * ====================================================================================================
+ */
+function handleButtonClick(event) {
+    const target = event.currentTarget;
+    const email = target.getAttribute('data-email');
+    const action = target.id.includes('del') ? 'delete' : 'edit';
+    FUNC[action](email);
+}
 
 /**
  * Entfernt die Klasse der zuletzt aktiven Kontaktkarte und setzt den Zustand zurück.
