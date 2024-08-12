@@ -97,28 +97,46 @@ function displaySortedContacts() {
 /**
  * Fügt Klick-Ereignislistener zu den Kontaktkarten hinzu.
  * ====================================================================================================
- * Diese Funktion fügt Event-Listener zu den Kontaktkarten hinzu, um auf Klickereignisse zu reagieren
- * und die Kontaktdetails anzuzeigen.
+ * Diese Funktion fügt Event-Listener zu allen Kontaktkarten hinzu, um auf Klickereignisse zu reagieren
+ * und die Kontaktdetails anzuzeigen. Die Funktion entfernt zuvor vorhandene Event-Listener, um sicherzustellen,
+ * dass keine doppelten Listener vorhanden sind, bevor neue hinzugefügt werden.
  * ====================================================================================================
- * func showContactDetails() - findet man in der './showContactDetails.js'
+ * @function handleCardClick - Funktion zum Umgang mit Klick-Ereignissen auf Kontaktkarten.
  * ====================================================================================================
  * @returns {void}
  * ====================================================================================================
  */
-function attachCardEvents() {
+const attachCardEvents = () => {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
-        card.addEventListener('click', (event) => {
-            const target = event.currentTarget;
-            const key = target.getAttribute('data-key');
-            const name = target.getAttribute('data-name');
-            const email = target.getAttribute('data-email');
-            const tel = target.getAttribute('data-tel');
-            const shortcutBackColor = target.getAttribute('data-shortcut-color');
-            showContactDetails(key, name, email, tel, shortcutBackColor);
-        });
+        card.removeEventListener('click', handleCardClick);
+        card.addEventListener('click', handleCardClick);
     });
 }
+
+/**
+ * Behandelt das Klick-Ereignis auf einer Kontaktkarte.
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn eine Kontaktkarte angeklickt wird. Sie extrahiert die relevanten
+ * Datenattribute von der angeklickten Karte und ruft die Funktion `showContactDetails` auf, um die
+ * Kontaktdetails anzuzeigen.
+ * ====================================================================================================
+ * func showContactDetails() - findet man in der './showContactDetails.js'
+ * ====================================================================================================
+ * @param {Event} event - Das Klick-Ereignisobjekt, das die Details der angeklickten Karte enthält.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const handleCardClick = (event) => {
+    const target = event.currentTarget;
+    const key = target.getAttribute('data-key');
+    const name = target.getAttribute('data-name');
+    const email = target.getAttribute('data-email');
+    const tel = target.getAttribute('data-tel');
+    const shortcutBackColor = target.getAttribute('data-shortcut-color');
+    showContactDetails(key, name, email, tel, shortcutBackColor);
+};
 
 /**
  * Generiert die Überschrift für eine Gruppe von Kontaktkarten.

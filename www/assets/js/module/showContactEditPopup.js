@@ -61,7 +61,7 @@ function removeClass(id) {
  * @param {string} contactData.tel Die Telefonnummer des Kontakts.
  * ====================================================================================================
  */
-function importFromEditFormData(contactData) {
+const importFromEditFormData = (contactData) => {
     ID_editPersionShortcut.textContent = extractInitials(contactData.name);
     ID_editPersionShortcut.style.backgroundColor = contactData.shortcutBackColor;
     ID_editPersionName.value = contactData.name;

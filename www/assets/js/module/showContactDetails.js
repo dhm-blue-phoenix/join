@@ -49,7 +49,7 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
  * @returns {void}
  * ====================================================================================================
  */
-function setCardActive(dnone, card) {
+const setCardActive = (dnone, card) => {
     dnone.forEach(element => { element.classList.remove('d-none'); });
     card.classList.add('cardactive');
     card.classList.remove('card');
@@ -71,7 +71,7 @@ function setCardActive(dnone, card) {
  * @returns {void}
  * ====================================================================================================
  */
-function updateContactDetails(name, email, tel, shortcutBackColor) {
+const updateContactDetails = (name, email, tel, shortcutBackColor) => {
     const initials = extractInitials(name);
     ID_personShortcut.textContent = initials;
     ID_personShortcut.style.backgroundColor = shortcutBackColor;
@@ -90,7 +90,7 @@ function updateContactDetails(name, email, tel, shortcutBackColor) {
  * @returns {void}
  * ====================================================================================================
  */
-function setBtnAttribute(email) {
+const setBtnAttribute = (email) => {
     BTN_ID.forEach((id) => document.getElementById(id).setAttribute('data-email', email));
 }
 
@@ -105,7 +105,7 @@ function setBtnAttribute(email) {
  * @returns {void}
  * ====================================================================================================
  */
-function addEventFromBtn() {
+const addEventFromBtn = () => {
     BTN_ID.forEach((id) => {
         const element = document.getElementById(id);
         element && (
@@ -124,7 +124,7 @@ function addEventFromBtn() {
  * @param {Event} event - Das Klick-Ereignis.
  * ====================================================================================================
  */
-function handleButtonClick(event) {
+const handleButtonClick = (event) => {
     const target = event.currentTarget;
     const email = target.getAttribute('data-email');
     const action = target.id.includes('del') ? 'delete' : 'edit';
@@ -141,7 +141,7 @@ function handleButtonClick(event) {
  * @returns {void}
  * ====================================================================================================
  */
-function deselectPreviousCard(card) {
+const deselectPreviousCard = (card) => {
     lastCart !== undefined && (
         lastCart.classList.remove('cardactive'),
         lastCart.classList.add('card'),
