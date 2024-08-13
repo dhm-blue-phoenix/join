@@ -1,6 +1,6 @@
-import { dnonePersionCard } from './dnonePersionCard.js';
-import { loadUserIdFromStored } from './loadUserIdFromStored.js';
-import { displayContactCards } from './displayContactCards.js';
+import { dnonePersionCard } from './dnone.js';
+import { showContactCards } from './showContactCards.js';
+import { loadUserIdFromStored, getContactId, deletElementById } from './modules.js';
 
 /**
  * Löscht den Kontakt anhand der angegebenen E-Mail-Adresse.
@@ -8,7 +8,8 @@ import { displayContactCards } from './displayContactCards.js';
  * Diese Funktion lädt die ID des Kontakts basierend auf der E-Mail-Adresse, löscht dann den Kontakt und 
  * aktualisiert die Ansicht, um die Änderungen widerzuspiegeln.
  * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './loadUserIdFromStored.js'
+ * func loadUserIdFromStored() - findet man in der './modules.js'
+ * func getContactId() - findet man in der './modules.js'
  * ====================================================================================================
  * @async
  * @param {string} email Die E-Mail-Adresse des Kontakts, der gelöscht werden soll.
@@ -28,29 +29,11 @@ export async function deleteContact(email) {
 }
 
 /**
- * Lädt die Kontakt-ID basierend auf der E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion ruft die Kontakt-ID für den angegebenen Benutzer ab, indem sie die E-Mail-Adresse nutzt.
- * ====================================================================================================
- * func loadContactsId() - findet man in der './dataResponse.js'
- * ====================================================================================================
- * @async
- * @param {string} userID Die ID des Benutzers, zu dem der Kontakt gehört.
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @returns {Promise<string>} Die ID des Kontakts.
- * @throws {Error} Wenn ein Fehler beim Laden der Kontakt-ID auftritt.
- * ====================================================================================================
- */
-async function getContactId(userID, email) {
-    return loadContactsId(`users/${userID}/`, email);
-}
-
-/**
  * Entfernt den Kontakt aus der Datenbank.
  * ====================================================================================================
  * Diese Funktion löscht den Kontakt anhand der angegebenen Benutzer- und Kontakt-ID aus der Datenbank.
  * ====================================================================================================
- * func deletContactById() - findet man in der './dataResponse.js'
+ * func deletElementById() - findet man in der './modules.js'
  * ====================================================================================================
  * @async
  * @param {string} userID Die ID des Benutzers.
@@ -60,7 +43,7 @@ async function getContactId(userID, email) {
  * ====================================================================================================
  */
 async function removeContact(userID, contactId) {
-    await deletContactById(`users/${userID}/contacts/${contactId[0]}`);
+    await deletElementById(`users/${userID}/contacts/${contactId[0]}`);
 }
 
 /**
@@ -69,8 +52,8 @@ async function removeContact(userID, contactId) {
  * Diese Funktion aktualisiert die Anzeige, um die gelöschten Kontakte zu reflektieren,
  * und versteckt die Kontaktkarte bei Bedarf.
  * ====================================================================================================
- * func displayContactCards() - findet man in der './displayContactCards.js'
- * func dnonePersionCard() - findet man in der './dnonePersionCard.js'
+ * func showContactCards() - findet man in der './showContactCards.js'
+ * func dnonePersionCard() - findet man in der './dnone.js'
  * ====================================================================================================
  * @async
  * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Anzeige erfolgreich aktualisiert wurde.
@@ -78,6 +61,6 @@ async function removeContact(userID, contactId) {
  * ====================================================================================================
  */
 async function updateContactDisplay() {
-    await displayContactCards();
+    await showContactCards();
     dnonePersionCard();
 }

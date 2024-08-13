@@ -1,5 +1,4 @@
-import { extractInitials } from './module/extractInitials.js';
-import { loadUserIdFromStored } from './module/loadUserIdFromStored.js';
+import { extractInitials, loadUserIdFromStored, findUserById } from './module/modules.js';
 
 const ID_username = document.getElementById('username');
 const ID_account = document.getElementById('account');
@@ -12,7 +11,7 @@ const ID_account = document.getElementById('account');
  * 3. Extrahiert die Initialen aus dem Benutzernamen.
  * 4. Zeigt den Benutzernamen und die Initialen im Profil an.
  * ====================================================================================================
- * func extractInitials() - findet man in der ./module/extractInitials.js
+ * func extractInitials() - findet man in der ./module/modules.js
  * ====================================================================================================
  * @async
  * @function
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ID_account.textContent = initials;
         ID_username && (ID_username.textContent = username);
     } catch (err) {
-        console.error('Es ist ein Problem beim Laden des Benutzerprofils aufgetreten!', err);
+        console.error(`Es ist ein Problem beim Laden des Benutzerprofils aufgetreten! ${err}`);
     }
 });
 
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * ====================================================================================================
  * Ruft die Benutzer-ID von der Funktion checkStored() ab und sucht den Benutzernamen mittels der Benutzer-ID.
  * ====================================================================================================
- * func findUserById() - findet man in der dataResponse.js
+ * func findUserById() - findet man in der './module/modules.js'
  * ====================================================================================================
  * @async
  * @returns {string} Der Benutzername des gefundenen Benutzers.
@@ -46,19 +45,4 @@ async function loadUserName() {
     let userID = loadUserIdFromStored();
     const userData = await findUserById(userID);
     return userData[2];
-}
-
-/**
- * Überprüft die gespeicherten Benutzer-IDs.
- * ====================================================================================================
- * Prüft, ob eine Benutzer-ID entweder im lokalen Speicher oder in der Sitzung gespeichert ist,
- * und gibt diese zurück.
- * ====================================================================================================
- * @returns {string|null} Die gespeicherte Benutzer-ID oder null, falls keine gefunden wurde.
- * ====================================================================================================
- */
-function checkStored() {
-    if (storedLocalUserId !== null) return storedLocalUserId;
-    if (storedSessionUserID !== null) return storedSessionUserID;
-    throw new Error('Benutzer ID nicht gefunden!');
 }

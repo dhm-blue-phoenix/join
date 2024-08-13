@@ -37,24 +37,30 @@ function actionBack() {
  * Öffnet und schließt die Dropliste für den Account 
  * ====================================================================================================
  */
+if (
+    !currentWindow.includes('index.html') && 
+    !currentWindow.includes('signUp.html') && 
+    !currentWindow.includes('nologinlegalnotice.html') && 
+    !currentWindow.includes('nologinprivacyPolicy.html')
+    ) {
+    document.addEventListener('DOMContentLoaded', (event) => {
+    const accountContainer = document.getElementById('account');
+    const dropdownContent = document.getElementById('dropdownContent');
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  const accountContainer = document.getElementById('account');
-  const dropdownContent = document.getElementById('dropdownContent');
+    accountContainer.addEventListener('click', () => {
+      dropdownContent.classList.toggle('show');
+    });
 
-  accountContainer.addEventListener('click', () => {
-    dropdownContent.classList.toggle('show');
-  });
-
-  // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
-  window.addEventListener('click', (event) => {
-    if (!event.target.matches('.account-container')) {
-      if (dropdownContent.classList.contains('show')) {
-        dropdownContent.classList.remove('show');
+    // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
+    window.addEventListener('click', (event) => {
+      if (!event.target.matches('.account-container')) {
+        if (dropdownContent.classList.contains('show')) {
+          dropdownContent.classList.remove('show');
+        }
       }
-    }
+    });
   });
-});
+}
 
 if (currentWindow.includes('contacts.html')) {
   document.addEventListener('DOMContentLoaded', (event) => {
@@ -104,6 +110,6 @@ function hidePopup(id, remove) {
 }
 
 
-function hideContactcard(id){
-    document.getElementById(id).classList.add('d-nonepopup');
+function hideContactcard(id) {
+  document.getElementById(id).classList.add('d-nonepopup');
 }

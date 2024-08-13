@@ -13,10 +13,9 @@
     <!-- CSS-Style -->
     <link rel="stylesheet" href="./assets/css/index.css"/>
     <!-- JS-Script -->
-    <script src="./assets/js/login.js" defer></script>
-    <script src="./assets/js/dataResponse.js" defer></script>
+    <script src="./assets/js/login.js" type="module" defer></script>
 </head>
-<body class="bg" onload="autoLogin();">
+<body class="bg">
     <!-- <div id="logoanimationcontaienr" class="logoanimationcontaienr">
     </div> -->
     <header class="loginheader">
@@ -26,7 +25,7 @@
             <a href="signUp.html"><button class="signupbtn">Sign up</button></a>
         </div>
     </header>
-    <form onsubmit="initLogin(event);" class="maincontainer">
+    <form class="maincontainer" id="loginForm">
         <div class="logincontainer">
             <div class="loginheadline">
                 <h2>Log in</h2>
@@ -44,8 +43,8 @@
                 </div>
             </div>
             <div class="loginbtnscontainer">
-                <button class="loginbtn">Log in</button>
-                <a href="summary.html"><button class="guestloginbtn" onclick="window.location.href='./summary.html'">Guest Log in</button></a>
+                <button type="submit" class="loginbtn">Log in</button>
+                <button type="button" class="guestloginbtn" id="guestloginbtn">Guest Log in</button>
             </div>
         </form>
     </div>

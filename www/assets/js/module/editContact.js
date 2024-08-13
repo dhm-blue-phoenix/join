@@ -1,26 +1,54 @@
+import { loadUserIdFromStored } from './modules.js';
+import { editContactId } from './showContactEditPopup.js';
+import { showContactCards } from './showContactCards.js';
+import { dnonePersionCard, resetEditContactForm } from './dnone.js';
+import { updateData } from './dataResponse.js';
 
 /**
  * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.
  * ====================================================================================================
  * Diese Funktion wird ausgelöst, wenn das Bearbeitungsformular abgeschickt wird.
  * Sie lädt die neuen Formulardaten, aktualisiert den Kontakt in der Datenbank
- * und initialisiert die Kontaktkarte neu.
+ * und aktualisiert die Anzeige der Kontaktkarte.
  * ====================================================================================================
- * func updateData() - findet man in der dataResponse.js
+ * func updateData()            - zu finden in './dataResponse.js'
+ * func loadUserIdFromStored()  - zu finden in './modules.js'
+ * func editContactId()         - zu finden in './showContactEditPopup.js'
+ * func showContactCards()      - zu finden in './showContactCards.js'
+ * func dnonePersionCard()      - zu finden in './dnone.js'
+ * func resetEditContactForm()  - zu finden in './dnone.js'
  * ====================================================================================================
  * @async
  * @param {Event} event Das Event-Objekt, das durch das Abschicken des Formulars ausgelöst wird.
  * ====================================================================================================
  */
-export async function editContact(event) {
-    event.preventDefault();
+export async function editContact(formData) {
     try {
-        const formData = lodeFormData(ID_editPersionName.value, ID_editPersionEmail.value, ID_editPersionTel.value);
+        const userID = loadUserIdFromStored();
         await updateData(`users/${userID}/contacts/${editContactId}`, formData);
-        initCard();
-        dnoneEditContact();
-        dnonePersionCard();
+        await updateContactDisplay();
     } catch (err) {
-        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
+        console.error(`Es ist ein Problem beim Bearbeiten des Kontakts aufgetreten! ${err}`);
     }
+}
+
+/**
+ * Aktualisiert die Anzeige der Kontaktkarten.
+ * ====================================================================================================
+ * Diese Funktion aktualisiert die Anzeige, um die Änderungen bei den Kontakten zu reflektieren,
+ * und versteckt die Kontaktkarte bei Bedarf.
+ * ====================================================================================================
+ * func showContactCards()      - zu finden in './showContactCards.js'
+ * func resetEditContactForm()  - zu finden in './dnone.js'
+ * func dnonePersionCard()      - zu finden in './dnone.js'
+ * ====================================================================================================
+ * @async
+ * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Anzeige erfolgreich aktualisiert wurde.
+ * @throws {Error} Wenn ein Fehler bei der Anzeigeaktualisierung auftritt.
+ * ====================================================================================================
+ */
+async function updateContactDisplay() {
+    await showContactCards();
+    resetEditContactForm();
+    dnonePersionCard();
 }

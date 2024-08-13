@@ -20,8 +20,7 @@
 
     <!-- JS-Script -->
      <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/register.js" defer></script>
-    <script src="./assets/js/dataResponse.js" defer></script>
+    <script src="./assets/js/register.js" type="module" defer></script>
   </head>
 
   <body class="bg">
@@ -29,7 +28,7 @@
       <img class="logo" src="./resources/logologin.svg" alt="">
     </header>
     <div class="maincontainer">
-      <form class="signupcontainer" onsubmit="initRegister(event);">
+      <form class="signupcontainer" id="signupFrom">
         <div class="signupheadline">
           <img 
             onclick="actionBack()"
@@ -57,7 +56,7 @@
             type="password"
             placeholder="Password"
             minlength="8" 
-            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W]).{8,}" 
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W]).{8,}"
             id="inputPassword"
             title="Mindestens 8 Zeichen, mindestens ein Großbuchstabe, eine Zahl und ein Sonderzeichen"
             required

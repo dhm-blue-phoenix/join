@@ -1,13 +1,13 @@
-import { extractInitials } from './extractInitials.js';
+import { extractInitials } from './modules.js';
 import { deleteContact } from './deleteContact.js';
-import { editContact } from './editContact.js';
+import { showContactEditPopup } from './showContactEditPopup.js';
 
 const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
 const BTN_ID = ['delContactBtn', 'editContactBtn'];
-const FUNC = { delete: deleteContact, edit: editContact };
+const FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
 const CLASS_dnone = document.querySelectorAll('.d-none');
 
@@ -49,7 +49,7 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
  * @returns {void}
  * ====================================================================================================
  */
-function setCardActive(dnone, card) {
+const setCardActive = (dnone, card) => {
     dnone.forEach(element => { element.classList.remove('d-none'); });
     card.classList.add('cardactive');
     card.classList.remove('card');
@@ -71,7 +71,7 @@ function setCardActive(dnone, card) {
  * @returns {void}
  * ====================================================================================================
  */
-function updateContactDetails(name, email, tel, shortcutBackColor) {
+const updateContactDetails = (name, email, tel, shortcutBackColor) => {
     const initials = extractInitials(name);
     ID_personShortcut.textContent = initials;
     ID_personShortcut.style.backgroundColor = shortcutBackColor;
@@ -90,7 +90,7 @@ function updateContactDetails(name, email, tel, shortcutBackColor) {
  * @returns {void}
  * ====================================================================================================
  */
-function setBtnAttribute(email) {
+const setBtnAttribute = (email) => {
     BTN_ID.forEach((id) => document.getElementById(id).setAttribute('data-email', email));
 }
 
@@ -102,23 +102,34 @@ function setBtnAttribute(email) {
  * die Löschen-Funktion aufgerufen, indem die E-Mail-Adresse des zu bearbeitenden oder zu löschenden Kontakts
  * als Parameter übergeben wird.
  * ====================================================================================================
- * func deleteContact(email) - Funktion zum Löschen eines Kontakts, definiert in './deleteContact.js'.
- * func editContactBtn(email) - Funktion zum Bearbeiten eines Kontakts, definiert in './editContactBtn.js'.
- * ====================================================================================================
  * @returns {void}
  * ====================================================================================================
  */
-function addEventFromBtn() {
+const addEventFromBtn = () => {
     BTN_ID.forEach((id) => {
-        document.getElementById(id).addEventListener('click', (event) => {
-            const target = event.currentTarget;
-            const email = target.getAttribute('data-email');
-            const action = target.id.includes('del') ? 'delete' : 'edit';
-            FUNC[action](email);
-        });
+        const element = document.getElementById(id);
+        element && (
+            element.removeEventListener('click', handleButtonClick),
+            element.addEventListener('click', handleButtonClick)
+        );
     });
 }
 
+/**
+ * Handler für die Klick-Ereignisse der Buttons.
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn ein Button geklickt wird. Sie bestimmt, welche Aktion ausgeführt
+ * werden soll (bearbeiten oder löschen), und ruft die entsprechende Funktion mit der E-Mail-Adresse auf.
+ * ====================================================================================================
+ * @param {Event} event - Das Klick-Ereignis.
+ * ====================================================================================================
+ */
+const handleButtonClick = (event) => {
+    const target = event.currentTarget;
+    const email = target.getAttribute('data-email');
+    const action = target.id.includes('del') ? 'delete' : 'edit';
+    FUNC[action](email);
+}
 
 /**
  * Entfernt die Klasse der zuletzt aktiven Kontaktkarte und setzt den Zustand zurück.
@@ -130,7 +141,7 @@ function addEventFromBtn() {
  * @returns {void}
  * ====================================================================================================
  */
-function deselectPreviousCard(card) {
+const deselectPreviousCard = (card) => {
     lastCart !== undefined && (
         lastCart.classList.remove('cardactive'),
         lastCart.classList.add('card'),

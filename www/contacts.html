@@ -16,7 +16,6 @@
   <!-- JS-Script -->
   <script src="./assets/js/script.js" defer></script>
   <script src="./assets/js/profile.js" type="module" defer></script>
-  <script src="./assets/js/dataResponse.js" defer></script>
   <script src="./assets/js/initContact.js" type="module" defer></script>
 </head>
 
@@ -39,7 +38,7 @@
         </button>
 
         <div class="personShortcut" style="margin-bottom: 75px;" id="editPersionShortcut">SM</div>
-        <form class="editpersoninput" onsubmit="editContact(event);">
+        <form id="editContactForm" class="editpersoninput">
           <input type="text" id="editPersionName" required>
           <input type="email" id="editPersionEmail" required>
           <input type="number" id="editPersionTel" required>
@@ -67,7 +66,7 @@
           &#x2A2F;
         </button>
         <img class="usericon" src="./resources/symbols/usericon.png" alt="">
-        <form class="addpersoninput" onsubmit="addContact(event);">
+        <form id="addContactForm" class="addpersoninput">
           <input type="text" id="addPersionName" placeholder="Name" required>
           <input type="email" id="addPersionEmail" placeholder="Email" required>
           <input type="number" id="addPersionTel" placeholder="Phone" required>
