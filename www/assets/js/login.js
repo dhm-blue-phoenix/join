@@ -1,33 +1,57 @@
 import { loadUserData } from './module/modules.js';
 import { autoForm } from './module/autoFormFromLogin.js';
 
-const ID_loginForm = document.getElementById('loginForm');
+const ID_FORM_LOGIN = document.getElementById('loginForm');
+const ID_BTN_guestLogin = document.getElementById('guestloginbtn');
 
-const ID_inputEmail = document.getElementById('userEmail');
-const ID_inputPW = document.getElementById('userPassword');
-const ID_inputCheckbox = document.getElementById('inputCheckbox');
+const ID_INPUT_EMAIL = document.getElementById('userEmail');
+const ID_INPUT_PW = document.getElementById('userPassword');
+const ID_INPUT_CHECKBOX = document.getElementById('inputCheckbox');
 
 const ID_ERR_EMAIL = document.getElementById('emailError');
 
 /**
  * Wird ausgeführt, wenn das DOM vollständig geladen ist.
  * ====================================================================================================
- * Diese Funktion überprüft, ob das `ID_loginForm`-Element existiert, entfernt einen 
- * eventuell vorhandenen `submit`-Event-Listener und fügt einen neuen hinzu, der die Funktion 
- * `initLogin` aufruft. Anschließend wird die Funktion `autoForm` aufgerufen, um das Formular
- * entsprechend auszufüllen.
+ * Diese Funktion wird automatisch aufgerufen, wenn das DOM vollständig geladen und bereit ist. 
+ * Sie überprüft, ob das `ID_FORM_LOGIN`-Element vorhanden ist, entfernt einen eventuell 
+ * vorhandenen `submit`-Event-Listener und fügt einen neuen hinzu, der die Funktion `initLogin` 
+ * auslöst. Darüber hinaus wird überprüft, ob das `ID_BTN_guestLogin`-Element existiert, 
+ * der `click`-Event-Listener wird entfernt, wenn vorhanden, und ein neuer Listener wird hinzugefügt, 
+ * der die Funktion `initGuestLogin` aufruft. Abschließend wird die Funktion `autoForm` aufgerufen, 
+ * um das Formular mit vorab gespeicherten Daten auszufüllen.
  * ====================================================================================================
- * @listens document#DOMContentLoaded
+ * @listens document#DOMContentLoaded - Das Ereignis, das ausgelöst wird, wenn das DOM vollständig geladen ist.
  * @returns {void}
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
-    ID_loginForm && (
-        ID_loginForm.removeEventListener('submit', initLogin),
-        ID_loginForm.addEventListener('submit', initLogin)
+    ID_FORM_LOGIN && (
+        ID_FORM_LOGIN.removeEventListener('submit', initLogin),
+        ID_FORM_LOGIN.addEventListener('submit', initLogin)
     );
-    autoForm();
+    ID_BTN_guestLogin && (
+        ID_BTN_guestLogin.removeEventListener('click', initGuestLogin),
+        ID_BTN_guestLogin.addEventListener('click', initGuestLogin)
+    );
+    await autoForm();
 });
+
+/**
+ * Führt den Gast-Login durch und leitet zur Hauptseite weiter.
+ * ====================================================================================================
+ * Diese Funktion speichert eine vordefinierte Benutzer-ID in der Sitzung und leitet den Benutzer
+ * anschließend zur Hauptseite weiter. Die Benutzer-ID wird dabei nicht lokal gespeichert.
+ * ====================================================================================================
+ * @async
+ * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn der Gast-Login abgeschlossen ist
+ * und die Weiterleitung erfolgt.
+ * ====================================================================================================
+ */
+async function initGuestLogin() {
+    await saveSessionUserID('-O0wPZV3YT41s7Ja0eKd', false);
+    loadWindow();
+}
 
 /**
  * Initialisiert den Anmeldevorgang.
@@ -48,7 +72,7 @@ async function initLogin(event) {
     try {
         event.preventDefault();
         resetErrMessegs();
-        const statusCheckbox = ID_inputCheckbox.checked;
+        const statusCheckbox = ID_INPUT_CHECKBOX.checked;
         const formData = await loadFormData();
         const user = await loadUserData(formData);
         if (user === undefined) return checkUser(user);
@@ -117,8 +141,8 @@ const checkStatusFromCheckbox = async (statusCheckbox, user) => {
  */
 const loadFormData = () => {
     return {
-        'email': ID_inputEmail.value,
-        'pw': ID_inputPW.value
+        'email': ID_INPUT_EMAIL.value,
+        'pw': ID_INPUT_PW.value
     };
 }
 

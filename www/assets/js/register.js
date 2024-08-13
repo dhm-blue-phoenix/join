@@ -1,12 +1,12 @@
 import { loadUserData } from './module/modules.js';
 import { uploadPatchData } from './module/dataResponse.js';
 
-const ID_registerForm = document.getElementById('signupFrom');
+const ID_FORM_REGISTER = document.getElementById('signupFrom');
 
-const ID_inputName = document.getElementById('inputName');
-const ID_inputEmail = document.getElementById('inputEmail');
-const ID_inputPW = document.getElementById('inputPassword');
-const ID_inputCFPW = document.getElementById('inputConfirmPassword');
+const ID_INPUT_NAME = document.getElementById('inputName');
+const ID_INPUT_EMAIL = document.getElementById('inputEmail');
+const ID_INPUT_PW = document.getElementById('inputPassword');
+const ID_INPUT_CFPW = document.getElementById('inputConfirmPassword');
 
 const ID_ERR_PW = document.getElementById('passwordError');
 const ID_ERR_EMAIL = document.getElementById('emailError');
@@ -24,9 +24,9 @@ const ID_signedUpContainer = document.getElementById('signedUpContainer');
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
-    ID_registerForm && (
-        ID_registerForm.removeEventListener('submit', initRegister),
-        ID_registerForm.addEventListener('submit', initRegister)
+    ID_FORM_REGISTER && (
+        ID_FORM_REGISTER.removeEventListener('submit', initRegister),
+        ID_FORM_REGISTER.addEventListener('submit', initRegister)
     );
 });
 
@@ -173,8 +173,8 @@ const resetErrorMessages = () => {
  * ====================================================================================================
  */
 const loadFormData = () => ({
-    name: ID_inputName.value,
-    email: ID_inputEmail.value,
-    pw: ID_inputPW.value,
-    cfpw: ID_inputCFPW.value
+    name: ID_INPUT_NAME.value,
+    email: ID_INPUT_EMAIL.value,
+    pw: ID_INPUT_PW.value,
+    cfpw: ID_INPUT_CFPW.value
 });

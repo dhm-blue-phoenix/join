@@ -1,4 +1,4 @@
-const ID_addPersion = ['addPersionName', 'addPersionEmail', 'addPersionTel'];
+const ID_INPUT_addPersion = ['addPersionName', 'addPersionEmail', 'addPersionTel'];
 const ID_dnonePersionCard = ['dnonePersonCard', 'dnoneInfoHeadline', 'dnoneInfo'];
 const ID_editPersion = ['editPersionShortcut', 'editPersionName', 'editPersionEmail', 'editPersionTel'];
 
@@ -11,7 +11,7 @@ const ID_editPersion = ['editPersionShortcut', 'editPersionName', 'editPersionEm
  */
 export function resetAddContactForm() {
     addClass('addcontactpopup');
-    ID_addPersion.forEach((id) => document.getElementById(id).value = '');
+    ID_INPUT_addPersion.forEach((id) => document.getElementById(id).value = '');
 }
 
 /**

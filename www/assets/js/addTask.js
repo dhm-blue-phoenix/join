@@ -1,11 +1,13 @@
+// IST NOCH IN ARBEIT!!!
+
 const storedLocalUserID = localStorage.getItem('userID');
 const storedSessionUserID = sessionStorage.getItem('userID');
 
-const ID_taskTitle = document.getElementById('taskTitle');
-const ID_taskDescription = document.getElementById('taskDescription');
-const ID_select01 = document.getElementById('select01');
-const ID_taskDate = document.getElementById('taskDate');
-const ID_select02 = document.getElementById('select02');
+const ID_INPUT_taskTitle = document.getElementById('taskTitle');
+const ID_INPUT_taskDescription = document.getElementById('taskDescription');
+const ID_INPUT_select00 = document.getElementById('select01');
+const ID_INPUT_taskDate = document.getElementById('taskDate');
+const ID_INPUT_select01 = document.getElementById('select02');
 
 let taskForm = {
     'title': '',
@@ -67,11 +69,11 @@ async function initAddTask(event) {
  * ====================================================================================================
  */
 function clearInput() {
-    ID_taskTitle.value = '';
-    ID_taskDescription.value = '';
-    ID_select01.value = '';
-    ID_taskDate.value = '';
-    ID_select02.value = '';
+    ID_INPUT_taskTitle.value = '';
+    ID_INPUT_taskDescription.value = '';
+    ID_INPUT_select00.value = '';
+    ID_INPUT_taskDate.value = '';
+    ID_INPUT_select01.value = '';
 }
 
 /**
@@ -84,11 +86,11 @@ function clearInput() {
  * ====================================================================================================
  */
 function loadFormData() {
-    taskForm.title = ID_taskTitle.value;
-    taskForm.description = ID_taskDescription.value;
-    taskForm.assigned = ID_select01.value;
-    taskForm.date = ID_taskDate.value;
-    taskForm.category = ID_select02.value;
+    taskForm.title = ID_INPUT_taskTitle.value;
+    taskForm.description = ID_INPUT_taskDescription.value;
+    taskForm.assigned = ID_INPUT_select00.value;
+    taskForm.date = ID_INPUT_taskDate.value;
+    taskForm.category = ID_INPUT_select01.value;
     setBtnPrio('medium');
 }
 

@@ -3,15 +3,15 @@ import { editContact } from './module/editContact.js';
 import { addContact } from './module/addContact.js';
 
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
-const ID_editPersionForm = document.getElementById('editContactForm');
-const ID_editPersionName = document.getElementById('editPersionName');
-const ID_editPersionEmail = document.getElementById('editPersionEmail');
-const ID_editPersionTel = document.getElementById('editPersionTel');
+const ID_FORM_editPersion = document.getElementById('editContactForm');
+const ID_INPUT_editPersionName = document.getElementById('editPersionName');
+const ID_INPUT_editPersionEmail = document.getElementById('editPersionEmail');
+const ID_INPUT_editPersionTel = document.getElementById('editPersionTel');
 
-const ID_addContactForm = document.getElementById('addContactForm');
-const ID_addPersionName = document.getElementById('addPersionName');
-const ID_addPersionEmail = document.getElementById('addPersionEmail');
-const ID_addPersionTel = document.getElementById('addPersionTel');
+const ID_FORM_addContact = document.getElementById('addContactForm');
+const ID_INPUT_addPersionName = document.getElementById('addPersionName');
+const ID_INPUT_addPersionEmail = document.getElementById('addPersionEmail');
+const ID_INPUT_addPersionTel = document.getElementById('addPersionTel');
 
 let shortcutColors = [
     "#FF5733",
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 /**
  * Fügt einen Event-Listener zum Formular zum Hinzufügen eines Kontakts hinzu.
  * ====================================================================================================
- * Diese Funktion überprüft, ob das Formular für das Hinzufügen eines Kontakts (`ID_addContactForm`) existiert.
+ * Diese Funktion überprüft, ob das Formular für das Hinzufügen eines Kontakts (`ID_FORM_addContact`) existiert.
  * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt und ein neuer Event-Listener
  * hinzugefügt. Dieser Event-Listener ruft die `initAddForm`-Funktion auf, wenn das Formular abgeschickt wird.
  * ====================================================================================================
@@ -53,16 +53,16 @@ document.addEventListener('DOMContentLoaded', async () => {
  * ====================================================================================================
  */
 const addEventFromAddContact = () => {
-    ID_addContactForm && (
-        ID_addContactForm.removeEventListener('submit', initAddForm),
-        ID_addContactForm.addEventListener('submit', initAddForm)
+    ID_FORM_addContact && (
+        ID_FORM_addContact.removeEventListener('submit', initAddForm),
+        ID_FORM_addContact.addEventListener('submit', initAddForm)
     )
 };
 
 /**
  * Fügt einen Event-Listener zum Formular zum Bearbeiten eines Kontakts hinzu.
  * ====================================================================================================
- * Diese Funktion überprüft, ob das Formular für das Bearbeiten eines Kontakts (`ID_editPersionForm`) existiert.
+ * Diese Funktion überprüft, ob das Formular für das Bearbeiten eines Kontakts (`ID_FORM_editPersion`) existiert.
  * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt und ein neuer Event-Listener
  * hinzugefügt. Dieser Event-Listener ruft die `initEditForm`-Funktion auf, wenn das Formular abgeschickt wird.
  * ====================================================================================================
@@ -70,9 +70,9 @@ const addEventFromAddContact = () => {
  * ====================================================================================================
  */
 const addEventFromEditContact = () => {
-    ID_editPersionForm && (
-        ID_editPersionForm.removeEventListener('submit', initEditForm),
-        ID_editPersionForm.addEventListener('submit', initEditForm)
+    ID_FORM_editPersion && (
+        ID_FORM_editPersion.removeEventListener('submit', initEditForm),
+        ID_FORM_editPersion.addEventListener('submit', initEditForm)
     )
 };
 
@@ -91,7 +91,7 @@ const addEventFromEditContact = () => {
  */
 function initAddForm(event) {
     event.preventDefault();
-    const formData = loadDataAddForm(ID_addPersionName.value, ID_addPersionEmail.value, ID_addPersionTel.value);
+    const formData = loadDataAddForm(ID_INPUT_addPersionName.value, ID_INPUT_addPersionEmail.value, ID_INPUT_addPersionTel.value);
     addContact(formData);
 }
 
@@ -134,7 +134,7 @@ function loadDataAddForm(name, email, tel) {
  */
 function initEditForm(event) {
     event.preventDefault();
-    const formData = loadDataFromEditForm(ID_editPersionName.value, ID_editPersionEmail.value, ID_editPersionTel.value);
+    const formData = loadDataFromEditForm(ID_INPUT_editPersionName.value, ID_INPUT_editPersionEmail.value, ID_INPUT_editPersionTel.value);
     editContact(formData);
 }
 

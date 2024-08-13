@@ -3,9 +3,9 @@ import { getContactId } from './modules.js';
 import { extractInitials } from './modules.js';
 
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
-const ID_editPersionName = document.getElementById('editPersionName');
-const ID_editPersionEmail = document.getElementById('editPersionEmail');
-const ID_editPersionTel = document.getElementById('editPersionTel');
+const ID_INPUT_editPersionName = document.getElementById('editPersionName');
+const ID_INPUT_editPersionEmail = document.getElementById('editPersionEmail');
+const ID_INPUT_editPersionTel = document.getElementById('editPersionTel');
 
 export let editContactId;
 
@@ -64,7 +64,7 @@ function removeClass(id) {
 const importFromEditFormData = (contactData) => {
     ID_editPersionShortcut.textContent = extractInitials(contactData.name);
     ID_editPersionShortcut.style.backgroundColor = contactData.shortcutBackColor;
-    ID_editPersionName.value = contactData.name;
-    ID_editPersionEmail.value = contactData.email;
-    ID_editPersionTel.value = contactData.tel
+    ID_INPUT_editPersionName.value = contactData.name;
+    ID_INPUT_editPersionEmail.value = contactData.email;
+    ID_INPUT_editPersionTel.value = contactData.tel
 }

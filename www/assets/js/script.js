@@ -37,15 +37,20 @@ function actionBack() {
  * Öffnet und schließt die Dropliste für den Account 
  * ====================================================================================================
  */
-if(!currentWindow.includes('index.html') && !currentWindow.includes('signUp.html')) {
-  document.addEventListener('DOMContentLoaded', (event) => {
+if (
+    !currentWindow.includes('index.html') && 
+    !currentWindow.includes('signUp.html') && 
+    !currentWindow.includes('nologinlegalnotice.html') && 
+    !currentWindow.includes('nologinprivacyPolicy.html')
+    ) {
+    document.addEventListener('DOMContentLoaded', (event) => {
     const accountContainer = document.getElementById('account');
     const dropdownContent = document.getElementById('dropdownContent');
-  
+
     accountContainer.addEventListener('click', () => {
       dropdownContent.classList.toggle('show');
     });
-  
+
     // Schließe das Dropdown-Menü, wenn irgendwo außerhalb geklickt wird
     window.addEventListener('click', (event) => {
       if (!event.target.matches('.account-container')) {
@@ -105,6 +110,6 @@ function hidePopup(id, remove) {
 }
 
 
-function hideContactcard(id){
-    document.getElementById(id).classList.add('d-nonepopup');
+function hideContactcard(id) {
+  document.getElementById(id).classList.add('d-nonepopup');
 }
