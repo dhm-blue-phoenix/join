@@ -1,5 +1,7 @@
 import { loadUserData, uploadPatchData } from './module/dataResponse.js'
 
+const ID_registerForm = document.getElementById('signupFrom');
+
 const ID_inputName = document.getElementById('inputName');
 const ID_inputEmail = document.getElementById('inputEmail');
 const ID_inputPW = document.getElementById('inputPassword');
@@ -21,7 +23,10 @@ const ID_signedUpContainer = document.getElementById('signedUpContainer');
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
-    document.getElementById('signupFrom').addEventListener('submit', initRegister);
+    ID_registerForm && (
+        ID_registerForm.removeEventListener('submit', initRegister),
+        ID_registerForm.addEventListener('submit', initRegister)
+    );
 });
 
 /**
@@ -97,7 +102,7 @@ const signedUp = (formData) => {
     ID_signedUpContainerBG.classList.remove('d-nonepopup');
     ID_signedUpContainer.innerHTML = '<p>Sie haben sich erfolgreich angemeldet</p>';
     setTimeout(() => {
-        window.location.href = `./index.html?formEmail=${formData.email}&formPw=${formData.pw}`;
+        window.location.href = `./index.html?formEmail=${encodeURIComponent(formData.email)}&formPw=${encodeURIComponent(formData.pw)}`;
     }, 2000);
 }
 
