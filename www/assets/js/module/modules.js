@@ -4,6 +4,55 @@ const storedLocalUserID = localStorage.getItem('userID');
 const storedSessionUserID = sessionStorage.getItem('userID');
 
 /**
+ * Überprüft, ob ein Benutzer bereits in der Datenbank existiert.
+ * ====================================================================================================
+ * Diese Funktion ruft die Benutzerdaten aus der Datenbank ab und sucht nach einem 
+ * Benutzer, der mit den übergebenen Daten übereinstimmt.
+ * ====================================================================================================
+ * @async
+ * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
+ * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
+ * ====================================================================================================
+ */
+export async function loadUserData(find) {
+    try {
+        const users = await retrievingData('');
+        const user = await findUser(users[0], find);
+        return user;
+    } catch (err) { }
+}
+
+/**
+ * Sucht nach einem Benutzer in der Liste der Benutzer.
+ * ====================================================================================================
+ * Diese Funktion durchsucht die Liste der Benutzer nach einem Benutzer, der mit den 
+ * übergebenen Daten übereinstimmt.
+ * ====================================================================================================
+ * @async
+ * @param {Array} users Die Liste der Benutzer.
+ * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
+ * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
+ * ====================================================================================================
+ */
+async function findUser(users, find) {
+    return Object.entries(users).find(([id, user]) => user.email === find.email && user.password === find.pw);
+}
+
+/**
+ * Holt die Benutzerdaten eines bestimmten Benutzers aus der Firebase Realtime Database.
+ * ====================================================================================================
+ * Diese Funktion ruft die Benutzerdaten eines bestimmten Benutzers aus der Datenbank ab.
+ * ====================================================================================================
+ * @async 
+ * @param {String} uid Die eindeutige Benutzer-ID.
+ * @returns {Object} Die Benutzerdaten des bestimmten Benutzers.
+ * ====================================================================================================
+ */
+export async function findUserById(uid) {
+    return await retrievingData('users/' + uid);
+}
+
+/**
  * Lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
  * ====================================================================================================
  * Diese Funktion versucht, die Benutzer-ID zuerst aus dem lokalen Speicher (`localStorage`) und 

@@ -1,4 +1,5 @@
-import { loadUserData, uploadPatchData } from './module/dataResponse.js'
+import { loadUserData } from './module/modules.js';
+import { uploadPatchData } from './module/dataResponse.js';
 
 const ID_registerForm = document.getElementById('signupFrom');
 
@@ -63,7 +64,7 @@ async function initRegister(event) {
  * Die Funktion ruft `uploadPatchData` auf, um die Benutzerdaten zu speichern, und `signedUp`, 
  * um die Erfolgsmeldung anzuzeigen und die Weiterleitung vorzubereiten.
  * ====================================================================================================
- * func uploadPatchData() - findet man in der './module/dataResponse.js'
+ * func uploadPatchData() - findet man in der './module/modules.js'
  * ====================================================================================================
  * @async
  * @param {Object} formData Die Formulardaten des Benutzers, die aktualisiert werden sollen.
@@ -111,7 +112,7 @@ const signedUp = (formData) => {
  * ====================================================================================================
  * Diese Funktion überprüft die Formulardaten auf Passwortübereinstimmung und ob der Benutzer bereits existiert.
  * ====================================================================================================
- * func loadUserData() - findet man in der './module/dataResponse.js' 
+ * func loadUserData() - findet man in der './module/modules.js' 
  * ====================================================================================================
  * @async
  * @param {Object} formData Die Formulardaten des Benutzers.
