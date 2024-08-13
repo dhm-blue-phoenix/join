@@ -1,7 +1,9 @@
 
-// ...
-async function hashInput() {
-    const input = document.getElementById('inputText').value;
+// ....TEST
+
+hashInput('password');
+
+async function hashInput(input) {
     const encoder = new TextEncoder();
     const data = encoder.encode(input);
     
@@ -11,5 +13,5 @@ async function hashInput() {
     const hashHex = hashArray.map(b => b.toString(20).padStart(2, '0')).join('');
     
     // Ergebnis anzeigen
-    document.getElementById('result').textContent = `Der SHA-256 Hash des Wortes "${input}" ist: ${hashHex}`;
+    console.log('Ereignis:', 'input/' + input, 'SHA-512/' + hashHex);
 }
