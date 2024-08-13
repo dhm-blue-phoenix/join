@@ -51,7 +51,7 @@ async function initRegister(event) {
         const formData = await loadFormData();
         if (formData.pw !== formData.cfpw) return validatePassword(formData);
         const userData = await loadUserData(formData.email);
-        if (userData) return validateUserData(userData);
+        if (userData) return validateUserData();
         await uploadData(formData);
     } catch (err) {
         console.error(`Fehler beim Initialisieren der Registrierung: ${err}`);
@@ -114,11 +114,8 @@ const signedUp = (formData) => {
  * ====================================================================================================
  * Diese Funktion zeigt eine Fehlermeldung an, wenn der Benutzer bereits in der Datenbank vorhanden ist.
  * ====================================================================================================
- * @param {Object} userData Die Benutzerdaten, die von der `loadUserData`-Funktion zurückgegeben werden.
- * @param {Object} userData Das Benutzerdatenobjekt.
- * ====================================================================================================
  */
-const validateUserData = (userData) => {
+const validateUserData = () => {
     ID_ERR_EMAIL.textContent = 'Benutzer ist bereits in der Datenbank vorhanden!';
     ID_ERR_EMAIL.style.display = 'block';
 }
