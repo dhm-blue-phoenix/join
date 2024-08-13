@@ -52,7 +52,7 @@ async function initLogin(event) {
         const formData = await loadFormData();
         const user = await loadUserData(formData);
         if (user === undefined) return checkUser(user);
-        checkStatusFromCheckbox(statusCheckbox);
+        checkStatusFromCheckbox(statusCheckbox, user);
         loadWindow();
     } catch (err) {
         console.error(`Fehler beim Initialisieren der Anmeldung: ${err}`);
@@ -98,7 +98,7 @@ const checkUser = () => {
  * @throws {Error} Wenn ein Fehler beim Speichern der Benutzer-ID auftritt.
  * ====================================================================================================
  */
-const checkStatusFromCheckbox = async (statusCheckbox) => {
+const checkStatusFromCheckbox = async (statusCheckbox, user) => {
     if (statusCheckbox) {
         await saveLocalUserID(user[0], true);
     } else {

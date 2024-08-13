@@ -49,7 +49,9 @@ async function initRegister(event) {
         event.preventDefault();
         resetMessages();
         const formData = await loadFormData();
-        validateData(formData);
+        if (formData.pw !== formData.cfpw) return validatePassword(formData);
+        const userData = await loadUserData(formData.email);
+        if (userData) return validateUserData(userData);
         await uploadData(formData);
     } catch (err) {
         console.error(`Fehler beim Initialisieren der Registrierung: ${err}`);
@@ -108,28 +110,6 @@ const signedUp = (formData) => {
 }
 
 /**
- * Validiert die Formulardaten.
- * ====================================================================================================
- * Diese Funktion überprüft die Formulardaten auf Passwortübereinstimmung und ob der Benutzer bereits existiert.
- * ====================================================================================================
- * func loadUserData() - findet man in der './module/modules.js' 
- * ====================================================================================================
- * @async
- * @param {Object} formData Die Formulardaten des Benutzers.
- * @param {string} formData.email Die E-Mail-Adresse des Benutzers.
- * @param {string} formData.pw Das Passwort des Benutzers.
- * @param {string} formData.cfpw Die Bestätigung des Passworts.
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Validierung abgeschlossen ist.
- * @throws {Error} Wenn ein Fehler beim Validieren der Daten auftritt.
- * ====================================================================================================
- */
-const validateData = async (formData) => {
-    validatePassword(formData);
-    const userData = await loadUserData(formData.email); // Lädt die Benutzerdaten
-    validateUserData(userData); // Überprüft, ob der Benutzer bereits existiert
-}
-
-/**
  * Überprüft, ob der Benutzer bereits vorhanden ist.
  * ====================================================================================================
  * Diese Funktion zeigt eine Fehlermeldung an, wenn der Benutzer bereits in der Datenbank vorhanden ist.
@@ -139,10 +119,8 @@ const validateData = async (formData) => {
  * ====================================================================================================
  */
 const validateUserData = (userData) => {
-    if (userData) {
-        ID_ERR_EMAIL.textContent = 'Benutzer ist bereits in der Datenbank vorhanden!';
-        ID_ERR_EMAIL.style.display = 'block';
-    }
+    ID_ERR_EMAIL.textContent = 'Benutzer ist bereits in der Datenbank vorhanden!';
+    ID_ERR_EMAIL.style.display = 'block';
 }
 
 /**
@@ -156,10 +134,8 @@ const validateUserData = (userData) => {
  * ====================================================================================================
  */
 const validatePassword = (formData) => {
-    if (formData.pw !== formData.cfpw) {
-        ID_ERR_PW.textContent = 'Das Passwort stimmt nicht überein!';
-        ID_ERR_PW.style.display = 'block';
-    }
+    ID_ERR_PW.textContent = 'Das Passwort stimmt nicht überein!';
+    ID_ERR_PW.style.display = 'block';
 }
 
 /**
