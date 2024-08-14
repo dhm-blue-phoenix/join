@@ -596,22 +596,43 @@ body {
 .addEditDeletContactmobile {
   display: none;
 }
+#showContactcard {
+  position: relative; /* Standardpositionierung */
+  right: 0;
+  display: flex !important; /* Immer sichtbar */
+}
 @media (max-width: 1300px) {
-  .information h2{
+  @keyframes slideIn {
+    from {
+      right: -100%;
+    }
+    to {
+      right: 0;
+    }
+  }
+  @keyframes slideOut {
+    from {
+        right: 0;
+    }
+    to {
+        right: -100%;
+    }
+  }
+  .information h2 {
     font-size: 16px !important;
   }
   .showContactcard p {
     font-size: 16px;
-}
+  }
   .showContactcard h2 {
     font-size: 47px;
-}
+  }
   .addEditDeletContactmobile {
     display: flex;
     position: fixed;
     border: none;
     bottom: 103px;
-    right: 32px;
+    margin-right: 16px;
     width: 56px;
     height: 56px;
     border-radius: 46px;
@@ -651,7 +672,7 @@ body {
     background-color: var(--back-color03);
     display: flex;
     position: absolute;
-    top: 106px;
+    top: 120px;
   }
 
   .showContactcardTrennline {
@@ -663,7 +684,7 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 0;
+    gap: 4px;
     flex-direction: column;
   }
   .hidecontactcardarrow {
@@ -671,6 +692,7 @@ body {
     position: absolute;
     top: 32px;
     right: 16px;
+    cursor: pointer;
   }
   .cardcontent {
     width: 352px;
@@ -862,9 +884,17 @@ body {
     padding: 0 16px 0 16px;
     gap: 8px;
   }
-
-  .showContactcard {
+  #showContactcard {
+    position: fixed; /* Wichtig, um das Element von außerhalb des Bildschirms zu bewegen */
+    right: -100%;
     display: none;
+  }
+  .showContactcard {
+    position: absolute;
+    background-color: var(--back-color01);
+    width: 100vw;
+    height: 100vh;
+    padding: 32px 0 0 16px;
   }
 
   .letter {

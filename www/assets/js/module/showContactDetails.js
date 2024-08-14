@@ -36,7 +36,48 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
     setBtnAttribute(personEmail);
     addEventFromBtn();
     deselectPreviousCard(card);
+    showContactCardMobile();
 }
+
+/**
+ * Funktion für die Mobileansicht von der Contactcard
+ * ====================================================================================================
+ */
+
+function showContactCardMobile() {
+    const editdeletcontact = document.getElementById('editdeletcontact');
+    const contactCard = document.getElementById('showContactcard');
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth <= 1300) {
+        contactCard.style.display = 'block'; // Den Container einblenden
+        contactCard.style.animation = 'slideIn 0.3s forwards'; // Animation starten
+        editdeletcontact.style.animation = 'slideIn 0.3s forwards'; // Animation starten
+    }
+}
+
+window.addEventListener('load', function() {
+    const contactCard = document.getElementById('showContactcard');
+    contactCard.style.display = 'none';
+  });
+
+  function hideContactCardMobile() {
+    const editdeletcontact = document.getElementById('editdeletcontact');
+    const contactCard = document.getElementById('showContactcard');
+    const screenWidth = window.innerWidth;
+
+    // Nur in der mobilen Ansicht ausblenden
+    if (screenWidth <= 1300) {
+        editdeletcontact.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
+        contactCard.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
+        // setTimeout(() => {
+        //     contactCard.style.display = 'none'; // Nach der Animation ausblenden
+        // }, 300); // Timeout entspricht der Dauer der Animation
+    }
+}
+
+document.querySelector('.hidecontactcardarrow').addEventListener('click', hideContactCardMobile);
+
 
 /**
  * Setzt das Styling und die Sichtbarkeit für die angegebene Kontaktkarte.
