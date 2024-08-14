@@ -108,3 +108,48 @@ function hidePopup(id, remove) {
     document.getElementById(remove).classList.add('d-nonepopup');
   }, 200); // wait for the animation to finish before adding d-nonepopup
 }
+
+/**
+ * Welcome Nachricht aus Summary Seite.
+ * ====================================================================================================
+ */
+
+// Funktion zum Anzeigen des welcomecontent-Containers und der Animation
+function showWelcomeContent() {
+  const welcomeContent = document.getElementById("welcomecontent");
+  const welcomeMessage = document.querySelector(".welcomemassage");
+  const welcomeSetDayTime = document.getElementById("welcomeSetDayTime");
+
+  // Feststellen der aktuellen Uhrzeit
+  const currentHour = new Date().getHours();
+  
+  if (currentHour >= 0 && currentHour < 12) {
+      welcomeSetDayTime.textContent = "Good morning,";
+  } else if (currentHour >= 12 && currentHour < 18) {
+      welcomeSetDayTime.textContent = "Good afternoon,";
+  } else {
+      welcomeSetDayTime.textContent = "Good evening,";
+  }
+
+  // Einblenden des Containers
+  welcomeContent.style.display = "flex";
+
+  // Fade-in Animation hinzufügen
+  setTimeout(() => {
+      welcomeMessage.classList.add("fade-in");
+  }, 0); // Sofortige Ausführung, um die Animation zu starten
+
+  // Fade-out Animation nach 2 Sekunden
+  setTimeout(() => {
+      welcomeMessage.classList.remove("fade-in");
+      welcomeMessage.classList.add("fade-out");
+  }, 2000);
+
+  // Nach 3 Sekunden den gesamten Container ausblenden
+  setTimeout(() => {
+      welcomeContent.style.display = "none";
+  }, 3000);
+}
+
+// Event-Listener für das Laden der Seite
+window.addEventListener('load', showWelcomeContent);

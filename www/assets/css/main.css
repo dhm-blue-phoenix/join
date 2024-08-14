@@ -121,7 +121,7 @@ main {
     top: 0;
     left: 0;
     box-shadow: #00000062 0px 0px 10px 0px;
-    z-index: 1;
+    z-index: 99;
   }
 
   header h1 {

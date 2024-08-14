@@ -216,8 +216,45 @@ p {
 .summarybtn.done:hover img {
   content: url("../../../resources/symbols/summary-white-symbol02.png");
 }
+.welcomecontent {
+  display: none;
+}
+/* Fade-in Animation */
+.welcomemassage {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+/* Fade-out Animation */
+.fade-out {
+  opacity: 0;
+}
 
 @media (max-width: 1300px) {
+  .welcomecontent {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--back-color01);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .welcomecontent p{
+    font-size: 47px;
+    color: var(--text-color04);
+  }
+  .welcomecontent h1{
+    font-size: 64px;
+    color: var(--text-color09);
+  }
   .summarytop {
     display: flex;
     align-items: center;
