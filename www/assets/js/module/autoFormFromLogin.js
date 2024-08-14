@@ -24,7 +24,8 @@ export async function autoForm() {
     let userData;
     if (userData !== null) userData = checkDataAvailableFromUrl(encode, userData);
     if (storedAutoLogin === 'true') userData = await checkStoredFromAutoLogin();
-    fillForm(userData);
+    console.log('storedAutoLogin', storedAutoLogin);
+    if(userData === null) return fillForm(userData);
 }
 
 /**
@@ -61,6 +62,8 @@ function checkDataAvailableFromUrl(encode) {
  */
 async function checkStoredFromAutoLogin() {
     const user = await findUserById(storedUserID);
+    console.log(user);
+    
     ID_inputCheckbox.checked = true;
     return [user[1], user[3]];
 }
