@@ -1,38 +1,140 @@
-// IST NOCH IN ARBEIT!!!
+import { loadUserIdFromStored } from './module/modules.js';
+import { uploadPatchData } from './module/dataResponse.js';
 
-const storedLocalUserID = localStorage.getItem('userID');
-const storedSessionUserID = sessionStorage.getItem('userID');
+const ID_FORM_AddTask = document.getElementById('formAddTask');
+const ID_BTN_addSubTask = document.getElementById('addSubTask');
+const ID_BTN_URGENT = document.getElementById('urgent');
+const ID_BTN_MEDIUM = document.getElementById('medium');
+const ID_BTN_LOW = document.getElementById('low');
+const ID_INPUT_subtask = document.getElementById('subtask');
+const ID_INPUT_TASK = ['title', 'description', 'assigned', 'date', 'category'];
+const resetTaskForm = { 'title': '', 'description': '', 'assigned': '', 'date': '', 'prio': '', 'category': '', 'subtask': ['none'] };
 
-const ID_INPUT_taskTitle = document.getElementById('taskTitle');
-const ID_INPUT_taskDescription = document.getElementById('taskDescription');
-const ID_INPUT_select00 = document.getElementById('select01');
-const ID_INPUT_taskDate = document.getElementById('taskDate');
-const ID_INPUT_select01 = document.getElementById('select02');
-
-let taskForm = {
-    'title': '',
-    'description': '',
-    'assigned': '',
-    'date': '',
-    'prio': '',
-    'category': ''
-};
+let taskForm = { 'title': '', 'description': '', 'assigned': '', 'date': '', 'prio': '', 'category': '', 'subtask': ['none'] };
 let lastBtnPrio = 'medium';
 
 /**
- * Lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
+ * Initialisiert die Event-Listener und setzt die Priorität beim Laden der Seite.
  * ====================================================================================================
- * Diese Funktion lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
- * Wenn keine ID gefunden wird, wird ein Fehler geworfen.
- * ====================================================================================================
- * @returns {void}
+ * Diese Funktion wird aufgerufen, sobald der DOM vollständig geladen ist. Sie richtet
+ * die notwendigen Event-Listener für Formular- und Button-Elemente ein und stellt sicher,
+ * dass die Priorität auf den Standardwert "medium" gesetzt wird. Dies sorgt dafür, dass
+ * die Benutzeroberfläche sofort einsatzbereit ist und die entsprechenden Funktionen
+ * korrekt aktiviert werden.
  * ====================================================================================================
  */
-function lodeUserId() {
-    if (storedLocalUserID) return userID = storedLocalUserID;
-    if (storedSessionUserID) return userID = storedSessionUserID;
-    throw new Error('User ID wurde nicht gefunden!');
-}
+document.addEventListener('DOMContentLoaded', () => {
+    setBtnPrio('medium');
+    addEventFromAddTask();
+    addEventFromBtnUrgent();
+    addEventFromBtnMedium();
+    addEventFromBtnLow();
+    addEventFromAddSubTask();
+});
+
+/**
+ * Fügt ein Event-Listener für das Task-Hinzufügungsformular hinzu.
+ * ====================================================================================================
+ * Diese Funktion entfernt zuerst vorhandene Event-Listener für das Absenden des Formulars
+ * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
+ * ====================================================================================================
+ */
+const addEventFromAddTask = () => {
+    ID_FORM_AddTask && (
+        ID_FORM_AddTask.removeEventListener('submit', initAddTask),
+        ID_FORM_AddTask.addEventListener('submit', initAddTask)
+    );
+};
+
+/**
+ * Fügt ein Event-Listener für den "Urgent"-Prioritäts-Button hinzu.
+ * ====================================================================================================
+ * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "Urgent"-Button
+ * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
+ * ====================================================================================================
+ */
+const addEventFromBtnUrgent = () => {
+    ID_BTN_URGENT && (
+        ID_BTN_URGENT.removeEventListener('click', handleUrgentClick),
+        ID_BTN_URGENT.addEventListener('click', handleUrgentClick)
+    );
+};
+
+/**
+ * Fügt ein Event-Listener für den "Medium"-Prioritäts-Button hinzu.
+ * ====================================================================================================
+ * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "Medium"-Button
+ * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
+ * ====================================================================================================
+ */
+const addEventFromBtnMedium = () => {
+    ID_BTN_MEDIUM && (
+        ID_BTN_MEDIUM.removeEventListener('click', handleMediumClick),
+        ID_BTN_MEDIUM.addEventListener('click', handleMediumClick)
+    );
+};
+
+/**
+ * Fügt ein Event-Listener für den "Low"-Prioritäts-Button hinzu.
+ * ====================================================================================================
+ * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "Low"-Button
+ * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
+ * ====================================================================================================
+ */
+const addEventFromBtnLow = () => {
+    ID_BTN_LOW && (
+        ID_BTN_LOW.removeEventListener('click', handleLowClick),
+        ID_BTN_LOW.addEventListener('click', handleLowClick)
+    );
+};
+
+/**
+ * Fügt ein Event-Listener für den "SubTask"-Button hinzu.
+ * ====================================================================================================
+ * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "SubTask"-Button
+ * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
+ * ====================================================================================================
+ */
+const addEventFromAddSubTask = () => {
+    ID_BTN_addSubTask && (
+        ID_BTN_addSubTask.removeEventListener('click', addSubTask),
+        ID_BTN_addSubTask.addEventListener('click', addSubTask)
+    );
+};
+
+/**
+ * Setzt die Priorität der Aufgabe auf "Urgent".
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn der Benutzer auf den "Urgent"-Button klickt.
+ * Sie setzt die Priorität der Aufgabe auf "Urgent" und aktualisiert die UI entsprechend.
+ * ====================================================================================================
+ */
+const handleUrgentClick = () => {
+    setBtnPrio('urgent');
+};
+
+
+/**
+ * Setzt die Priorität der Aufgabe auf "Medium".
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn der Benutzer auf den "Medium"-Button klickt.
+ * Sie setzt die Priorität der Aufgabe auf "Medium" und aktualisiert die UI entsprechend.
+ * ====================================================================================================
+ */
+const handleMediumClick = () => {
+    setBtnPrio('medium');
+};
+
+/**
+ * Setzt die Priorität der Aufgabe auf "Low".
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn der Benutzer auf den "Low"-Button klickt.
+ * Sie setzt die Priorität der Aufgabe auf "Low" und aktualisiert die UI entsprechend.
+ * ====================================================================================================
+ */
+const handleLowClick = () => {
+    setBtnPrio('low');
+};
 
 /**
  * Initialisiert das Hinzufügen einer neuen Aufgabe.
@@ -42,8 +144,6 @@ function lodeUserId() {
  * lädt die eingegebenen Formulardaten in ein globales `taskForm`-Objekt,
  * lädt diese Daten auf den Server hoch und leert die Eingabefelder.
  * ====================================================================================================
- * func uploadPatchData() - findet man in der dataResponse.js
- * ====================================================================================================
  * @param {Event} event - Das Ereignis, das beim Absenden des Formulars ausgelöst wird.
  *                        Es wird verwendet, um das Standard-Absendeverhalten des Browsers zu verhindern.
  * ====================================================================================================
@@ -52,28 +152,12 @@ async function initAddTask(event) {
     event.preventDefault();
     try {
         loadFormData();
-        await uploadPatchData(`users/${userID}/tasks/`, taskForm);
-        clearInput();
+        await uploadData();
+        resetFrom();
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
-        console.error(`Es ist ein Schwerwigender Fehler aufgetreten! ${err}`);
+        console.error(`Es ist ein Fehler beim erstellen des Tasks aufgetreten! ${err}`);
     }
-}
-
-/**
- * Setzt die Eingabefelder des Formulars zurück.
- * ====================================================================================================
- * Diese Funktion leert alle Eingabefelder des Formulars, indem sie die Werte
- * auf leere Zeichenfolgen zurücksetzt, um die Benutzeroberfläche nach dem Absenden
- * des Formulars zu bereinigen.
- * ====================================================================================================
- */
-function clearInput() {
-    ID_INPUT_taskTitle.value = '';
-    ID_INPUT_taskDescription.value = '';
-    ID_INPUT_select00.value = '';
-    ID_INPUT_taskDate.value = '';
-    ID_INPUT_select01.value = '';
 }
 
 /**
@@ -85,13 +169,28 @@ function clearInput() {
  * weitere Verarbeitung oder Speicherung verfügbar gemacht.
  * ====================================================================================================
  */
-function loadFormData() {
-    taskForm.title = ID_INPUT_taskTitle.value;
-    taskForm.description = ID_INPUT_taskDescription.value;
-    taskForm.assigned = ID_INPUT_select00.value;
-    taskForm.date = ID_INPUT_taskDate.value;
-    taskForm.category = ID_INPUT_select01.value;
-    setBtnPrio('medium');
+const loadFormData = () => {
+    ID_INPUT_TASK.forEach((key, i) => {
+        ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
+    });
+}
+
+/**
+ * Lädt die aktuellen Formulardaten auf den Server hoch.
+ * ====================================================================================================
+ * Diese Funktion lädt das `taskForm`-Objekt auf den Server hoch,
+ * indem sie die Daten unter dem Pfad des Benutzers speichert.
+ * ====================================================================================================
+ * func loadUserIdFromStored() - findet man in der './module/modules.js'
+ * func uploadPatchData() - findet man in der './module/dataResponse.js'
+ * ====================================================================================================
+ * @async
+ * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Daten erfolgreich hochgeladen wurden.
+ * ====================================================================================================
+ */
+async function uploadData() {
+    const userID = loadUserIdFromStored();
+    await uploadPatchData(`users/${userID}/tasks/`, taskForm);
 }
 
 /**
@@ -106,7 +205,7 @@ function loadFormData() {
  *                        Dies entspricht der ID des Buttons, der die Priorität darstellt.
  * ====================================================================================================
  */
-function setBtnPrio(prio) {
+const setBtnPrio = (prio) => {
     lastBtn();
     document.getElementById(prio).classList.add('activBtnPrio');
     document.getElementById(prio).disabled = true;
@@ -122,7 +221,61 @@ function setBtnPrio(prio) {
  * klickbar gemacht und die aktive CSS-Klasse wird entfernt.
  * ====================================================================================================
  */
-function lastBtn() {
+const lastBtn = () => {
     document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');
     document.getElementById(lastBtnPrio).disabled = false;
+}
+
+/**
+ * Fügt einen neuen SubTask zur Aufgabe hinzu.
+ * ====================================================================================================
+ * Diese Funktion wird aufgerufen, wenn der Benutzer einen neuen SubTask eingibt und
+ * auf den entsprechenden Button klickt. Der SubTask wird zur Liste der SubTasks
+ * im `taskForm`-Objekt hinzugefügt und das Eingabefeld wird geleert.
+ * ====================================================================================================
+ */
+const addSubTask = () => {
+    const input = ID_INPUT_subtask;
+    input.value === '' || (
+        taskForm.subtask.push(input.value),
+        input.value = '',
+        console.table(taskForm)
+    );
+}
+
+/**
+ * Setzt das Formular nach dem Hinzufügen einer Aufgabe zurück.
+ * ====================================================================================================
+ * Diese Funktion setzt alle Eingabefelder des Formulars zurück, leert das `taskForm`-Objekt
+ * und stellt die Standard-Priorität auf "Medium" zurück.
+ * ====================================================================================================
+ */
+const resetFrom = () => {
+    clearInput();
+    resetFromTaskForm();
+    setBtnPrio('medium');
+}
+
+/**
+ * Setzt die Eingabefelder des Formulars zurück.
+ * ====================================================================================================
+ * Diese Funktion leert alle Eingabefelder des Formulars, indem sie die Werte
+ * auf leere Zeichenfolgen zurücksetzt, um die Benutzeroberfläche nach dem Absenden
+ * des Formulars zu bereinigen.
+ * ====================================================================================================
+ */
+const clearInput = () => {
+    ID_INPUT_TASK.forEach((id) => document.getElementById(id).value = '');
+}
+
+/**
+ * Setzt das globale `taskForm`-Objekt zurück.
+ * ====================================================================================================
+ * Diese Funktion stellt sicher, dass das `taskForm`-Objekt nach dem Hinzufügen einer Aufgabe
+ * wieder auf seine Standardwerte zurückgesetzt wird. Dadurch wird sichergestellt, dass
+ * das Formular für den nächsten Einsatz in einem sauberen Zustand ist.
+ * ====================================================================================================
+ */
+const resetFromTaskForm = () => {
+    taskForm = resetTaskForm;
 }

@@ -152,6 +152,11 @@
   color: #fff;
 }
 
+.subtask {
+  border: none;
+  padding: 0;
+}
+
 .addSubtask {
   width: 440px;
   height: 48px;
@@ -168,11 +173,20 @@
 }
 
 .subtaskinput {
-  background-image: url("../../../resources/symbols/addSubtasks.svg");
-  background-repeat: no-repeat;
-  background-position: right 15px top 50%;
+  display: flex;
   cursor: pointer;
   width: 100%;
+}
+
+.subtaskinput input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.subtaskinput button {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  height: 48px !important;
 }
 
 .taskbottom {
