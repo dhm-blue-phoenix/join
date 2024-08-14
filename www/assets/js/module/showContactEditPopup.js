@@ -25,6 +25,8 @@ export let editContactId;
 export async function showContactEditPopup(email) {
     try {
         removeClass('editcontactpopup');
+        document.getElementById('editcontactpopupanimation').classList.remove('hide');
+        document.getElementById('editcontactpopupanimation').classList.add('show');
         const userID = loadUserIdFromStored();
         const contactId = await getContactId(userID, email);
         importFromEditFormData(contactId[1]);

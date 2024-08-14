@@ -6,7 +6,7 @@ const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
-const BTN_ID = ['delContactBtn', 'editContactBtn'];
+const BTN_ID = ['delContactBtn', 'editContactBtn', 'delContactBtnMobile', 'editContactBtnMobile'];
 const FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
 const CLASS_dnone = document.querySelectorAll('.d-none');
