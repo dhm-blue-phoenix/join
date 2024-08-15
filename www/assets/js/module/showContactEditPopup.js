@@ -36,12 +36,12 @@ export async function showContactEditPopup(email) {
 }
 
 /**
- * Zeigt das Bearbeitungs-Popup an und aktiviert die zugehörige Animation.
+ * Zeigt das Bearbeitungs-Popup an und startet die Anzeigeanimation.
  * ====================================================================================================
- * Diese Funktion entfernt die Klasse, die das Bearbeitungs-Popup ausblendet,
- * und fügt stattdessen eine Klasse hinzu, die das Popup sichtbar macht.
- * Zusätzlich wird eine Animation durch das Hinzufügen und Entfernen von CSS-Klassen
- * aktiviert, um ein sanftes Einblenden des Popups zu erreichen.
+ * Diese Funktion macht das Bearbeitungs-Popup sichtbar, indem sie eine Klasse entfernt, 
+ * die das Popup normalerweise ausblendet. Gleichzeitig wird durch das Hinzufügen und 
+ * Entfernen von CSS-Klassen eine Animation aktiviert, die das sanfte Einblenden des 
+ * Popups ermöglicht.
  * ====================================================================================================
  */
 const showPopup = () => {

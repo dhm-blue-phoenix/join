@@ -57,7 +57,7 @@ function showContactCardMobile() {
         addEventFromHideCardArrow();
     }
 }
-// [!] Keine Ahnung was das macht???
+// [!] Keine Ahnung was das macht??? Ist das Wichtig??? oder kann ich das Rausnehmen???
 window.addEventListener('load', () => {
     const contactCard = document.getElementById('showContactcard');
     contactCard.style.display = 'none';
