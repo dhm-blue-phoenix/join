@@ -41,56 +41,66 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
     setBtnAttribute(personEmail);
     addEventFromBtn();
     deselectPreviousCard(card);
-    showContactCardMobile();
+    showMobileContactCard();
 }
 
-/**
- * Funktion für die Mobileansicht von der Contactcard
- * ====================================================================================================
- */
-
-function showContactCardMobile() {
-    if (screenWidth <= 1300) {
-        ID_contactCard.style.display = 'block'; // Den Container einblenden
-        ID_contactCard.style.animation = 'slideIn 0.3s forwards'; // Animation starten
-        ID_BTN_editDelet.style.animation = 'slideIn 0.3s forwards'; // Animation starten
-        addEventFromHideCardArrow();
-    }
-}
 // [!] Keine Ahnung was das macht??? Ist das Wichtig??? oder kann ich das Rausnehmen???
 window.addEventListener('load', () => {
     const contactCard = document.getElementById('showContactcard');
     contactCard.style.display = 'none';
 });
 
-function hideContactCardMobile() {
-    // Nur in der mobilen Ansicht ausblenden
+/**
+ * Zeigt die Kontaktkarte in der mobilen Ansicht an und startet die Einblende-Animation.
+ * ====================================================================================================
+ * Diese Funktion überprüft die Bildschirmbreite und blendet die Kontaktkarte ein,
+ * falls die Ansicht auf einem mobilen Gerät (Bildschirmbreite ≤ 1300px) erfolgt. 
+ * Zusätzlich wird eine Einblende-Animation für die Kontaktkarte und die Edit/Delete-Buttons gestartet.
+ * ====================================================================================================
+ * @returns {void}
+ */
+const showMobileContactCard = () => {
     if (screenWidth <= 1300) {
-        ID_BTN_editDelet.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
-        ID_contactCard.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
-        // setTimeout(() => {
-        //     contactCard.style.display = 'none'; // Nach der Animation ausblenden
-        // }, 300); // Timeout entspricht der Dauer der Animation
+        ID_contactCard.style.display = 'block';
+        ID_contactCard.style.animation = 'slideIn 0.3s forwards';
+        ID_BTN_editDelet.style.animation = 'slideIn 0.3s forwards';
+        addEventFromHideCardArrow();
     }
 }
 
 /**
- * Fügt einen Event-Listener zum Formular zum Bearbeiten eines Kontakts hinzu.
+ * Verbirgt die Kontaktkarte in der mobilen Ansicht und startet die Ausblende-Animation.
  * ====================================================================================================
- * Diese Funktion überprüft, ob das Formular für das Bearbeiten eines Kontakts (`ID_FORM_editPersion`) existiert.
- * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt und ein neuer Event-Listener
- * hinzugefügt. Dieser Event-Listener ruft die `initEditForm`-Funktion auf, wenn das Formular abgeschickt wird.
+ * Diese Funktion überprüft die Bildschirmbreite und blendet die Kontaktkarte aus,
+ * falls die Ansicht auf einem mobilen Gerät (Bildschirmbreite ≤ 1300px) erfolgt.
+ * Zusätzlich wird eine Ausblende-Animation für die Kontaktkarte und die Edit/Delete-Buttons gestartet.
+ * Die tatsächliche Ausblendung der Kontaktkarte erfolgt nach der Animation.
  * ====================================================================================================
  * @returns {void}
+ */
+export const hideMobileContactCard = () => {
+    if (screenWidth <= 1300) {
+        ID_BTN_editDelet.style.animation = 'slideOut 0.3s forwards';
+        ID_contactCard.style.animation = 'slideOut 0.3s forwards';
+        deselectPreviousCard(lastCart);
+    }
+}
+
+/**
+ * Fügt einen Event-Listener zum Button hinzu, der die Kontaktkarte in der mobilen Ansicht ausblendet.
  * ====================================================================================================
+ * Diese Funktion überprüft, ob der Button zum Ausblenden der Kontaktkarte (`CLASS_BTN_hideCardArrow`) existiert.
+ * Falls vorhanden, wird der vorherige Event-Listener für das `click`-Ereignis entfernt und ein neuer Event-Listener
+ * hinzugefügt. Dieser Event-Listener ruft die `hideMobileContactCard`-Funktion auf, wenn der Button angeklickt wird.
+ * ====================================================================================================
+ * @returns {void}
  */
 const addEventFromHideCardArrow = () => {
-    CLASS_BTN_hideCardArrow && (
-        CLASS_BTN_hideCardArrow.removeEventListener('click', hideContactCardMobile),
-        CLASS_BTN_hideCardArrow.addEventListener('click', hideContactCardMobile)
-    )
+    if (CLASS_BTN_hideCardArrow) {
+        CLASS_BTN_hideCardArrow.removeEventListener('click', hideMobileContactCard);
+        CLASS_BTN_hideCardArrow.addEventListener('click', hideMobileContactCard);
+    }
 };
-
 
 /**
  * Setzt das Styling und die Sichtbarkeit für die angegebene Kontaktkarte.

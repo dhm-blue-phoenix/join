@@ -1,6 +1,7 @@
 import { dnonePersionCard } from './dnone.js';
 import { showContactCards } from './showContactCards.js';
 import { loadUserIdFromStored, getContactId, deletElementById } from './modules.js';
+import { hideMobileContactCard } from './showContactDetails.js';
 
 /**
  * Löscht den Kontakt anhand der angegebenen E-Mail-Adresse.
@@ -23,6 +24,7 @@ export async function deleteContact(email) {
         const contactId = await getContactId(userID, email);
         await removeContact(userID, contactId);
         await updateContactDisplay();
+        hideMobileContactCard();
     } catch (err) {
         console.error(`Fehler beim Löschen des Kontakts: ${err}`);
     }

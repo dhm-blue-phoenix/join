@@ -3,6 +3,7 @@ import { editContactId } from './showContactEditPopup.js';
 import { showContactCards } from './showContactCards.js';
 import { dnonePersionCard, resetEditContactForm } from './dnone.js';
 import { updateData } from './dataResponse.js';
+import { hideMobileContactCard } from './showContactDetails.js';
 
 /**
  * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.
@@ -27,6 +28,7 @@ export async function editContact(formData) {
         const userID = loadUserIdFromStored();
         await updateData(`users/${userID}/contacts/${editContactId}`, formData);
         await updateContactDisplay();
+        hideMobileContactCard();
     } catch (err) {
         console.error(`Es ist ein Problem beim Bearbeiten des Kontakts aufgetreten! ${err}`);
     }
