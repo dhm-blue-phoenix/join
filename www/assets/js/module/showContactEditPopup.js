@@ -6,6 +6,7 @@ const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_INPUT_editPersionName = document.getElementById('editPersionName');
 const ID_INPUT_editPersionEmail = document.getElementById('editPersionEmail');
 const ID_INPUT_editPersionTel = document.getElementById('editPersionTel');
+const ID_editPopupAnimation = document.getElementById('editcontactpopupanimation');
 
 export let editContactId;
 
@@ -24,9 +25,7 @@ export let editContactId;
 */
 export async function showContactEditPopup(email) {
     try {
-        removeClass('editcontactpopup');
-        document.getElementById('editcontactpopupanimation').classList.remove('hide');
-        document.getElementById('editcontactpopupanimation').classList.add('show');
+        showPopup();
         const userID = loadUserIdFromStored();
         const contactId = await getContactId(userID, email);
         importFromEditFormData(contactId[1]);
@@ -34,6 +33,21 @@ export async function showContactEditPopup(email) {
     } catch (err) {
         console.error(`Es ist ein Problem beim Öffnen des Edid Popups aufgetreten! ${err}`);
     }
+}
+
+/**
+ * Zeigt das Bearbeitungs-Popup an und aktiviert die zugehörige Animation.
+ * ====================================================================================================
+ * Diese Funktion entfernt die Klasse, die das Bearbeitungs-Popup ausblendet,
+ * und fügt stattdessen eine Klasse hinzu, die das Popup sichtbar macht.
+ * Zusätzlich wird eine Animation durch das Hinzufügen und Entfernen von CSS-Klassen
+ * aktiviert, um ein sanftes Einblenden des Popups zu erreichen.
+ * ====================================================================================================
+ */
+const showPopup = () => {
+    removeClass('editcontactpopup');
+    ID_editPopupAnimation.classList.remove('hide');
+    ID_editPopupAnimation.classList.add('show');
 }
 
 /**
@@ -45,7 +59,7 @@ export async function showContactEditPopup(email) {
  * @param {string} id Die ID des Elements, von dem die Klasse entfernt werden soll.
  * ====================================================================================================
  */
-function removeClass(id) {
+const removeClass = (id) => {
     document.getElementById(id).classList.remove('d-nonepopup');
 }
 

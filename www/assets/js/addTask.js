@@ -14,11 +14,11 @@ let taskForm = { 'title': '', 'description': '', 'assigned': '', 'date': '', 'pr
 let lastBtnPrio = 'medium';
 
 /**
- * Initialisiert die Event-Listener und setzt die Priorität beim Laden der Seite.
+ * Initialisiert den Event-Listener.
  * ====================================================================================================
  * Diese Funktion wird aufgerufen, sobald der DOM vollständig geladen ist. Sie richtet
  * die notwendigen Event-Listener für Formular- und Button-Elemente ein und stellt sicher,
- * dass die Priorität auf den Standardwert "medium" gesetzt wird. Dies sorgt dafür, dass
+ * dass die Button Priorität auf den Standardwert "medium" gesetzt wird. Dies sorgt dafür, dass
  * die Benutzeroberfläche sofort einsatzbereit ist und die entsprechenden Funktionen
  * korrekt aktiviert werden.
  * ====================================================================================================

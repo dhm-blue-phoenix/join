@@ -2,6 +2,8 @@ import { extractInitials } from './modules.js';
 import { deleteContact } from './deleteContact.js';
 import { showContactEditPopup } from './showContactEditPopup.js';
 
+const ID_BTN_editDelet = document.getElementById('editdeletcontact');
+const ID_contactCard = document.getElementById('showContactcard');
 const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
@@ -9,7 +11,10 @@ const ID_personTel = document.getElementById('personTel');
 const BTN_ID = ['delContactBtn', 'editContactBtn', 'delContactBtnMobile', 'editContactBtnMobile'];
 const FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
+const CLASS_BTN_hideCardArrow = document.querySelector('.hidecontactcardarrow');
 const CLASS_dnone = document.querySelectorAll('.d-none');
+
+const screenWidth = window.innerWidth;
 
 let lastCart;
 
@@ -45,38 +50,46 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
  */
 
 function showContactCardMobile() {
-    const editdeletcontact = document.getElementById('editdeletcontact');
-    const contactCard = document.getElementById('showContactcard');
-    const screenWidth = window.innerWidth;
-
     if (screenWidth <= 1300) {
-        contactCard.style.display = 'block'; // Den Container einblenden
-        contactCard.style.animation = 'slideIn 0.3s forwards'; // Animation starten
-        editdeletcontact.style.animation = 'slideIn 0.3s forwards'; // Animation starten
+        ID_contactCard.style.display = 'block'; // Den Container einblenden
+        ID_contactCard.style.animation = 'slideIn 0.3s forwards'; // Animation starten
+        ID_BTN_editDelet.style.animation = 'slideIn 0.3s forwards'; // Animation starten
+        addEventFromHideCardArrow();
     }
 }
-
-window.addEventListener('load', function() {
+// [!] Keine Ahnung was das macht???
+window.addEventListener('load', () => {
     const contactCard = document.getElementById('showContactcard');
     contactCard.style.display = 'none';
-  });
+});
 
-  function hideContactCardMobile() {
-    const editdeletcontact = document.getElementById('editdeletcontact');
-    const contactCard = document.getElementById('showContactcard');
-    const screenWidth = window.innerWidth;
-
+function hideContactCardMobile() {
     // Nur in der mobilen Ansicht ausblenden
     if (screenWidth <= 1300) {
-        editdeletcontact.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
-        contactCard.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
+        ID_BTN_editDelet.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
+        ID_contactCard.style.animation = 'slideOut 0.3s forwards'; // Ausblende-Animation starten
         // setTimeout(() => {
         //     contactCard.style.display = 'none'; // Nach der Animation ausblenden
         // }, 300); // Timeout entspricht der Dauer der Animation
     }
 }
 
-document.querySelector('.hidecontactcardarrow').addEventListener('click', hideContactCardMobile);
+/**
+ * Fügt einen Event-Listener zum Formular zum Bearbeiten eines Kontakts hinzu.
+ * ====================================================================================================
+ * Diese Funktion überprüft, ob das Formular für das Bearbeiten eines Kontakts (`ID_FORM_editPersion`) existiert.
+ * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt und ein neuer Event-Listener
+ * hinzugefügt. Dieser Event-Listener ruft die `initEditForm`-Funktion auf, wenn das Formular abgeschickt wird.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const addEventFromHideCardArrow = () => {
+    CLASS_BTN_hideCardArrow && (
+        CLASS_BTN_hideCardArrow.removeEventListener('click', hideContactCardMobile),
+        CLASS_BTN_hideCardArrow.addEventListener('click', hideContactCardMobile)
+    )
+};
 
 
 /**
