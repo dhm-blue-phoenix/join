@@ -1,5 +1,6 @@
 import { loadUserData } from './module/modules.js';
 import { uploadPatchData } from './module/dataResponse.js';
+import { createMessege } from './module/createHtmlElements.js';
 
 const ID_FORM_REGISTER = document.getElementById('signupFrom');
 
@@ -96,14 +97,16 @@ async function uploadData(formData) {
  * Abschluss der Registrierung anzuzeigen. Anschließend wird eine Erfolgsmeldung angezeigt und der 
  * Benutzer nach einer Verzögerung (2 Sekunden) auf die Startseite weitergeleitet.
  * ====================================================================================================
- * @param {Object} formData Die Formulardaten des Benutzers, die für die Weiterleitung verwendet werden.
+ * func createMessege() - findet man in der './module/createHtmlElements.js'
+ * ====================================================================================================
+ *  @param {Object} formData Die Formulardaten des Benutzers, die für die Weiterleitung verwendet werden.
  * @param {string} formData.email Die E-Mail-Adresse des Benutzers.
  * @param {string} formData.pw Das Passwort des Benutzers.
  * ====================================================================================================
  */
 const signedUp = (formData) => {
-    ID_signedUpContainerBG.classList.remove('d-nonepopup');
-    ID_signedUpContainer.innerHTML = '<p>Sie haben sich erfolgreich angemeldet</p>';
+    ID_signedUpContainerBG.classList.remove('d-nonepopup');  
+    ID_signedUpContainer.appendChild(createMessege());
     setTimeout(() => {
         window.location.href = `./index.html?formEmail=${encodeURIComponent(formData.email)}&formPw=${encodeURIComponent(formData.pw)}`;
     }, 2000);

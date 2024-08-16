@@ -1,5 +1,6 @@
 import { showContactDetails } from './showContactDetails.js';
 import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
+import {generateCardHeadline, createContactCard} from './createHtmlElements.js'
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 
@@ -76,6 +77,9 @@ function organizeContacts(data) {
  * Diese Funktion erstellt HTML-Elemente für die Kontaktkarten und fügt sie in das DOM ein. 
  * Sie fügt außerdem Event-Listener hinzu, um auf Klickereignisse zu reagieren.
  * ====================================================================================================
+ * func generateCardHeadline() - findet man in der './createHtmlElements.js'
+ * func createContactCard() - findet man in der './createHtmlElements.js'
+ * ====================================================================================================
  * @returns {void}
  * ====================================================================================================
  */
@@ -83,11 +87,11 @@ function displaySortedContacts() {
     const cardsContainer = CLASS_Contactcards;
     cardsContainer.innerHTML = '';
     Object.keys(contacts).forEach(key => {
-        cardsContainer.innerHTML += generateCardHeadline(key);
+        generateCardHeadline(cardsContainer, key);
         contacts[key].forEach((contact, cardId) => {
             const contactCard = document.createElement('div');
             contactCard.classList.add('cardcontent');
-            contactCard.innerHTML = createContactCard(key, cardId, contact.name, contact.email, contact.tel, contact.shortcutBackColor);
+            createContactCard(cardsContainer, key, cardId, contact.name, contact.email, contact.tel, contact.shortcutBackColor);
             cardsContainer.appendChild(contactCard);
         });
     });
@@ -137,43 +141,3 @@ const handleCardClick = (event) => {
     const shortcutBackColor = target.getAttribute('data-shortcut-color');
     showContactDetails(key, name, email, tel, shortcutBackColor);
 };
-
-/**
- * Generiert die Überschrift für eine Gruppe von Kontaktkarten.
- * ====================================================================================================
- * Diese Funktion erstellt einen HTML-String, der als Überschrift für eine Gruppe von 
- * Kontaktkarten verwendet wird, basierend auf dem Anfangsbuchstaben der Kontaktnamen.
- * ====================================================================================================
- * @param {string} letter Der Anfangsbuchstabe der Kontaktgruppe.
- * @returns {string} Der HTML-Code für die Überschrift der Kontaktgruppe.
- * ====================================================================================================
- */
-const generateCardHeadline = (letter) => `
-    <div class="letter">${letter.toUpperCase()}</div>
-    <div class="ContactcardsTrennline"></div>
-`;
-
-/**
- * Erstellt den HTML-Code für eine einzelne Kontaktkarte.
- * ====================================================================================================
- * Diese Funktion erstellt einen HTML-String, der eine einzelne Kontaktkarte repräsentiert,
- * inklusive aller relevanten Kontaktdaten und des visuellen Layouts.
- * ====================================================================================================
- * @param {string} key Ein eindeutiger Schlüssel, der die Kontaktkarte identifiziert.
- * @param {number} id Eine eindeutige ID für die Kontaktkarte.
- * @param {string} name Der Name des Kontakts.
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @param {string} tel Die Telefonnummer des Kontakts.
- * @param {string} shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * @returns {string} Der HTML-Code für die Kontaktkarte.
- * ====================================================================================================
- */
-const createContactCard = (key, id, name, email, tel, shortcutBackColor) => `
-    <div class="card" id="${key.toLowerCase() + id}" data-key="${key.toLowerCase() + id}" data-name="${name}" data-email="${email}" data-tel="${tel}" data-shortcut-color="${shortcutBackColor}">
-        <div id="nameShortcut" style="background-color: ${shortcutBackColor}">${name.split(' ').map(namePart => namePart[0]).join('').toUpperCase()}</div>
-        <div class="namemail">
-            <p>${name}</p>
-            <a href="#Mail">${email}</a>
-        </div>
-    </div>
-`;
