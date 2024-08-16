@@ -18,8 +18,8 @@ export async function retrievingData(patch) {
         return Object.values(data);
     } catch (err) {
         handleError(err);
-    }
-}
+    };
+};
 
 /**
  * Löscht Daten aus der Firebase Realtime Database.
@@ -42,8 +42,8 @@ export async function deleteData(patch) {
         await checkAnswer(deleteResponse);
     } catch (err) {
         handleError(err);
-    }
-}
+    };
+};
 
 /**
  * Aktualisiert Daten in der Firebase Realtime Database.
@@ -69,8 +69,8 @@ export async function updateData(patch, data) {
         await checkAnswer(updateResponse);
     } catch (err) {
         handleError(err);
-    }
-}
+    };
+};
 
 /**
  * Lädt Patch-Daten auf den Server hoch.
@@ -95,8 +95,8 @@ export async function uploadPatchData(patch, data) {
         await checkAnswer(patchResponse);
     } catch (err) {
         handleError(err);
-    }
-}
+    };
+};
 
 /**
  * Überprüft, ob die Antwort auf eine Anfrage erfolgreich war.
@@ -110,8 +110,8 @@ export async function uploadPatchData(patch, data) {
 async function checkAnswer(response) {
     if (!response.ok) {
         throw new Error(`[HTTP] Status: ${response.status} - ${response.statusText}`);
-    }
-}
+    };
+};
 
 /**
  * Behandelt einen Fehler, der bei der Ausführung einer Funktion aufgetreten ist.
@@ -123,4 +123,4 @@ async function checkAnswer(response) {
  */
 function handleError(err) {
     throw err;
-}
+};

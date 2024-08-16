@@ -32,8 +32,8 @@ export async function showContactEditPopup(email) {
         editContactId = contactId[0];
     } catch (err) {
         console.error(`Es ist ein Problem beim Öffnen des Edid Popups aufgetreten! ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Zeigt das Bearbeitungs-Popup an und startet die Anzeigeanimation.
@@ -48,7 +48,7 @@ const showPopup = () => {
     removeClass('editcontactpopup');
     ID_editPopupAnimation.classList.remove('hide');
     ID_editPopupAnimation.classList.add('show');
-}
+};
 
 /**
  * Entfernt eine spezifische CSS-Klasse von einem Element.
@@ -61,7 +61,7 @@ const showPopup = () => {
  */
 const removeClass = (id) => {
     document.getElementById(id).classList.remove('d-nonepopup');
-}
+};
 
 /**
  * Importiert die Kontaktdaten in das Bearbeitungsformular.
@@ -82,5 +82,5 @@ const importFromEditFormData = (contactData) => {
     ID_editPersionShortcut.style.backgroundColor = contactData.shortcutBackColor;
     ID_INPUT_editPersionName.value = contactData.name;
     ID_INPUT_editPersionEmail.value = contactData.email;
-    ID_INPUT_editPersionTel.value = contactData.tel
-}
+    ID_INPUT_editPersionTel.value = contactData.tel;
+};

@@ -19,8 +19,8 @@ export async function loadUserData(find) {
         const users = await retrievingData('');
         const user = await findUser(users[0], find);
         return user;
-    } catch (err) { }
-}
+    } catch (err) { };
+};
 
 /**
  * Sucht nach einem Benutzer in der Liste der Benutzer.
@@ -36,7 +36,7 @@ export async function loadUserData(find) {
  */
 async function findUser(users, find) {
     return Object.entries(users).find(([id, user]) => user.email === find.email && user.password === find.pw);
-}
+};
 
 /**
  * Holt die Benutzerdaten eines bestimmten Benutzers aus der Firebase Realtime Database.
@@ -50,7 +50,7 @@ async function findUser(users, find) {
  */
 export async function findUserById(uid) {
     return await retrievingData('users/' + uid);
-}
+};
 
 /**
  * Lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
@@ -67,7 +67,7 @@ export function loadUserIdFromStored() {
     if (storedLocalUserID) return storedLocalUserID;
     if (storedSessionUserID) return storedSessionUserID;
     throw new Error('User ID wurde nicht gefunden!');
-}
+};
 
 /**
  * Lädt die Kontakt-ID basierend auf der E-Mail-Adresse.
@@ -85,7 +85,7 @@ export function loadUserIdFromStored() {
  */
 export async function getContactId(userID, email) {
     return await loadElementById(`users/${userID}/`, email);
-}
+};
 
 /**
  * Extrahiert die Initialen aus einem Benutzernamen.
@@ -99,7 +99,7 @@ export async function getContactId(userID, email) {
  */
 export function extractInitials(username) {
     return username.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
-}
+};
 
 /**
  * Lädt Elemente basierend auf dem angegebenen Pfad.
@@ -119,7 +119,7 @@ export async function loadElementByPatch(patch) {
     const data = await retrievingData(patch);
     const contactCarts = Object.values(data[0]);
     return contactCarts;
-}
+};
 
 /**
  * Lädt ein Element basierend auf der ID und E-Mail.
@@ -140,7 +140,7 @@ export async function loadElementById(patch, email) {
     const data = await retrievingData(patch);
     const contactId = await findElementById(data[0], email);
     return contactId;
-}
+};
 
 /**
  * Sucht ein Element in den Kontakten basierend auf der E-Mail-Adresse.
@@ -156,7 +156,7 @@ export async function loadElementById(patch, email) {
  */
 async function findElementById(contacts, findEmail) {
     return Object.entries(contacts).find(([id, contact]) => contact.email === findEmail);
-}
+};
 
 /**
  * Löscht ein Element basierend auf dem angegebenen Pfad.
@@ -174,4 +174,4 @@ async function findElementById(contacts, findEmail) {
  */
 export async function deletElementById(patch) {
     await deleteData(patch);
-}
+};

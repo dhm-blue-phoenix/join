@@ -32,8 +32,8 @@ export async function addContact(contactData) {
         await updateContactDisplay();
     } catch (err) {
         console.error(`Es ist ein schwerwiegender Fehler aufgetreten! ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Überprüft, ob ein Kontakt mit der angegebenen E-Mail bereits existiert.
@@ -48,7 +48,7 @@ export async function addContact(contactData) {
  */
 function isContactExists(contactCards, email) {
     return contactCards.some(contact => contact.email === email);
-}
+};
 
 /**
  * Aktualisiert die Anzeige der Kontaktkarten.
@@ -70,4 +70,4 @@ async function updateContactDisplay() {
     resetAddContactForm();
     dnonePersionCard();
     console.warn('Benutzer erfolgreich hinzugefügt!'); // [!] Ändern zu Benutzer-Feedback
-}
+};

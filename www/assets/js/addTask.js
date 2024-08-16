@@ -157,8 +157,8 @@ async function initAddTask(event) {
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
         console.error(`Es ist ein Fehler beim erstellen des Tasks aufgetreten! ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Lädt die Formulardaten in ein globales `taskForm`-Objekt.
@@ -173,7 +173,7 @@ const loadFormData = () => {
     ID_INPUT_TASK.forEach((key, i) => {
         ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
     });
-}
+};
 
 /**
  * Lädt die aktuellen Formulardaten auf den Server hoch.
@@ -191,7 +191,7 @@ const loadFormData = () => {
 async function uploadData() {
     const userID = loadUserIdFromStored();
     await uploadPatchData(`users/${userID}/tasks/`, taskForm);
-}
+};
 
 /**
  * Setzt die Priorität der Aufgabe und aktualisiert die UI entsprechend.
@@ -211,7 +211,7 @@ const setBtnPrio = (prio) => {
     document.getElementById(prio).disabled = true;
     taskForm.prio = prio;
     lastBtnPrio = prio;
-}
+};
 
 /**
  * Setzt den Status des zuletzt aktiven Prioritäts-Buttons zurück.
@@ -224,7 +224,7 @@ const setBtnPrio = (prio) => {
 const lastBtn = () => {
     document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');
     document.getElementById(lastBtnPrio).disabled = false;
-}
+};
 
 /**
  * Fügt einen neuen SubTask zur Aufgabe hinzu.
@@ -241,7 +241,7 @@ const addSubTask = () => {
         input.value = '',
         console.table(taskForm)
     );
-}
+};
 
 /**
  * Setzt das Formular nach dem Hinzufügen einer Aufgabe zurück.
@@ -254,7 +254,7 @@ const resetFrom = () => {
     clearInput();
     resetFromTaskForm();
     setBtnPrio('medium');
-}
+};
 
 /**
  * Setzt die Eingabefelder des Formulars zurück.
@@ -266,7 +266,7 @@ const resetFrom = () => {
  */
 const clearInput = () => {
     ID_INPUT_TASK.forEach((id) => document.getElementById(id).value = '');
-}
+};
 
 /**
  * Setzt das globale `taskForm`-Objekt zurück.
@@ -278,4 +278,4 @@ const clearInput = () => {
  */
 const resetFromTaskForm = () => {
     taskForm = resetTaskForm;
-}
+};

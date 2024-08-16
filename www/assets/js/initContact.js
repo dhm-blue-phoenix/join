@@ -56,7 +56,7 @@ const addEventFromAddContact = () => {
     ID_FORM_addContact && (
         ID_FORM_addContact.removeEventListener('submit', initAddForm),
         ID_FORM_addContact.addEventListener('submit', initAddForm)
-    )
+    );
 };
 
 /**
@@ -73,7 +73,7 @@ const addEventFromEditContact = () => {
     ID_FORM_editPersion && (
         ID_FORM_editPersion.removeEventListener('submit', initEditForm),
         ID_FORM_editPersion.addEventListener('submit', initEditForm)
-    )
+    );
 };
 
 /**
@@ -93,7 +93,7 @@ function initAddForm(event) {
     event.preventDefault();
     const formData = loadDataAddForm(ID_INPUT_addPersionName.value, ID_INPUT_addPersionEmail.value, ID_INPUT_addPersionTel.value);
     addContact(formData);
-}
+};
 
 /**
  * Erstellt ein Formulardaten-Objekt aus den Eingabefeldern.
@@ -117,7 +117,7 @@ function loadDataAddForm(name, email, tel) {
         'tel': tel
     };
     return contactData;
-}
+};
 
 /**
  * Initialisiert das Bearbeitungsformular.
@@ -136,7 +136,7 @@ function initEditForm(event) {
     event.preventDefault();
     const formData = loadDataFromEditForm(ID_INPUT_editPersionName.value, ID_INPUT_editPersionEmail.value, ID_INPUT_editPersionTel.value);
     editContact(formData);
-}
+};
 
 /**
  * Lädt die Formulardaten aus den Eingabefeldern.
@@ -156,4 +156,4 @@ function loadDataFromEditForm(name, email, tel) {
         'tel': tel
     };
     return formData;
-}
+};

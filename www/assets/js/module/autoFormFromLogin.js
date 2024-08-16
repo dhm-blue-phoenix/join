@@ -24,9 +24,8 @@ export async function autoForm() {
     let userData;
     if (userData !== null) userData = checkDataAvailableFromUrl(encode, userData);
     if (storedAutoLogin === 'true') userData = await checkStoredFromAutoLogin();
-    console.log('storedAutoLogin', storedAutoLogin);
     if(userData === null) return fillForm(userData);
-}
+};
 
 /**
  * Überprüft die Verfügbarkeit von Benutzerdaten aus der URL.
@@ -43,7 +42,7 @@ export async function autoForm() {
 function checkDataAvailableFromUrl(encode) {
     ID_inputCheckbox.checked = false;
     return [encode[0], encode[1]];
-}
+};
 
 /**
  * Überprüft, ob eine automatische Anmeldung gespeichert ist und aktualisiert `userData`.
@@ -62,11 +61,9 @@ function checkDataAvailableFromUrl(encode) {
  */
 async function checkStoredFromAutoLogin() {
     const user = await findUserById(storedUserID);
-    console.log(user);
-    
     ID_inputCheckbox.checked = true;
     return [user[1], user[3]];
-}
+};
 
 /**
  * Füllt die Formularfelder mit den angegebenen Benutzerdaten.
@@ -79,7 +76,7 @@ async function checkStoredFromAutoLogin() {
 const fillForm = (userData) => {
     ID_inputEmail.value = userData[0];
     ID_inputPW.value = userData[1];
-}
+};
 
 /**
  * Lädt die E-Mail-Adresse und das Passwort aus der URL.
@@ -93,4 +90,4 @@ const loadUsernameFromURL = () => {
     const encodeEmail = decodeURIComponent(new URLSearchParams(window.location.search).get("formEmail"));
     const encodePw = decodeURIComponent(new URLSearchParams(window.location.search).get("formPw"));
     return [encodeEmail, encodePw];
-}
+};

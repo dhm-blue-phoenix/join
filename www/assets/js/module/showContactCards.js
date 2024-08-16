@@ -18,7 +18,7 @@ let userID;
 export async function showContactCards() {
     await fetchContacts();
     displaySortedContacts();
-}
+};
 
 /**
  * Lädt die Kontaktdaten des Benutzers und organisiert sie.
@@ -40,8 +40,8 @@ async function fetchContacts() {
         organizeContacts(tempContacts);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden der Kontakte aufgetreten: ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Organisiert die Kontaktdaten nach dem Anfangsbuchstaben des Namens.
@@ -68,7 +68,7 @@ function organizeContacts(data) {
         }
         contacts[firstLetter].push(contact);
     });
-}
+};
 
 /**
  * Zeigt die sortierten Kontaktkarten an.
@@ -92,7 +92,7 @@ function displaySortedContacts() {
         });
     });
     attachCardEvents();
-}
+};
 
 /**
  * Fügt Klick-Ereignislistener zu den Kontaktkarten hinzu.
@@ -112,7 +112,7 @@ const attachCardEvents = () => {
         card.removeEventListener('click', handleCardClick);
         card.addEventListener('click', handleCardClick);
     });
-}
+};
 
 /**
  * Behandelt das Klick-Ereignis auf einer Kontaktkarte.

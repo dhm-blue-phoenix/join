@@ -49,14 +49,14 @@ async function initRegister(event) {
         event.preventDefault();
         resetMessages();
         const formData = await loadFormData();
-        if (formData.pw !== formData.cfpw) return validatePassword(formData);
+        if (formData.pw !== formData.cfpw) return validatePassword();
         const userData = await loadUserData(formData.email);
         if (userData) return validateUserData();
         await uploadData(formData);
     } catch (err) {
         console.error(`Fehler beim Initialisieren der Registrierung: ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Aktualisiert die Benutzerdaten und leitet zur Hauptseite weiter.
@@ -87,7 +87,7 @@ async function uploadData(formData) {
         tasks: { none: '' }
     });
     signedUp(formData);
-}
+};
 
 /**
  * Zeigt eine Erfolgsmeldung an und leitet zur Startseite weiter.
@@ -107,7 +107,7 @@ const signedUp = (formData) => {
     setTimeout(() => {
         window.location.href = `./index.html?formEmail=${encodeURIComponent(formData.email)}&formPw=${encodeURIComponent(formData.pw)}`;
     }, 2000);
-}
+};
 
 /**
  * Überprüft, ob der Benutzer bereits vorhanden ist.
@@ -118,22 +118,18 @@ const signedUp = (formData) => {
 const validateUserData = () => {
     ID_ERR_EMAIL.textContent = 'Benutzer ist bereits in der Datenbank vorhanden!';
     ID_ERR_EMAIL.style.display = 'block';
-}
+};
 
 /**
  * Überprüft, ob die Passwörter übereinstimmen.
  * ====================================================================================================
  * Diese Funktion zeigt eine Fehlermeldung an, wenn das Passwort und die Bestätigung nicht übereinstimmen.
  * ====================================================================================================
- * @param {Object} formData Die Formulardaten des Benutzers.
- * @param {string} formData.pw Das Passwort des Benutzers.
- * @param {string} formData.cfpw Die Bestätigung des Passworts.
- * ====================================================================================================
  */
-const validatePassword = (formData) => {
+const validatePassword = () => {
     ID_ERR_PW.textContent = 'Das Passwort stimmt nicht überein!';
     ID_ERR_PW.style.display = 'block';
-}
+};
 
 /**
  * Setzt alle Fehlermeldungen zurück.
@@ -144,7 +140,7 @@ const validatePassword = (formData) => {
 const resetMessages = () => {
     resetErrorMessages();
     ID_signedUpContainer.innerHTML = '';
-}
+};
 
 /**
  * Setzt die einzelnen Fehlermeldungen zurück.
@@ -155,7 +151,7 @@ const resetMessages = () => {
 const resetErrorMessages = () => {
     ID_ERR_PW.style.display = 'none';
     ID_ERR_EMAIL.style.display = 'none';
-}
+};
 
 /**
  * Lädt die Daten aus den Formularfeldern.

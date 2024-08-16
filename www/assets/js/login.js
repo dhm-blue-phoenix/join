@@ -26,16 +26,46 @@ const ID_ERR_EMAIL = document.getElementById('emailError');
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
+    addEventFromLogin();
+    addEventFromGuestLogin();
+    await autoForm();
+});
+
+/**
+ * Fügt einen Event-Listener zum Login-Formular hinzu.
+ * ====================================================================================================
+ * Diese Funktion überprüft, ob das Login-Formular (`ID_FORM_LOGIN`) existiert.
+ * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt
+ * und ein neuer Event-Listener hinzugefügt. Dieser Event-Listener ruft die `initLogin`-Funktion
+ * auf, wenn das Formular abgeschickt wird.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const addEventFromLogin = () => {
     ID_FORM_LOGIN && (
         ID_FORM_LOGIN.removeEventListener('submit', initLogin),
         ID_FORM_LOGIN.addEventListener('submit', initLogin)
     );
+};
+
+/**
+ * Fügt einen Event-Listener zum Gast-Login-Button hinzu.
+ * ====================================================================================================
+ * Diese Funktion überprüft, ob der Button für den Gast-Login (`ID_BTN_guestLogin`) existiert.
+ * Falls vorhanden, wird der vorherige Event-Listener für das `click`-Ereignis entfernt
+ * und ein neuer Event-Listener hinzugefügt. Dieser Event-Listener ruft die `initGuestLogin`-Funktion
+ * auf, wenn der Button angeklickt wird.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const addEventFromGuestLogin = () => {
     ID_BTN_guestLogin && (
         ID_BTN_guestLogin.removeEventListener('click', initGuestLogin),
         ID_BTN_guestLogin.addEventListener('click', initGuestLogin)
     );
-    await autoForm();
-});
+};
 
 /**
  * Führt den Gast-Login durch und leitet zur Hauptseite weiter.
@@ -51,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function initGuestLogin() {
     await saveSessionUserID('-O0wPZV3YT41s7Ja0eKd', false);
     loadWindow();
-}
+};
 
 /**
  * Initialisiert den Anmeldevorgang.
@@ -80,8 +110,8 @@ async function initLogin(event) {
         loadWindow();
     } catch (err) {
         console.error(`Fehler beim Initialisieren der Anmeldung: ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Setzt alle Fehlermeldungen zurück.
@@ -94,7 +124,7 @@ async function initLogin(event) {
  */
 const resetErrMessegs = () => {
     ID_ERR_EMAIL.style.display = 'none';
-}
+};
 
 /**
  * Zeigt eine Fehlermeldung an, wenn der Benutzer nicht gefunden wird.
@@ -108,7 +138,7 @@ const resetErrMessegs = () => {
 const checkUser = () => {
     ID_ERR_EMAIL.textContent = 'Benutzer nicht gefunden!';
     ID_ERR_EMAIL.style.display = 'block';
-}
+};
 
 /**
  * Speichert die Benutzer-ID basierend auf dem Status der Checkbox.
@@ -128,7 +158,7 @@ const checkStatusFromCheckbox = async (statusCheckbox, user) => {
     } else {
         await saveSessionUserID(user[0], false);
     };
-}
+};
 
 /**
  * Lädt die Formulardaten aus den Eingabefeldern.
@@ -144,7 +174,7 @@ const loadFormData = () => {
         'email': ID_INPUT_EMAIL.value,
         'pw': ID_INPUT_PW.value
     };
-}
+};
 
 /**
  * Speichert die Benutzer-ID und den Auto-Login-Status im lokalen Storage.
@@ -160,7 +190,7 @@ const saveLocalUserID = (userID, autoLogin) => {
     sessionStorage.removeItem('userID');
     localStorage.setItem('userID', userID);
     localStorage.setItem('autoLogin', autoLogin);
-}
+};
 
 /**
  * Speichert die Benutzer-ID im Session-Storage und den Auto-Login-Status im lokalen Storage.
@@ -176,7 +206,7 @@ const saveSessionUserID = (userID, autoLogin) => {
     localStorage.removeItem('userID');
     sessionStorage.setItem('userID', userID);
     localStorage.setItem('autoLogin', autoLogin);
-}
+};
 
 /**
  * Lädt die nächste Seite.
@@ -186,4 +216,4 @@ const saveSessionUserID = (userID, autoLogin) => {
  */
 const loadWindow = () => {
     window.location.href = './summary.html';
-}
+};

@@ -12,7 +12,7 @@ const ID_editPersion = ['editPersionShortcut', 'editPersionName', 'editPersionEm
 export function resetAddContactForm() {
     addClass('addcontactpopup');
     ID_INPUT_addPersion.forEach((id) => document.getElementById(id).value = '');
-}
+};
 
 /**
  * Verbirgt die Kontaktkarte und zugehörige Informationen,
@@ -27,7 +27,7 @@ export function resetAddContactForm() {
  */
 export function dnonePersionCard() {
     ID_dnonePersionCard.forEach((elementID) => document.getElementById(elementID).classList.add('d-none'));
-}
+};
 
 /**
  * Schließt das Bearbeitungspopup für einen Kontakt und leert die Eingabefelder.
@@ -40,7 +40,7 @@ export function dnonePersionCard() {
 export function resetEditContactForm() {
     addClass('editcontactpopup');
     ID_editPersion.forEach((id) => document.getElementById(id).value = '');
-}
+};
 
 /**
  * Fügt eine spezifische CSS-Klasse einem Element Hinzu.
@@ -53,4 +53,4 @@ export function resetEditContactForm() {
  */
 function addClass(id) {
     document.getElementById(id).classList.add('d-nonepopup');
-}
+};

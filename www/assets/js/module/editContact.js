@@ -31,8 +31,8 @@ export async function editContact(formData) {
         hideMobileContactCard();
     } catch (err) {
         console.error(`Es ist ein Problem beim Bearbeiten des Kontakts aufgetreten! ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Aktualisiert die Anzeige der Kontaktkarten.
@@ -53,4 +53,4 @@ async function updateContactDisplay() {
     await showContactCards();
     resetEditContactForm();
     dnonePersionCard();
-}
+};

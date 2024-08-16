@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ID_username && (ID_username.textContent = username);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden des Benutzerprofils aufgetreten! ${err}`);
-    }
+    };
 });
 
 /**
@@ -45,4 +45,4 @@ async function loadUserName() {
     let userID = loadUserIdFromStored();
     const userData = await findUserById(userID);
     return userData[2];
-}
+};

@@ -27,8 +27,8 @@ export async function deleteContact(email) {
         hideMobileContactCard();
     } catch (err) {
         console.error(`Fehler beim Löschen des Kontakts: ${err}`);
-    }
-}
+    };
+};
 
 /**
  * Entfernt den Kontakt aus der Datenbank.
@@ -46,7 +46,7 @@ export async function deleteContact(email) {
  */
 async function removeContact(userID, contactId) {
     await deletElementById(`users/${userID}/contacts/${contactId[0]}`);
-}
+};
 
 /**
  * Aktualisiert die Anzeige der Kontaktkarten.
@@ -65,4 +65,4 @@ async function removeContact(userID, contactId) {
 async function updateContactDisplay() {
     await showContactCards();
     dnonePersionCard();
-}
+};

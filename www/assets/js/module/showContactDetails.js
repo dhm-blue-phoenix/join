@@ -65,8 +65,8 @@ const showMobileContactCard = () => {
         ID_contactCard.style.animation = 'slideIn 0.3s forwards';
         ID_BTN_editDelet.style.animation = 'slideIn 0.3s forwards';
         addEventFromHideCardArrow();
-    }
-}
+    };
+};
 
 /**
  * Verbirgt die Kontaktkarte in der mobilen Ansicht und startet die Ausblende-Animation.
@@ -83,8 +83,8 @@ export const hideMobileContactCard = () => {
         ID_BTN_editDelet.style.animation = 'slideOut 0.3s forwards';
         ID_contactCard.style.animation = 'slideOut 0.3s forwards';
         deselectPreviousCard(lastCart);
-    }
-}
+    };
+};
 
 /**
  * Fügt einen Event-Listener zum Button hinzu, der die Kontaktkarte in der mobilen Ansicht ausblendet.
@@ -99,7 +99,7 @@ const addEventFromHideCardArrow = () => {
     if (CLASS_BTN_hideCardArrow) {
         CLASS_BTN_hideCardArrow.removeEventListener('click', hideMobileContactCard);
         CLASS_BTN_hideCardArrow.addEventListener('click', hideMobileContactCard);
-    }
+    };
 };
 
 /**
@@ -118,7 +118,7 @@ const setCardActive = (dnone, card) => {
     card.classList.add('cardactive');
     card.classList.remove('card');
     card.style.pointerEvents = "none";
-}
+};
 
 /**
  * Aktualisiert die detaillierten Kontaktdaten im Benutzerinterface.
@@ -142,7 +142,7 @@ const updateContactDetails = (name, email, tel, shortcutBackColor) => {
     ID_personName.textContent = name;
     ID_personEmail.textContent = email;
     ID_personTel.textContent = tel;
-}
+};
 
 /**
  * Setzt die Attribute für die Bearbeiten- und Löschen-Buttons.
@@ -156,7 +156,7 @@ const updateContactDetails = (name, email, tel, shortcutBackColor) => {
  */
 const setBtnAttribute = (email) => {
     BTN_ID.forEach((id) => document.getElementById(id).setAttribute('data-email', email));
-}
+};
 
 /**
  * Fügt Event-Listener zu den Bearbeiten- und Löschen-Schaltflächen hinzu.
@@ -177,7 +177,7 @@ const addEventFromBtn = () => {
             element.addEventListener('click', handleButtonClick)
         );
     });
-}
+};
 
 /**
  * Handler für die Klick-Ereignisse der Buttons.
@@ -193,7 +193,7 @@ const handleButtonClick = (event) => {
     const email = target.getAttribute('data-email');
     const action = target.id.includes('del') ? 'delete' : 'edit';
     FUNC[action](email);
-}
+};
 
 /**
  * Entfernt die Klasse der zuletzt aktiven Kontaktkarte und setzt den Zustand zurück.
@@ -212,4 +212,4 @@ const deselectPreviousCard = (card) => {
         lastCart.style.pointerEvents = ""
     );
     lastCart = card;
-}
+};
