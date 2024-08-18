@@ -81,8 +81,8 @@ p {
   width: 560px;
   height: 168px;
   gap: 61px;
-  position: fixed;
-  z-index: 9;
+  /* position: fixed; */
+  /* z-index: 9; */
 }
 
 .tasksinboard,
@@ -97,13 +97,14 @@ p {
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-size: 16px;
 }
 .innersummarybtn h2 {
   font-size: 64px;
   font-weight: 600;
 }
 .innersummarybtn p {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
 }
 .innersummarybtntrennline {
@@ -387,6 +388,7 @@ p {
   .urgent {
     height: 120px;
     gap: 5%;
+    padding: 16px;
   }
   .tasksinboard,
   .tasksinprogress,

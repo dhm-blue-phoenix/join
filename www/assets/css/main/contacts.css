@@ -612,10 +612,10 @@ body {
   }
   @keyframes slideOut {
     from {
-        right: 0;
+      right: 0;
     }
     to {
-        right: -100%;
+      right: -100%;
     }
   }
   .information h2 {
@@ -699,10 +699,13 @@ body {
   }
   .card {
     width: 100%;
-    margin-bottom: 0;
-    justify-content: flex-start;
-    gap: 24px;
-    padding: 15px 16px 15px 16px;
+    padding: 8px;
+    gap: 16px;
+  }
+  .cardactive {
+    width: 100%;
+    padding: 8px;
+    gap: 16px;
   }
   .creatbtn {
     width: 202px;
@@ -906,11 +909,6 @@ body {
 
   .ContactcardsTrennline {
     display: none;
-  }
-
-  .cardactive {
-    width: 100%;
-    margin-bottom: 0;
   }
 
   .addNewContact {
