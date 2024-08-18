@@ -370,7 +370,7 @@ p {
   }
   .summarymaincontainer {
     margin-top: 32px;
-    width: 90vw;
+    width: 70%;
     height: 384px;
     gap: 0;
   }
@@ -401,5 +401,11 @@ p {
   }
   .innersummarybtn p {
     font-size: 14px;
+  }
+  @media (max-width: 770px) {
+    .summarytopcontent {
+      width: 95vw;
+  }
+
   }
 }

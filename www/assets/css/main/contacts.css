@@ -736,7 +736,7 @@ body {
   .usericon {
     width: 120px;
     position: fixed;
-    top: 42%;
+    top: 40%;
   }
   .addcontactpopuprightside {
     width: 100%;
@@ -819,7 +819,7 @@ body {
 
   .personShortcut {
     position: absolute;
-    top: 46.5%;
+    top: 45.5%;
     margin-bottom: 0 !important;
   }
 
