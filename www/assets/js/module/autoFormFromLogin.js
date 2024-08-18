@@ -24,7 +24,7 @@ export async function autoForm() {
     let userData;
     if (userData !== null) userData = checkDataAvailableFromUrl(encode, userData);
     if (storedAutoLogin === 'true') userData = await checkStoredFromAutoLogin();
-    if(userData === null) return fillForm(userData);
+    if(userData !== null) return fillForm(userData);
 };
 
 /**
