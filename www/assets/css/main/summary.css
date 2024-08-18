@@ -81,8 +81,8 @@ p {
   width: 560px;
   height: 168px;
   gap: 61px;
-  position: fixed;
-  z-index: 9;
+  /* position: fixed;
+  z-index: 9; */
 }
 
 .tasksinboard,
@@ -193,7 +193,7 @@ p {
 
 .urgent:hover {
   transform: scale(1.05) translate(0, 0);
-  position: fixed;
+  /* position: fixed; */
 }
 
 .tasksinboard:hover {
@@ -357,7 +357,7 @@ p {
     margin-top: 32px;
   }
   .summarytopcontent {
-    width: 90%;
+    width: 70%;
     flex-direction: column;
     gap: 8px;
     align-items: flex-start;

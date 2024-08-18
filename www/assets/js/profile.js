@@ -1,6 +1,7 @@
 import { extractInitials, loadUserIdFromStored, findUserById } from './module/modules.js';
 
 const ID_username = document.getElementById('username');
+const ID_usernamenote = document.getElementById('usernamenote');
 const ID_account = document.getElementById('account');
 
 /**
@@ -21,9 +22,11 @@ const ID_account = document.getElementById('account');
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const username = await loadUserName();
+        const usernamenote = await loadUserName();
         const initials = extractInitials(username);
         ID_account.textContent = initials;
         ID_username && (ID_username.textContent = username);
+        ID_usernamenote && (ID_usernamenote.textContent = usernamenote);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden des Benutzerprofils aufgetreten! ${err}`);
     };
