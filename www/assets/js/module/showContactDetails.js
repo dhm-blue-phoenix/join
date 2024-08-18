@@ -44,7 +44,9 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
     showMobileContactCard();
 }
 
-// [!] Keine Ahnung was das macht??? Ist das Wichtig??? oder kann ich das Rausnehmen???
+/**
+ * Die Funktion blendet beim Laden der Contact-Seite die mobile Contactcard aus.
+*/
 window.addEventListener('load', () => {
     const contactCard = document.getElementById('showContactcard');
     contactCard.style.display = 'none';

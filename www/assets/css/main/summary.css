@@ -227,6 +227,7 @@ p {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  overflow: hidden;
 }
 .welcomecontent p {
   font-size: 47px;
@@ -260,7 +261,7 @@ p {
   }
   .welcomecontent {
     width: 100vw;
-    height: calc(100vh - 176px);
+    height: calc(100vh - 18px);
     background-color: var(--back-color01);
     position: absolute;
     top: 0;
@@ -370,7 +371,7 @@ p {
   }
   .summarymaincontainer {
     margin-top: 32px;
-    width: 70%;
+    width: 95vw;
     height: 384px;
     gap: 0;
   }
@@ -387,6 +388,7 @@ p {
   .urgent {
     height: 120px;
     gap: 5%;
+    padding: 8px;
   }
   .tasksinboard,
   .tasksinprogress,
