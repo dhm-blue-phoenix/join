@@ -701,6 +701,8 @@ body {
     width: 100%;
     margin-bottom: 0;
     justify-content: flex-start;
+    gap: 24px;
+    padding: 15px 16px 15px 16px;
   }
   .creatbtn {
     width: 202px;
