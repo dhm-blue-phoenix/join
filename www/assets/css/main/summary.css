@@ -261,7 +261,7 @@ p {
   }
   .welcomecontent {
     width: 100vw;
-    height: calc(100vh - 18px);
+    height: calc(100vh - 180px);
     background-color: var(--back-color01);
     position: absolute;
     top: 0;
