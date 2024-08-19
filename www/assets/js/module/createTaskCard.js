@@ -1,19 +1,5 @@
 const ID_taskToDo = document.getElementById('taskToDo');
-const BETTA_KONTAKTE = [
-    {
-        'shortBackColor': '#ff68dc',
-        'text': 'DE'
-    },
-    {
-        'shortBackColor': '#ff822f',
-        'text': 'AM'
-    },
-    {
-        'shortBackColor': '#19e030',
-        'text': 'BZ'
-    }
-];
-const MOBILE_OPTION_VALUES = [
+const CATEGORY_OPTION_VALUES = [
     {
         'value': 'taskToDo',
         'text': 'To do'
@@ -25,64 +11,65 @@ const MOBILE_OPTION_VALUES = [
     {
         'value': 'taskAwaitFeedback',
         'text': 'Await feedback'
-    }, 
+    },
     {
         'value': 'taskDone',
         'text': 'Done'
     }
 ];
 
-export const createTaskCard = (cardId, title, description, assigned, date, prio, category, subtask) => {
+export const createTaskCard = (cardId, headline, description, contacts, date, BTNprio, category, subtask) => {
     const TASK_CARD = document.createElement('div');
     TASK_CARD.id = `taskCardID${cardId}`;
     TASK_CARD.className = 'taskcard';
     TASK_CARD.draggable = true;
-    TASK_CARD.appendChild(createTitle(title));
-    TASK_CARD.appendChild(createDescription(description));
+    TASK_CARD.appendChild(createCategory(category));
+    TASK_CARD.appendChild(createDescription(headline, description));
     TASK_CARD.appendChild(createProgress(subtask));
-    TASK_CARD.appendChild(createPerson(assigned));
-    TASK_CARD.appendChild(createMobile());
+    TASK_CARD.appendChild(createPerson(contacts));
+    TASK_CARD.appendChild(createMobile(category));
     ID_taskToDo.appendChild(TASK_CARD);
 };
 
-const createTitle = (title) => {
-    const TITLE = document.createElement('p');
-    TITLE.className = 'taskcardtitle';
-    TITLE.textContent = title;
-    return TITLE;
+const createCategory = (category) => {
+    const CATEGORY = document.createElement('p');
+    CATEGORY.className = 'taskcardtitle';
+    CATEGORY.textContent = CATEGORY_OPTION_VALUES[category].text;
+    return CATEGORY;
 };
 
-const createDescription = (description) => {
-    // Beschreibung
+const createDescription = (headline, description) => {
     const DESCRIPTION = document.createElement('div');
     DESCRIPTION.className = 'teskdescription';
-    DESCRIPTION.appendChild(createDescriptionHeadline());
-    DESCRIPTION.appendChild(createDescriptionContent());
+    DESCRIPTION.appendChild(createDescriptionHeadline(headline));
+    DESCRIPTION.appendChild(createDescriptionContent(description));
     return DESCRIPTION;
 };
 
-const createDescriptionHeadline = () => {
+const createDescriptionHeadline = (headline) => {
     const DESCRIPTION_HEADLINE = document.createElement('h3');
-    DESCRIPTION_HEADLINE.textContent = 'Kochwelt Page & Recipe Recommender';
+    DESCRIPTION_HEADLINE.textContent = headline;
     return DESCRIPTION_HEADLINE;
 };
 
-const createDescriptionContent = () => {
+const createDescriptionContent = (description) => {
     const DESCRIPTION_CONTENT = document.createElement('p');
-    DESCRIPTION_CONTENT.textContent = 'Build start page with recipe recommendation...';
+    DESCRIPTION_CONTENT.textContent = description;
     return DESCRIPTION_CONTENT;
 };
 
 const createProgress = (subtask) => {
-    // Subtask
+    // Subtask    
+    subtask.length > 1 ? (subtask = `0/${subtask.length - 1} Subtasks`) : (subtask = '');
     const PROGRESS = document.createElement('div');
     PROGRESS.className = 'taskprogress';
     PROGRESS.appendChild(createProgressImage());
-    PROGRESS.appendChild(createProgressText());
+    PROGRESS.appendChild(createProgressText(subtask));
     return PROGRESS
 };
 
 const createProgressImage = () => {
+    // [!]
     const PROGRESS_IMG = document.createElement('img');
     PROGRESS_IMG.style.height = '8px';
     PROGRESS_IMG.src = './resources/symbols/Progressbar.png';
@@ -90,24 +77,23 @@ const createProgressImage = () => {
     return PROGRESS_IMG;
 };
 
-const createProgressText = () => {
+const createProgressText = (subtask) => {
     const PROGRESS_TEXT = document.createElement('span');
-    PROGRESS_TEXT.textContent = '1/2 Subtasks';
+    PROGRESS_TEXT.textContent = subtask;
     return PROGRESS_TEXT;
 };
 
-const createPerson = (assigned) => {
-    // Kontakte
+const createPerson = (contacts) => {
     const PERSON = document.createElement('div');
     PERSON.className = 'taskPersons';
-    PERSON.appendChild(createPersonShortcut());
+    PERSON.appendChild(createPersonShortcut(contacts));
     return PERSON;
 };
 
-const createPersonShortcut = () => {
+const createPersonShortcut = (contacts) => {
     const PERSON_SHORTCUT = document.createElement('div');
     PERSON_SHORTCUT.className = 'nameShortcutContent';
-    BETTA_KONTAKTE.forEach(contact => PERSON_SHORTCUT.appendChild(createPersonShortcutContent(contact)));
+    contacts.forEach(contact => PERSON_SHORTCUT.appendChild(createPersonShortcutContent(contact)));
     return PERSON_SHORTCUT;
 };
 
@@ -116,22 +102,23 @@ const createPersonShortcutContent = (contact) => {
     PERSON_SHORTCUT_CONTENT.id = 'nameShortcut';
     PERSON_SHORTCUT_CONTENT.style.marginLeft = '-10px';
     PERSON_SHORTCUT_CONTENT.style.backgroundColor = contact.shortBackColor;
-    PERSON_SHORTCUT_CONTENT.textContent = contact.text;
+    PERSON_SHORTCUT_CONTENT.textContent = contact.shortname;
     return PERSON_SHORTCUT_CONTENT;
 };
 
-const createMobile = () => {
+const createMobile = (category) => {
     const MOBILE = document.createElement('div');
     MOBILE.className = 'taskbottommobilesmall';
-    MOBILE.appendChild(createMobileCategory());
+    MOBILE.appendChild(createMobileCategory(category));
     MOBILE.appendChild(createMobileButton());
     return MOBILE;
 };
 
-const createMobileCategory = () => {
+const createMobileCategory = (category) => {
     const MOBILE_CATEGORY = document.createElement('select');
     MOBILE_CATEGORY.id = 'taskCategorySelect';
-    MOBILE_OPTION_VALUES.forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
+    MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(CATEGORY_OPTION_VALUES[category]));
+    CATEGORY_OPTION_VALUES.forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
     return MOBILE_CATEGORY;
 };
 

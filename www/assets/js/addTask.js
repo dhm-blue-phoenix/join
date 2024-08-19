@@ -7,10 +7,33 @@ const ID_BTN_URGENT = document.getElementById('urgent');
 const ID_BTN_MEDIUM = document.getElementById('medium');
 const ID_BTN_LOW = document.getElementById('low');
 const ID_INPUT_subtask = document.getElementById('subtask');
-const ID_INPUT_TASK = ['title', 'description', 'assigned', 'date', 'category'];
-const resetTaskForm = { 'title': '', 'description': '', 'assigned': '', 'date': '', 'prio': '', 'category': '', 'subtask': ['none'] };
-
-let taskForm = { 'title': '', 'description': '', 'assigned': '', 'date': '', 'prio': '', 'category': '', 'subtask': ['none'] };
+const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
+const resetTaskForm = {
+    'title': '',
+    'description': '',
+    'assigned': [
+        {
+            'name': 'Benedikt Ziegler',
+            'shortname': 'BZ',
+            'shortBackColor': '#ff68dc'
+        },
+        {
+            'name': 'Anton Mayer',
+            'shortname': 'AM',
+            'shortBackColor': '#ff68dc'
+        },
+        {
+            'name': 'David Eisenberg',
+            'shortname': 'DE',
+            'shortBackColor': '#ff68dc'
+        },
+    ],
+    'date': '',
+    'prio': '',
+    'category': '',
+    'subtask': ['none']
+};
+let taskForm = resetTaskForm;
 let lastBtnPrio = 'medium';
 
 /**
