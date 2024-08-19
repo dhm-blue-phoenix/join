@@ -37,7 +37,7 @@ async function fetchContacts() {
     try {
         contacts = {};        
         userID = loadUserIdFromStored();
-        const tempContacts = await loadElementByPatch(`users/${userID}/`);
+        const tempContacts = await loadElementByPatch(`users/${userID}/`, 0);
         organizeContacts(tempContacts);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden der Kontakte aufgetreten: ${err}`);

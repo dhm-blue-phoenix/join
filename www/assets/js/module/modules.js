@@ -115,9 +115,9 @@ export function extractInitials(username) {
  * @throws {Error} Wenn ein Fehler beim Abrufen der Daten auftritt.
  * ====================================================================================================
  */
-export async function loadElementByPatch(patch) {
+export async function loadElementByPatch(patch, value) {
     const data = await retrievingData(patch);
-    const contactCarts = Object.values(data[0]);
+    const contactCarts = Object.values(data[value]);
     return contactCarts;
 };
 

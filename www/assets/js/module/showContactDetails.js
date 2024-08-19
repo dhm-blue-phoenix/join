@@ -9,7 +9,7 @@ const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
 const BTN_ID = ['delContactBtn', 'editContactBtn', 'delContactBtnMobile', 'editContactBtnMobile'];
-const FUNC = { delete: deleteContact, edit: showContactEditPopup };
+const BTN_FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
 const CLASS_BTN_hideCardArrow = document.querySelector('.hidecontactcardarrow');
 const CLASS_dnone = document.querySelectorAll('.d-none');
@@ -194,7 +194,7 @@ const handleButtonClick = (event) => {
     const target = event.currentTarget;
     const email = target.getAttribute('data-email');
     const action = target.id.includes('del') ? 'delete' : 'edit';
-    FUNC[action](email);
+    BTN_FUNC[action](email);
 };
 
 /**
