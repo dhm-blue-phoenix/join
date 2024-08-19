@@ -260,7 +260,7 @@ const lastBtn = () => {
 const addSubTask = () => {
     const input = ID_INPUT_subtask;
     input.value === '' || (
-        taskForm.subtask.push(input.value),
+        taskForm.subtask.push({ 'status': false, 'text': input.value}),
         input.value = '',
         console.table(taskForm)
     );

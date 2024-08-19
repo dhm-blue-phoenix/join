@@ -59,17 +59,39 @@ const createDescriptionContent = (description) => {
 };
 
 const createProgress = (subtask) => {
-    // Subtask    
-    subtask.length > 1 ? (subtask = `0/${subtask.length - 1} Subtasks`) : (subtask = '');
+    // Subtask in Arbeit
+    const taskStatus = progressStatus(subtask);
+    const taskStatusBar = taskStatus[0];
+    const taskFinished = taskStatus[1];
+    const taskText = progressText(taskFinished, subtask);
+
+    console.log('\ntaskFinished', taskFinished);
+    console.log('von 100% /', taskStatusBar + '%');
+
     const PROGRESS = document.createElement('div');
     PROGRESS.className = 'taskprogress';
     PROGRESS.appendChild(createProgressImage());
-    PROGRESS.appendChild(createProgressText(subtask));
+    PROGRESS.appendChild(createProgressText(taskText));
     return PROGRESS
 };
 
+const progressStatus = (subtask) => {
+    let progressFinished = 0;
+    let progressMultiplier = Math.floor(100 / (subtask.length - 1));
+    subtask.forEach(task => task.status === true && (progressFinished += 1));
+    progressMultiplier === Infinity && (progressMultiplier = 0);
+    return [progressMultiplier * progressFinished, progressFinished];
+};
+
+const progressText = (taskFinished, subtask) => {
+    if (subtask.length > 1) {
+        return `${taskFinished}/${subtask.length - 1} Subtasks`;
+    }
+    return '0/0 Subtasks';
+};
+
 const createProgressImage = () => {
-    // [!]
+    // [!] Die Status Bar gehört überarbeitet
     const PROGRESS_IMG = document.createElement('img');
     PROGRESS_IMG.style.height = '8px';
     PROGRESS_IMG.src = './resources/symbols/Progressbar.png';
@@ -77,9 +99,9 @@ const createProgressImage = () => {
     return PROGRESS_IMG;
 };
 
-const createProgressText = (subtask) => {
+const createProgressText = (progressText) => {
     const PROGRESS_TEXT = document.createElement('span');
-    PROGRESS_TEXT.textContent = subtask;
+    PROGRESS_TEXT.textContent = progressText;
     return PROGRESS_TEXT;
 };
 
