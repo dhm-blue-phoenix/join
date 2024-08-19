@@ -1,4 +1,3 @@
-const ID_taskToDo = document.getElementById('taskToDo');
 const CATEGORY_OPTION_VALUES = [
     {
         'value': 'taskToDo',
@@ -23,12 +22,20 @@ export const createTaskCard = (cardId, headline, description, contacts, date, BT
     TASK_CARD.id = `taskCardID${cardId}`;
     TASK_CARD.className = 'taskcard';
     TASK_CARD.draggable = true;
+    TASK_CARD.setAttribute('task-id', cardId);
+    TASK_CARD.setAttribute('task-headline', headline);
+    TASK_CARD.setAttribute('task-description', description);
+    TASK_CARD.setAttribute('task-contacts', JSON.stringify(contacts));
+    TASK_CARD.setAttribute('task-date', date);
+    TASK_CARD.setAttribute('task-btnprio', BTNprio);
+    TASK_CARD.setAttribute('task-category', CATEGORY_OPTION_VALUES[category].value);
+    TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtask));
     TASK_CARD.appendChild(createCategory(category));
     TASK_CARD.appendChild(createDescription(headline, description));
     TASK_CARD.appendChild(createProgress(subtask));
     TASK_CARD.appendChild(createPerson(contacts));
     TASK_CARD.appendChild(createMobile(category));
-    ID_taskToDo.appendChild(TASK_CARD);
+    document.getElementById(CATEGORY_OPTION_VALUES[category].value).appendChild(TASK_CARD);
 };
 
 const createCategory = (category) => {
@@ -72,7 +79,7 @@ const createProgress = (subtask) => {
     PROGRESS.className = 'taskprogress';
     PROGRESS.appendChild(createProgressImage());
     PROGRESS.appendChild(createProgressText(taskText));
-    return PROGRESS
+    return PROGRESS;
 };
 
 const progressStatus = (subtask) => {
