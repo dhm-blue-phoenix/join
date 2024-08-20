@@ -1,23 +1,3 @@
-// -- Globale Funktion
-
-/**
- * Erstellt eine Benachrichtigungsnachricht für eine erfolgreiche Anmeldung.
- * ====================================================================================================
- * Diese Funktion erstellt ein Paragraph-Element (`<p>`) und fügt den Textinhalt hinzu, der 
- * eine Erfolgsmeldung für die Anmeldung enthält. Das Paragraph-Element kann dann in das DOM
- * eingefügt werden, um die Nachricht an den Benutzer anzuzeigen.
- * ====================================================================================================
- * @returns {HTMLElement} Das erstellte Paragraph-Element mit der Erfolgsmeldung.
- * ====================================================================================================
- */
-export const createMessege = () => {
-    const MESSEGE = document.createElement('p');
-    MESSEGE.textContent = 'Sie haben sich erfolgreich angemeldet';
-    return MESSEGE;
-};
-
-// -- Spezifische Funktionen für Contact - Card Generierung
-
 /**
  * Generiert die Überschrift für eine Gruppe von Kontaktkarten.
  * ====================================================================================================

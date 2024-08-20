@@ -1,5 +1,5 @@
 import { loadUserData } from './module/modules.js';
-import { autoForm } from './module/autoFormFromLogin.js';
+import { autoForm } from './module/login_autoForm.js';
 
 const ID_FORM_LOGIN = document.getElementById('loginForm');
 const ID_BTN_guestLogin = document.getElementById('guestloginbtn');

@@ -15,7 +15,7 @@
 */
 
 import { loadUserIdFromStored, loadElementByPatch } from './module/modules.js';
-import { createTaskCard } from './module/createTaskCard.js';
+import { createTaskCard } from './module/board_create_taskCard.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await initTaskBord();
