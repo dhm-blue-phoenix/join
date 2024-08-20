@@ -121,11 +121,18 @@
   border: 1px dashed var(--back-color07);
 }
 
+.drop-hover {
+  height: 70vh;
+  border-radius: 24px;
+  border: 1px dashed #007BFF; /* Blauer, gestrichelter Rand */
+  background-color: #f0f8ff; /* Heller Hintergrund */
+}
+
 .tasktnotfound {
   width: 246px;
   height: 48px;
   border: 1px dashed var(--back-color07);
-  border-radius: 10px;
+  border-radius: 24px;
   background-color: var(--back-color05);
   display: flex;
   justify-content: center;
