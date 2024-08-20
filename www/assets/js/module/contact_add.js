@@ -1,5 +1,5 @@
 import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
-import { showContactCards } from './showContactCards.js';
+import { showContactCards } from './contact_show_cards.js';
 import { dnonePersionCard, resetAddContactForm } from './dnone.js';
 import { uploadPatchData } from './dataResponse.js';
 

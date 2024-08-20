@@ -1,6 +1,5 @@
 import { loadUserData } from './module/modules.js';
 import { uploadPatchData } from './module/dataResponse.js';
-import { createMessege } from './module/createHtmlElements.js';
 
 const ID_FORM_REGISTER = document.getElementById('signupFrom');
 
@@ -97,8 +96,6 @@ async function uploadData(formData) {
  * Abschluss der Registrierung anzuzeigen. Anschließend wird eine Erfolgsmeldung angezeigt und der 
  * Benutzer nach einer Verzögerung (2 Sekunden) auf die Startseite weitergeleitet.
  * ====================================================================================================
- * func createMessege() - findet man in der './module/createHtmlElements.js'
- * ====================================================================================================
  *  @param {Object} formData Die Formulardaten des Benutzers, die für die Weiterleitung verwendet werden.
  * @param {string} formData.email Die E-Mail-Adresse des Benutzers.
  * @param {string} formData.pw Das Passwort des Benutzers.
@@ -174,3 +171,19 @@ const loadFormData = () => ({
     pw: ID_INPUT_PW.value,
     cfpw: ID_INPUT_CFPW.value
 });
+
+/**
+ * Erstellt eine Benachrichtigungsnachricht für eine erfolgreiche Anmeldung.
+ * ====================================================================================================
+ * Diese Funktion erstellt ein Paragraph-Element (`<p>`) und fügt den Textinhalt hinzu, der 
+ * eine Erfolgsmeldung für die Anmeldung enthält. Das Paragraph-Element kann dann in das DOM
+ * eingefügt werden, um die Nachricht an den Benutzer anzuzeigen.
+ * ====================================================================================================
+ * @returns {HTMLElement} Das erstellte Paragraph-Element mit der Erfolgsmeldung.
+ * ====================================================================================================
+ */
+export const createMessege = () => {
+    const MESSEGE = document.createElement('p');
+    MESSEGE.textContent = 'Sie haben sich erfolgreich angemeldet';
+    return MESSEGE;
+};

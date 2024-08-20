@@ -1,6 +1,6 @@
-import { showContactDetails } from './showContactDetails.js';
+import { showContactDetails } from './contact_show_details.js';
 import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
-import {generateCardHeadline, createContactCard} from './createHtmlElements.js'
+import {generateCardHeadline, createContactCard} from './contact_create_card.js';
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 
