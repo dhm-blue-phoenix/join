@@ -1,43 +1,47 @@
 <div class="taskcardbig" data-id="1">
   <div class="taskcardbigheader">
-    <p class="taskcardtitle">User Story</p>
+    <p class="taskcardtitle" id="TITLE">User Story</p>
     <button class="closepopup" onclick="hidePopup('TaskcardPopupanimation', 'taskCardpopup')">
       &#x2A2F;
     </button>
   </div>
-  <h3>Kochwelt Page & Recipe Recommender</h3>
-  <p>Build start page with recipe recommendation.</p>
+  <h3 id="DESCRIPTION_HEADLINE">Kochwelt Page & Recipe Recommender</h3>
+  <p id="DESCRIPTION_CONTENT">Build start page with recipe recommendation.</p>
 
   <div class="taskcardbigdate">
     <p>Due date:</p>
-    <i>10/05/2023</i>
+    <i id="DATE">10/05/2023</i>
   </div>
   <div class="taskcardbigpriority">
     <p>Priority:</p>
-    <i>Medium <img src="./resources/symbols/boardmiddleprio.png" /></i>
+    <i id="BTN_PRIO">Medium <img src="./resources/symbols/boardmiddleprio.png" /></i>
   </div>
   <div class="taskcardbigassignedto">
     <p>Assigned To:</p>
-    <div class="taskcardbigassignedtoperson">
-      <div id="nameShortcut" style="background-color: #19e030">BZ</div>
-      Benedikt Ziegler
-    </div>
-    <div class="taskcardbigassignedtoperson">
-      <div id="nameShortcut" style="background-color: #bf19e0">AM</div>
-      Anton Mayer
-    </div>
-    <div class="taskcardbigassignedtoperson">
-      <div id="nameShortcut" style="background-color: #ff2424">DE</div>
-      David Eisenberg
+    <div class="PERSONS">
+      <div class="taskcardbigassignedtoperson">
+        <div id="nameShortcut" style="background-color: #19e030">BZ</div>
+        Benedikt Ziegler
+      </div>
+      <div class="taskcardbigassignedtoperson">
+        <div id="nameShortcut" style="background-color: #bf19e0">AM</div>
+        Anton Mayer
+      </div>
+      <div class="taskcardbigassignedtoperson">
+        <div id="nameShortcut" style="background-color: #ff2424">DE</div>
+        David Eisenberg
+      </div>
     </div>
   </div>
   <div class="taskcardbigsubtasks">
     <p>Subtasks:</p>
-    <div class="taskcardbigsubtaskscheckbox">
-      <input type="checkbox" /> Implement Recipe Recommendation
-    </div>
-    <div class="taskcardbigsubtaskscheckbox">
-      <input type="checkbox" /> Start Page Layout
+    <div class="SUBTASKS">
+      <div class="taskcardbigsubtaskscheckbox">
+        <input type="checkbox" /> Implement Recipe Recommendation
+      </div>
+      <div class="taskcardbigsubtaskscheckbox">
+        <input type="checkbox" /> Start Page Layout
+      </div>
     </div>
   </div>
 
