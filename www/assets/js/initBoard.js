@@ -62,9 +62,8 @@ const loadDataFromAttribute = (TARGET) => {
     const TASK_DESCRIPTION = TARGET.getAttribute('task-description');
     const TASK_DATE = TARGET.getAttribute('task-date');
     const TASK_BTN_PRIO = TARGET.getAttribute('task-btnprio');
-
-    const TASK_ID = TARGET.getAttribute('task-id');
     const TASK_CONTACT = TARGET.getAttribute('task-contacts');
     const TASK_SUBTASK = TARGET.getAttribute('task-subtask');
-    return [TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO];
+    const TASK_ID = TARGET.getAttribute('task-id');
+    return [TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK];
 };
