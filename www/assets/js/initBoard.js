@@ -43,10 +43,8 @@ async function initTaskBord() {
 
 const addEventFromTaskCard = (id) => {
     let element = document.getElementById(id);
-    element && (
-        element.removeEventListener('click', handleClick),
-        element.addEventListener('click', handleClick)
-    );
+    element.removeEventListener('click', handleClick);
+    element.addEventListener('click', handleClick);
 };
 
 const handleClick = (event) => {
@@ -65,5 +63,5 @@ const loadDataFromAttribute = (TARGET) => {
     const TASK_CONTACT = TARGET.getAttribute('task-contacts');
     const TASK_SUBTASK = TARGET.getAttribute('task-subtask');
     const TASK_ID = TARGET.getAttribute('task-id');
-    return [TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK];
+    return [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK];
 };

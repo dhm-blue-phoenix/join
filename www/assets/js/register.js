@@ -24,10 +24,8 @@ const ID_signedUpContainer = document.getElementById('signedUpContainer');
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
-    ID_FORM_REGISTER && (
-        ID_FORM_REGISTER.removeEventListener('submit', initRegister),
-        ID_FORM_REGISTER.addEventListener('submit', initRegister)
-    );
+    ID_FORM_REGISTER.removeEventListener('submit', initRegister);
+    ID_FORM_REGISTER.addEventListener('submit', initRegister);
 });
 
 /**
@@ -102,7 +100,7 @@ async function uploadData(formData) {
  * ====================================================================================================
  */
 const signedUp = (formData) => {
-    ID_signedUpContainerBG.classList.remove('d-nonepopup');  
+    ID_signedUpContainerBG.classList.remove('d-nonepopup');
     ID_signedUpContainer.appendChild(createMessege());
     setTimeout(() => {
         window.location.href = `./index.html?formEmail=${encodeURIComponent(formData.email)}&formPw=${encodeURIComponent(formData.pw)}`;

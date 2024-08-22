@@ -68,13 +68,8 @@ const createDescriptionContent = (description) => {
 const createProgress = (subtask) => {
     // Subtask in Arbeit
     const taskStatus = progressStatus(subtask);
-    const taskStatusBar = taskStatus[0];
     const taskFinished = taskStatus[1];
     const taskText = progressText(taskFinished, subtask);
-
-    console.log('\ntaskFinished', taskFinished);
-    console.log('von 100% /', taskStatusBar + '%');
-
     const PROGRESS = document.createElement('div');
     PROGRESS.className = 'taskprogress';
     PROGRESS.appendChild(createProgressImage());

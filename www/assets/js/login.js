@@ -43,10 +43,8 @@ document.addEventListener('DOMContentLoaded', async () => {
  * ====================================================================================================
  */
 const addEventFromLogin = () => {
-    ID_FORM_LOGIN && (
-        ID_FORM_LOGIN.removeEventListener('submit', initLogin),
-        ID_FORM_LOGIN.addEventListener('submit', initLogin)
-    );
+    ID_FORM_LOGIN.removeEventListener('submit', initLogin);
+    ID_FORM_LOGIN.addEventListener('submit', initLogin);
 };
 
 /**
@@ -61,10 +59,8 @@ const addEventFromLogin = () => {
  * ====================================================================================================
  */
 const addEventFromGuestLogin = () => {
-    ID_BTN_guestLogin && (
-        ID_BTN_guestLogin.removeEventListener('click', initGuestLogin),
-        ID_BTN_guestLogin.addEventListener('click', initGuestLogin)
-    );
+    ID_BTN_guestLogin.removeEventListener('click', initGuestLogin);
+    ID_BTN_guestLogin.addEventListener('click', initGuestLogin);
 };
 
 /**

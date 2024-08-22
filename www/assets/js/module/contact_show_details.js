@@ -174,10 +174,8 @@ const setBtnAttribute = (email) => {
 const addEventFromBtn = () => {
     BTN_ID.forEach((id) => {
         const element = document.getElementById(id);
-        element && (
-            element.removeEventListener('click', handleButtonClick),
-            element.addEventListener('click', handleButtonClick)
-        );
+        element.removeEventListener('click', handleButtonClick);
+        element.addEventListener('click', handleButtonClick);
     });
 };
 

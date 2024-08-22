@@ -53,10 +53,8 @@ document.addEventListener('DOMContentLoaded', async () => {
  * ====================================================================================================
  */
 const addEventFromAddContact = () => {
-    ID_FORM_addContact && (
-        ID_FORM_addContact.removeEventListener('submit', initAddForm),
-        ID_FORM_addContact.addEventListener('submit', initAddForm)
-    );
+    ID_FORM_addContact.removeEventListener('submit', initAddForm);
+    ID_FORM_addContact.addEventListener('submit', initAddForm);
 };
 
 /**
@@ -70,10 +68,8 @@ const addEventFromAddContact = () => {
  * ====================================================================================================
  */
 const addEventFromEditContact = () => {
-    ID_FORM_editPersion && (
-        ID_FORM_editPersion.removeEventListener('submit', initEditForm),
-        ID_FORM_editPersion.addEventListener('submit', initEditForm)
-    );
+    ID_FORM_editPersion.removeEventListener('submit', initEditForm);
+    ID_FORM_editPersion.addEventListener('submit', initEditForm);
 };
 
 /**

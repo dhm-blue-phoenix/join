@@ -63,10 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
  * ====================================================================================================
  */
 const addEventFromAddTask = () => {
-    ID_FORM_AddTask && (
-        ID_FORM_AddTask.removeEventListener('submit', initAddTask),
-        ID_FORM_AddTask.addEventListener('submit', initAddTask)
-    );
+    ID_FORM_AddTask.removeEventListener('submit', initAddTask);
+    ID_FORM_AddTask.addEventListener('submit', initAddTask);
 };
 
 /**
@@ -77,10 +75,8 @@ const addEventFromAddTask = () => {
  * ====================================================================================================
  */
 const addEventFromBtnUrgent = () => {
-    ID_BTN_URGENT && (
-        ID_BTN_URGENT.removeEventListener('click', handleUrgentClick),
-        ID_BTN_URGENT.addEventListener('click', handleUrgentClick)
-    );
+    ID_BTN_URGENT.removeEventListener('click', handleUrgentClick);
+    ID_BTN_URGENT.addEventListener('click', handleUrgentClick);
 };
 
 /**
@@ -91,10 +87,8 @@ const addEventFromBtnUrgent = () => {
  * ====================================================================================================
  */
 const addEventFromBtnMedium = () => {
-    ID_BTN_MEDIUM && (
-        ID_BTN_MEDIUM.removeEventListener('click', handleMediumClick),
-        ID_BTN_MEDIUM.addEventListener('click', handleMediumClick)
-    );
+    ID_BTN_MEDIUM.removeEventListener('click', handleMediumClick);
+    ID_BTN_MEDIUM.addEventListener('click', handleMediumClick);
 };
 
 /**
@@ -105,10 +99,8 @@ const addEventFromBtnMedium = () => {
  * ====================================================================================================
  */
 const addEventFromBtnLow = () => {
-    ID_BTN_LOW && (
-        ID_BTN_LOW.removeEventListener('click', handleLowClick),
-        ID_BTN_LOW.addEventListener('click', handleLowClick)
-    );
+    ID_BTN_LOW.removeEventListener('click', handleLowClick);
+    ID_BTN_LOW.addEventListener('click', handleLowClick);
 };
 
 /**
@@ -119,10 +111,8 @@ const addEventFromBtnLow = () => {
  * ====================================================================================================
  */
 const addEventFromAddSubTask = () => {
-    ID_BTN_addSubTask && (
-        ID_BTN_addSubTask.removeEventListener('click', addSubTask),
-        ID_BTN_addSubTask.addEventListener('click', addSubTask)
-    );
+        ID_BTN_addSubTask.removeEventListener('click', addSubTask);
+        ID_BTN_addSubTask.addEventListener('click', addSubTask);
 };
 
 /**
@@ -260,7 +250,7 @@ const lastBtn = () => {
 const addSubTask = () => {
     const input = ID_INPUT_subtask;
     input.value === '' || (
-        taskForm.subtask.push({ 'status': false, 'text': input.value}),
+        taskForm.subtask.push({ 'status': false, 'text': input.value }),
         input.value = '',
         console.table(taskForm)
     );
