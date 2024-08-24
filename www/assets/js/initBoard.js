@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-async function initTaskBord() {
+export async function initTaskBord() {
     try {
-        const userID = loadUserIdFromStored();
+        const userID = await loadUserIdFromStored();
         const tempTasks = await loadElementByPatch(`users/${userID}/`, 4);
         const taskFilters = tempTasks.filter(task => task && task.title);
-        taskFilters.forEach((data, id) => {
+        taskFilters.forEach((data, id) => {            
             createTaskCard(id, data.title, data.description, data.assigned, data.date, data.prio, data.category, data.subtask);
             addEventFromTaskCard(`taskCardID${id}`);
         });
@@ -63,5 +63,5 @@ const loadDataFromAttribute = (TARGET) => {
     const TASK_CONTACT = TARGET.getAttribute('task-contacts');
     const TASK_SUBTASK = TARGET.getAttribute('task-subtask');
     const TASK_ID = TARGET.getAttribute('task-id');
-    return [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK];
+    return [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK, 'BTN_CONTAINER'];
 };

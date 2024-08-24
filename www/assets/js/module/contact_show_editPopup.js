@@ -27,7 +27,7 @@ export async function showContactEditPopup(email) {
     try {
         showPopup();
         const userID = loadUserIdFromStored();
-        const contactId = await getContactId(userID, email);
+        const contactId = await getContactId(userID, email, 'contactCard');
         importFromEditFormData(contactId[1]);
         editContactId = contactId[0];
     } catch (err) {

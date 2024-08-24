@@ -1,4 +1,4 @@
-import { loadUserIdFromStored } from './module/modules.js';
+import { loadUserIdFromStored, loadElementByPatch } from './module/modules.js';
 import { uploadPatchData } from './module/dataResponse.js';
 
 const ID_FORM_AddTask = document.getElementById('formAddTask');
@@ -8,7 +8,8 @@ const ID_BTN_MEDIUM = document.getElementById('medium');
 const ID_BTN_LOW = document.getElementById('low');
 const ID_INPUT_subtask = document.getElementById('subtask');
 const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
-const resetTaskForm = {
+const RESET_TASK_FORM = {
+    'id': '',
     'title': '',
     'description': '',
     'assigned': [
@@ -33,8 +34,9 @@ const resetTaskForm = {
     'category': '',
     'subtask': ['none']
 };
-let taskForm = resetTaskForm;
+let taskForm = RESET_TASK_FORM;
 let lastBtnPrio = 'medium';
+let taskId;
 
 /**
  * Initialisiert den Event-Listener.
@@ -164,6 +166,9 @@ const handleLowClick = () => {
 async function initAddTask(event) {
     event.preventDefault();
     try {
+        const USER_ID = await loadUserIdFromStored();
+        const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
+        taskId = TASKS.length;
         loadFormData();
         await uploadData();
         resetFrom();
@@ -186,6 +191,7 @@ const loadFormData = () => {
     ID_INPUT_TASK.forEach((key, i) => {
         ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
     });
+    taskForm.id = taskId;
 };
 
 /**
@@ -290,5 +296,5 @@ const clearInput = () => {
  * ====================================================================================================
  */
 const resetFromTaskForm = () => {
-    taskForm = resetTaskForm;
+    taskForm = RESET_TASK_FORM;
 };

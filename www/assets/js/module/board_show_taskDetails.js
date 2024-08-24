@@ -1,4 +1,6 @@
-const IDS = ['TASK_ID', 'TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS'];
+import { deleteTaskCard } from './board_delete_taskCard.js';
+
+const IDS = ['TASK_ID', 'TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
 let taskId;
 
 export function initShowTaskDetails(taskData) {
@@ -23,7 +25,14 @@ export function initShowTaskDetails(taskData) {
                     createAddEventFromCheackbox(`CHEACKBOX_${taskId}${value}`);
                 });
             };
+            if(id === 'BTN_CONTAINER') {
+                const BTN_FUNC = [ createBtnEdit(), createBtnTrennline(), createBtnDelete(taskId) ];
+                const ELEMENT = document.getElementById(id);
+                ELEMENT.innerHTML = '';
+                BTN_FUNC.forEach(func => ELEMENT.appendChild(func));
+            };
         });
+        addEventFromDelTaskCard();
     } catch (err) {
         console.error(err);
     }
@@ -106,4 +115,47 @@ const updateSubtaskInputBox = (status, id) => {
 
     TASK_SUBTASKS.removeAttribute('task-subtask');
     TASK_SUBTASKS.setAttribute('task-subtask', JSON.stringify(SUBTASKS)); // endert subtusk
+};
+
+const createBtnEdit = () => {
+    const BTN_EDIT = document.createElement('button');
+    BTN_EDIT.type = 'button';
+    BTN_EDIT.appendChild(createBtnEditImg());
+    return BTN_EDIT;
+};
+
+const createBtnEditImg = () => {
+    const BTN_EDIT_IMG = document.createElement('img');
+    BTN_EDIT_IMG.src = './resources/symbols/edit.png';
+    BTN_EDIT_IMG.alt = '';
+    BTN_EDIT_IMG.textContent = 'Edit';
+    return BTN_EDIT_IMG;
+};
+
+const createBtnTrennline = () => {
+    const BTN_TRENNLINE = document.createElement('div');
+    BTN_TRENNLINE.className = 'buttonstrennline';
+    return BTN_TRENNLINE;
+};
+
+const createBtnDelete = (taskId) => {
+    const BTN_DEL = document.createElement('button');
+    BTN_DEL.type = 'button';
+    BTN_DEL.id = `DEL${taskId}`;
+    BTN_DEL.setAttribute('task-id', taskId);
+    BTN_DEL.appendChild(createBtnDeleteImg());
+    return BTN_DEL;
+};
+
+const createBtnDeleteImg = () => {
+    const BTN_DEL_IMG = document.createElement('img');
+    BTN_DEL_IMG.src = './resources/symbols/delete.svg';
+    BTN_DEL_IMG.alt = '';
+    return BTN_DEL_IMG;
+};
+
+const addEventFromDelTaskCard = () => {
+    const ELEMENT = document.getElementById(`DEL${taskId}`);
+    ELEMENT.removeEventListener('click', () => deleteTaskCard());
+    ELEMENT.addEventListener('click', (event) => deleteTaskCard(event));
 };

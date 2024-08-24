@@ -21,7 +21,7 @@ import { hideMobileContactCard } from './contact_show_details.js';
 export async function deleteContact(email) {
     try {
         const userID = loadUserIdFromStored();
-        const contactId = await getContactId(userID, email);
+        const contactId = await getContactId(userID, email, 'contactCard');
         await removeContact(userID, contactId);
         await updateContactDisplay();
         hideMobileContactCard();

@@ -83,8 +83,8 @@ export function loadUserIdFromStored() {
  * @throws {Error} Wenn ein Fehler beim Laden der Kontakt-ID auftritt.
  * ====================================================================================================
  */
-export async function getContactId(userID, email) {
-    return await loadElementById(`users/${userID}/`, email);
+export async function getContactId(userID, email, category) {
+    return await loadElementById(`users/${userID}/`, email, category);
 };
 
 /**
@@ -116,30 +116,28 @@ export function extractInitials(username) {
  * ====================================================================================================
  */
 export async function loadElementByPatch(patch, value) {
-    const data = await retrievingData(patch);
-    const contactCarts = Object.values(data[value]);
-    return contactCarts;
+    const DATA = await retrievingData(patch);   
+    const CARTS = Object.values(DATA[value]);
+    return CARTS;
 };
 
-/**
- * Lädt ein Element basierend auf der ID und E-Mail.
- * ====================================================================================================
- * Diese Funktion ruft die Daten von einem angegebenen Pfad ab und sucht nach einem Kontakt
- * mit der angegebenen E-Mail-Adresse. Die Kontakt-ID wird zurückgegeben.
- * ====================================================================================================
- * func retrievingData() - findet man in der './dataResponse.js' 
- * ====================================================================================================
- * @async
- * @param {string} patch Der Pfad, von dem die Daten abgerufen werden sollen.
- * @param {string} email Die E-Mail-Adresse des gesuchten Kontakts.
- * @returns {Promise<string>} Ein Promise, das die Kontakt-ID zurückgibt.
- * @throws {Error} Wenn ein Fehler beim Abrufen oder Suchen der Daten auftritt.
- * ====================================================================================================
- */
-export async function loadElementById(patch, email) {
-    const data = await retrievingData(patch);
-    const contactId = await findElementById(data[0], email);
-    return contactId;
+// FUNC BESCHREIBUNG...
+export async function loadElementById(patch, type, category) {
+    if(category === 'taskCard') {
+        const DATA = await retrievingData(patch);
+        const TASK_ID = await findTaskById(DATA[4], type);
+        return TASK_ID;      
+    }
+    if(category === 'contactCard') {
+        const DATA = await retrievingData(patch);
+        const CONTACT_ID = await findContactById(DATA[0], type);
+        return CONTACT_ID;
+    }
+};
+
+// FUNC BESCHREIBUNG...
+async function findTaskById(tasks, findId) {    
+    return Object.entries(tasks).find(([id, task]) => task.id === findId);
 };
 
 /**
@@ -154,7 +152,7 @@ export async function loadElementById(patch, email) {
  * @throws {Error} Wenn ein Fehler beim Suchen des Kontakts auftritt.
  * ====================================================================================================
  */
-async function findElementById(contacts, findEmail) {
+async function findContactById(contacts, findEmail) {
     return Object.entries(contacts).find(([id, contact]) => contact.email === findEmail);
 };
 
