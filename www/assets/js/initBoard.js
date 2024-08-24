@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-export async function initTaskBord() {
+async function initTaskBord() {
     try {
         const userID = await loadUserIdFromStored();
         const tempTasks = await loadElementByPatch(`users/${userID}/`, 4);

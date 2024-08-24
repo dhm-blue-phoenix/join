@@ -1,4 +1,6 @@
 import { deleteTaskCard } from './board_delete_taskCard.js';
+import { loadUserIdFromStored, loadElementById, deletElementById } from './modules.js';
+import { updateData } from './dataResponse.js';
 
 const IDS = ['TASK_ID', 'TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
 let taskId;
@@ -61,7 +63,6 @@ const createPersionName = (name) => {
 };
 
 const createSubtask = (container, subtask, taskId, value) => {
-    console.log(taskId);
     const SUBTASKS = document.createElement('div');
     SUBTASKS.className = 'taskcardbigsubtaskscheckbox';
     SUBTASKS.appendChild(createSubtaskInputBox(subtask.status, taskId, value));
@@ -97,24 +98,43 @@ const handleChange = (change, id) => {
 };
 
 // Aktuell in Arbeit
-const updateSubtaskInputBox = (status, id) => {
+const updateSubtaskInputBox = async (status, id) => {
     // debugger
     const INPUTBOX = document.getElementById(id);
     INPUTBOX.change = status; // Endert CHECKBOX Status
 
-    const LAST_DIGIT = id[id.length - 1];
-    const ID_CHECKBOX = parseInt(LAST_DIGIT, 10); // Extrahirt CHECKBOX ID
+    const CHECKBOX = id[id.length - 1];
+    const ID_CHECKBOX = parseInt(CHECKBOX, 10); // Extrahirt CHECKBOX ID
 
     const TASK_SUBTASKS = document.getElementById(`taskCardID${taskId}`);
     const SUBTASKS = JSON.parse(TASK_SUBTASKS.getAttribute('task-subtask')); // ladet subtask
-    console.log('JSON', SUBTASKS);
+    // console.log('JSON', SUBTASKS);
     
     SUBTASKS[ID_CHECKBOX + 1].status = status; // aktuallisirt subtusk
 
-    console.log(SUBTASKS[ID_CHECKBOX + 1].status);
+    // console.log(SUBTASKS[ID_CHECKBOX + 1].status);
 
     TASK_SUBTASKS.removeAttribute('task-subtask');
     TASK_SUBTASKS.setAttribute('task-subtask', JSON.stringify(SUBTASKS)); // endert subtusk
+    
+
+    let card = +id[id.length - 2];
+    card += 1;
+    const ID_CARD = parseInt(card, 10); // Extrahirt CHECKBOX ID
+
+    let checkbox = +CHECKBOX;
+    checkbox += 1;
+
+    const USER_ID = await loadUserIdFromStored();
+    const DATA = await loadElementById(`users/${USER_ID}`, ID_CARD, 'taskCard');
+    
+    DATA[1].subtask[checkbox].status = status;
+
+    console.log(ID_CARD, checkbox, 'updateSubtaskInputBox\n', DATA[1].subtask[checkbox]);
+    
+    console.log(DATA);
+    // updateData(patch, data)
+
 };
 
 const createBtnEdit = () => {
