@@ -30,10 +30,24 @@ import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './mod
  */
 document.addEventListener('DOMContentLoaded', async () => {
     await initTaskBord();
+    addEventFromCloseTaskCard();
     enableDragAndDrop();
     restoreTaskPositions();  // Positionen wiederherstellen
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
 });
+
+/**
+ * Fügt ein Klick-Event für das Schließen des Task-Karten-Popups hinzu.
+ * ====================================================================================================
+ * Diese Funktion stellt sicher, dass das Fenster neu geladen wird, wenn auf das Element 
+ * zum Schließen des Task-Karten-Popups geklickt wird.
+ * ====================================================================================================
+ */
+const addEventFromCloseTaskCard = () => {
+    const ELEMENT = document.getElementById('CLOSE_TASK_CARD_POPUP');
+    ELEMENT.removeEventListener('click', reloadWindow);
+    ELEMENT.addEventListener('click', reloadWindow);
+};
 
 /**
  * Initialisiert das Taskboard, indem es Aufgaben aus einer Datenquelle lädt und Task-Karten erstellt.
@@ -119,4 +133,8 @@ const loadDataFromAttribute = (TARGET) => {
     const TASK_SUBTASK = TARGET.getAttribute('task-subtask');
     const TASK_ID = TARGET.getAttribute('task-id');
     return [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK, 'BTN_CONTAINER'];
+};
+
+const reloadWindow = () => {
+    window.location.reload();
 };

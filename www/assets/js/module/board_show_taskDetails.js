@@ -287,7 +287,6 @@ const updateSubtaskInputBox = async (status, id) => {
     DATA[1].subtask[checkbox].status = status;
 
     await updateData(`users/${USER_ID}/tasks/${DATA[0]}/subtask`, DATA[1].subtask);
-    window.location.reload();
 };
 
 /**
