@@ -1,20 +1,20 @@
 /**
  * Volgende dinge soll das script können!
  * =======================================================================
- * [] - Tasks ihns Bord Rendern
- * [] - Tasks Positionen Speichern
- * [] - Rendern mit letzer Position
+ * [X] - Tasks ihns Bord Rendern
+ * [X] - Tasks Positionen Speichern
+ * [X] - Rendern mit letzer Position
  * =======================================================================
- * [] - Öffnen
- * [] - Schliessen
- * [] - Löschen + aktuallisieren des Task auf den Server & Neu Rendern
+ * [X] - Öffnen
+ * [X] - Schliessen
+ * [X] - Löschen + aktuallisieren des Task auf den Server & Neu Rendern
  * [] - Bearbeiten + aktuallisieren des Task auf den Server & Neu Rendern
  * =======================================================================
- * [] - Alle Functionen ausfürlich mach JSdoc Standart Kommentiren
+ * [] - Alle Functionen ausfürlich nach JSdoc Standart Kommentiren
  * =======================================================================
 */
 
-import { loadUserIdFromStored, loadElementByPatch } from './module/modules.js';
+import { loadUserIdFromStored, loadElementByPatch, reloadWindow } from './module/modules.js';
 import { createTaskCard } from './module/board_create_taskCard.js';
 import { initShowTaskDetails } from './module/board_show_taskDetails.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board_draganddrop.js';
@@ -43,10 +43,12 @@ document.addEventListener('DOMContentLoaded', async () => {
  * zum Schließen des Task-Karten-Popups geklickt wird.
  * ====================================================================================================
  */
-const addEventFromCloseTaskCard = () => {
-    const ELEMENT = document.getElementById('CLOSE_TASK_CARD_POPUP');
-    ELEMENT.removeEventListener('click', reloadWindow);
-    ELEMENT.addEventListener('click', reloadWindow);
+const addEventFromCloseTaskCard = () => {   
+    setTimeout(() => {
+        const ELEMENT = document.getElementById('CLOSE_TASK_CARD_POPUP');
+        ELEMENT.removeEventListener('click', reloadWindow);
+        ELEMENT.addEventListener('click', reloadWindow);
+    }, 1000);
 };
 
 /**
@@ -133,8 +135,4 @@ const loadDataFromAttribute = (TARGET) => {
     const TASK_SUBTASK = TARGET.getAttribute('task-subtask');
     const TASK_ID = TARGET.getAttribute('task-id');
     return [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK, 'BTN_CONTAINER'];
-};
-
-const reloadWindow = () => {
-    window.location.reload();
 };

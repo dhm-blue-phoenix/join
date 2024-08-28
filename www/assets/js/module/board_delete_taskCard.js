@@ -1,4 +1,4 @@
-import { loadUserIdFromStored, loadElementById, deletElementById } from './modules.js';
+import { loadUserIdFromStored, loadElementById, deletElementById, reloadWindow } from './modules.js';
 
 /**
  * Löscht eine bestimmte Task-Karte und lädt das Board neu.
@@ -17,7 +17,7 @@ export async function deleteTaskCard(event) {
     const USER_ID = await loadUserIdFromStored();
     const DATA = await fetchData(event);
     await await deletElementById(`users/${USER_ID}/tasks/${DATA[0]}`);
-    reloadBoard();
+    reloadWindow();
 };
 
 /**
@@ -39,19 +39,4 @@ const fetchData = async (event) => {
     TASK_ID += 1;
     const USER_ID = await loadUserIdFromStored();
     return await loadElementById(`users/${USER_ID}`, TASK_ID, 'taskCard');
-};
-
-/**
- * Lädt das aktuelle Fenster neu.
- * ====================================================================================================
- * Diese Funktion lädt die aktuelle Seite neu, wodurch alle derzeit angezeigten Inhalte und 
- * Zustände zurückgesetzt werden. Dies kann verwendet werden, um das Taskboard oder andere 
- * Inhalte auf der Seite vollständig zu aktualisieren.
- * ====================================================================================================
- * @function reloadBoard
- * @returns {void} Die Funktion gibt keinen Wert zurück, sondern sorgt dafür, dass die Seite neu geladen wird.
- * ====================================================================================================
- */
-const reloadBoard = () => {
-    window.location.reload();
 };

@@ -40,6 +40,35 @@ export const createTaskCard = (cardId, headline, description, contacts, date, BT
     TASK_CARD.id = `taskCardID${cardId}`;
     TASK_CARD.className = 'taskcard';
     TASK_CARD.draggable = true;
+    setAttributeFromTaskCard(TASK_CARD, cardId, headline, description, contacts, date, BTNprio, category, subtask);
+    TASK_CARD.appendChild(createCategory(category));
+    TASK_CARD.appendChild(createDescription(headline, description));
+    TASK_CARD.appendChild(createProgress(subtask));
+    TASK_CARD.appendChild(createPerson(contacts));
+    TASK_CARD.appendChild(createMobile(category));
+    document.getElementById(CATEGORY_OPTION_VALUES[category].value).appendChild(TASK_CARD);
+};
+
+/**
+ * Setzt verschiedene Attribute für die Task-Karte.
+ * ====================================================================================================
+ * Diese Funktion setzt basierend auf den übergebenen Parametern verschiedene Attribute für die 
+ * übergebene Task-Karte. Die Attribute werden direkt am DOM-Element gesetzt.
+ * ====================================================================================================
+ * @function setAttributeFromTaskCard
+ * @param {HTMLElement} TASK_CARD Das DOM-Element der Task-Karte.
+ * @param {number} cardId Die eindeutige ID der Task-Karte.
+ * @param {string} headline Die Überschrift der Aufgabe.
+ * @param {string} description Eine Beschreibung der Aufgabe.
+ * @param {Array} contacts Eine Liste von Kontakten, die der Aufgabe zugewiesen sind.
+ * @param {string} date Das Fälligkeitsdatum der Aufgabe.
+ * @param {string} BTNprio Die Priorität der Aufgabe.
+ * @param {string} category Die Kategorie der Aufgabe.
+ * @param {Array} subtask Eine Liste von Unteraufgaben.
+ * ====================================================================================================
+ * @returns {HTMLElement} Das Task-Karten-Element mit den gesetzten Attributen.
+ */
+const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, contacts, date, BTNprio, category, subtask) => {
     TASK_CARD.setAttribute('task-id', cardId);
     TASK_CARD.setAttribute('task-headline', headline);
     TASK_CARD.setAttribute('task-description', description);
@@ -48,12 +77,7 @@ export const createTaskCard = (cardId, headline, description, contacts, date, BT
     TASK_CARD.setAttribute('task-btnprio', BTNprio);
     TASK_CARD.setAttribute('task-category', CATEGORY_OPTION_VALUES[category].value);
     TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtask));
-    TASK_CARD.appendChild(createCategory(category));
-    TASK_CARD.appendChild(createDescription(headline, description));
-    TASK_CARD.appendChild(createProgress(subtask));
-    TASK_CARD.appendChild(createPerson(contacts));
-    TASK_CARD.appendChild(createMobile(category));
-    document.getElementById(CATEGORY_OPTION_VALUES[category].value).appendChild(TASK_CARD);
+    return TASK_CARD;
 };
 
 /**

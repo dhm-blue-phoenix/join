@@ -173,3 +173,16 @@ async function findContactById(contacts, findEmail) {
 export async function deletElementById(patch) {
     await deleteData(patch);
 };
+
+/**
+ * Lädt das aktuelle Browserfenster neu.
+ * ====================================================================================================
+ * Diese Funktion lädt die aktuelle Seite im Browser neu, indem sie die `window.location.reload()` 
+ * Methode aufruft.
+ * ====================================================================================================
+ * @function reloadWindow
+ * @returns {void} Die Funktion gibt keinen Wert zurück, sondern lädt das Fenster neu.
+ */
+export const reloadWindow = () => {
+    window.location.reload();
+};
