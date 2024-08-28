@@ -121,7 +121,25 @@ export async function loadElementByPatch(patch, value) {
     return CARTS;
 };
 
-// FUNC BESCHREIBUNG...
+/**
+ * Lädt ein Element basierend auf der ID und Kategorie.
+ * ====================================================================================================
+ * Diese Funktion lädt Daten basierend auf einem Pfad (`patch`), einer Typenkennung (`type`) und einer 
+ * Kategorie (`category`). Abhängig von der Kategorie (`taskCard` oder `contactCard`) wird die entsprechende 
+ * ID gesucht und zurückgegeben.
+ * 
+ * - Bei `category === 'taskCard'` wird nach einer Task-ID gesucht.
+ * - Bei `category === 'contactCard'` wird nach einer Kontakt-ID gesucht.
+ * 
+ * Die Funktion verwendet `retrievingData`, um die Daten zu laden, und anschließend `findTaskById` oder 
+ * `findContactById`, um die ID im Datensatz zu finden.
+ * ====================================================================================================
+ * @function loadElementById
+ * @param {string} patch Der Pfad, um die Daten abzurufen.
+ * @param {string|number} type Die ID des Elements, das gesucht wird.
+ * @param {string} category Die Kategorie des Elements (z.B. 'taskCard' oder 'contactCard').
+ * @returns {Promise<string|number|undefined>} Die gefundene ID des Elements oder `undefined`, wenn kein Element gefunden wird.
+ */
 export async function loadElementById(patch, type, category) {
     if(category === 'taskCard') {
         const DATA = await retrievingData(patch);
@@ -135,7 +153,17 @@ export async function loadElementById(patch, type, category) {
     }
 };
 
-// FUNC BESCHREIBUNG...
+/**
+ * Findet eine Task basierend auf der ID.
+ * ====================================================================================================
+ * Diese Funktion durchsucht eine Liste von Tasks und findet das Task-Objekt, dessen ID mit der 
+ * übergebenen `findId` übereinstimmt.
+ * ====================================================================================================
+ * @function findTaskById
+ * @param {Object} tasks Ein Objekt, das die Tasks enthält.
+ * @param {string|number} findId Die ID der Task, die gefunden werden soll.
+ * @returns {Array|undefined} Ein Array mit [ID, Task-Objekt], wenn die Task gefunden wurde, oder `undefined`, wenn keine Übereinstimmung gefunden wurde.
+ */
 async function findTaskById(tasks, findId) {    
     return Object.entries(tasks).find(([id, task]) => task.id === findId);
 };
