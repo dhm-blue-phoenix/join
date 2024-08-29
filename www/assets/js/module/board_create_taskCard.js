@@ -34,6 +34,7 @@ const CATEGORY_OPTION_VALUES = [
  * @param {Array} subtask Eine Liste von Unteraufgaben.
  * ====================================================================================================
  * @returns {void} Die Funktion gibt keinen Wert zurück, sondern fügt die erstellte Task-Karte in das DOM ein.
+ * ====================================================================================================
  */
 export const createTaskCard = (cardId, headline, description, contacts, date, BTNprio, category, subtask) => {
     const TASK_CARD = document.createElement('div');
@@ -67,6 +68,7 @@ export const createTaskCard = (cardId, headline, description, contacts, date, BT
  * @param {Array} subtask Eine Liste von Unteraufgaben.
  * ====================================================================================================
  * @returns {HTMLElement} Das Task-Karten-Element mit den gesetzten Attributen.
+ * ====================================================================================================
  */
 const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, contacts, date, BTNprio, category, subtask) => {
     TASK_CARD.setAttribute('task-id', cardId);
@@ -89,8 +91,8 @@ const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, cont
  * ====================================================================================================
  * @function createCategory
  * @param {string} category Der Kategorie-Schlüssel, der zur Bestimmung des Textinhalts verwendet wird.
- * @returns {HTMLElement} Ein Paragraph-Element (`<p>`) mit der Klasse 'taskcardtitle' und dem entsprechenden 
- *                        Kategorietext als Inhalt.
+ * @returns {HTMLElement} Ein Paragraph-Element (`<p>`) mit der Klasse 'taskcardtitle' und dem entsprechenden Kategorietext als Inhalt.
+ * ====================================================================================================
  */
 const createCategory = (category) => {
     const CATEGORY = document.createElement('p');
@@ -108,8 +110,8 @@ const createCategory = (category) => {
  * @function createDescription
  * @param {string} headline Die Überschrift der Beschreibung.
  * @param {string} description Der Inhalt der Beschreibung.
- * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'teskdescription', das die Überschrift und den Inhalt 
- *                        der Beschreibung als Kinder-Elemente enthält.
+ * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'teskdescription', das die Überschrift und den Inhalt der Beschreibung als Kinder-Elemente enthält.
+ * ====================================================================================================
  */
 const createDescription = (headline, description) => {
     const DESCRIPTION = document.createElement('div');
@@ -129,6 +131,7 @@ const createDescription = (headline, description) => {
  * @function createDescriptionHeadline
  * @param {string} headline Der Text, der als Überschrift angezeigt werden soll.
  * @returns {HTMLElement} Ein `h3`-Element mit dem angegebenen Textinhalt.
+ * ====================================================================================================
  */
 const createDescriptionHeadline = (headline) => {
     const DESCRIPTION_HEADLINE = document.createElement('h3');
@@ -145,6 +148,7 @@ const createDescriptionHeadline = (headline) => {
  * @function createDescriptionContent
  * @param {string} description Der Text, der als Inhalt der Beschreibung angezeigt werden soll.
  * @returns {HTMLElement} Ein `p`-Element mit dem angegebenen Textinhalt.
+ * ====================================================================================================
  */
 const createDescriptionContent = (description) => {
     const DESCRIPTION_CONTENT = document.createElement('p');
@@ -171,8 +175,7 @@ const createProgress = (subtask) => {
  * Jede abgeschlossene Unteraufgabe erhöht den Fortschritt. Die Berechnung geht davon aus, dass der 
  * Fortschritt gleichmäßig über alle Unteraufgaben verteilt ist.
  * ====================================================================================================
- * @param {Array<Object>} subtask Eine Liste von Unteraufgaben, bei denen jede Aufgabe ein `status`-Feld hat, 
- *                                das angibt, ob sie abgeschlossen ist (`true` für abgeschlossen, `false` für nicht abgeschlossen).
+ * @param {Array<Object>} subtask Eine Liste von Unteraufgaben, bei denen jede Aufgabe ein `status`-Feld hat, das angibt, ob sie abgeschlossen ist (`true` für abgeschlossen, `false` für nicht abgeschlossen).
  * @returns {number[]} Ein Array, das zwei Werte enthält:
  *                     - Den Prozentsatz des Fortschritts (basierend auf der Anzahl der abgeschlossenen Aufgaben).
  *                     - Die Anzahl der abgeschlossenen Aufgaben.
@@ -194,10 +197,9 @@ const progressStatus = (subtask) => {
  * vorhanden sind, wird "0/0 Subtasks" angezeigt.
  * ====================================================================================================
  * @param {number} taskFinished Die Anzahl der abgeschlossenen Unteraufgaben.
- * @param {Array<Object>} subtask Eine Liste von Unteraufgaben. Die Länge dieser Liste gibt die Gesamtanzahl 
- *                                der Unteraufgaben an.
- * @returns {string} Ein String, der den Fortschritt der Unteraufgaben im Format 'X/Y Subtasks' darstellt, 
- *                   wobei X die Anzahl der abgeschlossenen Unteraufgaben und Y die Gesamtanzahl der Unteraufgaben ist.
+ * @param {Array<Object>} subtask Eine Liste von Unteraufgaben. Die Länge dieser Liste gibt die Gesamtanzahl der Unteraufgaben an.
+ * @returns {string} Ein String, der den Fortschritt der Unteraufgaben im Format 'X/Y Subtasks' darstellt, wobei X die Anzahl der abgeschlossenen Unteraufgaben und Y die Gesamtanzahl der Unteraufgaben ist.
+ * ====================================================================================================
  */
 const progressText = (taskFinished, subtask) => {
     if (subtask.length > 1) {
@@ -225,6 +227,7 @@ const createProgressImage = () => {
  * @function createProgressText
  * @param {string} progressText Der Text, der den Fortschritt der Unteraufgaben beschreibt.
  * @returns {HTMLElement} Ein `span`-Element, das den übergebenen Fortschrittstext als Inhalt hat.
+ * ====================================================================================================
  */
 const createProgressText = (progressText) => {
     const PROGRESS_TEXT = document.createElement('span');
@@ -241,6 +244,7 @@ const createProgressText = (progressText) => {
  * @function createPerson
  * @param {Array<Object>} contacts Eine Liste von Kontakten, die in der Task-Karte angezeigt werden sollen.
  * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'taskPersons', das die Kurzform der Kontakte enthält.
+ * ====================================================================================================
  */
 const createPerson = (contacts) => {
     const PERSON = document.createElement('div');
@@ -259,6 +263,7 @@ const createPerson = (contacts) => {
  * @function createPersonShortcut
  * @param {Array<Object>} contacts Eine Liste von Kontaktobjekten, die in Kurzform angezeigt werden sollen.
  * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'nameShortcutContent', das die Kontakt-Kürzel enthält.
+ * ====================================================================================================
  */
 const createPersonShortcut = (contacts) => {
     const PERSON_SHORTCUT = document.createElement('div');
@@ -275,10 +280,9 @@ const createPersonShortcut = (contacts) => {
  * Es wird verwendet, um die visuelle Darstellung von Kontakten auf der Task-Karte zu gestalten.
  * ====================================================================================================
  * @function createPersonShortcutContent
- * @param {Object} contact Ein Kontaktobjekt, das Informationen über den Kontakt enthält, wie z.B. den 
- *                         Namen und die Hintergrundfarbe.
- * @returns {HTMLElement} Ein `div`-Element, das das Kontakt-Kürzel darstellt, mit dem Namen des Kontakts 
- *                        und einem Hintergrundfarbwert.
+ * @param {Object} contact Ein Kontaktobjekt, das Informationen über den Kontakt enthält, wie z.B. den Namen und die Hintergrundfarbe.
+ * @returns {HTMLElement} Ein `div`-Element, das das Kontakt-Kürzel darstellt, mit dem Namen des Kontakts und einem Hintergrundfarbwert.
+ * ====================================================================================================
  */
 const createPersonShortcutContent = (contact) => {
     const PERSON_SHORTCUT_CONTENT = document.createElement('div');
@@ -298,8 +302,8 @@ const createPersonShortcutContent = (contact) => {
  * ====================================================================================================
  * @function createMobile
  * @param {string} category Die Kategorie der Aufgabe, die im mobilen Element angezeigt werden soll.
- * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'taskbottommobilesmall', das die Kategorie 
- *                        und einen Button enthält.
+ * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'taskbottommobilesmall', das die Kategorie und einen Button enthält.
+ * ====================================================================================================
  */
 const createMobile = (category) => {
     const MOBILE = document.createElement('div');
@@ -319,6 +323,7 @@ const createMobile = (category) => {
  * @function createMobileCategory
  * @param {string} category Der Schlüssel der aktuell ausgewählten Kategorie, die als Option im Dropdown-Menü angezeigt wird.
  * @returns {HTMLElement} Ein `select`-Element, das ein Dropdown-Menü mit den verfügbaren Kategorien enthält.
+ * ====================================================================================================
  */
 const createMobileCategory = (category) => {
     const MOBILE_CATEGORY = document.createElement('select');
@@ -338,6 +343,7 @@ const createMobileCategory = (category) => {
  * @function createMobileCategoryOptions
  * @param {Object} option Ein Objekt, das die Kategorie-Option darstellt, mit `value` und `text`-Eigenschaften.
  * @returns {HTMLElement} Ein `option`-Element, das den Wert und den Text der Kategorie-Option enthält.
+ * ====================================================================================================
  */
 const createMobileCategoryOptions = (option) => {
     const MOBILE_CATEGORY_OPTIONS = document.createElement('option');
@@ -354,6 +360,7 @@ const createMobileCategoryOptions = (option) => {
  * ====================================================================================================
  * @function createMobileButton
  * @returns {HTMLElement} Ein `button`-Element mit der ID 'moveTaskButton' und dem Text 'Move'.
+ * ====================================================================================================
  */
 const createMobileButton = () => {
     const MOBILE_BTN = document.createElement('button');

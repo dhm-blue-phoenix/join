@@ -14,6 +14,7 @@ let taskId;
  * ====================================================================================================
  * @function initShowTaskDetails
  * @param {Object} taskData Ein Objekt, das die Details der Aufgabe enthält.
+ * ====================================================================================================
  */
 export function initShowTaskDetails(taskData) {
     try {
@@ -40,6 +41,7 @@ export function initShowTaskDetails(taskData) {
  * @function updateTextContent
  * @param {string} id Die ID des HTML-Elements, dessen Textinhalt aktualisiert werden soll.
  * @param {string} text Der neue Text, der im HTML-Element angezeigt werden soll.
+ * ====================================================================================================
  */
 const updateTextContent = (id, text) => {
     document.getElementById(id).textContent = text;
@@ -55,6 +57,7 @@ const updateTextContent = (id, text) => {
  * @function updatePersons
  * @param {string} id Die ID des HTML-Elements, das die Personenanzeigen enthält.
  * @param {string} personsData Ein JSON-String, der ein Array von Personendaten enthält.
+ * ====================================================================================================
  */
 const updatePersons = (id, personsData) => {
     const element = document.getElementById(id);
@@ -74,6 +77,7 @@ const updatePersons = (id, personsData) => {
  * @param {string} id Die ID des HTML-Elements, das die Unteraufgaben enthält.
  * @param {string} subtasksData Ein JSON-String, der ein Array von Unteraufgaben enthält.
  * @param {number} taskId Die ID der aktuellen Aufgabe, um die Unteraufgaben eindeutig zuzuordnen.
+ * ====================================================================================================
  */
 const updateSubtasks = (id, subtasksData, taskId) => {
     const element = document.getElementById(id);
@@ -97,6 +101,7 @@ const updateSubtasks = (id, subtasksData, taskId) => {
  * @function updateButtonContainer
  * @param {string} id Die ID des HTML-Elements, das den Button-Container darstellt.
  * @param {number} taskId Die ID der aktuellen Aufgabe, die für die Löschfunktion benötigt wird.
+ * ====================================================================================================
  */
 const updateButtonContainer = (id, taskId) => {
     const buttonFunctions = [createBtnEdit(), createBtnTrennline(), createBtnDelete(taskId)];
@@ -117,6 +122,7 @@ const updateButtonContainer = (id, taskId) => {
  * @param {Object} persionData Ein Objekt, das die Informationen der Person enthält, einschließlich 
  *                              `shortBackColor` (Hintergrundfarbe des Kurznamens), `shortname` (Kurzname) 
  *                              und `name` (vollständiger Name der Person).
+ * ====================================================================================================
  */
 const createPersionCard = (container, persionData) => {
     const PERSION = document.createElement('div');
@@ -137,6 +143,7 @@ const createPersionCard = (container, persionData) => {
  * @param {string} color Die Hintergrundfarbe des Kurznamens.
  * @param {string} shortname Der Kurzname der Person, der im Element angezeigt wird.
  * @returns {HTMLElement} Ein `div`-Element, das den Kurzname der Person mit der angegebenen Hintergrundfarbe enthält.
+ * ====================================================================================================
  */
 const createPersionShortname = (color, shortname) => {
     const SHORTNAME = document.createElement('div');
@@ -155,6 +162,7 @@ const createPersionShortname = (color, shortname) => {
  * @function createPersionName
  * @param {string} name Der vollständige Name der Person, der im Element angezeigt wird.
  * @returns {HTMLElement} Ein `span`-Element, das den vollständigen Namen der Person enthält.
+ * ====================================================================================================
  */
 const createPersionName = (name) => {
     const NAME = document.createElement('span');
@@ -171,10 +179,10 @@ const createPersionName = (name) => {
  * ====================================================================================================
  * @function createSubtask
  * @param {HTMLElement} container Das HTML-Element, zu dem die Unteraufgabe hinzugefügt wird.
- * @param {Object} subtask Ein Objekt, das die Details der Unteraufgabe enthält, einschließlich des 
- *                          Status (`status`) und des Textes (`text`).
+ * @param {Object} subtask Ein Objekt, das die Details der Unteraufgabe enthält, einschließlich des Status (`status`) und des Textes (`text`).
  * @param {number} taskId Die ID der übergeordneten Aufgabe, um die Unteraufgabe eindeutig zuzuordnen.
  * @param {number} value Der Index der Unteraufgabe, der für die Identifizierung der Checkbox verwendet wird.
+ * ====================================================================================================
  */
 const createSubtask = (container, subtask, taskId, value) => {
     const SUBTASKS = document.createElement('div');
@@ -192,11 +200,11 @@ const createSubtask = (container, subtask, taskId, value) => {
  * Der Status der Checkbox wird auf `true` oder `false` gesetzt, basierend auf dem übergebenen Status der Unteraufgabe.
  * ====================================================================================================
  * @function createSubtaskInputBox
- * @param {boolean} status Der Status der Unteraufgabe, der angibt, ob die Checkbox aktiviert (`true`) 
- *                          oder deaktiviert (`false`) sein soll.
+ * @param {boolean} status Der Status der Unteraufgabe, der angibt, ob die Checkbox aktiviert (`true`) oder deaktiviert (`false`) sein soll.
  * @param {number} taskId Die ID der übergeordneten Aufgabe, die in der ID der Checkbox verwendet wird.
  * @param {number} value Der Index der Unteraufgabe, der in der ID der Checkbox verwendet wird.
  * @returns {HTMLElement} Ein `input`-Element vom Typ `checkbox`, das den Status der Unteraufgabe anzeigt.
+ * ====================================================================================================
  */
 const createSubtaskInputBox = (status, taskId, value) => {
     const INPUTBOX = document.createElement('input');
@@ -215,6 +223,7 @@ const createSubtaskInputBox = (status, taskId, value) => {
  * @function createSubtaskText
  * @param {string} text Der Text der Unteraufgabe, der im Element angezeigt wird.
  * @returns {HTMLElement} Ein `span`-Element, das den Text der Unteraufgabe enthält.
+ * ====================================================================================================
  */
 const createSubtaskText = (text) => {
     const TEXT = document.createElement('span');
@@ -231,6 +240,7 @@ const createSubtaskText = (text) => {
  * ====================================================================================================
  * @function createAddEventFromCheackbox
  * @param {string} id Die ID des Checkbox-Elements, zu dem der `change`-Event-Listener hinzugefügt werden soll.
+ * ====================================================================================================
  */
 const createAddEventFromCheackbox = (id) => {
     const ELEMENT = document.getElementById(id);
@@ -250,44 +260,84 @@ const createAddEventFromCheackbox = (id) => {
  * @function handleChange
  * @param {boolean} change Der neue Status der Checkbox, der angibt, ob sie aktiviert (`true`) oder deaktiviert (`false`) ist.
  * @param {string} id Die ID der Checkbox, die den Kontext oder die spezifische Unteraufgabe identifiziert.
+ * ====================================================================================================
  */
 const handleChange = (change, id) => {
     updateSubtaskInputBox(change, id);
 };
 
 // Aktuell in Arbeit
+/**
+ * Aktualisiert den Status einer Unteraufgabe basierend auf dem Zustand einer Checkbox.
+ * ====================================================================================================
+ * Diese asynchrone Funktion wird aufgerufen, wenn eine Checkbox innerhalb einer Task-Card aktiviert oder 
+ * deaktiviert wird. Sie aktualisiert den Status der entsprechenden Unteraufgabe sowohl im UI als auch 
+ * in der persistenten Datenspeicherung. Dies umfasst das Aktualisieren der entsprechenden Datenstruktur 
+ * der Task-Card und das Speichern der Änderungen im Backend.
+ * ====================================================================================================
+ * @async
+ * @function updateSubtaskInputBox
+ * @param {boolean} status Der neue Status der Checkbox, der angibt, ob die Unteraufgabe abgeschlossen (`true`) oder nicht abgeschlossen (`false`) ist.
+ * @param {string} id Die eindeutige ID der Checkbox, die sowohl die Task-Card als auch die Unteraufgabe innerhalb dieser Karte identifiziert.
+ * ====================================================================================================
+ */
 const updateSubtaskInputBox = async (status, id) => {
-    // debugger
-    const INPUTBOX = document.getElementById(id);
-    INPUTBOX.change = status;
-
-    const CHECKBOX = id[id.length - 1];
-    const ID_CHECKBOX = parseInt(CHECKBOX, 10);
-
-    const TASK_SUBTASKS = document.getElementById(`taskCardID${taskId}`);
-    const SUBTASKS = JSON.parse(TASK_SUBTASKS.getAttribute('task-subtask'));
-    
-
-    SUBTASKS[ID_CHECKBOX + 1].status = status;
-
-    TASK_SUBTASKS.removeAttribute('task-subtask');
-    TASK_SUBTASKS.setAttribute('task-subtask', JSON.stringify(SUBTASKS));
-    
-
-    let card = +id[id.length - 2];
-    card += 1;
-    const ID_CARD = parseInt(card, 10);
-
-    let checkbox = +CHECKBOX;
-    checkbox += 1;
-
+    const INPUT_BOX = document.getElementById(id);
+    INPUT_BOX.change = status;
+    const CHECKBOX_INDEX = getCheckboxIndex(id);
+    const SUBTASKS = getSubtasksForTask();
+    SUBTASKS[CHECKBOX_INDEX + 1].status = status;
+    updateTaskSubtasks(SUBTASKS);
+    const CARD_INDEX = getCardIndex(id);
     const USER_ID = await loadUserIdFromStored();
-    const DATA = await loadElementById(`users/${USER_ID}`, ID_CARD, 'taskCard');
-    
-    DATA[1].subtask[checkbox].status = status;
-
-    await updateData(`users/${USER_ID}/tasks/${DATA[0]}/subtask`, DATA[1].subtask);
+    const TASK_DATA = await loadElementById(`users/${USER_ID}`, CARD_INDEX, 'taskCard');
+    TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;
+    await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, TASK_DATA[1].subtask);
 };
+
+/**
+ * Extrahiert den Index der Checkbox aus der ID.
+ * ====================================================================================================
+ * @function getCheckboxIndex
+ * @param {string} id Die ID der Checkbox.
+ * @returns {number} Der Index der Checkbox.
+ * ====================================================================================================
+ */
+const getCheckboxIndex = (id) => parseInt(id.slice(-1), 10);
+
+/**
+ * Ruft die Unteraufgaben für eine bestimmte Task-Card ab.
+ * ====================================================================================================
+ * @function getSubtasksForTask
+ * @returns {Array} Eine Liste der Unteraufgaben der Task-Card.
+ * ====================================================================================================
+ */
+const getSubtasksForTask = () => {
+    const TASK_CARD = document.getElementById(`taskCardID${taskId}`);
+    return JSON.parse(TASK_CARD.getAttribute('task-subtask'));
+};
+
+/**
+ * Aktualisiert die Unteraufgaben in der Task-Card.
+ * ====================================================================================================
+ * @function updateTaskSubtasks
+ * @param {Array} subtasks Die aktualisierte Liste der Unteraufgaben.
+ * ====================================================================================================
+ */
+const updateTaskSubtasks = (subtasks) => {
+    const TASK_CARD = document.getElementById(`taskCardID${taskId}`);
+    TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtasks));
+};
+
+/**
+ * Bestimmt den Index der Task-Card basierend auf der ID.
+ * ====================================================================================================
+ * @function getCardIndex
+ * @param {string} id Die ID der Checkbox.
+ * @returns {number} Der Index der Task-Card.
+ * ====================================================================================================
+ */
+const getCardIndex = (id) => parseInt(id.slice(-2, -1), 10) + 1;
 
 /**
  * Erstellt einen Bearbeiten-Button für eine Task-Karte.
@@ -297,6 +347,7 @@ const updateSubtaskInputBox = async (status, id) => {
  * ====================================================================================================
  * @function createBtnEdit
  * @returns {HTMLElement} Ein `button`-Element, das einen Bearbeiten-Button darstellt.
+ * ====================================================================================================
  */
 const createBtnEdit = () => {
     const BTN_EDIT = document.createElement('button');
@@ -313,6 +364,7 @@ const createBtnEdit = () => {
  * ====================================================================================================
  * @function createBtnEditImg
  * @returns {HTMLElement} Ein `img`-Element, das das Bearbeiten-Icon darstellt.
+ * ====================================================================================================
  */
 const createBtnEditImg = () => {
     const BTN_EDIT_IMG = document.createElement('img');
@@ -330,6 +382,7 @@ const createBtnEditImg = () => {
  * ====================================================================================================
  * @function createBtnTrennline
  * @returns {HTMLElement} Ein `div`-Element, das als Trennlinie zwischen Buttons verwendet wird.
+ * ====================================================================================================
  */
 const createBtnTrennline = () => {
     const BTN_TRENNLINE = document.createElement('div');
@@ -347,6 +400,7 @@ const createBtnTrennline = () => {
  * @function createBtnDelete
  * @param {number|string} taskId Die ID der Task, für die der Löschen-Button erstellt wird.
  * @returns {HTMLElement} Ein `button`-Element, das einen Löschen-Button darstellt.
+ * ====================================================================================================
  */
 const createBtnDelete = (taskId) => {
     const BTN_DEL = document.createElement('button');
@@ -366,6 +420,7 @@ const createBtnDelete = (taskId) => {
  * ====================================================================================================
  * @function createBtnDeleteImg
  * @returns {HTMLElement} Ein `img`-Element, das das Löschen-Icon darstellt.
+ * ====================================================================================================
  */
 const createBtnDeleteImg = () => {
     const BTN_DEL_IMG = document.createElement('img');
@@ -382,6 +437,7 @@ const createBtnDeleteImg = () => {
  * des Buttons die entsprechende Task-Karte löscht.
  * ====================================================================================================
  * @function addEventFromDelTaskCard
+ * ====================================================================================================
  */
 const addEventFromDelTaskCard = () => {
     const ELEMENT = document.getElementById(`DEL${taskId}`);

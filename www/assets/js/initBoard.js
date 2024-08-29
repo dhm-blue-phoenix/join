@@ -12,6 +12,9 @@
  * =======================================================================
  * [] - Alle Functionen ausfürlich nach JSdoc Standart Kommentiren
  * =======================================================================
+ * Sonstige Anmerkungen:
+ *      [] Subtusk Status bar
+ * =======================================================================
 */
 
 import { loadUserIdFromStored, loadElementByPatch, reloadWindow } from './module/modules.js';
@@ -61,8 +64,7 @@ const addEventFromCloseTaskCard = () => {
  * ====================================================================================================
  * @async
  * @function initTaskBord
- * @returns {void} Die Funktion gibt keinen Wert zurück, sondern sorgt dafür, dass das Taskboard 
- *                 mit den geladenen Aufgaben befüllt und interaktiv wird.
+ * @returns {void} Die Funktion gibt keinen Wert zurück, sondern sorgt dafür, dass das Taskboard mit den geladenen Aufgaben befüllt und interaktiv wird.
  * ====================================================================================================
  */
 async function initTaskBord() {
@@ -102,8 +104,7 @@ const addEventFromTaskCard = (id) => {
  * zugehörigen Attributdaten des geklickten Elements, zeigt ein Popup an und initialisiert die 
  * Anzeige der Aufgaben-Details.
  * ====================================================================================================
- * @param {Event} event Das Event-Objekt, das den Klick repräsentiert. Es enthält Informationen über das 
- *                      geklickte Element und den Kontext des Events.
+ * @param {Event} event Das Event-Objekt, das den Klick repräsentiert. Es enthält Informationen über das geklickte Element und den Kontext des Events.
  * ====================================================================================================
  */
 const handleClick = (event) => {
