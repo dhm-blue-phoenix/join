@@ -1,6 +1,6 @@
 .logoanimationbg{
   display: block; /* Stelle sicher, dass es angezeigt wird */
-  animation: fadeOut 5s forwards;
+  animation: fadeOut 2s forwards;
   width: 100vw;
   height: 100vh;
   background-color: var(--back-color01);
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 16px 32px;
+  padding: 32px 32px;
 }
 
 @keyframes moveLogoToCorner {
@@ -41,10 +41,10 @@
     width: 180px;
   }
   100% {
-    top: 16px;  /* Passend zur `loginheader`-Position */
+    top: 32px;  /* Passend zur `loginheader`-Position */
     left: 32px; /* Passend zur `loginheader`-Position */
     transform: translate(0, 0);
-    width: 92px; /* Ursprüngliche Breite des Logos */
+    width: 100px; /* Ursprüngliche Breite des Logos */
   }
 }
 
@@ -244,7 +244,22 @@
 
 @media (max-width: 1100px) {
   .logo {
-    width: 32px;
+    width: 64px;
+  }
+
+  @keyframes moveLogoToCorner {
+    0% {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px; /* Startgröße bei kleinen Bildschirmen */
+    }
+    100% {
+      top: 16px;
+      left: 32px;
+      transform: translate(0, 0);
+      width: 64px; /* Endgröße bei kleinen Bildschirmen */
+    }
   }
 
   .maincontainer {
@@ -260,6 +275,7 @@
     width: 396px;
     padding: 32px 0px;
     gap: 32px;
+    top: 16%;
   }
 
   .loginemail,
