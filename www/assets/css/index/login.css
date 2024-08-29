@@ -1,4 +1,4 @@
-.logoanimationbg{
+.logoanimationbg {
   display: block; /* Stelle sicher, dass es angezeigt wird */
   animation: fadeOut 2s forwards;
   width: 100vw;
