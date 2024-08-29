@@ -1,17 +1,64 @@
+.logoanimationbg{
+  display: block; /* Stelle sicher, dass es angezeigt wird */
+  animation: fadeOut 5s forwards;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--back-color01);
+  position: fixed;
+  z-index: 99;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0;
+    display: block; /* Sichtbar während der Animation */
+  }
+  100% {
+    opacity: 0;
+    display: none; /* Komplett ausgeblendet nach der Animation */
+  }
+}
+
 .bg {
   background-color: var(--back-color01);
 }
 
 .loginheader {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-start;
   padding: 16px 32px;
 }
 
-.logo {
-  width: 100px;
+@keyframes moveLogoToCorner {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+  }
+  100% {
+    top: 16px;  /* Passend zur `loginheader`-Position */
+    left: 32px; /* Passend zur `loginheader`-Position */
+    transform: translate(0, 0);
+    width: 92px; /* Ursprüngliche Breite des Logos */
+  }
 }
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  animation: moveLogoToCorner 3s forwards;
+  z-index: 9999;
+}
+
+
 
 .signupcontainerheader {
   display: flex;
@@ -51,6 +98,8 @@
   padding: 48px 115px;
   gap: 32px;
   box-shadow: #e0e0e0 0px 0px 10px 0px;
+  position: fixed;
+  top: 22%;
 }
 
 .loginheadline {
@@ -195,7 +244,7 @@
 
 @media (max-width: 1100px) {
   .logo {
-    width: 64px;
+    width: 32px;
   }
 
   .maincontainer {
