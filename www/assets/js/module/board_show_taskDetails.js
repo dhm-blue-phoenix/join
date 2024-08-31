@@ -188,7 +188,7 @@ const createSubtask = (container, subtask, taskId, value) => {
     const SUBTASKS = document.createElement('div');
     SUBTASKS.className = 'taskcardbigsubtaskscheckbox';
     SUBTASKS.appendChild(createSubtaskInputBox(subtask.status, taskId, value));
-    SUBTASKS.appendChild(createSubtaskText(subtask.text));
+    SUBTASKS.appendChild(createSubtaskText(subtask.text));    
     container.appendChild(SUBTASKS);
 };
 
@@ -266,7 +266,6 @@ const handleChange = (change, id) => {
     updateSubtaskInputBox(change, id);
 };
 
-// Aktuell in Arbeit
 /**
  * Aktualisiert den Status einer Unteraufgabe basierend auf dem Zustand einer Checkbox.
  * ====================================================================================================
@@ -291,8 +290,8 @@ const updateSubtaskInputBox = async (status, id) => {
     const CARD_INDEX = getCardIndex(id);
     const USER_ID = await loadUserIdFromStored();
     const TASK_DATA = await loadElementById(`users/${USER_ID}`, CARD_INDEX, 'taskCard');
-    TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;
-    await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, TASK_DATA[1].subtask);
+    TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;   
+    await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, TASK_DATA[1].subtask);    
 };
 
 /**
