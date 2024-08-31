@@ -217,7 +217,7 @@ const createProgressImage = (progressPercentage, subtaskLength) => {
     if (subtaskLength <= 1) { // Wenn es keine Subtasks gibt (1, weil das Array meist eine leere Struktur enthält)
         const NO_SUBTASKS_MESSAGE = document.createElement('div');
         NO_SUBTASKS_MESSAGE.textContent = 'Keine Subtasks';
-        NO_SUBTASKS_MESSAGE.style.color = 'red';
+        NO_SUBTASKS_MESSAGE.style.color = '#5ab824';
         NO_SUBTASKS_MESSAGE.style.fontWeight = 'bold';
         return NO_SUBTASKS_MESSAGE;
     }
