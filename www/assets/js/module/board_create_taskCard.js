@@ -164,12 +164,14 @@ const createProgress = (subtask) => {
     const PROGRESS = document.createElement('div');
     PROGRESS.className = 'taskprogress';
 
-    // Aufruf der angepassten Funktion mit fester Breite
-    PROGRESS.appendChild(createProgressImage(progressPercentage));
+    // Aufruf der angepassten Funktion mit zusätzlichem Parameter subtask.length
+    PROGRESS.appendChild(createProgressImage(progressPercentage, subtask.length));
     PROGRESS.appendChild(createProgressText(taskText));
 
     return PROGRESS;
 };
+
+
 
 
 /**
@@ -209,10 +211,17 @@ const progressText = (taskFinished, subtask) => {
     if (subtask.length > 1) {
         return `${taskFinished}/${subtask.length - 1}`;
     }
-    return '0/0 Subtasks';
 };
 
-const createProgressImage = (progressPercentage) => {
+const createProgressImage = (progressPercentage, subtaskLength) => {
+    if (subtaskLength <= 1) { // Wenn es keine Subtasks gibt (1, weil das Array meist eine leere Struktur enthält)
+        const NO_SUBTASKS_MESSAGE = document.createElement('div');
+        NO_SUBTASKS_MESSAGE.textContent = 'Keine Subtasks';
+        NO_SUBTASKS_MESSAGE.style.color = 'red';
+        NO_SUBTASKS_MESSAGE.style.fontWeight = 'bold';
+        return NO_SUBTASKS_MESSAGE;
+    }
+
     const PROGRESS_CONTAINER = document.createElement('div');
     PROGRESS_CONTAINER.style.width = '128px'; // Feste Breite von 128px
     PROGRESS_CONTAINER.style.height = '8px';
@@ -228,6 +237,8 @@ const createProgressImage = (progressPercentage) => {
     PROGRESS_CONTAINER.appendChild(PROGRESS_BAR);
     return PROGRESS_CONTAINER;
 };
+
+
 
 
 /**
