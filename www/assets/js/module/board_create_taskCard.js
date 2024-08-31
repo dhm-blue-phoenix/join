@@ -157,16 +157,20 @@ const createDescriptionContent = (description) => {
 };
 
 const createProgress = (subtask) => {
-    // Subtask in Arbeit
     const taskStatus = progressStatus(subtask);
-    const taskFinished = taskStatus[1];
-    const taskText = progressText(taskFinished, subtask);
+    const progressPercentage = taskStatus[0]; // Fortschritt in Prozent
+    const taskText = progressText(taskStatus[1], subtask);
+
     const PROGRESS = document.createElement('div');
     PROGRESS.className = 'taskprogress';
-    PROGRESS.appendChild(createProgressImage());
+
+    // Aufruf der angepassten Funktion mit fester Breite
+    PROGRESS.appendChild(createProgressImage(progressPercentage));
     PROGRESS.appendChild(createProgressText(taskText));
+
     return PROGRESS;
 };
+
 
 /**
  * Berechnet den Fortschritt basierend auf dem Status der Unteraufgaben.
@@ -203,19 +207,29 @@ const progressStatus = (subtask) => {
  */
 const progressText = (taskFinished, subtask) => {
     if (subtask.length > 1) {
-        return `${taskFinished}/${subtask.length - 1} Subtasks`;
+        return `${taskFinished}/${subtask.length - 1} ^^`;
     }
     return '0/0 Subtasks';
 };
 
-const createProgressImage = () => {
-    // [!] Die Status Bar gehört überarbeitet
-    const PROGRESS_IMG = document.createElement('img');
-    PROGRESS_IMG.style.height = '8px';
-    PROGRESS_IMG.src = './resources/symbols/Progressbar.png';
-    PROGRESS_IMG.alt = '';
-    return PROGRESS_IMG;
+const createProgressImage = (progressPercentage) => {
+    const PROGRESS_CONTAINER = document.createElement('div');
+    PROGRESS_CONTAINER.style.width = '128px'; // Feste Breite von 128px
+    PROGRESS_CONTAINER.style.height = '8px';
+    PROGRESS_CONTAINER.style.backgroundColor = '#e0e0e0';
+    PROGRESS_CONTAINER.style.borderRadius = '4px';
+    
+    const PROGRESS_BAR = document.createElement('div');
+    PROGRESS_BAR.style.width = `${progressPercentage}%`;
+    PROGRESS_BAR.style.height = '100%';
+    PROGRESS_BAR.style.backgroundColor = '#007CEE';  // Farbe der Fortschrittsanzeige
+    PROGRESS_BAR.style.borderRadius = '4px';
+
+    PROGRESS_CONTAINER.appendChild(PROGRESS_BAR);
+    return PROGRESS_CONTAINER;
 };
+
+
 
 /**
  * Erstellt ein Element zur Anzeige des Fortschrittstexts.
