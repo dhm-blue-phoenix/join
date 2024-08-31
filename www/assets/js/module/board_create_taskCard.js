@@ -162,7 +162,6 @@ const createProgress = (subtask) => {
     const taskText = progressText(taskStatus[1], subtask);
 
     const PROGRESS = document.createElement('div');
-    console.log(taskFinished); // Beinhal de erledikte anzahl der subtusks
     PROGRESS.className = 'taskprogress';
 
     // Aufruf der angepassten Funktion mit fester Breite

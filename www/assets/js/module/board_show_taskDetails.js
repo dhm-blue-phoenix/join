@@ -1,5 +1,5 @@
 import { deleteTaskCard } from './board_delete_taskCard.js';
-import { loadUserIdFromStored, loadElementById, deletElementById } from './modules.js';
+import { loadUserIdFromStored, loadElementById } from './modules.js';
 import { updateData } from './dataResponse.js';
 
 const IDS = ['TASK_ID', 'TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
