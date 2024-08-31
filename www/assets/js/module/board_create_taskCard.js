@@ -207,7 +207,7 @@ const progressStatus = (subtask) => {
  */
 const progressText = (taskFinished, subtask) => {
     if (subtask.length > 1) {
-        return `${taskFinished}/${subtask.length - 1} ^^`;
+        return `${taskFinished}/${subtask.length - 1}`;
     }
     return '0/0 Subtasks';
 };
@@ -228,7 +228,6 @@ const createProgressImage = (progressPercentage) => {
     PROGRESS_CONTAINER.appendChild(PROGRESS_BAR);
     return PROGRESS_CONTAINER;
 };
-
 
 
 /**
