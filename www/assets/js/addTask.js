@@ -1,12 +1,13 @@
 import { loadUserIdFromStored, loadElementByPatch } from './module/modules.js';
 import { uploadPatchData } from './module/dataResponse.js';
 
-const ID_FORM_AddTask = document.getElementById('formAddTask');
-const ID_BTN_addSubTask = document.getElementById('addSubTask');
+const ID_FORM_ADD_TASK = document.getElementById('formAddTask');
+const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
 const ID_BTN_URGENT = document.getElementById('urgent');
 const ID_BTN_MEDIUM = document.getElementById('medium');
 const ID_BTN_LOW = document.getElementById('low');
-const ID_INPUT_subtask = document.getElementById('subtask');
+const ID_INPUT_SUBTASK = document.getElementById('subtask');
+const ID_LIST_SUBTASK = document.getElementById('subtask-list');
 const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
 const RESET_TASK_FORM = {
     'id': '',
@@ -65,56 +66,33 @@ document.addEventListener('DOMContentLoaded', () => {
  * ====================================================================================================
  */
 const addEventFromAddTask = () => {
-    ID_FORM_AddTask.removeEventListener('submit', initAddTask);
-    ID_FORM_AddTask.addEventListener('submit', initAddTask);
+    ID_FORM_ADD_TASK.removeEventListener('submit', initAddTask);
+    ID_FORM_ADD_TASK.addEventListener('submit', initAddTask);
 };
 
-/**
- * Fügt ein Event-Listener für den "Urgent"-Prioritäts-Button hinzu.
- * ====================================================================================================
- * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "Urgent"-Button
- * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
- * ====================================================================================================
- */
 const addEventFromBtnUrgent = () => {
     ID_BTN_URGENT.removeEventListener('click', handleUrgentClick);
     ID_BTN_URGENT.addEventListener('click', handleUrgentClick);
 };
 
-/**
- * Fügt ein Event-Listener für den "Medium"-Prioritäts-Button hinzu.
- * ====================================================================================================
- * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "Medium"-Button
- * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
- * ====================================================================================================
- */
 const addEventFromBtnMedium = () => {
     ID_BTN_MEDIUM.removeEventListener('click', handleMediumClick);
     ID_BTN_MEDIUM.addEventListener('click', handleMediumClick);
 };
 
-/**
- * Fügt ein Event-Listener für den "Low"-Prioritäts-Button hinzu.
- * ====================================================================================================
- * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "Low"-Button
- * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
- * ====================================================================================================
- */
 const addEventFromBtnLow = () => {
     ID_BTN_LOW.removeEventListener('click', handleLowClick);
     ID_BTN_LOW.addEventListener('click', handleLowClick);
 };
 
-/**
- * Fügt ein Event-Listener für den "SubTask"-Button hinzu.
- * ====================================================================================================
- * Diese Funktion entfernt vorhandene Event-Listener für den Klick auf den "SubTask"-Button
- * und fügt dann einen neuen hinzu, um sicherzustellen, dass nur ein Listener aktiv ist.
- * ====================================================================================================
- */
 const addEventFromAddSubTask = () => {
-        ID_BTN_addSubTask.removeEventListener('click', addSubTask);
-        ID_BTN_addSubTask.addEventListener('click', addSubTask);
+    ID_BTN_ADD_SUBTASK.removeEventListener('click', addSubtask);
+    ID_BTN_ADD_SUBTASK.addEventListener('click', addSubtask);
+};
+const addEventFromDelListSubTask = (number) => {
+    const ID_BTN_SUBTASK_LIST_DEL = document.getElementById('subtask_list_btn_delete' + number);
+    ID_BTN_SUBTASK_LIST_DEL.removeEventListener('click', subtaskDeleteItem);
+    ID_BTN_SUBTASK_LIST_DEL.addEventListener('click', subtaskDeleteItem);
 };
 
 /**
@@ -128,25 +106,10 @@ const handleUrgentClick = () => {
     setBtnPrio('urgent');
 };
 
-
-/**
- * Setzt die Priorität der Aufgabe auf "Medium".
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn der Benutzer auf den "Medium"-Button klickt.
- * Sie setzt die Priorität der Aufgabe auf "Medium" und aktualisiert die UI entsprechend.
- * ====================================================================================================
- */
 const handleMediumClick = () => {
     setBtnPrio('medium');
 };
 
-/**
- * Setzt die Priorität der Aufgabe auf "Low".
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn der Benutzer auf den "Low"-Button klickt.
- * Sie setzt die Priorität der Aufgabe auf "Low" und aktualisiert die UI entsprechend.
- * ====================================================================================================
- */
 const handleLowClick = () => {
     setBtnPrio('low');
 };
@@ -253,13 +216,75 @@ const lastBtn = () => {
  * im `taskForm`-Objekt hinzugefügt und das Eingabefeld wird geleert.
  * ====================================================================================================
  */
-const addSubTask = () => {
-    const input = ID_INPUT_subtask;
-    input.value === '' || (
-        taskForm.subtask.push({ 'status': false, 'text': input.value }),
-        input.value = '',
-        console.table(taskForm)
-    );
+const addSubtask = () => {
+    const input = ID_INPUT_SUBTASK;
+    if (input.value !== '') {
+        taskForm.subtask.push({ 'status': false, 'text': input.value });
+        input.value = '';
+        renderSubtaskList();
+    };
+};
+
+const renderSubtaskList = () => {
+    ID_LIST_SUBTASK.innerHTML = '';
+    let number = 1;
+    taskForm.subtask.forEach(subtask => {
+        if (subtask.text !== undefined) {
+            createSubtaskListItem(subtask.text, number);
+            number++;
+        }
+    });
+    for (let i = 0; i < (taskForm.subtask.length - 1); i++) {
+        let number = (i + 1);
+        addEventFromDelListSubTask(number);
+    }
+};
+
+const createSubtaskListItem = (text, number) => {
+    const LIST_ITEM = document.createElement('li');
+    LIST_ITEM.className = 'subtask-list-item';
+    LIST_ITEM.appendChild(createSubtaskListText(text, number));
+    LIST_ITEM.appendChild(createSubtuskListOptions(number));
+    ID_LIST_SUBTASK.appendChild(LIST_ITEM);
+};
+
+const createSubtaskListText = (text, number) => {
+    const LIST_TEXT = document.createElement('input');
+    LIST_TEXT.value = text;
+    LIST_TEXT.className = 'subtask-list-item-text';
+    LIST_TEXT.id = 'list_edit' + number;
+    return LIST_TEXT;
+};
+
+const createSubtuskListOptions = (number) => {
+    const LIST_OPTIONS = document.createElement('div');
+    LIST_OPTIONS.className = 'subtask-list-item-option';
+    LIST_OPTIONS.appendChild(createSubtaskListBtn('delete.svg', number));
+    return LIST_OPTIONS;
+};
+
+const createSubtaskListBtn = (btnImg, number) => {
+    const LIST_BTN = document.createElement('button');
+    LIST_BTN.type = 'button';
+    LIST_BTN.appendChild(createSubtaskListBtnImg(btnImg, number));
+    return LIST_BTN;
+};
+
+const createSubtaskListBtnImg = (btnImg, number) => {
+    const LIST_BTN_IMG = document.createElement('img');
+    LIST_BTN_IMG.src = '../../../www/resources/symbols/' + btnImg;
+    LIST_BTN_IMG.alt = 'btn_img_' + btnImg;
+    LIST_BTN_IMG.id = 'subtask_list_btn_' + (btnImg.substring(0, btnImg.indexOf('.')) + number);
+    LIST_BTN_IMG.setAttribute('subtask-key', number);
+    LIST_BTN_IMG.setAttribute('subtask-edit-id', `list_edit${number}`);
+    return LIST_BTN_IMG;
+};
+
+const subtaskDeleteItem = (event) => {
+    const TARGET = event.currentTarget;
+    const KEY = TARGET.getAttribute('subtask-key');
+    taskForm.subtask.splice(KEY, 1);
+    renderSubtaskList();
 };
 
 /**

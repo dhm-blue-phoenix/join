@@ -189,6 +189,41 @@
   height: 48px !important;
 }
 
+#subtask-list {
+  padding: 8px 0;
+}
+
+.subtask-list-item {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #d1d1d1;
+  border-radius: 8px;
+  margin: 4px 0;
+  padding: 4px;
+  padding-left: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.subtask-list-item-text {
+  background-color: transparent;
+  border-style: none !important;
+  pointer-events: none;
+}
+
+.subtask-list-item-option {
+  display: flex;
+  gap: 4px;
+}
+
+.subtask-list-item-option button img {
+  padding: 16px;
+  width: 48px;
+  height: 48px;
+}
+
 .taskbottom {
   display: flex;
   justify-content: space-between;
@@ -382,6 +417,7 @@
   .footercontent {
     display: flex;
   }
+
   .addtaskmain {
     height: calc(100vh - 251px);
   }
@@ -550,10 +586,12 @@
   .taskbuttonclear {
     font-size: 18px;
   }
+
   .footercontent {
     width: 99%;
     font-size: 16px;
   }
+
   .taskbottom {
     flex-direction: column;
     gap: 8px;
@@ -603,9 +641,11 @@
     font-size: 32px;
     font-weight: 700;
   }
+
   .footercontent {
     flex-direction: column;
   }
+
   .addtaskmain {
     height: calc(100vh - 267px);
   }
