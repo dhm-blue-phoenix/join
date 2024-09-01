@@ -1,10 +1,10 @@
 import { showContactDetails } from './contact_show_details.js';
 import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
-import {generateCardHeadline, createContactCard} from './contact_create_card.js';
+import { generateCardHeadline, createContactCard } from './contact_create_card.js';
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 
-let contacts;
+export let contacts;
 let userID;
 
 /**
@@ -18,7 +18,7 @@ let userID;
  */
 export async function showContactCards() {
     await fetchContacts();
-    displaySortedContacts();
+    createSortedContacts();
 };
 
 /**
@@ -33,9 +33,9 @@ export async function showContactCards() {
  * @returns {void}
  * ====================================================================================================
  */
-async function fetchContacts() {
+export async function fetchContacts() {
     try {
-        contacts = {};        
+        contacts = {};
         userID = loadUserIdFromStored();
         const tempContacts = await loadElementByPatch(`users/${userID}/`, 0);
         organizeContacts(tempContacts);
@@ -83,7 +83,7 @@ function organizeContacts(data) {
  * @returns {void}
  * ====================================================================================================
  */
-function displaySortedContacts() {
+function createSortedContacts() {
     const cardsContainer = CLASS_Contactcards;
     cardsContainer.innerHTML = '';
     Object.keys(contacts).forEach(key => {

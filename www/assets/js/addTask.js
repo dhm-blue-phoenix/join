@@ -6,9 +6,11 @@ const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
 const ID_BTN_URGENT = document.getElementById('urgent');
 const ID_BTN_MEDIUM = document.getElementById('medium');
 const ID_BTN_LOW = document.getElementById('low');
+const ID_SELECT_ASSIGNED = document.getElementById('assigned');
 const ID_INPUT_SUBTASK = document.getElementById('subtask');
 const ID_LIST_SUBTASK = document.getElementById('subtask-list');
 const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
+const USER_ID = loadUserIdFromStored();
 const RESET_TASK_FORM = {
     'id': '',
     'title': '',
@@ -56,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addEventFromBtnMedium();
     addEventFromBtnLow();
     addEventFromAddSubTask();
+    renderContacts();
 });
 
 /**
@@ -89,6 +92,7 @@ const addEventFromAddSubTask = () => {
     ID_BTN_ADD_SUBTASK.removeEventListener('click', addSubtask);
     ID_BTN_ADD_SUBTASK.addEventListener('click', addSubtask);
 };
+
 const addEventFromDelListSubTask = (number) => {
     const ID_BTN_SUBTASK_LIST_DEL = document.getElementById('subtask_list_btn_delete' + number);
     ID_BTN_SUBTASK_LIST_DEL.removeEventListener('click', subtaskDeleteItem);
@@ -114,6 +118,27 @@ const handleLowClick = () => {
     setBtnPrio('low');
 };
 
+const renderContacts = async () => {
+    try {
+        const tempContacts = await loadElementByPatch(`users/${USER_ID}/`, 0);
+        console.log('renderContact', tempContacts)
+        // createSortedContacts();
+    } catch (err) {
+        console.error('Beim laden der Contacte ist ein Problem aufgetreten:', err);
+    }
+};
+
+function createSortedContacts() {
+    ID_SELECT_ASSIGNED.innerHTML = '';
+    contacts.forEach(log => {
+        console.log(log);
+    });
+    // attachCardEvents();
+};
+
+// createContactOption(key, cardId, contact.name, contact.shortcutBackColor);
+
+
 /**
  * Initialisiert das Hinzufügen einer neuen Aufgabe.
  * ====================================================================================================
@@ -129,7 +154,6 @@ const handleLowClick = () => {
 async function initAddTask(event) {
     event.preventDefault();
     try {
-        const USER_ID = await loadUserIdFromStored();
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
         loadFormData();
@@ -163,7 +187,6 @@ const loadFormData = () => {
  * Diese Funktion lädt das `taskForm`-Objekt auf den Server hoch,
  * indem sie die Daten unter dem Pfad des Benutzers speichert.
  * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './module/modules.js'
  * func uploadPatchData() - findet man in der './module/dataResponse.js'
  * ====================================================================================================
  * @async
@@ -171,8 +194,7 @@ const loadFormData = () => {
  * ====================================================================================================
  */
 async function uploadData() {
-    const userID = loadUserIdFromStored();
-    await uploadPatchData(`users/${userID}/tasks/`, taskForm);
+    await uploadPatchData(`users/${USER_ID}/tasks/`, taskForm);
 };
 
 /**
@@ -234,6 +256,10 @@ const renderSubtaskList = () => {
             number++;
         }
     });
+    setDelSubtask();
+};
+
+const setDelSubtask = () => {
     for (let i = 0; i < (taskForm.subtask.length - 1); i++) {
         let number = (i + 1);
         addEventFromDelListSubTask(number);
