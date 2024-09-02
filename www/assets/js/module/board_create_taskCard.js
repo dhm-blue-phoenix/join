@@ -352,6 +352,12 @@ const createMobile = (category) => {
 const createMobileCategory = (category) => {
     const MOBILE_CATEGORY = document.createElement('select');
     MOBILE_CATEGORY.id = 'taskCategorySelect';
+
+    // Füge einen Event-Listener hinzu, der das Event-Handling des Klicks auf das <select>-Element stoppt
+    MOBILE_CATEGORY.addEventListener('click', (event) => {
+        event.stopPropagation(); // Verhindert, dass das Klick-Event das Popup öffnet
+    });
+
     MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(CATEGORY_OPTION_VALUES[category]));
     CATEGORY_OPTION_VALUES.forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
     return MOBILE_CATEGORY;
@@ -389,6 +395,12 @@ const createMobileCategoryOptions = (option) => {
 const createMobileButton = () => {
     const MOBILE_BTN = document.createElement('button');
     MOBILE_BTN.id = 'moveTaskButton';
+
+    // Füge einen Event-Listener hinzu, der das Event-Handling des Klicks auf das <button>-Element stoppt
+    MOBILE_BTN.addEventListener('click', (event) => {
+        event.stopPropagation(); // Verhindert, dass das Klick-Event das Popup öffnet
+    });
+
     MOBILE_BTN.textContent = 'Move';
     return MOBILE_BTN;
 };

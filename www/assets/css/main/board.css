@@ -281,8 +281,8 @@
     /* Scale and rotate slightly on hover */
   }
 
-  .taskcard[draggable="true"] {
-    cursor: default;
+  .taskcard {
+    cursor: pointer;
   }
   .boardmain {
     height: calc(100vh - 176px);
