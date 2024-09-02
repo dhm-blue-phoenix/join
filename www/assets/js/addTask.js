@@ -40,6 +40,7 @@ const RESET_TASK_FORM = {
 let taskForm = RESET_TASK_FORM;
 let lastBtnPrio = 'medium';
 let taskId;
+let contactOptions = ['', 'Select contacts to assign'];
 
 /**
  * Initialisiert den Event-Listener.
@@ -121,8 +122,13 @@ const handleLowClick = () => {
 const renderContacts = async () => {
     try {
         const tempContacts = await loadElementByPatch(`users/${USER_ID}/`, 0);
-        console.log('renderContact', tempContacts)
-        // createSortedContacts();
+        tempContacts.forEach(contact => {
+            if (contact !== '') {
+                contactOptions.push(contact);
+            };
+        });
+        console.log('renderContact', contactOptions);
+        createSortedContacts();
     } catch (err) {
         console.error('Beim laden der Contacte ist ein Problem aufgetreten:', err);
     }
@@ -130,11 +136,34 @@ const renderContacts = async () => {
 
 function createSortedContacts() {
     ID_SELECT_ASSIGNED.innerHTML = '';
-    contacts.forEach(log => {
-        console.log(log);
+    contactOptions.forEach(option => {
+        const CONTACT_OPTION = document.createElement('option');
+        if (typeof option === 'string') {
+            console.info('a');
+            CONTACT_OPTION.textContent = option;
+            if (option === "Select contacts to assign") {
+                console.info('b');
+                CONTACT_OPTION.disabled = true;
+            };
+        } else if (typeof option === 'object' && option.name) {
+            console.info('c');
+            CONTACT_OPTION.textContent = option.name;
+            CONTACT_OPTION.value = option.email;
+        };
+        ID_SELECT_ASSIGNED.appendChild(CONTACT_OPTION); //Ist ein ID fehler!    
     });
     // attachCardEvents();
 };
+
+/**
+ * else if (typeof key === 'string') {
+            CONTACT_OPTION.textContent = key;
+            CONTACT_OPTION.disabled = true;
+        } else {
+            CONTACT_OPTION.textContent = key.name;
+        };
+ * 
+*/
 
 // createContactOption(key, cardId, contact.name, contact.shortcutBackColor);
 
