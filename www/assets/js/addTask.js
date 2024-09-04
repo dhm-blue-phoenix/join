@@ -242,7 +242,7 @@ const createSubtaskListBtn = (btnImg, number) => {
 
 const createSubtaskListBtnImg = (btnImg, number) => {
     const LIST_BTN_IMG = document.createElement('img');
-    LIST_BTN_IMG.src = '../../../www/resources/symbols/' + btnImg;
+    LIST_BTN_IMG.src = '../../resources/symbols/' + btnImg;
     LIST_BTN_IMG.alt = 'btn_img_' + btnImg;
     LIST_BTN_IMG.id = 'subtask_list_btn_' + (btnImg.substring(0, btnImg.indexOf('.')) + number);
     LIST_BTN_IMG.setAttribute('subtask-key', number);
