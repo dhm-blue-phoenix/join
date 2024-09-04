@@ -70,8 +70,8 @@ export const createContactCard = (container, key, id, name, email, tel, shortcut
     DIV_CARD.setAttribute('data-email', email);
     DIV_CARD.setAttribute('data-tel', tel);
     DIV_CARD.setAttribute('data-shortcut-color', shortcutBackColor);
-    DIV_CARD.appendChild(createDivShortName(name, shortcutBackColor));
-    DIV_CARD.appendChild(createDivEmail(name, email));
+    DIV_CARD.appendChild(createContactShort(name, shortcutBackColor));
+    DIV_CARD.appendChild(createContactEmail(name, email));
     container.appendChild(DIV_CARD);
 };
 
@@ -82,14 +82,15 @@ export const createContactCard = (container, key, id, name, email, tel, shortcut
  * Die Hintergrundfarbe des Divs wird ebenfalls festgelegt.
  * ====================================================================================================
  * @param {string} name Der vollständige Name des Kontakts.
- * @param {string} shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
+ * @param {string} shortBackColor Die Hintergrundfarbe des Namens-Shortcuts.
  * @returns {HTMLElement} Das erstellte Div-Element mit dem Namens-Shortcut.
  * ====================================================================================================
  */
-const createDivShortName = (name, shortcutBackColor) => {
+export const createContactShort = (name, shortBackColor) => {
+    console.info('card:', name, shortBackColor);
     const DIV_ShortName = document.createElement('div');
     DIV_ShortName.id = 'nameShortcut';
-    DIV_ShortName.style.backgroundColor = shortcutBackColor;
+    DIV_ShortName.style.backgroundColor = shortBackColor;
     DIV_ShortName.textContent = name.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
     return DIV_ShortName;
 };
@@ -104,11 +105,11 @@ const createDivShortName = (name, shortcutBackColor) => {
  * @returns {HTMLElement} Das erstellte Div-Element mit dem Namen und der E-Mail-Adresse.
  * ====================================================================================================
  */
-const createDivEmail = (name, email) => {
+const createContactEmail = (name, email) => {
     const DIV_EMAIL = document.createElement('div');
     DIV_EMAIL.className = 'nameemail';
-    DIV_EMAIL.appendChild(createDivEmailName(name));
-    DIV_EMAIL.appendChild(createDivEmailAnchor(email));
+    DIV_EMAIL.appendChild(createEmailName(name));
+    DIV_EMAIL.appendChild(createEmailAnchor(email));
     return DIV_EMAIL;
 };
 
@@ -121,7 +122,7 @@ const createDivEmail = (name, email) => {
  * @returns {HTMLElement} Das erstellte Paragraph-Element mit dem Namen des Kontakts.
  * ====================================================================================================
  */
-const createDivEmailName = (name) => {
+const createEmailName = (name) => {
     const DIV_EMAIL_NAME = document.createElement('p');
     DIV_EMAIL_NAME.textContent = name;
     return DIV_EMAIL_NAME;
@@ -137,7 +138,7 @@ const createDivEmailName = (name) => {
  * @returns {HTMLElement} Das erstellte Anker-Element mit der E-Mail-Adresse.
  * ====================================================================================================
  */
-const createDivEmailAnchor = (email) => {
+const createEmailAnchor = (email) => {
     const DIV_EMAIL_ANCHOR = document.createElement('a');
     DIV_EMAIL_ANCHOR.href = `mailto:${email}`; // Mailto-Link hinzugefügt
     DIV_EMAIL_ANCHOR.textContent = email;

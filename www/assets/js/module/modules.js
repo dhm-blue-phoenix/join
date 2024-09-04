@@ -66,7 +66,7 @@ export async function findUserById(uid) {
 export function loadUserIdFromStored() {
     if (storedLocalUserID) return storedLocalUserID;
     if (storedSessionUserID) return storedSessionUserID;
-    throw new Error('User ID wurde nicht gefunden!');
+    window.location.href = './index.html';
 };
 
 /**
