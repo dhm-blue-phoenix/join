@@ -27,7 +27,7 @@ const CATEGORY_OPTION_VALUES = [
  * @param {number} cardId Die eindeutige ID der Task-Karte.
  * @param {string} headline Die Überschrift der Aufgabe.
  * @param {string} description Eine Beschreibung der Aufgabe.
- * @param {Array} contacts Eine Liste von Kontakten, die der Aufgabe zugewiesen sind.
+ * @param {Array} users Eine Liste von Kontakten, die der Aufgabe zugewiesen sind.
  * @param {string} date Das Fälligkeitsdatum der Aufgabe.
  * @param {string} BTNprio Die Priorität der Aufgabe.
  * @param {string} category Die Kategorie der Aufgabe.
@@ -36,16 +36,16 @@ const CATEGORY_OPTION_VALUES = [
  * @returns {void} Die Funktion gibt keinen Wert zurück, sondern fügt die erstellte Task-Karte in das DOM ein.
  * ====================================================================================================
  */
-export const createTaskCard = (cardId, headline, description, contacts, date, BTNprio, category, subtask) => {
+export const createTaskCard = (cardId, headline, description, users, date, BTNprio, category, subtask) => {
     const TASK_CARD = document.createElement('div');
     TASK_CARD.id = `taskCardID${cardId}`;
     TASK_CARD.className = 'taskcard';
     TASK_CARD.draggable = true;
-    setAttributeFromTaskCard(TASK_CARD, cardId, headline, description, contacts, date, BTNprio, category, subtask);
+    setAttributeFromTaskCard(TASK_CARD, cardId, headline, description, users, date, BTNprio, category, subtask);
     TASK_CARD.appendChild(createCategory(category));
     TASK_CARD.appendChild(createDescription(headline, description));
     TASK_CARD.appendChild(createProgress(subtask));
-    TASK_CARD.appendChild(createPerson(contacts));
+    TASK_CARD.appendChild(createPerson(users));
     TASK_CARD.appendChild(createMobile(category));
     document.getElementById(CATEGORY_OPTION_VALUES[category].value).appendChild(TASK_CARD);
 };
@@ -312,8 +312,8 @@ const createPersonShortcutContent = (contact) => {
     const PERSON_SHORTCUT_CONTENT = document.createElement('div');
     PERSON_SHORTCUT_CONTENT.id = 'nameShortcut';
     PERSON_SHORTCUT_CONTENT.style.marginLeft = '-10px';
-    PERSON_SHORTCUT_CONTENT.style.backgroundColor = contact.shortBackColor;
-    PERSON_SHORTCUT_CONTENT.textContent = contact.shortname;
+    PERSON_SHORTCUT_CONTENT.style.backgroundColor = contact[3];
+    PERSON_SHORTCUT_CONTENT.textContent = contact[2];
     return PERSON_SHORTCUT_CONTENT;
 };
 

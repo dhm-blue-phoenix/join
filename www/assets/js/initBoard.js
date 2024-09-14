@@ -70,9 +70,9 @@ const addEventFromCloseTaskCard = () => {
 async function initTaskBord() {
     try {
         const userID = await loadUserIdFromStored();
-        const tempTasks = await loadElementByPatch(`users/${userID}/`, 4);
+        const tempTasks = await loadElementByPatch(`users/${userID}/`, 5);
         const taskFilters = tempTasks.filter(task => task && task.title);
-        taskFilters.forEach((data, id) => {            
+        taskFilters.forEach((data, id) => {
             createTaskCard(id, data.title, data.description, data.assigned, data.date, data.prio, data.category, data.subtask);
             addEventFromTaskCard(`taskCardID${id}`);
         });

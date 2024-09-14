@@ -21,6 +21,7 @@ const RESET_TASK_FORM = {
     'category': '',
     'subtask': ['none']
 };
+let userIds = [USER_ID];
 let taskForm = RESET_TASK_FORM;
 let lastBtnPrio = 'medium';
 let taskId;
@@ -109,7 +110,7 @@ function createSortedUsers() {
             CONTACT_OPTION.textContent = user[1];
             CONTACT_OPTION.value = user;
         };
-        ID_SELECT_ASSIGNED.appendChild(CONTACT_OPTION);    
+        ID_SELECT_ASSIGNED.appendChild(CONTACT_OPTION);
     });
     // attachCardEvents();
 };
@@ -137,13 +138,16 @@ const loadFormData = () => {
     });
     console.log(taskForm)
     taskForm.id = taskId;
-    const assignedData = document.getElementById('assigned').value;
-    taskForm.assigned.push(assignedData.split(','));
+    const assignedData = (document.getElementById('assigned').value).split(',');
+    taskForm.assigned.push(assignedData);
+    userIds.push(assignedData[0]);
 };
 
 async function uploadData() {
-    return console.log(formData);
-    await uploadPatchData(`users/${USER_ID}/tasks/`, taskForm);
+    console.log(userIds);
+    userIds.forEach(async (user) => {
+        await uploadPatchData(`users/${user}/tasks/`, taskForm);
+    });
 };
 
 const setBtnPrio = (prio) => {

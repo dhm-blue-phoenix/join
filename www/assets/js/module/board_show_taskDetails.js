@@ -127,8 +127,8 @@ const updateButtonContainer = (id, taskId) => {
 const createPersionCard = (container, persionData) => {
     const PERSION = document.createElement('div');
     PERSION.className = 'taskcardbigassignedtoperson';
-    PERSION.appendChild(createPersionShortname(persionData.shortBackColor, persionData.shortname));
-    PERSION.appendChild(createPersionName(persionData.name));
+    PERSION.appendChild(createPersionShortname(persionData[3], persionData[2]));
+    PERSION.appendChild(createPersionName(persionData[1]));
     container.appendChild(PERSION);
 };
 
