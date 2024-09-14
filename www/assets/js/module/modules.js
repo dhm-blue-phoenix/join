@@ -143,7 +143,7 @@ export async function loadElementByPatch(patch, value) {
 export async function loadElementById(patch, type, category) {
     if(category === 'taskCard') {
         const DATA = await retrievingData(patch);
-        const TASK_ID = await findTaskById(DATA[4], type);
+        const TASK_ID = await findTaskById(DATA[5], type);
         return TASK_ID;      
     }
     if(category === 'contactCard') {
@@ -164,7 +164,7 @@ export async function loadElementById(patch, type, category) {
  * @param {string|number} findId Die ID der Task, die gefunden werden soll.
  * @returns {Array|undefined} Ein Array mit [ID, Task-Objekt], wenn die Task gefunden wurde, oder `undefined`, wenn keine Übereinstimmung gefunden wurde.
  */
-async function findTaskById(tasks, findId) {    
+async function findTaskById(tasks, findId) {
     return Object.entries(tasks).find(([id, task]) => task.id === findId);
 };
 
