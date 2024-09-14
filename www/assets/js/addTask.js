@@ -1,5 +1,5 @@
-import { loadUserIdFromStored, loadElementByPatch } from './module/modules.js';
-import { uploadPatchData } from './module/dataResponse.js';
+import { loadUserIdFromStored, loadElementByPatch, extractInitials, loadUserData } from './module/modules.js';
+import { uploadPatchData, retrievingData } from './module/dataResponse.js';
 
 const ID_FORM_ADD_TASK = document.getElementById('formAddTask');
 const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
@@ -15,23 +15,7 @@ const RESET_TASK_FORM = {
     'id': '',
     'title': '',
     'description': '',
-    'assigned': [
-        {
-            'name': 'Benedikt Ziegler',
-            'shortname': 'BZ',
-            'shortBackColor': '#ff68dc'
-        },
-        {
-            'name': 'Anton Mayer',
-            'shortname': 'AM',
-            'shortBackColor': '#ff68dc'
-        },
-        {
-            'name': 'David Eisenberg',
-            'shortname': 'DE',
-            'shortBackColor': '#ff68dc'
-        },
-    ],
+    'assigned': ['none'],
     'date': '',
     'prio': '',
     'category': '',
@@ -40,7 +24,7 @@ const RESET_TASK_FORM = {
 let taskForm = RESET_TASK_FORM;
 let lastBtnPrio = 'medium';
 let taskId;
-let contactOptions = ['', 'Select contacts to assign'];
+let users = ['', 'Select contacts to assign'];
 
 document.addEventListener('DOMContentLoaded', () => {
     setBtnPrio('medium');
@@ -49,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addEventFromBtnMedium();
     addEventFromBtnLow();
     addEventFromAddSubTask();
-    renderContacts();
+    renderUsers();
 });
 
 const addEventFromAddTask = () => {
@@ -95,51 +79,40 @@ const handleLowClick = () => {
     setBtnPrio('low');
 };
 
-const renderContacts = async () => {
+const renderUsers = async () => {
     try {
-        const tempContacts = await loadElementByPatch(`users/${USER_ID}/`, 0);
-        tempContacts.forEach(contact => {
-            if (contact !== '') {
-                contactOptions.push(contact);
+        const tempUsers = await retrievingData(`users`);
+        await tempUsers.forEach(async (user) => {
+            const find = {
+                'email': user.email,
+                'pw': user.password
             };
+            const id = await loadUserData(find);
+            users.push([id[0], user.name, extractInitials(user.name), user.shortcutBackColor]);
+            await createSortedUsers();
         });
-        console.log('renderContact', contactOptions);
-        createSortedContacts();
     } catch (err) {
         console.error('Beim laden der Contacte ist ein Problem aufgetreten:', err);
     }
 };
 
-function createSortedContacts() {
+function createSortedUsers() {
     ID_SELECT_ASSIGNED.innerHTML = '';
-    contactOptions.forEach(option => {
+    users.forEach(user => {
         const CONTACT_OPTION = document.createElement('option');
-        if (typeof option === 'string') {
-            console.info('a');
-            CONTACT_OPTION.textContent = option;
-            if (option === "Select contacts to assign") {
-                console.info('b');
+        if (typeof user === 'string') {
+            CONTACT_OPTION.textContent = user;
+            if (user === "Select contacts to assign") {
                 CONTACT_OPTION.disabled = true;
             };
-        } else if (typeof option === 'object' && option.name) {
-            console.info('c');
-            CONTACT_OPTION.textContent = option.name;
-            CONTACT_OPTION.value = option.email;
+        } else if (typeof user === 'object' && user[1]) {
+            CONTACT_OPTION.textContent = user[1];
+            CONTACT_OPTION.value = user;
         };
-        ID_SELECT_ASSIGNED.appendChild(CONTACT_OPTION); //Ist ein ID fehler!    
+        ID_SELECT_ASSIGNED.appendChild(CONTACT_OPTION);    
     });
     // attachCardEvents();
 };
-
-/**
- * else if (typeof key === 'string') {
-            CONTACT_OPTION.textContent = key;
-            CONTACT_OPTION.disabled = true;
-        } else {
-            CONTACT_OPTION.textContent = key.name;
-        };
- * 
-*/
 
 // createContactOption(key, cardId, contact.name, contact.shortcutBackColor);
 
@@ -162,10 +135,14 @@ const loadFormData = () => {
     ID_INPUT_TASK.forEach((key, i) => {
         ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
     });
+    console.log(taskForm)
     taskForm.id = taskId;
+    const assignedData = document.getElementById('assigned').value;
+    taskForm.assigned.push(assignedData.split(','));
 };
 
 async function uploadData() {
+    return console.log(formData);
     await uploadPatchData(`users/${USER_ID}/tasks/`, taskForm);
 };
 
