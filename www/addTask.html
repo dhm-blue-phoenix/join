@@ -61,8 +61,16 @@
             </div>
 
             <div>
-              <p>Assigned to</p>
-              <select required id="assigned"></select>
+              <fieldset class="assigned">
+                <p>Assigned to</p>
+                <div class="subtaskinput">
+                  <select id="assigned"></select>
+                  <button type="button" id="addAssigned">
+                    <img src="./resources/symbols/addSubtasks.svg" alt="addSubTask">
+                  </button>
+                </div>
+                <ul id="assigned-list"></ul>
+              </fieldset>
             </div>
           </section>
           <div class="trennline"></div>

@@ -193,7 +193,7 @@
   padding: 8px 0;
 }
 
-.subtask-list-item {
+.list-item {
   border-style: solid;
   border-width: 2px;
   border-color: #d1d1d1;
@@ -207,18 +207,18 @@
   gap: 4px;
 }
 
-.subtask-list-item-text {
+.list-item-text {
   background-color: transparent;
   border-style: none !important;
   pointer-events: none;
 }
 
-.subtask-list-item-option {
+.list-item-option {
   display: flex;
   gap: 4px;
 }
 
-.subtask-list-item-option button img {
+.list-item-option button img {
   padding: 16px;
   width: 48px;
   height: 48px;
