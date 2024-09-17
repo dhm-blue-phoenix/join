@@ -3,6 +3,15 @@
 /*
   Stile für die Seitenleiste (.navBar) der Anwendung.
 */
+.btn {
+}
+
+/* Style the active class (and buttons on mouse-over) */
+.active {
+  background-color: var(--back-color06);
+  color: white;
+}
+
 nav {
   background-color: var(--back-color02);
   width: 232px;
@@ -86,6 +95,16 @@ nav a:hover {
   background-color: transparent;
   transform: scale(1.1);
   color: var(--text-color05);
+}
+
+.nav-link {
+  /* Dein Standard-Stil für die Navigations-Links */
+}
+
+.nav-link.active {
+  /* Dein Stil für den aktiven Navigations-Link */
+  background-color: #ccc;
+  color: #333;
 }
 
 @media(max-width:1300px) {
