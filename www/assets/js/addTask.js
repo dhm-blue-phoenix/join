@@ -83,7 +83,7 @@ async function initAddTask(event) {
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
         loadFormData();
-        await uploadData();
+        // await uploadData();
         resetFrom();
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
@@ -95,11 +95,11 @@ const loadFormData = () => {
     ID_INPUT_TASK.forEach((key, i) => {
         ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
     });
+    taskForm.id = userIds[0];
     console.log(taskForm)
 };
 
 async function uploadData() {
-    console.log(userIds);
     userIds.forEach(async (user) => {
         await uploadPatchData(`users/${user}/tasks/`, taskForm);
     });

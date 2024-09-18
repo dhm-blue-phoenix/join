@@ -4,7 +4,7 @@
  * Ruft die Funktion `navInit` nach einer Verzögerung von 100 ms auf.
  * ====================================================================================================
  */
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     navInit();
   }, 100);

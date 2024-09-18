@@ -1,4 +1,9 @@
 const CATEGORY_OPTION_VALUES = [
+    'User Story',
+    'Technical Task'
+];
+
+const TASK_STATUS = [
     {
         'value': 'taskToDo',
         'text': 'To do'
@@ -47,7 +52,7 @@ export const createTaskCard = (cardId, headline, description, users, date, BTNpr
     TASK_CARD.appendChild(createProgress(subtask));
     TASK_CARD.appendChild(createPerson(users));
     TASK_CARD.appendChild(createMobile(category));
-    document.getElementById(CATEGORY_OPTION_VALUES[category].value).appendChild(TASK_CARD);
+    document.getElementById(TASK_STATUS[0].value).appendChild(TASK_CARD);
 };
 
 /**
@@ -77,7 +82,7 @@ const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, cont
     TASK_CARD.setAttribute('task-contacts', JSON.stringify(contacts));
     TASK_CARD.setAttribute('task-date', date);
     TASK_CARD.setAttribute('task-btnprio', BTNprio);
-    TASK_CARD.setAttribute('task-category', CATEGORY_OPTION_VALUES[category].value);
+    TASK_CARD.setAttribute('task-category', CATEGORY_OPTION_VALUES[category]);
     TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtask));
     return TASK_CARD;
 };
@@ -97,7 +102,7 @@ const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, cont
 const createCategory = (category) => {
     const CATEGORY = document.createElement('p');
     CATEGORY.className = 'taskcardtitle';
-    CATEGORY.textContent = CATEGORY_OPTION_VALUES[category].text;
+    CATEGORY.textContent = CATEGORY_OPTION_VALUES[category];
     return CATEGORY;
 };
 
@@ -227,7 +232,7 @@ const createProgressImage = (progressPercentage, subtaskLength) => {
     PROGRESS_CONTAINER.style.height = '8px';
     PROGRESS_CONTAINER.style.backgroundColor = '#e0e0e0';
     PROGRESS_CONTAINER.style.borderRadius = '4px';
-    
+
     const PROGRESS_BAR = document.createElement('div');
     PROGRESS_BAR.style.width = `${progressPercentage}%`;
     PROGRESS_BAR.style.height = '100%';
@@ -358,8 +363,8 @@ const createMobileCategory = (category) => {
         event.stopPropagation(); // Verhindert, dass das Klick-Event das Popup öffnet
     });
 
-    MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(CATEGORY_OPTION_VALUES[category]));
-    CATEGORY_OPTION_VALUES.forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
+    MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(TASK_STATUS[category]));
+    TASK_STATUS.forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
     return MOBILE_CATEGORY;
 };
 
