@@ -211,5 +211,6 @@ const saveSessionUserID = (userID, autoLogin) => {
  * ====================================================================================================
  */
 const loadWindow = () => {
+    localStorage.setItem('activNavBtn', 'nav-btn0');
     window.location.href = './summary.html';
 };
