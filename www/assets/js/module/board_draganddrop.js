@@ -135,3 +135,4 @@ function removeHoverEffect(target) {
         target.classList.remove('drop-hover');
     }
 }
+
