@@ -4,12 +4,14 @@
   Stile für die Seitenleiste (.navBar) der Anwendung.
 */
 .btn {
+  cursor: pointer;
 }
 
 /* Style the active class (and buttons on mouse-over) */
 .active {
   background-color: var(--back-color06);
   color: white;
+  border-radius: 8px;
 }
 
 nav {
@@ -64,6 +66,7 @@ nav a {
 nav a:hover {
   background-color: var(--back-color07);
   color: var(--text-color02);
+  border-radius: 8px;
 }
 
 .navicons {
@@ -151,7 +154,7 @@ nav a:hover {
   nav a:hover {
     background-color: var(--back-color07);
     color: var(--text-color02);
-    border-radius: 16px;
+    border-radius: 8px;
   }
   
   .navicons {

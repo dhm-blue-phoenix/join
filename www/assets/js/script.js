@@ -144,12 +144,12 @@ if(currentWindow.includes('summary.html')) {
     setTimeout(() => {
         welcomeMessage.classList.remove("fade-in");
         welcomeMessage.classList.add("fade-out");
-    }, 2000);
+    }, 1000);
   
     // Nach 3 Sekunden den gesamten Container ausblenden
     setTimeout(() => {
         welcomeContent.style.display = "none";
-    }, 3000);
+    }, 2000);
   }
 }
 

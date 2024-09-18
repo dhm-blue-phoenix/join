@@ -4,6 +4,11 @@
   Styles für den Taskmanager-Bereich.
   Definiert das Layout und die Stilelemente für die Taskverwaltung.
 */
+.assignedUserCard option{
+  display: flex;
+  gap: 64px;
+}
+
 .assigned{
 border: none;
 padding: 0;
