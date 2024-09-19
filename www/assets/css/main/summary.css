@@ -218,7 +218,7 @@ p {
 }
 .welcomecontent {
   width: 100vw;
-  height: 100vh;
+  height: 200vh;
   background-color: var(--back-color01);
   position: fixed;
   top: 96px;
@@ -227,7 +227,8 @@ p {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 .welcomecontent p {
   font-size: 47px;
@@ -261,9 +262,9 @@ p {
   }
   .welcomecontent {
     width: 100vw;
-    height: calc(100vh - 180px);
+    height: 100vh;
     background-color: var(--back-color01);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1;
