@@ -60,22 +60,80 @@ const renderUsers = async () => {
     }
 };
 
+const USER_CARDS_CONTAINER = document.getElementById('userCardsContainerID');
+
+// Toggle visibility of the userCardsContainer when the <select> is clicked
+ID_SELECT_ASSIGNED.addEventListener('click', (event) => {
+    // Check if the container is currently visible
+    if (USER_CARDS_CONTAINER.style.display === 'flex') {
+        USER_CARDS_CONTAINER.style.display = 'none'; // Hide if visible
+    } else {
+        USER_CARDS_CONTAINER.style.display = 'flex'; // Show if hidden
+    }
+});
+
+// Hide the userCardsContainer when clicking outside of it
+document.addEventListener('click', (event) => {
+    // Check if the click was outside the container and the select element
+    if (!USER_CARDS_CONTAINER.contains(event.target) && event.target !== ID_SELECT_ASSIGNED) {
+        USER_CARDS_CONTAINER.style.display = 'none';
+    }
+});
 function createSortedUsers() {
-    ID_SELECT_ASSIGNED.innerHTML = '';
+    USER_CARDS_CONTAINER.innerHTML = ''; // Clear the container
+    let counter = 1;
+    let colors = ['#ff822f', '#b33636', '#58d626', '#2c5fa7'];  // Define some alternating colors for the initials
+
     users.forEach(user => {
-        const CONTACT_OPTION = document.createElement('option');
-        if (typeof user === 'string') {
-            CONTACT_OPTION.textContent = user;
-            if (user === "Select contacts to assign") {
-                CONTACT_OPTION.disabled = true;
-            };
-        } else if (typeof user === 'object' && user[0]) {
-            CONTACT_OPTION.textContent = user[0];
-            CONTACT_OPTION.value = user;
-        };
-        ID_SELECT_ASSIGNED.appendChild(CONTACT_OPTION);
+        // Skip the first two entries (empty string and "Select contacts to assign")
+        if (typeof user === 'string' && (user === '' || user === 'Select contacts to assign')) {
+            return; // Skip this iteration
+        }
+
+        // Create a new <div> for each valid user
+        const userDiv = document.createElement('div');
+        userDiv.id = `person${counter}`;  // Assign a unique ID like person1, person2, etc.
+        userDiv.classList.add('personCardsmall');  // Add the class 'personCard' to the div
+
+        // Get the first and last name
+        const fullName = user[0];  // Assuming user[0] contains the full name
+        const nameParts = fullName.split(' ');  // Split the name by spaces
+        const firstName = nameParts[0];
+        const lastName = nameParts[1] || '';  // Handle cases with no last name
+
+        // Create a <div> for the initials
+        const initialsDiv = document.createElement('div');
+        initialsDiv.classList.add('Initialenperson');  // Add the class 'Initialenperson' to the div
+        initialsDiv.style.backgroundColor = colors[counter % colors.length];  // Alternating background color for initials div
+
+        // Calculate initials (first letter of first name and last name if available)
+        const initials = firstName.charAt(0) + (lastName ? lastName.charAt(0) : '');
+        initialsDiv.textContent = initials.toUpperCase();  // Display initials
+
+        // Set the content of the userDiv (user's full name)
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = fullName;
+
+        // Add event listener for each contact div
+        userDiv.addEventListener('click', () => {
+            console.log(`Selected user: ${fullName}`);
+            // Optional: Handle what happens when a user is clicked
+        });
+
+        // Append the initials and name divs to the userDiv
+        userDiv.appendChild(initialsDiv);
+        userDiv.appendChild(nameDiv);
+
+        // Append the new <div> to the userCardsContainer
+        USER_CARDS_CONTAINER.appendChild(userDiv);
+        counter++;
     });
-};
+}
+
+
+
+
+
 
 async function initAddTask(event) {
     event.preventDefault();

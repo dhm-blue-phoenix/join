@@ -4,9 +4,50 @@
   Styles für den Taskmanager-Bereich.
   Definiert das Layout und die Stilelemente für die Taskverwaltung.
 */
-.assignedUserCard option{
+
+.Initialenperson{
+  width: 42px;
+  height: 42px;
+  border: 2px solid;
+  border-radius: 100px;
   display: flex;
-  gap: 64px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color02);
+  font-size: 12px;
+}
+
+.personCardsmall{
+  background-color: var(--back-color01);
+  width: 352px;
+  height: 78px;
+  padding: 15px 24px 15px 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 35px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  border: 1px solid #d1d1d1;
+}
+
+.personCardsmall:hover{
+  background-color: var(--back-color05);
+}
+
+.userCardsContainer{
+  display:none;
+  width:424px; 
+  height:120px; 
+  background-color: var(--back-color04);
+  border: 1px solid #d1d1d1;
+  overflow: auto;
+  position: fixed;
+  border-radius: 8px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6px;
 }
 
 .assigned{
@@ -431,6 +472,33 @@ padding: 0;
 }
 
 @media (max-width: 1300px) {
+  .personCardsmall {
+    background-color: var(--back-color01);
+    width: 95%;
+    height: 78px;
+    padding: 15px 24px 15px 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 35px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    border: 1px solid #d1d1d1;
+}
+  .userCardsContainer {
+    display: none;
+    width: 95%;
+    height: 120px;
+    background-color: var(--back-color04);
+    border: 1px solid #d1d1d1;
+    overflow: auto;
+    position:unset;
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6px;
+}
   .footercontent {
     display: flex;
   }
