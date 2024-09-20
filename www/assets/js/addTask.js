@@ -47,11 +47,6 @@ const renderUsers = async () => {
     try {
         const tempUsers = await retrievingData(`users`);
         await tempUsers.forEach(async (user) => {
-            const find = {
-                'email': user.email,
-                'pw': user.password
-            };
-            // const id = await loadUserData(find);
             users.push([user.name, extractInitials(user.name), user.shortcutBackColor]);
             await createSortedUsers();
         });
@@ -79,6 +74,7 @@ document.addEventListener('click', (event) => {
         USER_CARDS_CONTAINER.style.display = 'none';
     }
 });
+
 function createSortedUsers() {
     USER_CARDS_CONTAINER.innerHTML = ''; // Clear the container
     let counter = 1;
@@ -128,12 +124,7 @@ function createSortedUsers() {
         USER_CARDS_CONTAINER.appendChild(userDiv);
         counter++;
     });
-}
-
-
-
-
-
+};
 
 async function initAddTask(event) {
     event.preventDefault();
@@ -141,7 +132,7 @@ async function initAddTask(event) {
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
         loadFormData();
-        // await uploadData();
+        await uploadData();
         resetFrom();
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
@@ -153,7 +144,7 @@ const loadFormData = () => {
     ID_INPUT_TASK.forEach((key, i) => {
         ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
     });
-    taskForm.id = userIds[0];
+    taskForm.id = userIds[0]; /// task id bearbeiten
     console.log(taskForm)
 };
 
