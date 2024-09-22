@@ -236,7 +236,7 @@ const loadFormData = async () => {
         while (ids.includes(String(nextId))) {
             nextId++;
         };
-        taskForm.id = String(nächsteId);
+        taskForm.id = String(nextId);
     } catch (err) {
         console.error('Beim Laden der Tasks ist ein Problem aufgetreten:', err);
     }
