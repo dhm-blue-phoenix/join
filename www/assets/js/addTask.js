@@ -6,7 +6,6 @@ import {
     addEventFromBtnUrgent,
     addEventFromBtnMedium,
     addEventFromBtnLow,
-    addEventFromAddAssigned,
     addEventFromAddSubTask,
     addEventFromDelListAssigned,
     addEventFromDelListSubTask
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addEventFromBtnUrgent();
     addEventFromBtnMedium();
     addEventFromBtnLow();
-    addEventFromAddAssigned();
     addEventFromAddSubTask();
     renderUsers();
 });
@@ -166,8 +164,6 @@ function createSortedUsers() {
                 }
             });
 
-
-
             toggleSelectedPersonContainer();  // Show or hide the container based on content
         };
 
@@ -212,13 +208,29 @@ async function initAddTask(event) {
     };
 };
 
-const loadFormData = () => {
+//----
+let taskIdCounter = 0;  // Globaler Zähler für Task-IDs
+const usedTaskIds = new Set();  // Set zum Speichern der verwendeten IDs
+
+const generateUniqueTaskId = () => {
+    while (usedTaskIds.has(taskIdCounter)) {  // Prüfe, ob die ID bereits verwendet wird
+        taskIdCounter++;  // Inkrementiere den Zähler
+    }
+    usedTaskIds.add(taskIdCounter);  // Füge die neue ID hinzu
+    return taskIdCounter;  // Gib die eindeutige ID zurück
+};
+
+const loadFormData = async () => {
     ID_INPUT_TASK.forEach((key, i) => {
         ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
     });
-    taskForm.id = userIds[0]; /// task id bearbeiten
-    console.log(taskForm)
+    const tempUsers = await retrievingData('user');
+    console.log('log', tempUsers);
+    return
+    taskForm.id = generateUniqueTaskId();  // Eindeutige Task-ID generieren
+    console.log(taskForm);
 };
+//----
 
 async function uploadData() {
     userIds.forEach(async (user) => {
@@ -241,9 +253,11 @@ const lastBtn = () => {
 
 const addListElement = (type) => {
     const input = document.getElementById(type);
-    const trimmedValue = input.value.trim();
+    const trimmedValue = input.value;
     if (!trimmedValue) return;
-    if (type === 'subtask') taskForm.subtask.push({ status: false, text: trimmedValue });
+    if (type === 'subtask') {
+        taskForm.subtask.push({ status: false, text: trimmedValue });
+    };
     input.value = '';
     renderList(type);
 };
@@ -251,8 +265,18 @@ const addListElement = (type) => {
 const renderList = (type) => {
     const listElement = document.getElementById(`${type}-list`);
     listElement.innerHTML = '';
-    const items = taskForm[type] || [];
-    items.forEach((item, index) => createListItem(type, item.name || item.text, index + 1));
+    const typeMapping = {
+        subtask: taskForm.subtask,
+    };
+    const items = typeMapping[type];
+    if (!items) return;
+    let number = 1;
+    items.forEach(item => {
+        const text = item.name || item.text;
+        if (text !== undefined) {
+            createListItem(type, text, number++);
+        };
+    });
     setDelSubtask();
 };
 
