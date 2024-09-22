@@ -134,14 +134,39 @@ function createSortedUsers() {
             // Go through all users and append initials of those with checked checkboxes
             document.querySelectorAll('.personCardsmall').forEach((card, index) => {
                 const cardCheckbox = card.querySelector('.Personcardcheckbox');
-                const cardInitialsDiv = card.querySelector('.Initialenperson');
+                const [name, short, color] = users[index + 2];
 
+                // Wenn die Checkbox nicht ausgewählt ist, entferne den Namen aus assignedActiv
+                if (!cardCheckbox.checked) {
+                    if (assignedActiv.includes(name)) {
+                        assignedActiv = assignedActiv.filter((user) => user !== name);
+                        taskForm.assigned = taskForm.assigned.filter(user => user.name !== name);
+                    };
+                };
+
+                // Wenn die Checkbox ausgewählt ist, füge das Element hinzu
                 if (cardCheckbox.checked) {
-                    // Clone the initialsDiv and append to the selected person container
-                    const selectedInitialsDiv = cardInitialsDiv.cloneNode(true);  // Clone the initials div
-                    selectedPersonContainer.appendChild(selectedInitialsDiv);  // Append it to the selected person container
+                    if (!assignedActiv.includes(name)) {
+                        taskForm.assigned.push({ name, short, color });
+                        assignedActiv.push(name);
+                    };
+                };
+            });
+
+            // Bereinige den selectedPersonContainer, bevor die neuen aktiven Nutzer hinzugefügt werden
+            selectedPersonContainer.innerHTML = '';  // Entferne alle bisherigen Einträge
+
+            // Füge alle aktiven Nutzer erneut hinzu
+            assignedActiv.forEach((activeName) => {
+                const userIndex = users.findIndex(user => user[0] === activeName);  // Finde den passenden Nutzer
+                if (userIndex !== -1) {
+                    const initialsDiv = document.querySelectorAll('.personCardsmall')[userIndex - 2].querySelector('.Initialenperson');  // Hole das passende Initialen-Div
+                    const selectedInitialsDiv = initialsDiv.cloneNode(true);  // Clone das Initialen-Div
+                    selectedPersonContainer.appendChild(selectedInitialsDiv);  // Füge es zum Container hinzu
                 }
             });
+
+
 
             toggleSelectedPersonContainer();  // Show or hide the container based on content
         };
@@ -171,13 +196,15 @@ function createSortedUsers() {
     toggleSelectedPersonContainer();  // Initially hide the container
 }
 
+
+// Startet die Initzialisierung von add task
 async function initAddTask(event) {
     event.preventDefault();
     try {
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
         loadFormData();
-        await uploadData();
+        // await uploadData();
         resetFrom();
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
@@ -216,37 +243,19 @@ const addListElement = (type) => {
     const input = document.getElementById(type);
     const trimmedValue = input.value.trim();
     if (!trimmedValue) return;
-    if (type === 'assigned') {
-        const [name, short, color] = trimmedValue.split(',');
-        if (!assignedActiv.includes(name)) {
-            taskForm.assigned.push({ name, short, color });
-            assignedActiv.push(name);
-        };
-    } else if (type === 'subtask') {
-        taskForm.subtask.push({ status: false, text: trimmedValue });
-    };
+    if (type === 'subtask') taskForm.subtask.push({ status: false, text: trimmedValue });
     input.value = '';
     renderList(type);
 };
 
 const renderList = (type) => {
     const listElement = document.getElementById(`${type}-list`);
-    listElement.innerHTML = ''; 
-    const typeMapping = {
-        assigned: taskForm.assigned,
-        subtask: taskForm.subtask,
-    };
-    const items = typeMapping[type];
-    if (!items) return;
-    let number = 1;
-    items.forEach(item => {
-        const text = item.name || item.text;
-        if (text !== undefined) {
-            createListItem(type, text, number++);
-        };
-    });
+    listElement.innerHTML = '';
+    const items = taskForm[type] || [];
+    items.forEach((item, index) => createListItem(type, item.name || item.text, index + 1));
     setDelSubtask();
 };
+
 
 const setDelSubtask = () => {
     for (let i = 0; i < (taskForm.assigned.length - 1); i++) {

@@ -7,7 +7,6 @@ import {
 
 const ID_FORM_ADD_TASK = document.getElementById('formAddTask');
 const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
-const ID_BTN_ADD_ASSIGNED = document.getElementById('addAssigned');
 const ID_BTN_URGENT = document.getElementById('urgent');
 const ID_BTN_MEDIUM = document.getElementById('medium');
 const ID_BTN_LOW = document.getElementById('low');
@@ -30,11 +29,6 @@ const addEventFromBtnMedium = () => {
 const addEventFromBtnLow = () => {
     ID_BTN_LOW.removeEventListener('click', handleLowClick);
     ID_BTN_LOW.addEventListener('click', handleLowClick);
-};
-
-const addEventFromAddAssigned = () => {
-    ID_BTN_ADD_ASSIGNED.removeEventListener('click', () => { addListElement() });
-    ID_BTN_ADD_ASSIGNED.addEventListener('click', () => { addListElement('assigned') });
 };
 
 const addEventFromAddSubTask = () => {
@@ -71,7 +65,6 @@ export {
     addEventFromBtnUrgent,
     addEventFromBtnMedium,
     addEventFromBtnLow,
-    addEventFromAddAssigned,
     addEventFromAddSubTask,
     addEventFromDelListAssigned,
     addEventFromDelListSubTask
