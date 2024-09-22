@@ -200,7 +200,7 @@ async function initAddTask(event) {
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
         loadFormData();
-        // await uploadData();
+        await uploadData();
         resetFrom();
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
     } catch (err) {
@@ -208,35 +208,55 @@ async function initAddTask(event) {
     };
 };
 
-//----
-let taskIdCounter = 0;  // Globaler Zähler für Task-IDs
-const usedTaskIds = new Set();  // Set zum Speichern der verwendeten IDs
-
-const generateUniqueTaskId = () => {
-    while (usedTaskIds.has(taskIdCounter)) {  // Prüfe, ob die ID bereits verwendet wird
-        taskIdCounter++;  // Inkrementiere den Zähler
-    }
-    usedTaskIds.add(taskIdCounter);  // Füge die neue ID hinzu
-    return taskIdCounter;  // Gib die eindeutige ID zurück
-};
-
 const loadFormData = async () => {
-    ID_INPUT_TASK.forEach((key, i) => {
-        ID_INPUT_TASK[i] && (taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value);
-    });
-    const tempUsers = await retrievingData('user');
-    console.log('log', tempUsers);
-    return
-    taskForm.id = generateUniqueTaskId();  // Eindeutige Task-ID generieren
-    console.log(taskForm);
+    try {
+        ID_INPUT_TASK.forEach((key, i) => {
+            if (ID_INPUT_TASK[i]) {
+                taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value;
+            }
+        });
+        const userData = await retrievingData('users');
+        const taskIds = [];
+        userData.forEach((user) => {
+            if (typeof user.tasks === 'object' && user.tasks !== null) {
+                Object.keys(user.tasks).forEach((key) => {
+                    if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
+                        if(!taskIds.includes(user.tasks[key].id)) {
+                            taskIds.push(user.tasks[key].id);
+                        };
+                    };
+                });
+                console.log('Aktualisierte Aufgaben:', user.tasks);
+            } else {
+                console.warn(`Die Aufgaben für Benutzer ${user.id} sind kein gültiges Objekt.`);
+            };
+        });
+        const ids = Array.from(taskIds).sort((a, b) => a - b);
+        let nextId = 0;
+        while (ids.includes(String(nextId))) {
+            nextId++;
+        };
+        taskForm.id = String(nächsteId);
+    } catch (err) {
+        console.error('Beim Laden der Tasks ist ein Problem aufgetreten:', err);
+    }
 };
-//----
 
 async function uploadData() {
-    userIds.forEach(async (user) => {
-        await uploadPatchData(`users/${user}/tasks/`, taskForm);
-    });
-};
+    try {
+        const userData = await retrievingData('');
+        const userIds = Object.keys(userData[0]);
+        if (userIds.length === 0) {
+            console.log('Keine Benutzer-IDs gefunden.');
+            return;
+        }
+        for (const userId of userIds) {
+            await uploadPatchData(`users/${userId}/tasks/`, taskForm);
+        }
+    } catch (error) {
+        console.error('Fehler beim Synchronisieren der Daten:', error);
+    }
+}
 
 const setBtnPrio = (prio) => {
     lastBtn();
