@@ -1,9 +1,11 @@
 import {
     initAddTask,
-    setBtnPrio,
     addListElement,
-    deleteItem
+    deleteItem,
+    taskForm
 } from './addTask.js';
+
+let lastBtnPrio = 'medium';
 
 const ID_FORM_ADD_TASK = document.getElementById('formAddTask');
 const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
@@ -60,6 +62,19 @@ const handleLowClick = () => {
     setBtnPrio('low');
 };
 
+const setBtnPrio = (prio) => {
+    lastBtn();
+    document.getElementById(prio).classList.add('activBtnPrio');
+    document.getElementById(prio).disabled = true;
+    taskForm.prio = prio;
+    lastBtnPrio = prio;
+};
+
+const lastBtn = () => {
+    document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');
+    document.getElementById(lastBtnPrio).disabled = false;
+};
+
 export {
     addEventFromAddTask,
     addEventFromBtnUrgent,
@@ -67,5 +82,6 @@ export {
     addEventFromBtnLow,
     addEventFromAddSubTask,
     addEventFromDelListAssigned,
-    addEventFromDelListSubTask
+    addEventFromDelListSubTask,
+    setBtnPrio
 };

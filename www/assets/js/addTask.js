@@ -1,4 +1,4 @@
-import { loadUserIdFromStored, loadElementByPatch, extractInitials, loadUserData } from './module/modules.js';
+import { loadUserIdFromStored, loadElementByPatch, extractInitials } from './module/modules.js';
 import { uploadPatchData, retrievingData } from './module/dataResponse.js';
 import { createListItem } from './addTask_createElements.js';
 import {
@@ -8,7 +8,8 @@ import {
     addEventFromBtnLow,
     addEventFromAddSubTask,
     addEventFromDelListAssigned,
-    addEventFromDelListSubTask
+    addEventFromDelListSubTask,
+    setBtnPrio
 } from './addTask_addEvents.js';
 
 const ID_SELECT_ASSIGNED = document.getElementById('assigned');
@@ -24,9 +25,7 @@ const RESET_TASK_FORM = {
     'category': '',
     'subtask': ['none']
 };
-let userIds = [USER_ID];
 let taskForm = RESET_TASK_FORM;
-let lastBtnPrio = 'medium';
 let taskId;
 let users = ['', 'Select contacts to assign'];
 let assignedActiv = [''];
@@ -49,7 +48,7 @@ const renderUsers = async () => {
             await createSortedUsers();
         });
     } catch (err) {
-        console.error('Beim laden der Contacte ist ein Problem aufgetreten:', err);
+        console.error('Beim laden der User ist ein Problem aufgetreten:', err);
     }
 };
 
@@ -73,6 +72,11 @@ document.addEventListener('click', (event) => {
     }
 });
 
+/*
+    Die Funktion ist viel zu Lang !!!!
+                                    ||
+                                    \/
+*/
 function createSortedUsers() {
     USER_CARDS_CONTAINER.innerHTML = ''; // Clear the container
     const selectedPersonContainer = document.getElementById('selectedPerson'); // Container for selected persons
@@ -192,14 +196,13 @@ function createSortedUsers() {
     toggleSelectedPersonContainer();  // Initially hide the container
 }
 
-
 // Startet die Initzialisierung von add task
 async function initAddTask(event) {
     event.preventDefault();
     try {
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
-        loadFormData();
+        loadDataToForm();
         await uploadData();
         resetFrom();
         console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
@@ -208,38 +211,38 @@ async function initAddTask(event) {
     };
 };
 
-const loadFormData = async () => {
+const loadDataToForm = async () => {
     try {
         ID_INPUT_TASK.forEach((key, i) => {
             if (ID_INPUT_TASK[i]) {
                 taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value;
             }
         });
-        const userData = await retrievingData('users');
-        const taskIds = [];
-        userData.forEach((user) => {
-            if (typeof user.tasks === 'object' && user.tasks !== null) {
-                Object.keys(user.tasks).forEach((key) => {
-                    if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
-                        if(!taskIds.includes(user.tasks[key].id)) {
-                            taskIds.push(user.tasks[key].id);
-                        };
-                    };
-                });
-                console.log('Aktualisierte Aufgaben:', user.tasks);
-            } else {
-                console.warn(`Die Aufgaben für Benutzer ${user.id} sind kein gültiges Objekt.`);
-            };
-        });
+        const taskIds = generatetTaskId();
         const ids = Array.from(taskIds).sort((a, b) => a - b);
         let nextId = 0;
-        while (ids.includes(String(nextId))) {
-            nextId++;
-        };
-        taskForm.id = String(nextId);
+        while (ids.includes(String(nextId))) { nextId++; };
+        taskForm.id = String(nextId);    
     } catch (err) {
         console.error('Beim Laden der Tasks ist ein Problem aufgetreten:', err);
     }
+};
+
+const generatetTaskId = async () => {
+    const userData = await retrievingData('users');
+    const taskIds = [];
+    userData.forEach((user) => {
+        if (typeof user.tasks === 'object' && user.tasks !== null) {
+            Object.keys(user.tasks).forEach((key) => {
+                if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
+                    if (!taskIds.includes(user.tasks[key].id)) {
+                        taskIds.push(user.tasks[key].id);
+                    };
+                };
+            });
+        };
+    });
+    return taskIds;
 };
 
 async function uploadData() {
@@ -258,25 +261,12 @@ async function uploadData() {
     }
 }
 
-const setBtnPrio = (prio) => {
-    lastBtn();
-    document.getElementById(prio).classList.add('activBtnPrio');
-    document.getElementById(prio).disabled = true;
-    taskForm.prio = prio;
-    lastBtnPrio = prio;
-};
-
-const lastBtn = () => {
-    document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');
-    document.getElementById(lastBtnPrio).disabled = false;
-};
-
 const addListElement = (type) => {
     const input = document.getElementById(type);
     const trimmedValue = input.value;
     if (!trimmedValue) return;
     if (type === 'subtask') {
-        taskForm.subtask.push({ status: false, text: trimmedValue });
+        taskForm.subtask.push({ status: false, text: trimmedValue })
     };
     input.value = '';
     renderList(type);
@@ -285,10 +275,7 @@ const addListElement = (type) => {
 const renderList = (type) => {
     const listElement = document.getElementById(`${type}-list`);
     listElement.innerHTML = '';
-    const typeMapping = {
-        subtask: taskForm.subtask,
-    };
-    const items = typeMapping[type];
+    const items = taskForm[type];
     if (!items) return;
     let number = 1;
     items.forEach(item => {
@@ -300,12 +287,7 @@ const renderList = (type) => {
     setDelSubtask();
 };
 
-
 const setDelSubtask = () => {
-    for (let i = 0; i < (taskForm.assigned.length - 1); i++) {
-        let number = (i + 1);
-        addEventFromDelListAssigned(number);
-    };
     for (let i = 0; i < (taskForm.subtask.length - 1); i++) {
         let number = (i + 1);
         addEventFromDelListSubTask(number);
@@ -336,7 +318,7 @@ const resetFromTaskForm = () => {
 
 export {
     initAddTask,
-    setBtnPrio,
     addListElement,
-    deleteItem
+    deleteItem,
+    taskForm
 };
