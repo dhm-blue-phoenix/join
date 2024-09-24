@@ -149,6 +149,8 @@ nav a:hover {
     justify-content: center;
     align-items: center;
     transition: 0.1s;
+    font-size: 14px;
+    font-weight: 100;
   }
   
   nav a:hover {
@@ -158,6 +160,7 @@ nav a:hover {
   }
   
   .navicons {
+    width: 24px;
     padding-left: 0;
   }
   
