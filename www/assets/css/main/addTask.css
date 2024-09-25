@@ -4,9 +4,9 @@
   Styles für den Taskmanager-Bereich.
   Definiert das Layout und die Stilelemente für die Taskverwaltung.
 */
-p{
+/* p{
   margin-bottom: 8px;
-}
+} */
 #selectedPerson{
   display: flex;
   padding: 8px;
@@ -533,7 +533,7 @@ padding: 0;
 }
   .userCardsContainer {
     display: none;
-    width: 96%;
+    width: 70%;
     background-color: var(--back-color04);
     border: 1px solid #d1d1d1;
     overflow: auto;
@@ -731,6 +731,10 @@ align-items: center;
 }
 
 @media (max-width: 770px) {
+  .userCardsContainer {
+    width: 96%;
+}
+
   .taskbuttoncreat {
     font-size: 18px;
   }
@@ -775,7 +779,7 @@ align-items: center;
   .layout button {
     height: 41px;
     padding: 20px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
   }
 
