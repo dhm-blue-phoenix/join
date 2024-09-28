@@ -1,5 +1,5 @@
 import { deleteTaskCard } from './board_delete_taskCard.js';
-import { loadUserIdFromStored, loadElementById } from './modules.js';
+import { loadUserIdFromStored, loadElementById, loadElementByPatch } from './modules.js';
 import { updateData } from './dataResponse.js';
 
 const IDS = ['TASK_ID', 'TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
@@ -16,9 +16,13 @@ let taskId;
  * @param {Object} taskData Ein Objekt, das die Details der Aufgabe enthält.
  * ====================================================================================================
  */
-export function initShowTaskDetails(taskData) {
+export async function initShowTaskDetails(taskId) {
     try {
+        const USER_ID = await loadUserIdFromStored();
+        const IDS = await loadElementByPatch(`users/${USER_ID}/`, 5);
+        console.log(IDS[+taskId]);
         IDS.forEach((id, value) => {
+            console.log('forEach', id, value)
             if (id === 'TASK_ID') taskId = taskData[value];
             if (['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO'].includes(id)) updateTextContent(id, taskData[value]);
             if (id === 'PERSONS') updatePersons(id, taskData[value]);
@@ -188,7 +192,7 @@ const createSubtask = (container, subtask, taskId, value) => {
     const SUBTASKS = document.createElement('div');
     SUBTASKS.className = 'taskcardbigsubtaskscheckbox';
     SUBTASKS.appendChild(createSubtaskInputBox(subtask.status, taskId, value));
-    SUBTASKS.appendChild(createSubtaskText(subtask.text));    
+    SUBTASKS.appendChild(createSubtaskText(subtask.text));
     container.appendChild(SUBTASKS);
 };
 
@@ -290,8 +294,8 @@ const updateSubtaskInputBox = async (status, id) => {
     const CARD_INDEX = getCardIndex(id);
     const USER_ID = await loadUserIdFromStored();
     const TASK_DATA = await loadElementById(`users/${USER_ID}`, CARD_INDEX, 'taskCard');
-    TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;   
-    await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, TASK_DATA[1].subtask);    
+    TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;
+    await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, TASK_DATA[1].subtask);
 };
 
 /**

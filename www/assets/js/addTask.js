@@ -1,4 +1,4 @@
-import { loadUserIdFromStored, loadElementByPatch, extractInitials } from './module/modules.js';
+import { loadUserIdFromStored, loadElementByPatch, extractInitials, loadTaskData } from './module/modules.js';
 import { uploadPatchData, retrievingData } from './module/dataResponse.js';
 import { createListItem } from './addTask_createElements.js';
 import {
@@ -205,7 +205,7 @@ async function initAddTask(event) {
         loadDataToForm();
         await uploadData();
         resetFrom();
-        console.warn('Erstellen des Tasks abgeschlossen!'); // [!] Ändern zu Benutzer-Feedback
+        loadNextPage();
     } catch (err) {
         console.error(`Es ist ein Fehler beim erstellen des Tasks aufgetreten! ${err}`);
     };
@@ -218,31 +218,14 @@ const loadDataToForm = async () => {
                 taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value;
             }
         });
-        const taskIds = generatetTaskId();
+        const taskIds = await loadTaskData();
         const ids = Array.from(taskIds).sort((a, b) => a - b);
         let nextId = 0;
         while (ids.includes(String(nextId))) { nextId++; };
-        taskForm.id = String(nextId);    
+        taskForm.id = String(nextId);
     } catch (err) {
         console.error('Beim Laden der Tasks ist ein Problem aufgetreten:', err);
     }
-};
-
-const generatetTaskId = async () => {
-    const userData = await retrievingData('users');
-    const taskIds = [];
-    userData.forEach((user) => {
-        if (typeof user.tasks === 'object' && user.tasks !== null) {
-            Object.keys(user.tasks).forEach((key) => {
-                if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
-                    if (!taskIds.includes(user.tasks[key].id)) {
-                        taskIds.push(user.tasks[key].id);
-                    };
-                };
-            });
-        };
-    });
-    return taskIds;
 };
 
 async function uploadData() {
@@ -314,6 +297,11 @@ const clearInput = () => {
 
 const resetFromTaskForm = () => {
     taskForm = RESET_TASK_FORM;
+};
+
+const loadNextPage = () => {
+    localStorage.setItem('activNavBtn', 'nav-btn1');
+    window.location.href = './board.html';
 };
 
 export {

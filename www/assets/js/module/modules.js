@@ -14,7 +14,7 @@ const storedSessionUserID = sessionStorage.getItem('userID');
  * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
  * ====================================================================================================
  */
-export async function loadUserData(find) {
+async function loadUserData(find) {
     try {
         const users = await retrievingData('');
         const user = await findUser(users[0], find);
@@ -48,7 +48,7 @@ async function findUser(users, find) {
  * @returns {Object} Die Benutzerdaten des bestimmten Benutzers.
  * ====================================================================================================
  */
-export async function findUserById(uid) {
+async function findUserById(uid) {
     return await retrievingData('users/' + uid);
 };
 
@@ -63,7 +63,7 @@ export async function findUserById(uid) {
  * @throws {Error} Wenn keine Benutzer-ID gefunden wird.
  * ====================================================================================================
  */
-export function loadUserIdFromStored() {
+function loadUserIdFromStored() {
     if (storedLocalUserID) return storedLocalUserID;
     if (storedSessionUserID) return storedSessionUserID;
     window.location.href = './index.html';
@@ -83,7 +83,7 @@ export function loadUserIdFromStored() {
  * @throws {Error} Wenn ein Fehler beim Laden der Kontakt-ID auftritt.
  * ====================================================================================================
  */
-export async function getContactId(userID, email, category) {
+async function getContactId(userID, email, category) {
     return await loadElementById(`users/${userID}/`, email, category);
 };
 
@@ -97,7 +97,7 @@ export async function getContactId(userID, email, category) {
  * @returns {String} Die Initialen des Benutzers.
  * ====================================================================================================
  */
-export function extractInitials(username) {
+function extractInitials(username) {
     return username.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
 };
 
@@ -115,8 +115,8 @@ export function extractInitials(username) {
  * @throws {Error} Wenn ein Fehler beim Abrufen der Daten auftritt.
  * ====================================================================================================
  */
-export async function loadElementByPatch(patch, value) {
-    const DATA = await retrievingData(patch);   
+async function loadElementByPatch(patch, value) {
+    const DATA = await retrievingData(patch);
     const CARTS = Object.values(DATA[value]);
     return CARTS;
 };
@@ -140,13 +140,13 @@ export async function loadElementByPatch(patch, value) {
  * @param {string} category Die Kategorie des Elements (z.B. 'taskCard' oder 'contactCard').
  * @returns {Promise<string|number|undefined>} Die gefundene ID des Elements oder `undefined`, wenn kein Element gefunden wird.
  */
-export async function loadElementById(patch, type, category) {
-    if(category === 'taskCard') {
+async function loadElementById(patch, type, category) {
+    if (category === 'taskCard') {
         const DATA = await retrievingData(patch);
         const TASK_ID = await findTaskById(DATA[5], type);
-        return TASK_ID;      
+        return TASK_ID;
     }
-    if(category === 'contactCard') {
+    if (category === 'contactCard') {
         const DATA = await retrievingData(patch);
         const CONTACT_ID = await findContactById(DATA[0], type);
         return CONTACT_ID;
@@ -198,7 +198,7 @@ async function findContactById(contacts, findEmail) {
  * @throws {Error} Wenn ein Fehler beim Löschen der Daten auftritt.
  * ====================================================================================================
  */
-export async function deletElementById(patch) {
+async function deletElementById(patch) {
     await deleteData(patch);
 };
 
@@ -211,6 +211,37 @@ export async function deletElementById(patch) {
  * @function reloadWindow
  * @returns {void} Die Funktion gibt keinen Wert zurück, sondern lädt das Fenster neu.
  */
-export const reloadWindow = () => {
+const reloadWindow = () => {
     window.location.reload();
+};
+
+// KEINE BESCHREIBUNG!!!
+const loadTaskData = async () => {
+    const userData = await retrievingData('users');
+    const taskIds = [];
+    userData.forEach((user) => {
+        if (typeof user.tasks === 'object' && user.tasks !== null) {
+            Object.keys(user.tasks).forEach((key) => {
+                if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
+                    if (!taskIds.includes(user.tasks[key].id)) {
+                        taskIds.push(user.tasks[key].id);
+                    };
+                };
+            });
+        };
+    });
+    return taskIds;
+};
+
+export {
+    loadTaskData,
+    reloadWindow,
+    deletElementById,
+    loadElementById,
+    loadElementByPatch,
+    extractInitials,
+    getContactId,
+    loadUserIdFromStored,
+    findUserById,
+    loadUserData,
 };

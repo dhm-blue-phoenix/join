@@ -1,8 +1,3 @@
-const CATEGORY_OPTION_VALUES = [
-    'User Story',
-    'Technical Task'
-];
-
 const TASK_STATUS = [
     {
         'value': 'taskToDo',
@@ -41,50 +36,18 @@ const TASK_STATUS = [
  * @returns {void} Die Funktion gibt keinen Wert zurück, sondern fügt die erstellte Task-Karte in das DOM ein.
  * ====================================================================================================
  */
-export const createTaskCard = (cardId, headline, description, users, date, BTNprio, category, subtask) => {
+export const createTaskCard = (cardId, headline, description, users, category, subtask) => {
     const TASK_CARD = document.createElement('div');
     TASK_CARD.id = `taskCardID${cardId}`;
     TASK_CARD.className = 'taskcard';
     TASK_CARD.draggable = true;
-    setAttributeFromTaskCard(TASK_CARD, cardId, headline, description, users, date, BTNprio, category, subtask);
+    TASK_CARD.setAttribute('task-id', cardId);
     TASK_CARD.appendChild(createCategory(category));
     TASK_CARD.appendChild(createDescription(headline, description));
     TASK_CARD.appendChild(createProgress(subtask));
     TASK_CARD.appendChild(createPerson(users));
-    TASK_CARD.appendChild(createMobile(category));
+    TASK_CARD.appendChild(createMobile());
     document.getElementById(TASK_STATUS[0].value).appendChild(TASK_CARD);
-};
-
-/**
- * Setzt verschiedene Attribute für die Task-Karte.
- * ====================================================================================================
- * Diese Funktion setzt basierend auf den übergebenen Parametern verschiedene Attribute für die 
- * übergebene Task-Karte. Die Attribute werden direkt am DOM-Element gesetzt.
- * ====================================================================================================
- * @function setAttributeFromTaskCard
- * @param {HTMLElement} TASK_CARD Das DOM-Element der Task-Karte.
- * @param {number} cardId Die eindeutige ID der Task-Karte.
- * @param {string} headline Die Überschrift der Aufgabe.
- * @param {string} description Eine Beschreibung der Aufgabe.
- * @param {Array} contacts Eine Liste von Kontakten, die der Aufgabe zugewiesen sind.
- * @param {string} date Das Fälligkeitsdatum der Aufgabe.
- * @param {string} BTNprio Die Priorität der Aufgabe.
- * @param {string} category Die Kategorie der Aufgabe.
- * @param {Array} subtask Eine Liste von Unteraufgaben.
- * ====================================================================================================
- * @returns {HTMLElement} Das Task-Karten-Element mit den gesetzten Attributen.
- * ====================================================================================================
- */
-const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, contacts, date, BTNprio, category, subtask) => {
-    TASK_CARD.setAttribute('task-id', cardId);
-    TASK_CARD.setAttribute('task-headline', headline);
-    TASK_CARD.setAttribute('task-description', description);
-    TASK_CARD.setAttribute('task-contacts', JSON.stringify(contacts));
-    TASK_CARD.setAttribute('task-date', date);
-    TASK_CARD.setAttribute('task-btnprio', BTNprio);
-    TASK_CARD.setAttribute('task-category', CATEGORY_OPTION_VALUES[category]);
-    TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtask));
-    return TASK_CARD;
 };
 
 /**
@@ -102,7 +65,7 @@ const setAttributeFromTaskCard = (TASK_CARD, cardId, headline, description, cont
 const createCategory = (category) => {
     const CATEGORY = document.createElement('p');
     CATEGORY.className = 'taskcardtitle';
-    CATEGORY.textContent = CATEGORY_OPTION_VALUES[category];
+    CATEGORY.textContent = category;
     return CATEGORY;
 };
 
@@ -334,10 +297,10 @@ const createPersonShortcutContent = (contact) => {
  * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'taskbottommobilesmall', das die Kategorie und einen Button enthält.
  * ====================================================================================================
  */
-const createMobile = (category) => {
+const createMobile = () => {
     const MOBILE = document.createElement('div');
     MOBILE.className = 'taskbottommobilesmall';
-    MOBILE.appendChild(createMobileCategory(category));
+    MOBILE.appendChild(createMobileCategory());
     MOBILE.appendChild(createMobileButton());
     return MOBILE;
 };
@@ -354,7 +317,7 @@ const createMobile = (category) => {
  * @returns {HTMLElement} Ein `select`-Element, das ein Dropdown-Menü mit den verfügbaren Kategorien enthält.
  * ====================================================================================================
  */
-const createMobileCategory = (category) => {
+const createMobileCategory = () => {
     const MOBILE_CATEGORY = document.createElement('select');
     MOBILE_CATEGORY.id = 'taskCategorySelect';
 
@@ -363,7 +326,7 @@ const createMobileCategory = (category) => {
         event.stopPropagation(); // Verhindert, dass das Klick-Event das Popup öffnet
     });
 
-    MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(TASK_STATUS[category]));
+    MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(TASK_STATUS[0]));
     TASK_STATUS.forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
     return MOBILE_CATEGORY;
 };

@@ -17,7 +17,7 @@
  * =======================================================================
 */
 
-import { loadUserIdFromStored, loadElementByPatch, reloadWindow } from './module/modules.js';
+import { loadUserIdFromStored, loadElementByPatch, reloadWindow, loadTaskData } from './module/modules.js';
 import { createTaskCard } from './module/board_create_taskCard.js';
 import { initShowTaskDetails } from './module/board_show_taskDetails.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board_draganddrop.js';
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * zum Schließen des Task-Karten-Popups geklickt wird.
  * ====================================================================================================
  */
-const addEventFromCloseTaskCard = () => {   
+const addEventFromCloseTaskCard = () => {
     setTimeout(() => {
         const ELEMENT = document.getElementById('CLOSE_TASK_CARD_POPUP');
         ELEMENT.removeEventListener('click', reloadWindow);
@@ -72,8 +72,9 @@ async function initTaskBord() {
         const userID = await loadUserIdFromStored();
         const tempTasks = await loadElementByPatch(`users/${userID}/`, 5);
         const taskFilters = tempTasks.filter(task => task && task.title);
-        taskFilters.forEach((data, id) => {
-            createTaskCard(id, data.title, data.description, data.assigned, data.date, data.prio, data.category, data.subtask);
+        taskFilters.forEach((task) => {
+            let { id, title: headline, description, assigned: users, category, subtask } = task;
+            createTaskCard(id, headline, description, users, category, subtask);
             addEventFromTaskCard(`taskCardID${id}`);
         });
     } catch (err) {
@@ -109,31 +110,7 @@ const addEventFromTaskCard = (id) => {
  */
 const handleClick = (event) => {
     const TARGET = event.currentTarget;
-    const TASK_DATA = loadDataFromAttribute(TARGET);
-    showPopup('TaskcardPopupanimation', 'taskCardpopup');
-    initShowTaskDetails(TASK_DATA);
-};
-
-/**
- * Lädt verschiedene Attribute von einem gegebenen Ziel-Element und gibt sie als Array zurück.
- * ====================================================================================================
- * Diese Funktion extrahiert spezifische Attribute aus dem DOM-Element `TARGET` und gibt sie in einer 
- * bestimmten Reihenfolge als Array zurück. Jedes Attribut repräsentiert ein spezifisches Merkmal einer Aufgabe.
- * ====================================================================================================
- * @param {HTMLElement} TARGET Das DOM-Element, von dem die Attribute gelesen werden sollen.
- * @returns {Array} Ein Array, das die geladenen Attributwerte sowie eine zusätzliche Konstante enthält.
- *                  Die Reihenfolge der Elemente im Array ist:
- *                  [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK, 'BTN_CONTAINER']
- * ====================================================================================================
- */
-const loadDataFromAttribute = (TARGET) => {
-    const TASK_CATEGORY = TARGET.getAttribute('task-category');
-    const TASK_HEADLINE = TARGET.getAttribute('task-headline');
-    const TASK_DESCRIPTION = TARGET.getAttribute('task-description');
-    const TASK_DATE = TARGET.getAttribute('task-date');
-    const TASK_BTN_PRIO = TARGET.getAttribute('task-btnprio');
-    const TASK_CONTACT = TARGET.getAttribute('task-contacts');
-    const TASK_SUBTASK = TARGET.getAttribute('task-subtask');
     const TASK_ID = TARGET.getAttribute('task-id');
-    return [TASK_ID, TASK_CATEGORY, TASK_HEADLINE, TASK_DESCRIPTION, TASK_DATE, TASK_BTN_PRIO, TASK_CONTACT, TASK_SUBTASK, 'BTN_CONTAINER'];
+    showPopup('TaskcardPopupanimation', 'taskCardpopup');
+    initShowTaskDetails(TASK_ID);
 };
