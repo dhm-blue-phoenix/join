@@ -260,6 +260,7 @@ const createPerson = (contacts) => {
 const createPersonShortcut = (contacts) => {
     const PERSON_SHORTCUT = document.createElement('div');
     PERSON_SHORTCUT.className = 'nameShortcutContent';
+    contacts = contacts.filter(item => item !== 'none');
     contacts.forEach(contact => PERSON_SHORTCUT.appendChild(createPersonShortcutContent(contact)));
     return PERSON_SHORTCUT;
 };
@@ -280,8 +281,8 @@ const createPersonShortcutContent = (contact) => {
     const PERSON_SHORTCUT_CONTENT = document.createElement('div');
     PERSON_SHORTCUT_CONTENT.id = 'nameShortcut';
     PERSON_SHORTCUT_CONTENT.style.marginLeft = '-10px';
-    PERSON_SHORTCUT_CONTENT.style.backgroundColor = contact[3];
-    PERSON_SHORTCUT_CONTENT.textContent = contact[2];
+    PERSON_SHORTCUT_CONTENT.style.backgroundColor = contact.color;
+    PERSON_SHORTCUT_CONTENT.textContent = contact.short;
     return PERSON_SHORTCUT_CONTENT;
 };
 

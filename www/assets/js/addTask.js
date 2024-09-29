@@ -216,7 +216,7 @@ const loadDataToForm = async () => {
         ID_INPUT_TASK.forEach((key, i) => {
             if (ID_INPUT_TASK[i]) {
                 taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value;
-            }
+            };
         });
         const taskIds = await loadTaskData();
         const ids = Array.from(taskIds).sort((a, b) => a - b);
@@ -235,10 +235,10 @@ async function uploadData() {
         if (userIds.length === 0) {
             console.log('Keine Benutzer-IDs gefunden.');
             return;
-        }
+        };
         for (const userId of userIds) {
             await uploadPatchData(`users/${userId}/tasks/`, taskForm);
-        }
+        };
     } catch (error) {
         console.error('Fehler beim Synchronisieren der Daten:', error);
     }

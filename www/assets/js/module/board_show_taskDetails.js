@@ -1,8 +1,10 @@
 import { deleteTaskCard } from './board_delete_taskCard.js';
-import { loadUserIdFromStored, loadElementById, loadElementByPatch } from './modules.js';
-import { updateData } from './dataResponse.js';
+import { loadUserIdFromStored, loadElementById, loadElementByPatch, loadTaskData } from './modules.js';
+import { updateData, retrievingData } from './dataResponse.js';
 
-const IDS = ['TASK_ID', 'TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
+const IDS = ['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
+const item = ['category', 'title', 'description', 'date', 'prio', 'assigned', 'subtask'];
+let USER_ID;
 let taskId;
 
 /**
@@ -18,22 +20,33 @@ let taskId;
  */
 export async function initShowTaskDetails(taskId) {
     try {
-        const USER_ID = await loadUserIdFromStored();
-        const IDS = await loadElementByPatch(`users/${USER_ID}/`, 5);
-        console.log(IDS[+taskId]);
+        taskId = taskId;
+        USER_ID = await loadUserIdFromStored();
+        const dataResponse = await loadElementByPatch(`users/${USER_ID}/`, 5);
+        const taskData = dataResponse[+taskId];
         IDS.forEach((id, value) => {
-            console.log('forEach', id, value)
-            if (id === 'TASK_ID') taskId = taskData[value];
-            if (['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO'].includes(id)) updateTextContent(id, taskData[value]);
-            if (id === 'PERSONS') updatePersons(id, taskData[value]);
-            if (id === 'SUBTASKS') updateSubtasks(id, taskData[value], taskId);
+            if (['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO'].includes(id)) updateTextContent(id, taskData[item[value]]);
+            if (id === 'PERSONS') {
+                let persion = taskData[item[value]].filter(item => item !== 'none');
+                if (persion.length > 0) {
+                    updatePersons(id, persion);
+                };
+            };
+            if (id === 'SUBTASKS') {
+                let subtask = taskData[item[value]].filter(item => item !== 'none');
+                if (subtask.length > 0) {
+                    updateSubtasks(id, subtask, taskId, true);
+                } else {
+                    updateSubtasks(id, '', taskId, false)
+                };
+            };
             if (id === 'BTN_CONTAINER') updateButtonContainer(id, taskId);
         });
-        addEventFromDelTaskCard();
+        // addEventFromDelTaskCard();
     } catch (err) {
         console.error(err);
-    }
-}
+    };
+};
 
 /**
  * Aktualisiert den Textinhalt eines HTML-Elements.
@@ -66,7 +79,7 @@ const updateTextContent = (id, text) => {
 const updatePersons = (id, personsData) => {
     const element = document.getElementById(id);
     element.innerHTML = '';
-    JSON.parse(personsData).forEach(personData => createPersionCard(element, personData));
+    personsData.forEach(personData => createPersionCard(element, personData));
 };
 
 /**
@@ -79,16 +92,14 @@ const updatePersons = (id, personsData) => {
  * ====================================================================================================
  * @function updateSubtasks
  * @param {string} id Die ID des HTML-Elements, das die Unteraufgaben enthält.
- * @param {string} subtasksData Ein JSON-String, der ein Array von Unteraufgaben enthält.
+ * @param {string} subtasks Ein JSON-String, der ein Array von Unteraufgaben enthält.
  * @param {number} taskId Die ID der aktuellen Aufgabe, um die Unteraufgaben eindeutig zuzuordnen.
  * ====================================================================================================
  */
-const updateSubtasks = (id, subtasksData, taskId) => {
+const updateSubtasks = (id, subtasks, taskId, status) => {
     const element = document.getElementById(id);
-    const subtasks = JSON.parse(subtasksData);
     element.innerHTML = '';
-    subtasks.shift();
-    if (subtasks[0] === undefined) element.textContent = 'Keine Subtask gefunden!';
+    if (status === false) return element.textContent = 'Keine Subtask gefunden!';
     subtasks.forEach((subtask, index) => {
         createSubtask(element, subtask, taskId, index);
         createAddEventFromCheackbox(`CHEACKBOX_${taskId}${index}`);
@@ -131,8 +142,8 @@ const updateButtonContainer = (id, taskId) => {
 const createPersionCard = (container, persionData) => {
     const PERSION = document.createElement('div');
     PERSION.className = 'taskcardbigassignedtoperson';
-    PERSION.appendChild(createPersionShortname(persionData[3], persionData[2]));
-    PERSION.appendChild(createPersionName(persionData[1]));
+    PERSION.appendChild(createPersionShortname(persionData.color, persionData.short));
+    PERSION.appendChild(createPersionName(persionData.name));
     container.appendChild(PERSION);
 };
 
@@ -285,18 +296,58 @@ const handleChange = (change, id) => {
  * ====================================================================================================
  */
 const updateSubtaskInputBox = async (status, id) => {
+    // ⚠️ - IN BEARBEITUNG
     const INPUT_BOX = document.getElementById(id);
     INPUT_BOX.change = status;
-    const CHECKBOX_INDEX = getCheckboxIndex(id);
-    const SUBTASKS = getSubtasksForTask();
-    SUBTASKS[CHECKBOX_INDEX + 1].status = status;
-    updateTaskSubtasks(SUBTASKS);
-    const CARD_INDEX = getCardIndex(id);
-    const USER_ID = await loadUserIdFromStored();
-    const TASK_DATA = await loadElementById(`users/${USER_ID}`, CARD_INDEX, 'taskCard');
-    TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;
-    await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, TASK_DATA[1].subtask);
+    const { task, sub } = getCheckboxIndex(id);
+    const SUBTASKS = await loadElementById(`users/${USER_ID}`, task, 'taskCard');
+    // const SUBTASKS = getSubtasksForTask(); //SOLL STADESSEN DIE DATEN VOM SERVER LADEN
+    // SUBTASKS[CHECKBOX_INDEX + 1].status = status;
+    // updateTaskSubtasks(, task);
+    // const CARD_INDEX = getCardIndex(id);
+    // const TASK_DATA = await loadElementById(`users/${USER_ID}`, CARD_INDEX, 'taskCard');
+    // TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;
+    const currentSubtask = SUBTASKS[1].subtask[sub+1]; 
+    currentSubtask.status = true;
+    // aktuallisiere die daten bei allen users
+    // await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, currentSubtask);
+    // const updateTask = await loadTaskData();
+    const userData = await updateTask(task, [sub+1], currentSubtask);
+    console.log(userData)
 };
+
+const updateTask = async (currentTask, sub, currentSubtask) => {
+    const userData = await retrievingData('users');
+    userData.forEach((user) => {
+        if (typeof user.tasks === 'object' && user.tasks !== null) {
+            Object.keys(user.tasks).forEach((key) => {
+                if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
+                    if(user.tasks[key].id === currentTask) {
+                        user.tasks[key].subtask[sub] = currentSubtask;
+                    };
+                };
+            });
+        };
+    });
+    console.log('log', )
+    return userData;
+};
+
+async function uploadData() {
+    try {
+        const userData = await retrievingData('');
+        const userIds = Object.keys(userData[0]);
+        if (userIds.length === 0) {
+            console.log('Keine Benutzer-IDs gefunden.');
+            return;
+        };
+        for (const userId of userIds) {
+            await uploadPatchData(`users/${userId}/tasks/`, );
+        };
+    } catch (error) {
+        console.error('Fehler beim Synchronisieren der Daten:', error);
+    }
+}
 
 /**
  * Extrahiert den Index der Checkbox aus der ID.
@@ -306,7 +357,16 @@ const updateSubtaskInputBox = async (status, id) => {
  * @returns {number} Der Index der Checkbox.
  * ====================================================================================================
  */
-const getCheckboxIndex = (id) => parseInt(id.slice(-1), 10);
+const getCheckboxIndex = (id) => {
+    const regex = /CHEACKBOX_(\d)(\d)/;
+    const match = id.match(regex);
+    if (match) {
+      const task = String(parseInt(match[1], 10));
+      const sub = parseInt(match[2], 10);
+      return { task, sub };
+    };
+    return { task: null, sub: null };
+  };
 
 /**
  * Ruft die Unteraufgaben für eine bestimmte Task-Card ab.
@@ -315,8 +375,8 @@ const getCheckboxIndex = (id) => parseInt(id.slice(-1), 10);
  * @returns {Array} Eine Liste der Unteraufgaben der Task-Card.
  * ====================================================================================================
  */
-const getSubtasksForTask = () => {
-    const TASK_CARD = document.getElementById(`taskCardID${taskId}`);
+const getSubtasksForTask = (id) => {
+    const TASK_CARD = document.getElementById(`taskCardID${id}`);
     return JSON.parse(TASK_CARD.getAttribute('task-subtask'));
 };
 
@@ -327,8 +387,8 @@ const getSubtasksForTask = () => {
  * @param {Array} subtasks Die aktualisierte Liste der Unteraufgaben.
  * ====================================================================================================
  */
-const updateTaskSubtasks = (subtasks) => {
-    const TASK_CARD = document.getElementById(`taskCardID${taskId}`);
+const updateTaskSubtasks = (subtasks, task) => {
+    const TASK_CARD = document.getElementById(`taskCardID${task}`);
     TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtasks));
 };
 
@@ -340,7 +400,9 @@ const updateTaskSubtasks = (subtasks) => {
  * @returns {number} Der Index der Task-Card.
  * ====================================================================================================
  */
-const getCardIndex = (id) => parseInt(id.slice(-2, -1), 10) + 1;
+const getCardIndex = (id) => {
+    return parseInt(id.slice(-2, -1), 10) + 1;
+};
 
 /**
  * Erstellt einen Bearbeiten-Button für eine Task-Karte.
