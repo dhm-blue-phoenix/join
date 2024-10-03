@@ -236,9 +236,7 @@ async function uploadData() {
             console.log('Keine Benutzer-IDs gefunden.');
             return;
         };
-        for (const userId of userIds) {
-            await uploadPatchData(`users/${userId}/tasks/`, taskForm);
-        };
+        await uploadPatchData(`board/`, taskForm);
     } catch (error) {
         console.error('Fehler beim Synchronisieren der Daten:', error);
     }

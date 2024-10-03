@@ -17,7 +17,7 @@ const storedSessionUserID = sessionStorage.getItem('userID');
 async function loadUserData(find) {
     try {
         const users = await retrievingData('');
-        const user = await findUser(users[0], find);
+        const user = await findUser(users[1], find);
         return user;
     } catch (err) { };
 };
@@ -217,7 +217,7 @@ const reloadWindow = () => {
 
 // KEINE BESCHREIBUNG!!!
 const loadTaskData = async () => {
-    const userData = await retrievingData('users');
+    const userData = await retrievingData('board');
     const taskIds = [];
     userData.forEach((user) => {
         if (typeof user.tasks === 'object' && user.tasks !== null) {

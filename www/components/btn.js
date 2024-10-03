@@ -7,7 +7,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     navInit();
-  }, 100);
+  }, 1000);
 });
 
 /**

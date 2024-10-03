@@ -18,6 +18,7 @@
 */
 
 import { loadUserIdFromStored, loadElementByPatch, reloadWindow, loadTaskData } from './module/modules.js';
+import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board_create_taskCard.js';
 import { initShowTaskDetails } from './module/board_show_taskDetails.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board_draganddrop.js';
@@ -69,8 +70,7 @@ const addEventFromCloseTaskCard = () => {
  */
 async function initTaskBord() {
     try {
-        const userID = await loadUserIdFromStored();
-        const tempTasks = await loadElementByPatch(`users/${userID}/`, 5);
+        const tempTasks = await retrievingData(`board/`);
         const taskFilters = tempTasks.filter(task => task && task.title);
         taskFilters.forEach((task) => {
             let { id, title: headline, description, assigned: users, category, subtask } = task;

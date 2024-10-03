@@ -21,9 +21,8 @@ let taskId;
 export async function initShowTaskDetails(taskId) {
     try {
         taskId = taskId;
-        USER_ID = await loadUserIdFromStored();
-        const dataResponse = await loadElementByPatch(`users/${USER_ID}/`, 5);
-        const taskData = dataResponse[+taskId];
+        const dataResponse = await retrievingData('board');
+        const taskData = dataResponse.find(task => task.id === taskId);
         IDS.forEach((id, value) => {
             if (['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO'].includes(id)) updateTextContent(id, taskData[item[value]]);
             if (id === 'PERSONS') {
@@ -300,54 +299,11 @@ const updateSubtaskInputBox = async (status, id) => {
     const INPUT_BOX = document.getElementById(id);
     INPUT_BOX.change = status;
     const { task, sub } = getCheckboxIndex(id);
-    const SUBTASKS = await loadElementById(`users/${USER_ID}`, task, 'taskCard');
-    // const SUBTASKS = getSubtasksForTask(); //SOLL STADESSEN DIE DATEN VOM SERVER LADEN
-    // SUBTASKS[CHECKBOX_INDEX + 1].status = status;
-    // updateTaskSubtasks(, task);
-    // const CARD_INDEX = getCardIndex(id);
-    // const TASK_DATA = await loadElementById(`users/${USER_ID}`, CARD_INDEX, 'taskCard');
-    // TASK_DATA[1].subtask[CHECKBOX_INDEX + 1].status = status;
-    const currentSubtask = SUBTASKS[1].subtask[sub+1]; 
-    currentSubtask.status = true;
-    // aktuallisiere die daten bei allen users
-    // await updateData(`users/${USER_ID}/tasks/${TASK_DATA[0]}/subtask`, currentSubtask);
-    // const updateTask = await loadTaskData();
-    const userData = await updateTask(task, [sub+1], currentSubtask);
-    console.log(userData)
+    const tasks = await retrievingData('');
+    const currentTasks = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === task);
+    currentTasks[1].subtask[sub + 1].status = true;
+    updateData(`board/${currentTasks[0]}`, currentTasks[1]);
 };
-
-const updateTask = async (currentTask, sub, currentSubtask) => {
-    const userData = await retrievingData('users');
-    userData.forEach((user) => {
-        if (typeof user.tasks === 'object' && user.tasks !== null) {
-            Object.keys(user.tasks).forEach((key) => {
-                if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
-                    if(user.tasks[key].id === currentTask) {
-                        user.tasks[key].subtask[sub] = currentSubtask;
-                    };
-                };
-            });
-        };
-    });
-    console.log('log', )
-    return userData;
-};
-
-async function uploadData() {
-    try {
-        const userData = await retrievingData('');
-        const userIds = Object.keys(userData[0]);
-        if (userIds.length === 0) {
-            console.log('Keine Benutzer-IDs gefunden.');
-            return;
-        };
-        for (const userId of userIds) {
-            await uploadPatchData(`users/${userId}/tasks/`, );
-        };
-    } catch (error) {
-        console.error('Fehler beim Synchronisieren der Daten:', error);
-    }
-}
 
 /**
  * Extrahiert den Index der Checkbox aus der ID.
@@ -361,12 +317,12 @@ const getCheckboxIndex = (id) => {
     const regex = /CHEACKBOX_(\d)(\d)/;
     const match = id.match(regex);
     if (match) {
-      const task = String(parseInt(match[1], 10));
-      const sub = parseInt(match[2], 10);
-      return { task, sub };
+        const task = String(parseInt(match[1], 10));
+        const sub = parseInt(match[2], 10);
+        return { task, sub };
     };
     return { task: null, sub: null };
-  };
+};
 
 /**
  * Ruft die Unteraufgaben für eine bestimmte Task-Card ab.
