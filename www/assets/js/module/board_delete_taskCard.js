@@ -1,4 +1,6 @@
-import { loadUserIdFromStored, loadElementById, deletElementById, reloadWindow } from './modules.js';
+import { deletElementById, reloadWindow } from './modules.js';
+import { retrievingData } from './dataResponse.js';
+
 
 /**
  * Löscht eine bestimmte Task-Karte und lädt das Board neu.
@@ -14,29 +16,9 @@ import { loadUserIdFromStored, loadElementById, deletElementById, reloadWindow }
  * ====================================================================================================
  */
 export async function deleteTaskCard(event) {
-    const USER_ID = await loadUserIdFromStored();
-    const DATA = await fetchData(event);
-    await await deletElementById(`users/${USER_ID}/tasks/${DATA[0]}`);
+    const taskId = event.currentTarget.getAttribute('task-id');
+    const tasks = await retrievingData('');
+    const currentTask = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === taskId);
+    await await deletElementById(`board/${currentTask[0]}`);
     reloadWindow();
-};
-
-/**
- * Holt Daten einer bestimmten Aufgabe aus der Datenbank basierend auf einem Klick-Event.
- * ====================================================================================================
- * Diese Funktion extrahiert die `task-id` aus dem geklickten Element, inkrementiert diese um 1,
- * lädt die Benutzer-ID aus dem Speicher und ruft dann die Aufgabe mit der neuen ID aus der 
- * Datenquelle ab.
- * ====================================================================================================
- * @async
- * @function fetchData
- * @param {Event} event Das Event-Objekt, das das geklickte Element repräsentiert.
- * @returns {Promise<Object>} Ein Promise, das das geladene Aufgabenobjekt zurückgibt.
- * ====================================================================================================
- */
-const fetchData = async (event) => {
-    const TARGET = event.currentTarget;
-    let TASK_ID = Number(TARGET.getAttribute('task-id'));                
-    TASK_ID += 1;
-    const USER_ID = await loadUserIdFromStored();
-    return await loadElementById(`users/${USER_ID}`, TASK_ID, 'taskCard');
 };

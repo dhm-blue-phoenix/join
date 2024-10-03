@@ -17,7 +17,7 @@
  * =======================================================================
 */
 
-import { loadUserIdFromStored, loadElementByPatch, reloadWindow, loadTaskData } from './module/modules.js';
+import { reloadWindow } from './module/modules.js';
 import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board_create_taskCard.js';
 import { initShowTaskDetails } from './module/board_show_taskDetails.js';

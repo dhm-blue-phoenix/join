@@ -1,10 +1,8 @@
 import { deleteTaskCard } from './board_delete_taskCard.js';
-import { loadUserIdFromStored, loadElementById, loadElementByPatch, loadTaskData } from './modules.js';
 import { updateData, retrievingData } from './dataResponse.js';
 
 const IDS = ['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
 const item = ['category', 'title', 'description', 'date', 'prio', 'assigned', 'subtask'];
-let USER_ID;
 let taskId;
 
 /**
@@ -18,9 +16,9 @@ let taskId;
  * @param {Object} taskData Ein Objekt, das die Details der Aufgabe enthält.
  * ====================================================================================================
  */
-export async function initShowTaskDetails(taskId) {
+export async function initShowTaskDetails(id) {
     try {
-        taskId = taskId;
+        taskId = id;
         const dataResponse = await retrievingData('board');
         const taskData = dataResponse.find(task => task.id === taskId);
         IDS.forEach((id, value) => {
@@ -41,7 +39,7 @@ export async function initShowTaskDetails(taskId) {
             };
             if (id === 'BTN_CONTAINER') updateButtonContainer(id, taskId);
         });
-        // addEventFromDelTaskCard();
+        addEventFromDelTaskCard();
     } catch (err) {
         console.error(err);
     };
@@ -295,7 +293,6 @@ const handleChange = (change, id) => {
  * ====================================================================================================
  */
 const updateSubtaskInputBox = async (status, id) => {
-    // ⚠️ - IN BEARBEITUNG
     const INPUT_BOX = document.getElementById(id);
     INPUT_BOX.change = status;
     const { task, sub } = getCheckboxIndex(id);
