@@ -1,7 +1,6 @@
 import { deletElementById, reloadWindow } from './modules.js';
 import { retrievingData } from './dataResponse.js';
 
-
 /**
  * Löscht eine bestimmte Task-Karte und lädt das Board neu.
  * ====================================================================================================

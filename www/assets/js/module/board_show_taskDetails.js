@@ -297,9 +297,10 @@ const updateSubtaskInputBox = async (status, id) => {
     INPUT_BOX.change = status;
     const { task, sub } = getCheckboxIndex(id);
     const tasks = await retrievingData('');
-    const currentTasks = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === task);
-    currentTasks[1].subtask[sub + 1].status = true;
-    updateData(`board/${currentTasks[0]}`, currentTasks[1]);
+    const currentTask = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === task);
+    const subtask = currentTask[1].subtask[sub + 1].status;
+    currentTask[1].subtask[sub + 1].status = !subtask;
+    updateData(`board/${currentTask[0]}`, currentTask[1]);
 };
 
 /**
