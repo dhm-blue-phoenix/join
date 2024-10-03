@@ -9,15 +9,14 @@ const loadEditTaskFromUrl = async () => {
         const taskId = urlParams.get("task");
         if (taskId === 'null') return;
 
-        let boardData = await retrievingData('');
-        if (!Array.isArray(boardData)) throw new Error(`Fehler bei Task-ID (${taskId}): Daten kein Array!`);
+        if (typeof taskId !== 'string') throw new Error('Die Task-ID muss ein String sein.');
 
-        boardData = Object.entries(boardData[0]);
-        if(!Array.isArray(boardData)) throw new Error(`Fehler bei Task-ID (${taskId}): Task nicht gefunden!`);
-        
-        const taskData = boardData.find(task => task[0] === taskId);
-        if(!Array.isArray(taskData)) throw new Error(`Fehler bei Task-ID (${taskId}): Task kein Array!`);
-        
+        const boardData = await retrievingData('');
+        if (!Array.isArray(boardData)) throw new Error(`Fehler bei Task-ID (${taskId}): Daten sind kein Array oder leer!`);
+
+        const taskData = Object.entries(boardData[0]).find(([key]) => key === taskId);
+        if (!taskData) throw new Error(`Fehler bei Task-ID (${taskId}): Task nicht gefunden!`);
+
         const { assigned, category, date, description, id, prio, subtask, title } = taskData[1];
         console.log('Protokolleintrag:', assigned, category, date, description, id, prio, subtask, title);
     } catch (error) {
