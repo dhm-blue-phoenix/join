@@ -217,17 +217,16 @@ const reloadWindow = () => {
 
 // KEINE BESCHREIBUNG!!!
 const loadTaskData = async () => {
-    const userData = await retrievingData('board');
+    const taskData = await retrievingData('board');
+    console.log(taskData)
     const taskIds = [];
-    userData.forEach((user) => {
-        if (typeof user.tasks === 'object' && user.tasks !== null) {
-            Object.keys(user.tasks).forEach((key) => {
-                if (user.tasks[key] !== '' && user.tasks[key] !== 'none') {
-                    if (!taskIds.includes(user.tasks[key].id)) {
-                        taskIds.push(user.tasks[key].id);
-                    };
+    taskData.forEach((task) => {
+        if (typeof task === 'object' && task !== null) {
+            if (task !== '' && task !== 'none') {
+                if (!taskIds.includes(task.id)) {
+                    taskIds.push(task.id);
                 };
-            });
+            };
         };
     });
     return taskIds;

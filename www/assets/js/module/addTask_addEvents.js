@@ -3,7 +3,7 @@ import {
     addListElement,
     deleteItem,
     taskForm
-} from './addTask.js';
+} from '../addTask.js';
 
 let lastBtnPrio = 'medium';
 

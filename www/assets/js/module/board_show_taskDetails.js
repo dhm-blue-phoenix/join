@@ -1,4 +1,5 @@
 import { deleteTaskCard } from './board_delete_taskCard.js';
+import { editTaskCard } from './board_edit_taskCard.js';
 import { updateData, retrievingData } from './dataResponse.js';
 
 const IDS = ['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
@@ -37,9 +38,10 @@ export async function initShowTaskDetails(id) {
                     updateSubtasks(id, '', taskId, false)
                 };
             };
-            if (id === 'BTN_CONTAINER') updateButtonContainer(id, taskId);
+            if (id === 'BTN_CONTAINER') updateButtonContainer(id);
         });
         addEventFromDelTaskCard();
+        addEventToEditTaskCard();
     } catch (err) {
         console.error(err);
     };
@@ -115,8 +117,8 @@ const updateSubtasks = (id, subtasks, taskId, status) => {
  * @param {number} taskId Die ID der aktuellen Aufgabe, die für die Löschfunktion benötigt wird.
  * ====================================================================================================
  */
-const updateButtonContainer = (id, taskId) => {
-    const buttonFunctions = [createBtnEdit(), createBtnTrennline(), createBtnDelete(taskId)];
+const updateButtonContainer = (id) => {
+    const buttonFunctions = [createBtnEdit(), createBtnTrennline(), createBtnDelete()];
     const element = document.getElementById(id);
     element.innerHTML = '';
     buttonFunctions.forEach(button => element.appendChild(button));
@@ -323,42 +325,6 @@ const getCheckboxIndex = (id) => {
 };
 
 /**
- * Ruft die Unteraufgaben für eine bestimmte Task-Card ab.
- * ====================================================================================================
- * @function getSubtasksForTask
- * @returns {Array} Eine Liste der Unteraufgaben der Task-Card.
- * ====================================================================================================
- */
-const getSubtasksForTask = (id) => {
-    const TASK_CARD = document.getElementById(`taskCardID${id}`);
-    return JSON.parse(TASK_CARD.getAttribute('task-subtask'));
-};
-
-/**
- * Aktualisiert die Unteraufgaben in der Task-Card.
- * ====================================================================================================
- * @function updateTaskSubtasks
- * @param {Array} subtasks Die aktualisierte Liste der Unteraufgaben.
- * ====================================================================================================
- */
-const updateTaskSubtasks = (subtasks, task) => {
-    const TASK_CARD = document.getElementById(`taskCardID${task}`);
-    TASK_CARD.setAttribute('task-subtask', JSON.stringify(subtasks));
-};
-
-/**
- * Bestimmt den Index der Task-Card basierend auf der ID.
- * ====================================================================================================
- * @function getCardIndex
- * @param {string} id Die ID der Checkbox.
- * @returns {number} Der Index der Task-Card.
- * ====================================================================================================
- */
-const getCardIndex = (id) => {
-    return parseInt(id.slice(-2, -1), 10) + 1;
-};
-
-/**
  * Erstellt einen Bearbeiten-Button für eine Task-Karte.
  * ====================================================================================================
  * Diese Funktion erstellt ein `button`-Element, das als Bearbeiten-Button dient. Der Button erhält
@@ -371,26 +337,10 @@ const getCardIndex = (id) => {
 const createBtnEdit = () => {
     const BTN_EDIT = document.createElement('button');
     BTN_EDIT.type = 'button';
-    BTN_EDIT.appendChild(createBtnEditImg());
+    BTN_EDIT.id = `EDIT${taskId}`;
+    BTN_EDIT.setAttribute('task-id', taskId);
+    BTN_EDIT.appendChild(createBtnImg('./resources/symbols/edit.png'));
     return BTN_EDIT;
-};
-
-/**
- * Erstellt ein Bild-Element für den Bearbeiten-Button.
- * ====================================================================================================
- * Diese Funktion erstellt ein `img`-Element, das als Icon für den Bearbeiten-Button verwendet wird. 
- * Das Bild wird von einer spezifischen Quelle geladen, und es wird ein alternativer Text für Barrierefreiheit bereitgestellt.
- * ====================================================================================================
- * @function createBtnEditImg
- * @returns {HTMLElement} Ein `img`-Element, das das Bearbeiten-Icon darstellt.
- * ====================================================================================================
- */
-const createBtnEditImg = () => {
-    const BTN_EDIT_IMG = document.createElement('img');
-    BTN_EDIT_IMG.src = './resources/symbols/edit.png';
-    BTN_EDIT_IMG.alt = '';
-    BTN_EDIT_IMG.textContent = 'Edit';
-    return BTN_EDIT_IMG;
 };
 
 /**
@@ -421,12 +371,12 @@ const createBtnTrennline = () => {
  * @returns {HTMLElement} Ein `button`-Element, das einen Löschen-Button darstellt.
  * ====================================================================================================
  */
-const createBtnDelete = (taskId) => {
+const createBtnDelete = () => {
     const BTN_DEL = document.createElement('button');
     BTN_DEL.type = 'button';
     BTN_DEL.id = `DEL${taskId}`;
     BTN_DEL.setAttribute('task-id', taskId);
-    BTN_DEL.appendChild(createBtnDeleteImg());
+    BTN_DEL.appendChild(createBtnImg('./resources/symbols/delete.svg'));
     return BTN_DEL;
 };
 
@@ -441,11 +391,11 @@ const createBtnDelete = (taskId) => {
  * @returns {HTMLElement} Ein `img`-Element, das das Löschen-Icon darstellt.
  * ====================================================================================================
  */
-const createBtnDeleteImg = () => {
-    const BTN_DEL_IMG = document.createElement('img');
-    BTN_DEL_IMG.src = './resources/symbols/delete.svg';
-    BTN_DEL_IMG.alt = '';
-    return BTN_DEL_IMG;
+const createBtnImg = (img) => {
+    const BTN_IMG = document.createElement('img');
+    BTN_IMG.src = img;
+    BTN_IMG.alt = '';
+    return BTN_IMG;
 };
 
 /**
@@ -462,4 +412,10 @@ const addEventFromDelTaskCard = () => {
     const ELEMENT = document.getElementById(`DEL${taskId}`);
     ELEMENT.removeEventListener('click', () => deleteTaskCard());
     ELEMENT.addEventListener('click', (event) => deleteTaskCard(event));
+};
+
+const addEventToEditTaskCard = () => {
+    const ELEMENT = document.getElementById(`EDIT${taskId}`);
+    ELEMENT.removeEventListener('click', () => editTaskCard());
+    ELEMENT.addEventListener('click', (event) => editTaskCard(event));
 };

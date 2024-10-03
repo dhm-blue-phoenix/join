@@ -1,16 +1,16 @@
 import { loadUserIdFromStored, loadElementByPatch, extractInitials, loadTaskData } from './module/modules.js';
 import { uploadPatchData, retrievingData } from './module/dataResponse.js';
-import { createListItem } from './addTask_createElements.js';
+import { createListItem } from './module/addTask_createElements.js';
+import { loadEditTaskFromUrl } from './module/addTask_loadEditTaskFromUrl.js';
 import {
     addEventFromAddTask,
     addEventFromBtnUrgent,
     addEventFromBtnMedium,
     addEventFromBtnLow,
     addEventFromAddSubTask,
-    addEventFromDelListAssigned,
     addEventFromDelListSubTask,
     setBtnPrio
-} from './addTask_addEvents.js';
+} from './module/addTask_addEvents.js';
 
 const ID_SELECT_ASSIGNED = document.getElementById('assigned');
 const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
@@ -31,6 +31,7 @@ let users = ['', 'Select contacts to assign'];
 let assignedActiv = [''];
 
 document.addEventListener('DOMContentLoaded', () => {
+    loadEditTaskFromUrl();
     setBtnPrio('medium');
     addEventFromAddTask();
     addEventFromBtnUrgent();
