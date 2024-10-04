@@ -12,6 +12,11 @@
 /* mobile */
 @import url("./mobile/dataprotection.css");
 @import url("./mobile/summary.css");
+@import url("./mobile/board.css");
+@import url("./mobile/addtask.css");
+@import url("./mobile/contacts.css");
+@import url("./mobile/navBar.css");
+@import url("./mobile/popup.css");
 
 /* --body */
 /* Stile für den Body */
@@ -130,6 +135,7 @@ main {
     display: none;
   }
   .summarymain{
+    /* height: 77.5%; */
     padding: 0;
   }
   .addtaskmain,

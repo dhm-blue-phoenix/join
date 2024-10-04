@@ -51,15 +51,3 @@
 .d-nonepopup {
   display: none;
 }
-
-@media (max-width: 1300px) {
-  .smallcontainer {
-    width: 60vw !important;
-}
-}
-
-@media (max-width: 770px) {
-  .smallcontainer {
-    width: 95vw !important;
-}
-}

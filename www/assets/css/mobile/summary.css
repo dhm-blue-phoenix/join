@@ -1,167 +1,157 @@
-/* main/summary.css */
-
-/* Ist nicht (iPhone SE) Optimirt*/
-@media(max-width:1300px) {
-    .summary-contant>div:nth-of-type(2) {
-        width: 100vw;
-        height: calc(100% - 20%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* margin-top: 40px; */
+@media (max-width: 1300px) {
+    .welcomemassage {
+      margin-left: 0;
+      margin-top: 0;
     }
-
-    .summary-header {
-        flex-direction: column;
-        align-items: start;
-        width: 300px;
-        margin-top: 32px;
-        padding-left: 8px;
-        /* padding: 16px 0 0 16px; */
+    .welcomecontent {
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--back-color01);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
-    .summary-header h2 {
-        font-size: 47px;
-        line-height: 56.4px;
+    .welcomecontent p {
+      font-size: 47px;
+      color: var(--text-color04);
+      margin: 0;
     }
-
-    .summary-header hr {
-        transform: translate(0px, 40px);
-        width: 80px;
-        padding: 1px;
+    .welcomecontent h1 {
+      font-size: 64px;
+      color: var(--text-color09);
     }
-
-    .summary-header span {
-        font-size: 20px;
-        line-height: 24px;
+    .summarytop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 32px;
     }
-
-    .summary-main {
-        width: 380px;
-        /* height: 384px; */
-        justify-content: center;
-        z-index: 0;
-        margin-top: 0;
+    .verticaltrennline {
+      display: none;
     }
-
-    .summary-main>div:nth-of-type(1) {
-        height: 133px;
-        /* gap: 12px; */
+    .horizontaltrennline {
+      display: block;
+      height: 3px;
+      width: 90px;
+      background-color: var(--back-color10);
     }
-
-    .summary-main>div:nth-of-type(1) figure,
-    .summary-main>div:nth-of-type(2) figure {
-        width: 186px;
-        height: 110px;
-        gap: 10px;
+    .content {
+      gap: 0;
+      justify-content: center;
     }
-
-    .summary-main>div:nth-of-type(1) figure:first-child {
-        margin-right: 0;
+    .summarytopcontent {
+      width: 70%;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
     }
-
-    .summary-main>div:nth-of-type(1) figure .image,
-    .summary-main>div:nth-of-type(2) figure .image {
-        width: 40px;
-        height: 40px;
+    .summarytopcontent h1 {
+      font-size: 47px;
     }
-
-    .summary-main>div:nth-of-type(1) figure figcaption span:first-child,
-    .summary-main>div:nth-of-type(2) figure figcaption span:first-child {
-        font-size: 47px;
-        line-height: 56.4px;
+    .toptrenn {
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
     }
-
-    .summary-main>div:nth-of-type(1) figure figcaption span:last-child,
-    .summary-main>div:nth-of-type(2) figure figcaption span:last-child {
-        font-size: 14px;
-        line-height: 16.8px;
+    .welcomenotecontainer {
+      display: none;
     }
-
-    .summary-main>div:nth-of-type(2) {
-        height: 110px;
-        justify-content: center;
+    .summarymaincontainer {
+      width: 70%;
     }
-
-    .summary-main>div:nth-of-type(2) div {
-        padding: 0;
-        width: 378px;
+    .summarybtncontainer {
+      width: 100%;
+      gap: 2%;
     }
-
-    .summary-main>div:nth-of-type(2) figure {
-        padding-right: 40px;
-        height: 68px;
+    .todo,
+    .done {
+      width: 100%;
     }
-
-    .summary-main>div:nth-of-type(2) div span:first-child {
-        font-size: 16px;
-        line-height: 19.2px;
+    .urgent {
+      position: unset;
+      width: 100%;
+      z-index: 0;
     }
-
-    .summary-main>div:nth-of-type(2) div span:last-child {
-        font-size: 14px;
-        line-height: 16.8px;
+    .urgent:hover {
+      position: unset;
+      z-index: 0;
     }
-
-    .summary-main>div:nth-of-type(3) {
-        margin-top: 10px;
+    .tasksinboard,
+    .tasksinprogress,
+    .awaitingfeedback {
+      width: 100%;
     }
-
-    .summary-main>div:nth-of-type(3) div {
-        width: 116px;
-        height: 116px;
+  }
+  
+  @media (max-width: 800px) {
+    .summarymain {
+      height: calc(100vh - 176px);
     }
-
-    .summary-main>div:nth-of-type(3) div:nth-of-type(1),
-    .summary-main>div:nth-of-type(3) div:nth-of-type(2) {
-        margin-right: 0;
+    .summarytop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 32px;
     }
-
-    .summary-main>div:nth-of-type(3) div span:first-child {
-        font-size: 47px;
-        line-height: 56.4px;
+    .summarytopcontent {
+      width: 70%;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
     }
-
-    .summary-main>div:nth-of-type(3) div span:last-child {
-        font-size: 14px;
-        line-height: 16.8px;
+    .summarytopcontent h1 {
+      font-size: 47px;
     }
-
-    .summary-user span:first-child {
-        font-size: 36px;
-        font-weight: 400;
-        line-height: 0;
+    .summarytop p {
+      font-size: 20px;
     }
-
-    .summary-user span:last-child {
-        font-size: 47px;
-        font-weight: 700;
-        line-height: auto;
+    .summarymaincontainer {
+      margin-top: 32px;
+      width: 95vw;
+      height: 384px;
+      gap: 0;
     }
-
-    .summary-user {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transform: translateY(0);
-        background-color: var(--back-color05);
-        top: 0;
-        animation: hideUser 1s forwards 2s;
-        gap: 11px;
+    .summarybtncontainer {
+      width: 100%;
+      gap: 8px;
     }
-
-    @keyframes hideUser {
-        0% {
-            z-index: 1;
-            opacity: 1;
-        }
-
-        100% {
-            z-index: -1;
-            opacity: 0;
-        }
+    .todo,
+    .done {
+      height: 120px;
+      gap: 10px;
+      border-radius: 20px;
     }
-}
+    .urgent {
+      height: 120px;
+      gap: 5%;
+      padding: 8px;
+    }
+    .tasksinboard,
+    .tasksinprogress,
+    .awaitingfeedback {
+      height: 120px;
+    }
+    .summarybtn img {
+      width: 40px;
+    }
+    .innersummarybtn h2 {
+      font-size: 47px;
+    }
+    .innersummarybtn p {
+      font-size: 14px;
+    }
+    @media (max-width: 770px) {
+      .summarytopcontent {
+        width: 95vw;
+    }
+  
+    }
+  }

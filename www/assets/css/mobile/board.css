@@ -1,5 +1,193 @@
-/*mobile/board.css*/
-
-@media(max-width:1300px) {
-
+@media (max-width: 1300px) {
+    .boardmain {
+      margin: 32px 64px;
     }
+  }
+  
+  @media (max-width: 1100px) {
+    /* .taskcard {
+      cursor: default;
+    } */
+  
+    .taskcard:hover {
+      box-shadow: #78787862 0px 0px 5px 0px;
+      transform: scale(1);
+      /* Scale and rotate slightly on hover */
+    }
+  
+    .taskcard {
+      cursor: pointer;
+    }
+    .boardmain {
+      height: calc(100vh - 176px);
+      margin: 0 !important;
+    }
+  
+    .board {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 0;
+      /* height: calc(100vh - 176px); */
+    }
+  
+    .BoardTop {
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-direction: column;
+      padding: 0 0;
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+  
+    .BoardTop div {
+      width: 70%;
+      display: flex;
+      gap: 0;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .BoardTop h1 {
+      font-size: 47px;
+    }
+  
+    .hidethisbutton {
+      display: none !important;
+    }
+  
+    .hidethisaddbutton {
+      display: flex !important;
+    }
+  
+    .BoardTop button {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background-color: var(--back-color02);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 21px;
+      color: var(--text-color02) !important;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  
+    #boardSearch {
+      width: 100%;
+      height: 48px;
+      padding: 8px 16px 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--back-color08);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .taskBoard {
+      display: flex;
+      gap: 26px;
+      flex-direction: column;
+      width: 70%;
+      align-items: center;
+      padding: 0 10px;
+      padding-bottom: 14px;
+    }
+  
+    .task {
+      width: 100%;
+      height: auto;
+      /* background-color: aquamarine; */
+    }
+  
+    .tasktnotfound {
+      width: 100%;
+      height: 48px;
+      border: 1px dashed var(--back-color07);
+      border-radius: 24px;
+      background-color: var(--back-color05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  
+    .taskList {
+      width: 100%;
+      height: auto;
+      max-height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 8px;
+      overflow: auto;
+      overflow-y: hidden;
+      padding: 16px;
+    }
+    .taskList.drag-over {
+      height: auto;
+      border: 1px dashed var(--back-color07);
+    }
+  }
+  
+  @media (max-width: 770px) {
+    .taskBoard {
+      width: 95vw;
+      padding: 8px 0;
+    }
+    .BoardTop div {
+      width: 95vw;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .taskbottommobilesmall {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      gap: 8px;
+    }
+  
+    #taskCategorySelect {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  
+    #moveTaskButton {
+      width: 110px;
+      height: 42px;
+      border: none;
+      background-color: var(--back-color02);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-color02) !important;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  
+    #moveTaskButton:hover {
+      background-color: var(--back-color03);
+      box-shadow: #00000062 0px 2px 4px 0px;
+    }
+    .taskcard {
+      gap: 8px;
+    }
+  }
