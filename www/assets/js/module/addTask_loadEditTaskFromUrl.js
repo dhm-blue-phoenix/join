@@ -17,6 +17,7 @@ const elementMap = {
 async function loadEditTaskFromUrl() {
     try {
         const taskId = getTaskIdFromUrl();
+        if (taskId === null) return;
         const boardData = await fetchBoardData();
         const taskData = extractTaskData(boardData, taskId);
         updateDomWithTaskData(taskData);
@@ -34,10 +35,8 @@ async function loadEditTaskFromUrl() {
 const getTaskIdFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get("task");
-    if (!taskId || typeof taskId !== 'string') {
-        throw new Error('Ungültige Task-ID: muss ein String sein und existieren');
-    };
-    return taskId === 'null' ? null : taskId;
+    if(!taskId) return null;
+    return taskId;
 };
 
 /**
@@ -87,12 +86,14 @@ const updateDomWithTaskData = (taskData) => {
      * [] - btn-prio
      * [X] - category
      * [] - subtask
+     * 
+     * Statt einen neuen Task zu erstellen, muss der mit der ID aktualisiert werden!
     */
     Object.entries(elementMap).forEach(([id, type]) => {
         const element = document.getElementById(id);
         if (element) {
             element[type] = taskData[id];
-            console.log('Protokolleintrag', taskData);
+            // console.log('Protokolleintrag', taskData);
         } else console.warn(`Element mit ID "${id}" nicht gefunden`);
     });
 };
