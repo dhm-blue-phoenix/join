@@ -1,5 +1,5 @@
 import { loadUserIdFromStored, loadElementByPatch, loadTaskData } from './module/modules.js';
-import { uploadPatchData, retrievingData, updateData } from './module/dataResponse.js';
+import { uploadPatchData, updateData, retrievingData } from './module/dataResponse.js';
 import { createListItem } from './module/addTask_createSubList.js';
 import { loadEditTaskFromUrl, editTaskId } from './module/addTask_loadEditTaskFromUrl.js';
 import { renderUsers } from './module/addTask_createSortedUsers.js';
@@ -33,7 +33,6 @@ let taskId;
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', () => {
-    loadEditTaskFromUrl();
     setBtnPrio('medium');
     addEventFromAddTask();
     addEventFromBtnUrgent();
@@ -41,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addEventFromBtnLow();
     addEventFromAddSubTask();
     renderUsers();
+    loadEditTaskFromUrl();
 });
 
 /**
@@ -60,7 +60,7 @@ async function initAddTask(event) {
         loadNextPage();
     } catch (err) {
         console.error(`Es ist ein Fehler beim Erstellen des Tasks aufgetreten! ${err}`);
-    }
+    };
 };
 
 /**
@@ -90,11 +90,7 @@ const loadDataToForm = async () => {
  */
 async function uploadData() {
     try {
-        const userData = await retrievingData('');
-        const userIds = Object.keys(userData[0]);
-        if (userIds.length === 0) {
-            throw new Error('Keine Benutzer-IDs gefunden.');
-        };
+        await checkedId();
         if (editTaskId !== null) {
             await updateData(`board/${editTaskId}`, taskForm);
             return;
@@ -102,8 +98,20 @@ async function uploadData() {
         await uploadPatchData('board/', taskForm);
     } catch (error) {
         console.error('Fehler beim Synchronisieren der Daten:', error);
-    }
-}
+    };
+};
+
+/**
+ * Überbrüft die Ids.
+ * ====================================================================================================
+ */
+const checkedId = async () => {
+    const data = await retrievingData('');
+    const ids = Object.keys(data[0]);
+    if (ids.length === 0) {
+        throw new Error('Keine IDs gefunden.');
+    };
+};
 
 /**
  * Fügt einen Subtask zur Liste hinzu und aktualisiert die Anzeige.
@@ -120,9 +128,11 @@ const addSubTaskToList = () => {
 };
 
 /**
- * Rendert die Liste für den angegebenen Typ (Subtasks).
+ * Rendert die Liste für den angegebenen Type 'subtask'.
+ * Diese Funktion greift auf das HTML-Element zu, das der Liste entspricht, und rendert die
+ * zugehörigen Elemente basierend auf dem angegebenen Typ.
  * ====================================================================================================
- * @param {string} type - Der Typ der Liste ('subtask').
+ * @param {string} type - Der Typ der Liste, der gerendert werden soll.
  * ====================================================================================================
  */
 const renderList = (type) => {
@@ -130,14 +140,26 @@ const renderList = (type) => {
     listElement.innerHTML = '';
     const items = taskForm[type];
     if (!items) return;
+    createNewListItem(type, items);
+    setDelSubtask();
+};
+
+/**
+ * Erstellt neue Listeneinträge für die übergebenen Elemente.
+ * Diese Funktion iteriert über die Elemente und erstellt für jedes Element einen neuen Listeneintrag,
+ * der dann in der Liste angezeigt wird.
+ * ====================================================================================================
+ * @param {Array} items - Eine Liste von Elementen (z.B. Subtasks), die gerendert werden sollen.
+ * ====================================================================================================
+ */
+const createNewListItem = (type, items) => {
     let number = 1;
     items.forEach(item => {
         const text = item.name || item.text;
         if (text !== undefined) {
             createListItem(type, text, number++);
-        }
+        };
     });
-    setDelSubtask();
 };
 
 /**
@@ -148,7 +170,7 @@ const setDelSubtask = () => {
     for (let i = 0; i < (taskForm.subtask.length - 1); i++) {
         let number = (i + 1);
         addEventFromDelListSubTask(number);
-    }
+    };
 };
 
 /**

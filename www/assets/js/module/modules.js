@@ -218,7 +218,6 @@ const reloadWindow = () => {
 // KEINE BESCHREIBUNG!!!
 const loadTaskData = async () => {
     const taskData = await retrievingData('board');
-    console.log(taskData)
     const taskIds = [];
     taskData.forEach((task) => {
         if (typeof task === 'object' && task !== null) {
