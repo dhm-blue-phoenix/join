@@ -1,6 +1,6 @@
 import {
     initAddTask,
-    addListElement,
+    addSubTaskToList,
     deleteItem,
     taskForm
 } from '../addTask.js';
@@ -34,8 +34,8 @@ const addEventFromBtnLow = () => {
 };
 
 const addEventFromAddSubTask = () => {
-    ID_BTN_ADD_SUBTASK.removeEventListener('click', () => { addListElement() });
-    ID_BTN_ADD_SUBTASK.addEventListener('click', () => { addListElement('subtask') });
+    ID_BTN_ADD_SUBTASK.removeEventListener('click', addSubTaskToList);
+    ID_BTN_ADD_SUBTASK.addEventListener('click', addSubTaskToList);
 };
 
 const addEventFromDelListAssigned = (number) => {

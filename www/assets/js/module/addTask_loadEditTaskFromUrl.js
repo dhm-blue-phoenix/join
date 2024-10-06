@@ -1,11 +1,19 @@
 import { retrievingData } from './dataResponse.js';
+import { createListItem } from './addTask_createSubList.js'
+import { setBtnPrio } from './addTask_addEvents.js';
+import { addSubTaskToList } from '../addTask.js';
 
-const elementMap = {
+const items = {
     title: 'value',
     description: 'textContent',
     date: 'value',
+    prio: 'btn',
     category: 'value',
+    subtask: 'forEach'
 };
+const btnPrios = ['urgent', 'medium', 'low'];
+let editTaskId;
+let currentTaskId;
 
 /**
  * Lädt die Bearbeitungsdaten für eine Aufgabe aus der URL und aktualisiert die DOM-Elemente.
@@ -17,7 +25,8 @@ const elementMap = {
 async function loadEditTaskFromUrl() {
     try {
         const taskId = getTaskIdFromUrl();
-        if (taskId === null) return;
+        editTaskId = taskId;
+        if (taskId === null) return ;
         const boardData = await fetchBoardData();
         const taskData = extractTaskData(boardData, taskId);
         updateDomWithTaskData(taskData);
@@ -35,7 +44,7 @@ async function loadEditTaskFromUrl() {
 const getTaskIdFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get("task");
-    if(!taskId) return null;
+    if (!taskId) return null;
     return taskId;
 };
 
@@ -79,23 +88,39 @@ const extractTaskData = (boardData, taskId) => {
 const updateDomWithTaskData = (taskData) => {
     //⚠ In Bearbeitung!
     /**
+     * =======================
      * [X] - title
      * [X] - description
-     * [] - assigned
+     * [!] - assigned
      * [X] - date
-     * [] - btn-prio
+     * [X] - btn-prio
      * [X] - category
      * [X] - subtask
-     * 
-     * Statt einen neuen Task zu erstellen, muss der mit der ID aktualisiert werden!
+     * ========================
+     * [X] Task Aktuallieseren!
     */
-    Object.entries(elementMap).forEach(([id, type]) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element[type] = taskData[id];
-            // console.log('Protokolleintrag', taskData);
+    currentTaskId = taskData.id;
+    Object.entries(items).forEach(([id, type]) => {
+        const item = document.getElementById(id);
+        if (item) {
+            if (type !== 'forEach') {
+                return item[type] = taskData[id];
+            };
+            item[type] = taskData[id].forEach((sub, id) => {
+                if (sub.text !== undefined) {
+                    document.getElementById('subtask').value = sub.text;
+                    addSubTaskToList();
+                };
+            });
+        } else if (type === 'btn') {
+            const btn = taskData[id];
+            btnPrios.forEach(prio => {
+                if (prio === btn) {
+                    setBtnPrio(prio);
+                };
+            });
         } else console.warn(`Element mit ID "${id}" nicht gefunden`);
     });
 };
 
-export { loadEditTaskFromUrl };
+export { loadEditTaskFromUrl, editTaskId, currentTaskId };
