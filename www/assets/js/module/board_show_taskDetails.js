@@ -48,21 +48,49 @@ export async function initShowTaskDetails(id) {
 };
 
 /**
- * Aktualisiert den Textinhalt eines HTML-Elements.
- * ====================================================================================================
- * Diese Funktion setzt den Textinhalt eines HTML-Elements, das durch die gegebene ID identifiziert wird,
- * auf den angegebenen Text. Dies wird verwendet, um Texte in verschiedenen Teilen der Benutzeroberfläche 
- * zu aktualisieren, wie z.B. Titel, Beschreibungen und Daten.
- * ====================================================================================================
- * @function updateTextContent
- * @param {string} id Die ID des HTML-Elements, dessen Textinhalt aktualisiert werden soll.
- * @param {string} text Der neue Text, der im HTML-Element angezeigt werden soll.
- * ====================================================================================================
- */
-const updateTextContent = (id, text) => {
-    document.getElementById(id).textContent = text;
-};
 
+Aktualisiert den Textinhalt eines HTML-Elements.
+====================================================================================================
+Diese Funktion setzt den Textinhalt eines HTML-Elements, das durch die gegebene ID identifiziert wird,
+auf den angegebenen Text. Wenn die ID 'BTN_PRIO' ist, wird ein Container-Element mit der Klasse 'PrioContainer'
+erstellt, das ein Icon und den Text enthält. Andernfalls wird der Textinhalt des Elements direkt aktualisiert.
+Dies wird verwendet, um Texte in verschiedenen Teilen der Benutzeroberfläche zu aktualisieren, wie z.B. Titel,
+Beschreibungen, Daten und Prioritäten.
+====================================================================================================
+@function updateTextContent
+@param {string} id Die ID des HTML-Elements, dessen Textinhalt aktualisiert werden soll.
+@param {string} text Der neue Text, der im HTML-Element angezeigt werden soll.
+==================================================================================================== */
+const updateTextContent = (id, text) => {
+    const element = document.getElementById(id);
+    if (id === 'BTN_PRIO') {
+      const prioContainer = document.createElement('div');
+      prioContainer.className = 'PrioContainer';
+      const prioIcon = document.createElement('img');
+      switch (text.toLowerCase()) {
+        case 'low':
+          prioIcon.src = '../../../join/www/resources/symbols/PrioLow.png';
+          break;
+        case 'medium':
+          prioIcon.src = '../../../join/www/resources/symbols/boardmiddleprio.png';
+          break;
+        case 'urgent':
+          prioIcon.src = '../../../join/www/resources/symbols/PrioUrgent.png';
+          break;
+        default:
+          console.log('Unbekannte Priorität:', text);
+      }
+      prioIcon.alt = '';
+      prioContainer.appendChild(prioIcon);
+      const prioText = document.createElement('span');
+      prioText.textContent = text;
+      prioContainer.appendChild(prioText);
+      element.innerHTML = '';
+      element.appendChild(prioContainer);
+    } else {
+      element.textContent = text;
+    }
+  };
 /**
  * Aktualisiert die Anzeige der Personen auf der Task-Karte.
  * ====================================================================================================

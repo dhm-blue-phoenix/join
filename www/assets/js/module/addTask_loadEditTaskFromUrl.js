@@ -85,7 +85,7 @@ const updateDomWithTaskData = (taskData) => {
      * [X] - date
      * [] - btn-prio
      * [X] - category
-     * [] - subtask
+     * [X] - subtask
      * 
      * Statt einen neuen Task zu erstellen, muss der mit der ID aktualisiert werden!
     */

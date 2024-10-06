@@ -315,3 +315,16 @@
   animation: slideOutToRight 0.3s ease-out forwards;
 }
 
+.PrioContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: auto;
+}
+
+.PrioContainer img{
+  width: 16px;
+  height: 16px;
+}
+
