@@ -1,5 +1,4 @@
 import { retrievingData } from './dataResponse.js';
-import { createListItem } from './addTask_createSubList.js'
 import { setBtnPrio } from './addTask_addEvents.js';
 import { addSubTaskToList } from '../addTask.js';
 
@@ -13,7 +12,6 @@ const items = {
 };
 const btnPrios = ['urgent', 'medium', 'low'];
 let editTaskId;
-let currentTaskId;
 
 /**
  * Lädt die Bearbeitungsdaten für eine Aufgabe aus der URL und aktualisiert die DOM-Elemente.
@@ -26,7 +24,7 @@ async function loadEditTaskFromUrl() {
     try {
         const taskId = getTaskIdFromUrl();
         editTaskId = taskId;
-        if (taskId === null) return ;
+        if (taskId === null) return;
         const boardData = await fetchBoardData();
         const taskData = extractTaskData(boardData, taskId);
         updateDomWithTaskData(taskData);
@@ -82,45 +80,80 @@ const extractTaskData = (boardData, taskId) => {
 /**
  * Aktualisiert die DOM-Elemente mit den Daten einer Aufgabe.
  * ====================================================================================================
- * @param {Object} taskData Ein Objekt, das die Daten der Aufgabe enthält.
+ * @param {Object} taskData - Ein Objekt, das die Daten der Aufgabe enthält. Die Keys sollten den IDs der DOM-Elemente entsprechen.
  * ====================================================================================================
  */
 const updateDomWithTaskData = (taskData) => {
-    //⚠ In Bearbeitung!
     /**
+     * Übersicht der Aufgabenfelder:
      * =======================
-     * [X] - title
-     * [X] - description
-     * [!] - assigned
-     * [X] - date
-     * [X] - btn-prio
-     * [X] - category
-     * [X] - subtask
+     * [X] - title: Titel der Aufgabe
+     * [X] - description: Beschreibung der Aufgabe
+     * [!] - assigned: Zugewiesene Personen (noch in Bearbeitung)
+     * [X] - date: Fälligkeitsdatum der Aufgabe
+     * [X] - btn-prio: Prioritätsbutton (dringend, mittel, niedrig)
+     * [X] - category: Kategorie der Aufgabe
+     * [X] - subtask: Unteraufgaben der Aufgabe
      * ========================
-     * [X] Task Aktuallieseren!
-    */
-    currentTaskId = taskData.id;
+     * [X] Aufgabe erfolgreich aktualisieren!
+     */
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
         if (item) {
             if (type !== 'forEach') {
-                return item[type] = taskData[id];
+                updateText(item, type, taskData[id]);
+                return;
             };
-            item[type] = taskData[id].forEach((sub, id) => {
-                if (sub.text !== undefined) {
-                    document.getElementById('subtask').value = sub.text;
-                    addSubTaskToList();
-                };
+            item[type] = taskData[id].forEach((sub) => {
+                updateSubTask(sub.text);
             });
         } else if (type === 'btn') {
-            const btn = taskData[id];
-            btnPrios.forEach(prio => {
-                if (prio === btn) {
-                    setBtnPrio(prio);
-                };
-            });
-        } else console.warn(`Element mit ID "${id}" nicht gefunden`);
+            updatePrioBtn(taskData, id);
+        } else {
+            console.warn(`Element mit ID "${id}" nicht gefunden`);
+        }
     });
 };
 
-export { loadEditTaskFromUrl, editTaskId, currentTaskId };
+/**
+ * Aktualisiert den Text oder die Eingabewerte eines DOM-Elements.
+ * ====================================================================================================
+ * @param {HTMLElement} element - Das zu aktualisierende DOM-Element.
+ * @param {string} type - Der Typ des Elements (z.B. "value", "innerText").
+ * @param {string} text - Der Text oder Wert, der dem Element zugewiesen wird.
+ * ====================================================================================================
+ */
+const updateText = (element, type, text) => {
+    element[type] = text;
+};
+
+/**
+ * Fügt eine Unteraufgabe hinzu, wenn der Text der Unteraufgabe nicht undefiniert ist.
+ * ====================================================================================================
+ * @param {string} text - Der Text der Unteraufgabe.
+ * ====================================================================================================
+ */
+const updateSubTask = (text) => {
+    if (text !== undefined) {
+        document.getElementById('subtask').value = text;
+        addSubTaskToList();
+    }
+};
+
+/**
+ * Aktualisiert den Prioritätsbutton basierend auf den übergebenen Aufgabendaten.
+ * ====================================================================================================
+ * @param {Object} taskData - Ein Objekt, das die Daten der Aufgabe enthält, einschließlich der Priorität.
+ * @param {string} id - Die ID des Buttons, der aktualisiert werden soll.
+ * ====================================================================================================
+ */
+const updatePrioBtn = (taskData, id) => {
+    const btn = taskData[id];
+    btnPrios.forEach(prio => {
+        if (prio === btn) {
+            setBtnPrio(prio);
+        }
+    });
+};
+
+export { loadEditTaskFromUrl, editTaskId };
