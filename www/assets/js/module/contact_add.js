@@ -26,7 +26,9 @@ import { uploadPatchData } from './dataResponse.js';
 export async function addContact(contactData) {
     try {
         const userID = loadUserIdFromStored();
-        const contactCards = await loadElementByPatch(`users/${userID}`);
+        console.log('debug-addContact/userid', userID)
+        const contactCards = await loadElementByPatch(`users/${userID}`, 0);
+        console.log('debug-addContact/contactCards', contactCards)
         if (isContactExists(contactCards, contactData.email)) return console.warn('Benutzer existiert bereits!'); // [!] Ändern zu Benutzer-Feedback
         await uploadPatchData(`users/${userID}/contacts/`, contactData);
         await updateContactDisplay();

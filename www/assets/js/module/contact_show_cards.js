@@ -38,6 +38,7 @@ export async function fetchContacts() {
         contacts = {};
         userID = loadUserIdFromStored();
         const tempContacts = await loadElementByPatch(`users/${userID}/`, 0);
+        console.log('debug-fetchContacts/contact-data', tempContacts)
         organizeContacts(tempContacts);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden der Kontakte aufgetreten: ${err}`);
