@@ -1,11 +1,11 @@
 
 @media (max-width: 1300px) {
     .smallcontainer {
-      width: 60vw !important;
+      /* width: 60vw !important; */
   }
   }
   
-  @media (max-width: 770px) {
+  @media (max-width: 400px) {
     .smallcontainer {
       width: 95vw !important;
   }
