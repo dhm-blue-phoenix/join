@@ -87,7 +87,6 @@ export const createContactCard = (container, key, id, name, email, tel, shortcut
  * ====================================================================================================
  */
 export const createContactShort = (name, shortBackColor) => {
-    console.info('card:', name, shortBackColor);
     const DIV_ShortName = document.createElement('div');
     DIV_ShortName.id = 'nameShortcut';
     DIV_ShortName.style.backgroundColor = shortBackColor;

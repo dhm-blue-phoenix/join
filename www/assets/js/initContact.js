@@ -1,6 +1,7 @@
+import { showUserCard } from './module/contact/user/show_user_card.js';
 import { showContactCards } from './module/contact/show_cards.js';
-import { editContact } from './module/contact/edit.js';
-import { addContact } from './module/contact/add.js';
+import { editContact } from './module/contact/edit_card.js';
+import { addContact } from './module/contact/add_card.js';
 
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_FORM_editPersion = document.getElementById('editContactForm');
@@ -37,6 +38,7 @@ let shortcutColors = [
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
+    showUserCard()
     showContactCards();
     addEventFromAddContact();
     addEventFromEditContact();

@@ -116,14 +116,8 @@ function extractInitials(username) {
  * ====================================================================================================
  */
 async function loadElementByPatch(patch, value) {
-    console.log('debug-loadElementByPatch/patch-and-value', patch, 'and', value);
-    
     const DATA = await retrievingData(patch);
-    console.log('debug-loadElementByPatch/patchData', DATA);
-    
     const CARTS = Object.values(DATA[value]);
-    console.log('debug-loadElementByPatch/carts', CARTS);
-
     return CARTS;
 };
 

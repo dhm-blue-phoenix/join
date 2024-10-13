@@ -1,5 +1,5 @@
 import { extractInitials } from '../modules.js';
-import { deleteContact } from './delete.js';
+import { deleteContact } from './delete_card.js';
 import { showContactEditPopup } from './show_editPopup.js';
 
 const ID_BTN_editDelet = document.getElementById('editdeletcontact');

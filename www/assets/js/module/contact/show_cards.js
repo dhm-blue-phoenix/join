@@ -1,6 +1,7 @@
-import { showContactDetails } from './show_details.js';
+import { showContactDetails } from './show_card_details.js';
 import { loadUserIdFromStored, loadElementByPatch } from '../modules.js';
 import { generateCardHeadline, createContactCard } from './create_card.js';
+import { showUserDetails } from './user/show_user_details.js';
 
 const CLASS_Contactcards = document.querySelector('.Contactcards');
 
@@ -38,7 +39,6 @@ export async function fetchContacts() {
         contacts = {};
         userID = loadUserIdFromStored();
         const tempContacts = await loadElementByPatch(`users/${userID}/`, 0);
-        console.log('debug-fetchContacts/contact-data', tempContacts)
         organizeContacts(tempContacts);
     } catch (err) {
         console.error(`Es ist ein Problem beim Laden der Kontakte aufgetreten: ${err}`);
@@ -136,6 +136,7 @@ const attachCardEvents = () => {
 const handleCardClick = (event) => {
     const target = event.currentTarget;
     const key = target.getAttribute('data-key');
+    if (key === 'user') return showUserDetails();
     const name = target.getAttribute('data-name');
     const email = target.getAttribute('data-email');
     const tel = target.getAttribute('data-tel');
