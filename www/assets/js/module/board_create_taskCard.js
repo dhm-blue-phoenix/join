@@ -361,12 +361,70 @@ const createMobileCategoryOptions = (option) => {
 const createMobileButton = () => {
     const MOBILE_BTN = document.createElement('button');
     MOBILE_BTN.id = 'moveTaskButton';
-
+  
     // Füge einen Event-Listener hinzu, der das Event-Handling des Klicks auf das <button>-Element stoppt
     MOBILE_BTN.addEventListener('click', (event) => {
-        event.stopPropagation(); // Verhindert, dass das Klick-Event das Popup öffnet
+      event.stopPropagation(); // Verhindert, dass das Klick-Event das Popup öffnet
     });
-
+  
     MOBILE_BTN.textContent = 'Move';
+  
+    // Füge einen Event-Listener für die switchCategory-Funktion hinzu
+    MOBILE_BTN.addEventListener('click', switchCategory);
+  
     return MOBILE_BTN;
-};
+  };
+
+
+/**
+ * Wechselt die Task-Karte zu einer anderen Kategorie.
+ * ====================================================================================================
+ * Diese Funktion wird durch den Klick auf den "Move"-Button auf der mobilen Task-Karte ausgelöst.
+ * Sie liest den ausgewählten Kategorie-Wert aus dem `select`-Element mit der ID 'taskCategorySelect' und
+ * verschiebt die Task-Karte in den Ziel-Kategorie-Container. Sie aktualisiert auch den Zustand der Kategorie
+ * und speichert die neue Position der Task-Karte im LocalStorage.
+ * ====================================================================================================
+ * @function switchCategory
+ * ====================================================================================================
+ */
+
+  const switchCategory = () => {
+    const selectElement = document.getElementById('taskCategorySelect');
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const taskCard = document.querySelector('.taskcard'); // Vorausgesetzt, dass die Taskcard die Klasse "taskcard" hat
+    const targetCategory = document.querySelector(`#${selectedOption.value}`); // Vorausgesetzt, dass die Kategorie-Container die ID des Kategorie-Werts haben
+  
+    if (targetCategory) {
+      // Überprüfen, ob die Kategorie leer oder gefüllt ist
+      const isCategoryEmpty = targetCategory.children.length === 1;
+  
+      if (isCategoryEmpty) {
+        // Kategorie ist leer, zeige das leere Zustands-Element an
+        const emptyStateElement = targetCategory.querySelector('#tasktnotfounddrag');
+        emptyStateElement.style.display = 'flex';
+      } else {
+        // Kategorie ist gefüllt, blende das leere Zustands-Element aus
+        const emptyStateElement = targetCategory.querySelector('#tasktnotfounddrag');
+        emptyStateElement.style.display = 'none';
+      }
+  
+      // Speichere die neue Position der Task-Karte
+      localStorage.setItem(taskCard.id, selectedOption.value);
+  
+      // Verschiebe die Task-Karte in den Ziel-Kategorie-Container
+      targetCategory.appendChild(taskCard);
+  
+      // Aktualisiere den Zustand der Kategorie
+      const containers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
+      containers.forEach(containerId => {
+        const container = document.getElementById(containerId);
+        const emptyStateElement = container.querySelector('#tasktnotfounddrag');
+  
+        if (container.children.length === 1) {
+          emptyStateElement.style.display = 'flex';
+        } else {
+          emptyStateElement.style.display = 'none';
+        }
+      });
+    }
+  };

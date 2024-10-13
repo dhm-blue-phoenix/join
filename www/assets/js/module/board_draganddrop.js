@@ -82,7 +82,6 @@ export function restoreTaskPositions() {
             }
         }
     });
-    updateEmptyState();
 }
 
 /**
