@@ -12,7 +12,7 @@ async function showUserCard() {
         const shortname = extractInitials(name);
         renderUserToHtml(short, shortname, name, email);
     } catch (err) {
-        console.error('Beim showUserCard ist ein fehler aufgetrethen!');
+        console.error('Bei showUserCard ist ein fehler aufgetrethen!');
     };
 };
 
