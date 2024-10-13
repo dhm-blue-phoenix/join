@@ -48,7 +48,6 @@ function createSortedUsers() {
     const selectedPersonContainer = document.getElementById('selectedPerson'); // Container for selected persons
 
     let counter = 1;
-    let colors = ['#ff822f', '#b33636', '#58d626', '#2c5fa7'];  // Define some alternating colors for the initials
 
     // Function to show or hide the selected person container based on its content
     const toggleSelectedPersonContainer = () => {
@@ -82,7 +81,7 @@ function createSortedUsers() {
         // Create a <div> for the initials
         const initialsDiv = document.createElement('div');
         initialsDiv.classList.add('Initialenperson');  // Add the class 'Initialenperson' to the div
-        initialsDiv.style.backgroundColor = colors[counter % colors.length];  // Alternating background color for initials div
+        initialsDiv.style.backgroundColor = user[2];  // Alternating background color for initials div
         initialsDiv.textContent = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();  // Display initials
 
         // Set the content of the userDiv (user's full name)

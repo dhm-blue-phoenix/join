@@ -98,7 +98,7 @@ const updateDomWithTaskData = (taskData) => {
      * ========================
      * [X] Aufgabe erfolgreich aktualisieren!
      */
-    ID_SUBMIT_BTN.textContent = 'Safe Task';
+    ID_SUBMIT_BTN.textContent = 'Save!';
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
         if (item) {
