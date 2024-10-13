@@ -91,6 +91,16 @@ main {
   padding-bottom: 40px;
 }
 
+.nologindataprotectionmain {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: unset !important;
+}
+
 .boardmain,
 .addtaskmain,
 .dataprotectionmain {
