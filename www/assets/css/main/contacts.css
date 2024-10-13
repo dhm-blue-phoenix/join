@@ -703,3 +703,15 @@ body {
   filter: brightness(0) saturate(100%) invert(51%) sepia(32%) saturate(1006%)
     hue-rotate(157deg) brightness(95%) contrast(95%);
 }
+
+.ownContact{
+  width: 80vw;
+  /* height: 78px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px 0 16px;
+  gap: 8px;
+  /* background-color: aqua; */
+  margin-top: 16px;
+}
