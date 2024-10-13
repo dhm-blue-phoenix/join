@@ -2,6 +2,7 @@ import { retrievingData } from './dataResponse.js';
 import { setBtnPrio } from './addTask_addEvents.js';
 import { addSubTaskToList } from '../addTask.js';
 
+const ID_SUBMIT_BTN = document.querySelector('.taskbuttoncreat');
 const items = {
     title: 'value',
     description: 'textContent',
@@ -97,6 +98,7 @@ const updateDomWithTaskData = (taskData) => {
      * ========================
      * [X] Aufgabe erfolgreich aktualisieren!
      */
+    ID_SUBMIT_BTN.textContent = 'Safe Task';
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
         if (item) {
