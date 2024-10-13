@@ -1,9 +1,9 @@
-import { loadUserIdFromStored } from './modules.js';
-import { editContactId } from './contact_show_editPopup.js';
-import { showContactCards } from './contact_show_cards.js';
-import { dnonePersionCard, resetEditContactForm } from './dnone.js';
-import { updateData } from './dataResponse.js';
-import { hideMobileContactCard } from './contact_show_details.js';
+import { loadUserIdFromStored } from '../modules.js';
+import { editContactId } from './show_editPopup.js';
+import { showContactCards } from './show_cards.js';
+import { dnonePersionCard, resetEditContactForm } from '../dnone.js';
+import { updateData } from '../dataResponse.js';
+import { hideMobileContactCard } from './show_details.js';
 
 /**
  * Bearbeitet einen bestehenden Kontakt mit den neuen Formulardaten.

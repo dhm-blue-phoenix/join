@@ -1,21 +1,4 @@
-const TASK_STATUS = [
-    {
-        'value': 'taskToDo',
-        'text': 'To do'
-    },
-    {
-        'value': 'taskInProgress',
-        'text': 'In progress'
-    },
-    {
-        'value': 'taskAwaitFeedback',
-        'text': 'Await feedback'
-    },
-    {
-        'value': 'taskDone',
-        'text': 'Done'
-    }
-];
+import { TASK_STATUS } from '../../initBoard.js';
 
 /**
  * Erstellt eine neue Task-Karte und fügt sie in das DOM ein.

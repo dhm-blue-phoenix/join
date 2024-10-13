@@ -3,7 +3,7 @@ import {
     addSubTaskToList,
     deleteItem,
     taskForm
-} from '../addTask.js';
+} from '../../initAddTask.js';
 
 let lastBtnPrio = 'medium';
 

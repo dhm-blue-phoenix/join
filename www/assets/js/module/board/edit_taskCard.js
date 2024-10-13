@@ -1,4 +1,4 @@
-import { retrievingData } from './dataResponse.js';
+import { retrievingData } from '../dataResponse.js';
 
 /**
  * Bearbeitet eine Task-Karte und lädt die entsprechende Task auf eine neue Seite.

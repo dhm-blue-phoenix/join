@@ -1,7 +1,7 @@
-import { dnonePersionCard } from './dnone.js';
-import { showContactCards } from './contact_show_cards.js';
-import { loadUserIdFromStored, getContactId, deletElementById } from './modules.js';
-import { hideMobileContactCard } from './contact_show_details.js';
+import { dnonePersionCard } from '../dnone.js';
+import { showContactCards } from './show_cards.js';
+import { loadUserIdFromStored, getContactId, deletElementById } from '../modules.js';
+import { hideMobileContactCard } from './show_details.js';
 
 /**
  * Löscht den Kontakt anhand der angegebenen E-Mail-Adresse.

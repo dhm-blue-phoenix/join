@@ -1,8 +1,8 @@
 import { loadUserIdFromStored, loadElementByPatch, loadTaskData } from './module/modules.js';
 import { uploadPatchData, updateData, retrievingData } from './module/dataResponse.js';
-import { createListItem } from './module/addTask_createSubList.js';
-import { loadEditTaskFromUrl, editTaskId } from './module/addTask_loadEditTaskFromUrl.js';
-import { renderUsers } from './module/addTask_createSortedUsers.js';
+import { createListItem } from './module/addTask/createSubList.js';
+import { loadEditTaskFromUrl, editTaskId } from './module/addTask/loadEditTaskFromUrl.js';
+import { renderUsers } from './module/addTask/createSortedUsers.js';
 import {
     addEventFromAddTask,
     addEventFromBtnUrgent,
@@ -11,7 +11,7 @@ import {
     addEventFromAddSubTask,
     addEventFromDelListSubTask,
     setBtnPrio
-} from './module/addTask_addEvents.js';
+} from './module/addTask/addEvents.js';
 
 const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
 const USER_ID = loadUserIdFromStored();

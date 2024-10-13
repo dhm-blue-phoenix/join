@@ -1,6 +1,6 @@
-import { taskForm } from '../addTask.js';
-import { extractInitials } from './modules.js';
-import { retrievingData } from './dataResponse.js';
+import { taskForm } from '../../initAddTask.js';
+import { extractInitials } from '../modules.js';
+import { retrievingData } from '../dataResponse.js';
 
 const ID_SELECT_ASSIGNED = document.getElementById('assigned');
 const USER_CARDS_CONTAINER = document.getElementById('userCardsContainerID');

@@ -1,6 +1,6 @@
-import { retrievingData } from './dataResponse.js';
-import { setBtnPrio } from './addTask_addEvents.js';
-import { addSubTaskToList } from '../addTask.js';
+import { retrievingData } from '../dataResponse.js';
+import { setBtnPrio } from './addEvents.js';
+import { addSubTaskToList } from '../../initAddTask.js';
 
 const ID_SUBMIT_BTN = document.querySelector('.taskbuttoncreat');
 const items = {

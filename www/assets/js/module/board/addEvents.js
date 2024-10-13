@@ -1,5 +1,8 @@
-import { initShowTaskDetails } from './board_show_taskDetails.js';
-import { reloadWindow } from './modules.js';
+import { initShowTaskDetails } from './show_taskDetails.js';
+import { reloadWindow } from '../modules.js';
+import { searchToTasks } from './search_to_tasks.js';
+
+const ID_INPUT_SEARCH = document.getElementById('boardSearch');
 
 /**
  * Fügt ein Klick-Event für das Schließen des Task-Karten-Popups hinzu.
@@ -46,6 +49,13 @@ const addEventFromTaskCard = (id) => {
     element.addEventListener('click', handleClick);
 };
 
+// NEW FUNTKION
+const addEventToSearch = () => {
+    if (!ID_INPUT_SEARCH) return console.warn('Id Search not found!');
+    ID_INPUT_SEARCH.removeEventListener('input', searchToTasks);
+    ID_INPUT_SEARCH.addEventListener('input', searchToTasks);
+};
+
 /**
  * Behandelt den Klick auf ein Element und zeigt Details zu einer Aufgabe an.
  * ====================================================================================================
@@ -63,4 +73,4 @@ const handleClick = (event) => {
     initShowTaskDetails(TASK_ID);
 };
 
-export { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard };
+export { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch };

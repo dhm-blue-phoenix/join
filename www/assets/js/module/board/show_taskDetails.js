@@ -1,6 +1,6 @@
-import { deleteTaskCard } from './board_delete_taskCard.js';
-import { editTaskCard } from './board_edit_taskCard.js';
-import { updateData, retrievingData } from './dataResponse.js';
+import { deleteTaskCard } from './delete_taskCard.js';
+import { editTaskCard } from './edit_taskCard.js';
+import { updateData, retrievingData } from '../dataResponse.js';
 
 const IDS = ['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
 const item = ['category', 'title', 'description', 'date', 'prio', 'assigned', 'subtask'];

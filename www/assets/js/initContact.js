@@ -1,6 +1,6 @@
-import { showContactCards } from './module/contact_show_cards.js';
-import { editContact } from './module/contact_edit.js';
-import { addContact } from './module/contact_add.js';
+import { showContactCards } from './module/contact/show_cards.js';
+import { editContact } from './module/contact/edit.js';
+import { addContact } from './module/contact/add.js';
 
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_FORM_editPersion = document.getElementById('editContactForm');

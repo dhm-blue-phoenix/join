@@ -1,7 +1,7 @@
-import { loadUserIdFromStored, loadElementByPatch } from './modules.js';
-import { showContactCards } from './contact_show_cards.js';
-import { dnonePersionCard, resetAddContactForm } from './dnone.js';
-import { uploadPatchData } from './dataResponse.js';
+import { loadUserIdFromStored, loadElementByPatch } from '../modules.js';
+import { showContactCards } from './show_cards.js';
+import { dnonePersionCard, resetAddContactForm } from '../dnone.js';
+import { uploadPatchData } from '../dataResponse.js';
 
 /**
  * Fügt einen neuen Kontakt zur Kontaktliste hinzu.

@@ -1,7 +1,26 @@
 import { retrievingData } from './module/dataResponse.js';
-import { createTaskCard } from './module/board_create_taskCard.js';
-import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board_draganddrop.js';
-import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard } from './module/board_addEvents.js';
+import { createTaskCard } from './module/board/create_taskCard.js';
+import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board/draganddrop.js';
+import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
+
+const TASK_STATUS = [
+    {
+        'value': 'taskToDo',
+        'text': 'To do'
+    },
+    {
+        'value': 'taskInProgress',
+        'text': 'In progress'
+    },
+    {
+        'value': 'taskAwaitFeedback',
+        'text': 'Await feedback'
+    },
+    {
+        'value': 'taskDone',
+        'text': 'Done'
+    }
+];
 
 /**
  * Führt Initialisierungsfunktionen aus, sobald das DOM vollständig geladen ist.
@@ -16,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initTaskBord();
     addEventToCloseTaskCard();
     addEventToLoadAddTask();
+    addEventToSearch();
     enableDragAndDrop();
     restoreTaskPositions();  // Positionen wiederherstellen
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
@@ -38,6 +58,7 @@ async function initTaskBord() {
     try {
         const tempTasks = await retrievingData(`board/`);
         const taskFilters = tempTasks.filter(task => task && task.title);
+        clearBoard();
         taskFilters.forEach((task) => {
             let { id, title: headline, description, assigned: users, category, subtask } = task;
             createTaskCard(id, headline, description, users, category, subtask);
@@ -47,3 +68,9 @@ async function initTaskBord() {
         console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
     };
 };
+
+const clearBoard = () => {
+    TASK_STATUS.forEach(id => document.getElementById(id.value).innerHTML = '');
+};
+
+export { initTaskBord, clearBoard, TASK_STATUS };
