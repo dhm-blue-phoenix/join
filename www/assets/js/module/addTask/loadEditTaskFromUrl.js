@@ -115,6 +115,7 @@ const updateDomWithTaskData = (taskData) => {
             console.warn(`Element mit ID "${id}" nicht gefunden`);
         }
     });
+    updateAssignedTo(taskData);
 };
 
 /**
@@ -155,6 +156,39 @@ const updatePrioBtn = (taskData, id) => {
         if (prio === btn) {
             setBtnPrio(prio);
         }
+    });
+};
+
+/**
+ * Aktualisiert die Anzeige der zugewiesenen Person auf der Task-Karte.
+ * ====================================================================================================
+ * Diese Funktion sorgt dafür, dass die Anzeige der zugewiesenen Person auf der Task-Karte sichtbar ist.
+ * Momentan wird immer ein Text-Element mit dem Text "Das ist ein Test" hinzugefügt.
+ * ====================================================================================================
+ */
+
+const updateAssignedTo = (taskData) => {
+    const selectedPersonContainer = document.getElementById('selectedPerson');
+    selectedPersonContainer.style.display = 'flex'; // Setze den Style auf "display: flex;"
+    selectedPersonContainer.innerHTML = ''; // Lösche den Inhalt des Containers
+
+    const assignedPersons = taskData.assigned; // Annahme: taskData ist das Objekt mit den Aufgaben-Daten
+
+    // Starte die Schleife bei Index 1, um die erste Person zu überspringen
+    assignedPersons.slice(1).forEach((person) => {
+        const nameShortcutDiv = document.createElement('div');
+        nameShortcutDiv.id = 'nameShortcut';
+        nameShortcutDiv.style.backgroundColor = person.color;
+
+        // Get the first and last name
+        const fullName = person.name; // Assuming person.name contains the full name
+        const nameParts = fullName.split(' '); // Split the name by spaces
+        const firstName = nameParts[0];
+        const lastName = nameParts[1] || ''; // Handle cases with no last name
+
+        nameShortcutDiv.textContent = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase(); // Display initials
+
+        selectedPersonContainer.appendChild(nameShortcutDiv);
     });
 };
 
