@@ -1,5 +1,6 @@
 import { extractInitials } from '../modules.js';
 import { deleteContact } from './delete_card.js';
+import { contacts } from './show_cards.js';
 import { showContactEditPopup } from './show_editPopup.js';
 
 const ID_BTN_editDelet = document.getElementById('editdeletcontact');
@@ -8,6 +9,9 @@ const ID_personShortcut = document.getElementById('personShortcut');
 const ID_personName = document.getElementById('personName');
 const ID_personEmail = document.getElementById('personEmail');
 const ID_personTel = document.getElementById('personTel');
+const ID_delContactBtn = document.getElementById('delContactBtn');
+const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
+const ID_phone = document.getElementById('phone');
 const BTN_ID = ['delContactBtn', 'editContactBtn', 'delContactBtnMobile', 'editContactBtnMobile'];
 const BTN_FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
@@ -16,6 +20,7 @@ const CLASS_dnone = document.querySelectorAll('.d-none');
 
 const screenWidth = window.innerWidth;
 
+let userDetails = false;
 let lastCart;
 
 /**
@@ -34,6 +39,7 @@ let lastCart;
  * ====================================================================================================
  */
 export function showContactDetails(cardId, personName, personEmail, personTel, persionShortBackColor) {
+    cardId === 'user' ? userConfig() : contactConfig();
     const card = document.getElementById(cardId);
     if (!card) throw new Error('Element with ID', cardId, 'not found.');
     setCardActive(CLASS_dnone, card);
@@ -42,7 +48,41 @@ export function showContactDetails(cardId, personName, personEmail, personTel, p
     addEventFromBtn();
     deselectPreviousCard(card);
     showMobileContactCard();
-}
+};
+
+/**
+ * Konfiguriert die Ansicht, wenn der Benutzer angezeigt wird.
+ * ====================================================================================================
+ * Setzt das Benutzerdetail-Flag, verbirgt bestimmte Buttons und Textbereiche 
+ * und ändert den Informationstext zu 'User Information'.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const userConfig = () => {
+    userDetails = true;
+    ID_delContactBtn.style.display = 'none';
+    ID_dnoneInfoHeadline.textContent = 'User Information';
+    ID_phone.style.display = 'none';
+    ID_personTel.style.display = 'none';
+};
+
+/**
+ * Konfiguriert die Ansicht, wenn ein Kontakt angezeigt wird.
+ * ====================================================================================================
+ * Setzt das Benutzerdetail-Flag auf false, zeigt relevante Buttons an und 
+ * ändert den Informationstext zu 'Contact Information'.
+ * ====================================================================================================
+ * @returns {void}
+ * ====================================================================================================
+ */
+const contactConfig = () => {
+    userDetails = false;
+    ID_delContactBtn.style.display = 'flex';
+    ID_dnoneInfoHeadline.textContent = 'Contact Information';
+    ID_phone.style.display = 'block';
+    ID_personTel.style.display = 'block';
+};
 
 /**
  * Die Funktion blendet beim Laden der Contact-Seite die mobile Contactcard aus.
@@ -190,6 +230,7 @@ const addEventFromBtn = () => {
  */
 const handleButtonClick = (event) => {
     const target = event.currentTarget;
+    if (userDetails) return BTN_FUNC['edit']('user');
     const email = target.getAttribute('data-email');
     const action = target.id.includes('del') ? 'delete' : 'edit';
     BTN_FUNC[action](email);

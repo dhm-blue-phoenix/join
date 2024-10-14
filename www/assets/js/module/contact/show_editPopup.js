@@ -1,6 +1,7 @@
 import { loadUserIdFromStored } from '../modules.js';
 import { getContactId } from '../modules.js';
 import { extractInitials } from '../modules.js';
+import { retrievingData } from '../dataResponse.js';
 
 const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
 const ID_INPUT_editPersionName = document.getElementById('editPersionName');
@@ -9,6 +10,7 @@ const ID_INPUT_editPersionTel = document.getElementById('editPersionTel');
 const ID_editPopupAnimation = document.getElementById('editcontactpopupanimation');
 
 export let editContactId;
+let editUser = false;
 
 /**
  * Zeigt das Bearbeitungs-Popup für einen Kontakt an.
@@ -27,9 +29,20 @@ export async function showContactEditPopup(email) {
     try {
         showPopup();
         const userID = loadUserIdFromStored();
-        const contactId = await getContactId(userID, email, 'contactCard');
-        importFromEditFormData(contactId[1]);
-        editContactId = contactId[0];
+        if (email === 'user') {
+            editUser = true;
+            const user = await retrievingData(`users/${userID}/`);
+            const userData = {
+                'shortcutBackColor': user[4],
+                'name': user[2],
+                'email': user[1]
+            };
+            importFromEditFormData(userData);
+        } else {
+            const contactId = await getContactId(userID, email, 'contactCard');
+            importFromEditFormData(contactId[1]);
+            editContactId = contactId[0];
+        };
     } catch (err) {
         console.error(`Es ist ein Problem beim Öffnen des Edid Popups aufgetreten! ${err}`);
     };
@@ -71,16 +84,24 @@ const removeClass = (id) => {
  * ====================================================================================================
  * func extractInitials() - findet man in der './extractInitials.js'
  * ====================================================================================================
- * @param {Object} contactData Ein Objekt mit den Kontaktdaten.
- * @param {string} contactData.name Der Name des Kontakts.
- * @param {string} contactData.email Die E-Mail-Adresse des Kontakts.
- * @param {string} contactData.tel Die Telefonnummer des Kontakts.
+ * @param {Object} data Ein Objekt mit den Kontaktdaten.
+ * @param {string} data.name Der Name des Kontakts.
+ * @param {string} data.email Die E-Mail-Adresse des Kontakts.
+ * @param {string} data.tel Die Telefonnummer des Kontakts.
  * ====================================================================================================
  */
-const importFromEditFormData = (contactData) => {
-    ID_editPersionShortcut.textContent = extractInitials(contactData.name);
-    ID_editPersionShortcut.style.backgroundColor = contactData.shortcutBackColor;
-    ID_INPUT_editPersionName.value = contactData.name;
-    ID_INPUT_editPersionEmail.value = contactData.email;
-    ID_INPUT_editPersionTel.value = contactData.tel;
+const importFromEditFormData = (data) => {
+    ID_editPersionShortcut.textContent = extractInitials(data.name);
+    ID_editPersionShortcut.style.backgroundColor = data.shortcutBackColor;
+    ID_INPUT_editPersionName.value = data.name;
+    ID_INPUT_editPersionEmail.value = data.email;
+    if (editUser) {
+        ID_INPUT_editPersionTel.disabled = true;
+        ID_INPUT_editPersionTel.style.display = 'none';
+        ID_INPUT_editPersionTel.value = null;
+        return editUser = false;
+    };
+    ID_INPUT_editPersionTel.disabled = false;
+    ID_INPUT_editPersionTel.style.display = 'block';
+    ID_INPUT_editPersionTel.value = data.tel;
 };

@@ -26,7 +26,13 @@ import { hideMobileContactCard } from './show_card_details.js';
 export async function editContact(formData) {
     try {
         const userID = loadUserIdFromStored();
-        await updateData(`users/${userID}/contacts/${editContactId}`, formData);
+        if (formData.tel === '') {
+            await updateData(`users/${userID}/name`, formData.name);
+            await updateData(`users/${userID}/email`, formData.email);
+            window.location.reload();
+        } else {
+            await updateData(`users/${userID}/contacts/${editContactId}`, formData);
+        };
         await updateContactDisplay();
         hideMobileContactCard();
     } catch (err) {
