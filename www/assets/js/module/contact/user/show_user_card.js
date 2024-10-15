@@ -66,8 +66,7 @@ const renderUserToHtml = (short, shortname, name, email) => {
  */
 const userShort = (short, shortname) => {
     ID_USER_SHORT.style.backgroundColor = short;
-    ID_USER_SHORT.style.borderRadius = '100%';
-    ID_USER_SHORT.style.padding = '10px';
+    ID_USER_SHORT.id = 'nameShortcut';
     ID_USER_SHORT.textContent = shortname;
 };
 

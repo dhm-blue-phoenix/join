@@ -705,7 +705,6 @@ body {
 }
 
 .ownContact{
-  width: 80vw;
   /* height: 78px; */
   display: flex;
   flex-direction: column;
@@ -713,5 +712,4 @@ body {
   padding: 0 16px 0 16px;
   gap: 8px;
   /* background-color: aqua; */
-  margin-top: 16px;
 }
