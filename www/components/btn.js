@@ -1,7 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => navInit());
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    navInit();
+  }, 1000);
+});
 
 function navInit() {
-  const lastActiveBtn = localStorage.getItem('activNavBtn');
+  const lastActiveBtn = localStorage.getItem('activeNavBtn');
   setActiveButton(lastActiveBtn);
   loadBtns();
 };
@@ -47,20 +51,21 @@ const navEventHandler = (event) => {
 };
 
 const loadNextPage = (btnId, page) => {
-  removeLastActivBtn();
+  removeLastActiveBtn();
   setActiveButton(btnId);
-  localStorage.setItem('lastActiveNavBtn', localStorage.getItem('activeNavBtn'));
-  localStorage.setItem('activNavBtn', btnId);
+  const lastActiveBtn = localStorage.getItem('activeNavBtn');
+  localStorage.setItem('lastActiveNavBtn', lastActiveBtn);
+  localStorage.setItem('activeNavBtn', btnId);
   window.location.href = page;
 };
 
-const removeLastActivBtn = () => {
-  const lastActiveBtn = localStorage.getItem('activNavBtn');
+const removeLastActiveBtn = () => {
+  const lastActiveBtn = localStorage.getItem('activeNavBtn');
   document.getElementById(lastActiveBtn)?.classList.remove('active');
 };
 
 function backToPreviousPage() {
-  const lastActiveBtn = localStorage.getItem('lastActivNavBtn');
+  const lastActiveBtn = localStorage.getItem('lastActiveNavBtn');
   const btns = document.querySelectorAll('.navBar-btns');
   btns.forEach(btn => {
     if (btn.id === lastActiveBtn) {
