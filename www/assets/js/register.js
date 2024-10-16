@@ -82,7 +82,7 @@ async function uploadData(formData) {
         name: formData.name,
         password: formData.pw,
         contacts: { none: '' },
-        tasks: { none: '' }
+        shortcutBackColor: '#' + Math.floor(Math.random() * 16777215).toString(16)
     });
     signedUp(formData);
 };
