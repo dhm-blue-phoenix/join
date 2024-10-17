@@ -21,10 +21,10 @@ const ID_inputCheckbox = document.getElementById('inputCheckbox');
  */
 export async function autoForm() {
     const encode = loadUsernameFromURL();
-    let userData;
-    if (userData !== null) userData = checkDataAvailableFromUrl(encode, userData);
+    let userData; 
+    userData = checkDataAvailableFromUrl(encode, userData);
     if (storedAutoLogin === 'true') userData = await checkStoredFromAutoLogin();
-    if(userData !== null) return fillForm(userData);
+    fillForm(userData);
 };
 
 /**
@@ -74,6 +74,7 @@ async function checkStoredFromAutoLogin() {
  * ====================================================================================================
  */
 const fillForm = (userData) => {
+    if(userData[0] === 'null' || userData[1] === 'null') userData = ['', ''];
     ID_inputEmail.value = userData[0];
     ID_inputPW.value = userData[1];
 };
