@@ -12,6 +12,7 @@ const renderUsers = async () => {
     try {
         const tempUsers = await retrievingData(`users`);
         await tempUsers.forEach(async (user) => {
+            if(user.name === 'Guest') return;
             users.push([user.name, extractInitials(user.name), user.shortcutBackColor]);
             await createSortedUsers();
         });
