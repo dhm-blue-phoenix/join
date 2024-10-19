@@ -38,12 +38,10 @@ document.addEventListener('click', (event) => {
         USER_CARDS_CONTAINER.style.display = 'none';
     }
 });
-
-/*
-    Die Funktion ist viel zu Lang !!!!
-                                    ||
-                                    \/
-*/
+/**
+ * Hauptfunktion, die sortierte Benutzerkarten erstellt und dem Benutzercontainer hinzufügt.
+ * Initialisiert die Benutzerkarte und Checkboxen für jeden Benutzer.
+ */
 function createSortedUsers() {
     USER_CARDS_CONTAINER.innerHTML = '';  // Clear the container
     const selectedPersonContainer = document.getElementById('selectedPerson');  // Container for selected persons
@@ -65,10 +63,21 @@ function createSortedUsers() {
     toggleSelectedPersonContainer(selectedPersonContainer);  // Initially hide the container
 }
 
+/**
+ * Überprüft, ob der Benutzer übersprungen werden sollte, basierend auf leeren oder ungültigen Daten.
+ * @param {Array|string} user - Der Benutzer, der überprüft werden soll.
+ * @returns {boolean} - Gibt true zurück, wenn der Benutzer übersprungen werden soll.
+ */
 function shouldSkipUser(user) {
     return typeof user === 'string' && (user === '' || user === 'Select contacts to assign');
 }
 
+/**
+ * Erstellt ein Benutzer-Div-Element, das den Namen, die Initialen und die Benutzerinformationen enthält.
+ * @param {Array} user - Das Array mit Benutzerinformationen (Name, Initialen, Hintergrundfarbe).
+ * @param {number} counter - Ein Zähler, um den Benutzer zu identifizieren.
+ * @returns {HTMLElement} - Das erstellte Benutzer-Div-Element.
+ */
 function createUserDiv(user, counter) {
     const userDiv = document.createElement('div');
     userDiv.id = `person${counter}`;
@@ -86,6 +95,11 @@ function createUserDiv(user, counter) {
     return userDiv;
 }
 
+/**
+ * Erstellt ein Div-Element für die Benutzerinitialen und setzt die Hintergrundfarbe.
+ * @param {Array} user - Das Array mit Benutzerinformationen (Name, Initialen, Hintergrundfarbe).
+ * @returns {HTMLElement} - Das erstellte Div-Element für die Initialen des Benutzers.
+ */
 function createInitialsDiv(user) {
     const initialsDiv = document.createElement('div');
     initialsDiv.classList.add('Initialenperson');
@@ -95,6 +109,12 @@ function createInitialsDiv(user) {
     return initialsDiv;
 }
 
+/**
+ * Erstellt ein Checkbox-Element für die Benutzerkarte und fügt die zugehörigen Event-Listener hinzu.
+ * @param {HTMLElement} userDiv - Das Benutzer-Div-Element, dem die Checkbox hinzugefügt wird.
+ * @param {HTMLElement} selectedPersonContainer - Der Container, in dem ausgewählte Benutzer angezeigt werden.
+ * @returns {HTMLInputElement} - Die erstellte Checkbox.
+ */
 function createCheckbox(userDiv, selectedPersonContainer) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -114,10 +134,18 @@ function createCheckbox(userDiv, selectedPersonContainer) {
     return checkbox;
 }
 
+/**
+ * Zeigt oder verbirgt den Container für ausgewählte Benutzer basierend auf dessen Inhalt.
+ * @param {HTMLElement} container - Der Container, der angezeigt oder ausgeblendet wird.
+ */
 function toggleSelectedPersonContainer(container) {
     container.style.display = container.children.length > 0 ? 'flex' : 'none';
 }
 
+/**
+ * Aktualisiert den Container mit den ausgewählten Benutzern, indem Initialen der aktiven Benutzer hinzugefügt werden.
+ * @param {HTMLElement} selectedPersonContainer - Der Container, in dem ausgewählte Benutzer angezeigt werden.
+ */
 function updateSelectedPersonContainer(selectedPersonContainer) {
     selectedPersonContainer.innerHTML = '';
     document.querySelectorAll('.personCardsmall').forEach((card, index) => {
