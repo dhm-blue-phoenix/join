@@ -45,121 +45,107 @@ document.addEventListener('click', (event) => {
                                     \/
 */
 function createSortedUsers() {
-    USER_CARDS_CONTAINER.innerHTML = ''; // Clear the container
-    const selectedPersonContainer = document.getElementById('selectedPerson'); // Container for selected persons
-
+    USER_CARDS_CONTAINER.innerHTML = '';  // Clear the container
+    const selectedPersonContainer = document.getElementById('selectedPerson');  // Container for selected persons
     let counter = 1;
 
-    // Function to show or hide the selected person container based on its content
-    const toggleSelectedPersonContainer = () => {
-        if (selectedPersonContainer.children.length > 0) {
-            selectedPersonContainer.style.display = 'flex';  // Show the container when it has content
-        } else {
-            selectedPersonContainer.style.display = 'none';  // Hide the container when it's empty
-        }
-    };
+    // Show or hide selectedPersonContainer based on its content
+    toggleSelectedPersonContainer(selectedPersonContainer);
 
-    users.forEach(user => {
-        // Skip the first two entries (empty string and "Select contacts to assign")
-        if (typeof user === 'string' && (user === '' || user === 'Select contacts to assign')) {
-            return; // Skip this iteration
-        }
+    users.forEach((user) => {
+        if (shouldSkipUser(user)) return;  // Skip invalid users
 
-        // Create a new <div> for each valid user
-        const userDiv = document.createElement('div');
-        userDiv.id = `person${counter}`;  // Assign a unique ID like person1, person2, etc.
-        userDiv.classList.add('personCardsmall');  // Add the class 'personCard' to the div
-        userDiv.style.display = 'flex';  // Ensure flexbox layout
-        userDiv.style.alignItems = 'center';
-        userDiv.style.justifyContent = 'space-between';  // Align content to sides
+        const userDiv = createUserDiv(user, counter);  // Create user div
+        const checkbox = createCheckbox(userDiv, selectedPersonContainer);  // Create and handle checkbox logic
 
-        // Get the first and last name
-        const fullName = user[0];  // Assuming user[0] contains the full name
-        const nameParts = fullName.split(' ');  // Split the name by spaces
-        const firstName = nameParts[0];
-        const lastName = nameParts[1] || '';  // Handle cases with no last name
-
-        // Create a <div> for the initials
-        const initialsDiv = document.createElement('div');
-        initialsDiv.classList.add('Initialenperson');  // Add the class 'Initialenperson' to the div
-        initialsDiv.style.backgroundColor = user[2];  // Alternating background color for initials div
-        initialsDiv.textContent = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase();  // Display initials
-
-        // Set the content of the userDiv (user's full name)
-        const nameDiv = document.createElement('div');
-        nameDiv.textContent = fullName;
-
-        // Create a checkbox with class 'Personcardcheckbox'
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.classList.add('Personcardcheckbox');  // Add the class 'Personcardcheckbox'
-
-        // Function to handle adding/removing initials from the selected person container
-        const updateSelectedPersonContainer = () => {
-            // Remove all existing initials from the selected person container
-            selectedPersonContainer.innerHTML = '';
-
-            // Go through all users and append initials of those with checked checkboxes
-            document.querySelectorAll('.personCardsmall').forEach((card, index) => {
-                const cardCheckbox = card.querySelector('.Personcardcheckbox');
-                const [name, short, color] = users[index + 2];
-
-                // Wenn die Checkbox nicht ausgewählt ist, entferne den Namen aus assignedActiv
-                if (!cardCheckbox.checked) {
-                    if (assignedActiv.includes(name)) {
-                        assignedActiv = assignedActiv.filter((user) => user !== name);
-                        taskForm.assigned = taskForm.assigned.filter(user => user.name !== name);
-                    };
-                };
-
-                // Wenn die Checkbox ausgewählt ist, füge das Element hinzu
-                if (cardCheckbox.checked) {
-                    if (!assignedActiv.includes(name)) {
-                        taskForm.assigned.push({ name, short, color });
-                        assignedActiv.push(name);
-                    };
-                };
-            });
-
-            // Bereinige den selectedPersonContainer, bevor die neuen aktiven Nutzer hinzugefügt werden
-            selectedPersonContainer.innerHTML = '';  // Entferne alle bisherigen Einträge
-
-            // Füge alle aktiven Nutzer erneut hinzu
-            assignedActiv.forEach((activeName) => {
-                const userIndex = users.findIndex(user => user[0] === activeName);  // Finde den passenden Nutzer
-                if (userIndex !== -1) {
-                    const initialsDiv = document.querySelectorAll('.personCardsmall')[userIndex - 2].querySelector('.Initialenperson');  // Hole das passende Initialen-Div
-                    const selectedInitialsDiv = initialsDiv.cloneNode(true);  // Clone das Initialen-Div
-                    selectedPersonContainer.appendChild(selectedInitialsDiv);  // Füge es zum Container hinzu
-                }
-            });
-
-            toggleSelectedPersonContainer();  // Show or hide the container based on content
-        };
-
-        // Add event listener for the userDiv (this toggles the checkbox when the div is clicked)
-        userDiv.addEventListener('click', () => {
-            checkbox.checked = !checkbox.checked;  // Toggle checkbox state
-            updateSelectedPersonContainer();  // Update the selected persons container
-        });
-
-        // Handle checkbox clicks
-        checkbox.addEventListener('click', (event) => {
-            event.stopPropagation();  // Prevent the div's click event from firing
-            updateSelectedPersonContainer();  // Update the selected persons container
-        });
-
-        // Append the initials, name, and checkbox to the userDiv
-        userDiv.appendChild(initialsDiv);
-        userDiv.appendChild(nameDiv);
-        userDiv.appendChild(checkbox);
-
-        // Append the new <div> to the userCardsContainer
-        USER_CARDS_CONTAINER.appendChild(userDiv);
+        USER_CARDS_CONTAINER.appendChild(userDiv);  // Append user div
         counter++;
     });
 
-    toggleSelectedPersonContainer();  // Initially hide the container
+    toggleSelectedPersonContainer(selectedPersonContainer);  // Initially hide the container
 }
+
+function shouldSkipUser(user) {
+    return typeof user === 'string' && (user === '' || user === 'Select contacts to assign');
+}
+
+function createUserDiv(user, counter) {
+    const userDiv = document.createElement('div');
+    userDiv.id = `person${counter}`;
+    userDiv.classList.add('personCardsmall');
+    userDiv.style.display = 'flex';
+    userDiv.style.alignItems = 'center';
+    userDiv.style.justifyContent = 'space-between';
+
+    const initialsDiv = createInitialsDiv(user);
+    const nameDiv = document.createElement('div');
+    nameDiv.textContent = user[0];  // Assuming user[0] is the full name
+
+    userDiv.appendChild(initialsDiv);
+    userDiv.appendChild(nameDiv);
+    return userDiv;
+}
+
+function createInitialsDiv(user) {
+    const initialsDiv = document.createElement('div');
+    initialsDiv.classList.add('Initialenperson');
+    initialsDiv.style.backgroundColor = user[2];  // Background color for initials
+    const nameParts = user[0].split(' ');
+    initialsDiv.textContent = (nameParts[0].charAt(0) + (nameParts[1] ? nameParts[1].charAt(0) : '')).toUpperCase();
+    return initialsDiv;
+}
+
+function createCheckbox(userDiv, selectedPersonContainer) {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('Personcardcheckbox');
+    userDiv.appendChild(checkbox);
+
+    userDiv.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+        updateSelectedPersonContainer(selectedPersonContainer);
+    });
+
+    checkbox.addEventListener('click', (event) => {
+        event.stopPropagation();
+        updateSelectedPersonContainer(selectedPersonContainer);
+    });
+
+    return checkbox;
+}
+
+function toggleSelectedPersonContainer(container) {
+    container.style.display = container.children.length > 0 ? 'flex' : 'none';
+}
+
+function updateSelectedPersonContainer(selectedPersonContainer) {
+    selectedPersonContainer.innerHTML = '';
+    document.querySelectorAll('.personCardsmall').forEach((card, index) => {
+        const cardCheckbox = card.querySelector('.Personcardcheckbox');
+        const [name, short, color] = users[index + 2];
+
+        if (cardCheckbox.checked) {
+            if (!assignedActiv.includes(name)) {
+                taskForm.assigned.push({ name, short, color });
+                assignedActiv.push(name);
+            }
+        } else {
+            assignedActiv = assignedActiv.filter((user) => user !== name);
+            taskForm.assigned = taskForm.assigned.filter(user => user.name !== name);
+        }
+    });
+
+    assignedActiv.forEach((activeName) => {
+        const userIndex = users.findIndex(user => user[0] === activeName);
+        if (userIndex !== -1) {
+            const initialsDiv = document.querySelectorAll('.personCardsmall')[userIndex - 2].querySelector('.Initialenperson');
+            const selectedInitialsDiv = initialsDiv.cloneNode(true);
+            selectedPersonContainer.appendChild(selectedInitialsDiv);
+        }
+    });
+
+    toggleSelectedPersonContainer(selectedPersonContainer);
+}
+
 
 export { renderUsers };
