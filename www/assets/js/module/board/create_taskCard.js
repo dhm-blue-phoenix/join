@@ -281,7 +281,7 @@ const createPersonShortcutContent = (contact) => {
 const createMobile = (cardId) => {
     const MOBILE = document.createElement('div');
     MOBILE.className = 'taskbottommobilesmall';
-    MOBILE.appendChild(createMobileCategory());
+    MOBILE.appendChild(createMobileCategory(cardId));
     MOBILE.appendChild(createMobileButton(cardId));
     return MOBILE;
 };
@@ -298,9 +298,9 @@ const createMobile = (cardId) => {
  * @returns {HTMLElement} Ein `select`-Element, das ein Dropdown-Menü mit den verfügbaren Kategorien enthält.
  * ====================================================================================================
  */
-export function createMobileCategory(category) {
+export function createMobileCategory(cardId, category) {
     const MOBILE_CATEGORY = document.createElement('select');
-    MOBILE_CATEGORY.id = 'taskCategorySelect';
+    MOBILE_CATEGORY.id = `taskCategorySelect${cardId}`;
 
     // Füge einen Event-Listener hinzu, der das Event-Handling des Klicks auf das <select>-Element stoppt
     MOBILE_CATEGORY.addEventListener('click', (event) => {

@@ -151,7 +151,7 @@ function removeHoverEffect(target) {
 import { createMobileCategory } from './create_taskCard.js';
 
 export const switchCategory = (cardId) => {
-    const selectElement = document.getElementById('taskCategorySelect');
+    const selectElement = document.getElementById(`taskCategorySelect${cardId}`);
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const taskCard = document.getElementById(`taskCardID${cardId}`);
 
@@ -161,7 +161,8 @@ export const switchCategory = (cardId) => {
     const targetContainer = document.getElementById(mobileCategory.id);
 
     // Finde den richtigen Container-Element
-    const container = document.getElementById('taskToDo'); // oder 'taskInProgress', 'taskAwaitFeedback', 'taskDone'
+    const containerId = selectedOption.value; // Hier wird der Wert des ausgewählten Options verwendet
+    const container = document.getElementById(containerId);
 
     // Füge das taskCard-Element zum Container hinzu
     container.appendChild(taskCard);
