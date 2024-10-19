@@ -89,18 +89,21 @@
   background-image: url(/resources/symbols/person.png);
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
+  color: var(--text-color01);
 }
 
 .mail {
   background-image: url(/resources/symbols/mail.png);
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
+  color: var(--text-color01);
 }
 
 .lock {
   background-image: url(/resources/symbols/lock.png);
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
+  color: var(--text-color01);
 }
 
 .privacypolicycontainer {
