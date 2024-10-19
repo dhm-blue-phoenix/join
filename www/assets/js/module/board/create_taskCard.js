@@ -308,7 +308,7 @@ const createMobileCategory = (category) => {
     });
 
     // Füge die ersten 4 Kategorie-Optionen hinzu
-    TASK_STATUS.slice(0, 4).forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
+    TASK_STATUS.slice(0, 6).forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
 
     // Setze den Wert der aktuell ausgewählten Kategorie
     const selectedOption = MOBILE_CATEGORY.querySelector(`option[value="${category}"]`);
