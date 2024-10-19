@@ -2,7 +2,6 @@ import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board/create_taskCard.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board/draganddrop.js';
 import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
-
 const TASK_STATUS = [
     {
         'value': 'taskToDo',
@@ -37,9 +36,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     addEventToLoadAddTask();
     addEventToSearch();
     enableDragAndDrop();
+    addTaskNotFoundContainers();
     restoreTaskPositions();  // Positionen wiederherstellen
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
 });
+
+/**
+ * Fügt "Keine Aufgabe!"-Container zu den angegebenen Task-Containern hinzu.
+ * ====================================================================================================
+ * Diese Funktion erstellt und fügt einen "Keine Aufgabe!"-Container zu jedem der spezifizierten 
+ * Task-Container (`taskToDo`, `taskInProgress`, `taskAwaitFeedback`, `taskDone`) hinzu, um anzuzeigen, 
+ * dass keine Aufgaben vorhanden sind. Jeder dieser Container enthält eine `div` mit dem Text "No Task!".
+ * ====================================================================================================
+ */
+
+function addTaskNotFoundContainers() {
+    const taskContainers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
+    taskContainers.forEach((containerId) => {
+      const container = document.getElementById(containerId);
+      const taskNotFoundContainer = document.createElement('div');
+      taskNotFoundContainer.id = 'tasktnotfounddrag';
+      taskNotFoundContainer.className = 'tasktnotfound';
+      const paragraph = document.createElement('p');
+      paragraph.textContent = 'No Tasks!';
+      taskNotFoundContainer.appendChild(paragraph);
+      container.appendChild(taskNotFoundContainer);
+    });
+  }
 
 /**
  * Initialisiert das Taskboard, indem es Aufgaben aus einer Datenquelle lädt und Task-Karten erstellt.

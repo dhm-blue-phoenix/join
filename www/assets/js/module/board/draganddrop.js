@@ -102,6 +102,7 @@ export function updateEmptyState() {
     });
 }
 
+
 /**
  * Fügt den Hover-Effekt hinzu, wenn ein gültiger Container betreten wird.
  * @param {DragEvent} event - Das DragEvent-Objekt.
@@ -135,3 +136,45 @@ function removeHoverEffect(target) {
     }
 }
 
+/**
+ * Wechselt die Task-Karte zu einer anderen Kategorie.
+ * ====================================================================================================
+ * Diese Funktion wird durch den Klick auf den "Move"-Button auf der mobilen Task-Karte ausgelöst.
+ * Sie liest den ausgewählten Kategorie-Wert aus dem `select`-Element mit der ID 'taskCategorySelect' und
+ * verschiebt die Task-Karte in den Ziel-Kategorie-Container. Sie aktualisiert auch den Zustand der Kategorie
+ * und speichert die neue Position der Task-Karte im LocalStorage.
+ * ====================================================================================================
+ * @function switchCategory
+ * ====================================================================================================
+ */
+
+export const switchCategory = () => {
+    const selectElement = document.getElementById('taskCategorySelect');
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const taskCard = document.querySelector('.taskcard'); // Vorausgesetzt, dass die Taskcard die Klasse "taskcard" hat
+    const targetCategory = document.querySelector(`#${selectedOption.value}`); // Vorausgesetzt, dass die Kategorie-Container die ID des Kategorie-Werts haben
+  
+    if (targetCategory) {
+      // Überprüfen, ob die Kategorie leer oder gefüllt ist
+      const isCategoryEmpty = targetCategory.children.length === 1;
+  
+      if (isCategoryEmpty) {
+        // Kategorie ist leer, zeige das leere Zustands-Element an
+        const emptyStateElement = targetCategory.querySelector('#tasktnotfounddrag');
+        emptyStateElement.style.display = 'flex';
+      } else {
+        // Kategorie ist gefüllt, blende das leere Zustands-Element aus
+        const emptyStateElement = targetCategory.querySelector('#tasktnotfounddrag');
+        emptyStateElement.style.display = 'none';
+      }
+  
+      // Speichere die neue Position der Task-Karte
+      localStorage.setItem(taskCard.id, selectedOption.value);
+  
+      // Verschiebe die Task-Karte in den Ziel-Kategorie-Container
+      targetCategory.appendChild(taskCard);
+  
+      // Aktualisiere den Zustand der Kategorie
+      updateEmptyState();
+    }
+  };

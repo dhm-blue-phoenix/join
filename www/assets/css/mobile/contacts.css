@@ -100,6 +100,11 @@
       padding: 8px;
       gap: 16px;
     }
+    .ownContact{
+      width: 80vw;
+      padding: 8px;
+      gap: 16px;
+    }
     .cardactive {
       width: 100%;
       padding: 8px;
@@ -301,7 +306,7 @@
     }
   
     .letter {
-      width: 100%;
+      width: 80vw;
       border-bottom: 1px solid var(--back-color08);
     }
   
