@@ -158,11 +158,12 @@ export const switchCategory = (cardId) => {
     // Verwende den Code von createMobileCategory, um den richtigen Div-Container auszuwählen
     const category = TASK_STATUS.find(option => option.value === selectedOption.value).value;
     const mobileCategory = createMobileCategory(category);
-    const targetContainer = document.getElementById(mobileCategory.id);
+    const targetContainer = document.getElementById(mobileCategory.cardId);
 
     // Finde den richtigen Container-Element
     const containerId = selectedOption.value; // Hier wird der Wert des ausgewählten Options verwendet
     const container = document.getElementById(containerId);
+
 
     // Füge das taskCard-Element zum Container hinzu
     container.appendChild(taskCard);

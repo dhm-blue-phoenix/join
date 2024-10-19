@@ -300,6 +300,7 @@ const createMobile = (cardId) => {
  */
 export function createMobileCategory(cardId, category) {
     const MOBILE_CATEGORY = document.createElement('select');
+    MOBILE_CATEGORY.className = 'taskCategorySelect';
     MOBILE_CATEGORY.id = `taskCategorySelect${cardId}`;
 
     // Füge einen Event-Listener hinzu, der das Event-Handling des Klicks auf das <select>-Element stoppt
