@@ -1,6 +1,6 @@
 import { retrievingData } from '../dataResponse.js';
 import { setBtnPrio } from './addEvents.js';
-import { addSubTaskToList } from '../../initAddTask.js';
+import { addSubTaskToList, taskForm } from '../../initAddTask.js';
 
 const ID_SUBMIT_BTN = document.querySelector('.taskbuttoncreat');
 const items = {
@@ -98,6 +98,7 @@ const updateDomWithTaskData = (taskData) => {
      * ========================
      * [X] Aufgabe erfolgreich aktualisieren!
      */
+    updateAssignedTo(taskData);
     ID_SUBMIT_BTN.textContent = 'Save!';
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
@@ -115,7 +116,6 @@ const updateDomWithTaskData = (taskData) => {
             console.warn(`Element mit ID "${id}" nicht gefunden`);
         }
     });
-    updateAssignedTo(taskData);
 };
 
 /**
@@ -173,6 +173,9 @@ const updateAssignedTo = (taskData) => {
     selectedPersonContainer.innerHTML = ''; // Lösche den Inhalt des Containers
 
     const assignedPersons = taskData.assigned; // Annahme: taskData ist das Objekt mit den Aufgaben-Daten
+
+    taskForm.assigned = (assignedPersons);
+    console.log(taskForm.assigned);
 
     // Starte die Schleife bei Index 1, um die erste Person zu überspringen
     assignedPersons.slice(1).forEach((person) => {
