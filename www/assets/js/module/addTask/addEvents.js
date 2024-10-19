@@ -2,7 +2,8 @@ import {
     initAddTask,
     addSubTaskToList,
     deleteItem,
-    taskForm
+    taskForm,
+    loadNextPage
 } from '../../initAddTask.js';
 
 let lastBtnPrio = 'medium';
@@ -12,6 +13,7 @@ const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
 const ID_BTN_URGENT = document.getElementById('urgent');
 const ID_BTN_MEDIUM = document.getElementById('medium');
 const ID_BTN_LOW = document.getElementById('low');
+const ID_BTN_CANCEL = document.getElementById('taskbuttonCancel');
 
 /**
  * Entfernt den bisherigen 'submit'-EventListener vom Task-Formular und fügt ihn erneut hinzu.
@@ -84,6 +86,11 @@ const addEventFromDelListSubTask = (number) => {
     ID_BTN_SUBTASK_LIST_DEL.addEventListener('click', deleteItem);
 };
 
+const addEventFromCancelBtn = () => {
+    ID_BTN_CANCEL.removeEventListener('click', loadNextPage);
+    ID_BTN_CANCEL.addEventListener('click', loadNextPage);
+};
+
 /**
  * Setzt die Priorität des Tasks auf "urgent" und aktualisiert den Button-Status.
  * ====================================================================================================
@@ -139,5 +146,6 @@ export {
     addEventFromAddSubTask,
     addEventFromDelListAssigned,
     addEventFromDelListSubTask,
+    addEventFromCancelBtn,
     setBtnPrio
 };

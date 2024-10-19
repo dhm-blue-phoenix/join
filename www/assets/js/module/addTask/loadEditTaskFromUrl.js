@@ -1,8 +1,9 @@
 import { retrievingData } from '../dataResponse.js';
-import { setBtnPrio } from './addEvents.js';
+import { setBtnPrio, addEventFromCancelBtn } from './addEvents.js';
 import { addSubTaskToList, taskForm } from '../../initAddTask.js';
 
 const ID_SUBMIT_BTN = document.querySelector('.taskbuttoncreat');
+const ID_BTN_CANCEL = document.getElementById('taskbuttonCancel');
 const items = {
     title: 'value',
     description: 'textContent',
@@ -85,19 +86,6 @@ const extractTaskData = (boardData, taskId) => {
  * ====================================================================================================
  */
 const updateDomWithTaskData = (taskData) => {
-    /**
-     * Übersicht der Aufgabenfelder:
-     * =======================
-     * [X] - title: Titel der Aufgabe
-     * [X] - description: Beschreibung der Aufgabe
-     * [!] - assigned: Zugewiesene Personen (noch in Bearbeitung)
-     * [X] - date: Fälligkeitsdatum der Aufgabe
-     * [X] - btn-prio: Prioritätsbutton (dringend, mittel, niedrig)
-     * [X] - category: Kategorie der Aufgabe
-     * [X] - subtask: Unteraufgaben der Aufgabe
-     * ========================
-     * [X] Aufgabe erfolgreich aktualisieren!
-     */
     updateAssignedTo(taskData);
     ID_SUBMIT_BTN.textContent = 'Save!';
     Object.entries(items).forEach(([id, type]) => {
@@ -114,8 +102,14 @@ const updateDomWithTaskData = (taskData) => {
             updatePrioBtn(taskData, id);
         } else {
             console.warn(`Element mit ID "${id}" nicht gefunden`);
-        }
+        };
     });
+    updateCancelBtn();
+};
+
+function updateCancelBtn() {
+    addEventFromCancelBtn();
+    ID_BTN_CANCEL.style.display = 'inline-block';
 };
 
 /**
@@ -175,7 +169,6 @@ const updateAssignedTo = (taskData) => {
     const assignedPersons = taskData.assigned; // Annahme: taskData ist das Objekt mit den Aufgaben-Daten
 
     taskForm.assigned = (assignedPersons);
-    console.log(taskForm.assigned);
 
     // Starte die Schleife bei Index 1, um die erste Person zu überspringen
     assignedPersons.slice(1).forEach((person) => {

@@ -4,6 +4,7 @@ import { addEventFromTaskCard } from './addEvents.js';
 import { initTaskBord, clearBoard } from '../../initBoard.js';
 
 const ID_INPUT_SEARCH = document.getElementById('boardSearch');
+const ID_taskNotFound = document.getElementById('taskNotFound');
 
 async function searchToTasks() {
     try {
@@ -20,7 +21,9 @@ async function searchToTasks() {
 const searchTaskElements = (tasks, search) => {
     const filteredTasks = tasks.filter(task => {
         if (typeof task !== 'object' || !task.title) return false;
-        return task.title.toLowerCase().includes(search);
+        const title = task.title.toLowerCase().includes(search);
+        const description = task.description.toLowerCase().includes(search);
+        return title || description;
     });
     return filteredTasks;
 };
@@ -28,11 +31,13 @@ const searchTaskElements = (tasks, search) => {
 
 const renderSearchTasks = (tasks) => {
     clearBoard();
+    if(tasks.length === 0) return ID_taskNotFound.textContent = 'Keine Ergebnisse gefunden';
     tasks.forEach((task) => {
         let { id, title: headline, description, assigned: users, category, subtask } = task;
         createTaskCard(id, headline, description, users, category, subtask);
         addEventFromTaskCard(`taskCardID${id}`);
     });
+    ID_taskNotFound.textContent = '';
 };
 
 export { searchToTasks };

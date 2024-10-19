@@ -7,17 +7,18 @@
 /* p{
   margin-bottom: 8px;
 } */
-#selectedPerson{
+#selectedPerson {
   display: flex;
   padding: 8px;
 }
 
-.Personcardcheckbox{
+.Personcardcheckbox {
   width: 18px !important;
   padding: 0 !important;
   cursor: pointer !important;
 }
-.Initialenperson{
+
+.Initialenperson {
   width: 42px;
   height: 42px;
   border: 2px solid;
@@ -29,7 +30,7 @@
   font-size: 12px;
 }
 
-.personCardsmall{
+.personCardsmall {
   background-color: var(--back-color01);
   width: 352px;
   height: 78px;
@@ -44,14 +45,14 @@
   border: 1px solid #d1d1d1;
 }
 
-.personCardsmall:hover{
+.personCardsmall:hover {
   background-color: var(--back-color05);
 }
 
-.userCardsContainer{
-  display:none;
-  width:456px; 
-  height:180px; 
+.userCardsContainer {
+  display: none;
+  width: 456px;
+  height: 180px;
   background-color: var(--back-color04);
   border: 1px solid #d1d1d1;
   overflow: auto;
@@ -62,12 +63,12 @@
   padding-top: 6px;
 }
 
-.assigned{
-border: none;
-padding: 0;
+.assigned {
+  border: none;
+  padding: 0;
 }
 
-#assigned-list{
+#assigned-list {
   padding: 0;
 }
 
@@ -102,7 +103,7 @@ padding: 0;
   /* flex-direction: column; */
 }
 
-.taskmanagerContent p{
+.taskmanagerContent p {
   margin-bottom: 8px;
 }
 
@@ -183,7 +184,7 @@ padding: 0;
   color: var(--text-color01) !important;
 }
 
-.assignedUserChose{
+.assignedUserChose {
   background-color: white;
   width: 100%;
   height: 48px;
@@ -235,7 +236,8 @@ padding: 0;
   font-size: 21px;
   background-color: var(--back-color04);
 }
-.layout button p{
+
+.layout button p {
   font-size: 26px;
   font-weight: 400;
   color: var(--back-color02);
@@ -246,7 +248,7 @@ padding: 0;
   color: #fff;
 }
 
-.layout button p:hover{
+.layout button p:hover {
   color: var(--back-color01);
 }
 
@@ -334,6 +336,7 @@ padding: 0;
   margin-top: 48px;
 }
 
+#taskbuttonCancel,
 .taskbuttonclear {
   width: 110px;
   height: 57px;
@@ -345,10 +348,15 @@ padding: 0;
   transition: 0.2s;
 }
 
+#taskbuttonCancel:hover,
 .taskbuttonclear:hover {
   border: 1px solid var(--back-color03);
   color: var(--text-color05);
   box-shadow: #00000062 0px 2px 4px 0px;
+}
+
+#taskbuttonCancel {
+  display: none;
 }
 
 .taskbuttoncreat {
@@ -516,4 +524,3 @@ padding: 0;
   justify-content: space-between;
   gap: 8px;
 }
-
