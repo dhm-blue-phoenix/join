@@ -54,7 +54,7 @@ async function initAddTask(event) {
     try {
         const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
         taskId = TASKS.length;
-        loadDataToForm();
+        await loadDataToForm();
         await uploadData();
         resetFrom();
         loadNextPage();
