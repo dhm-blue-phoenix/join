@@ -17,6 +17,7 @@ const ID_USER_EMAIL = document.getElementById('userEmail');
 async function showUserCard() {
     try {
         const [short, name, email] = await fetchUserData();
+        if (name === 'Guest') return;
         const shortname = extractInitials(name);
         renderUserToHtml(short, shortname, name, email);
     } catch (err) {
