@@ -29,7 +29,7 @@ export const createTaskCard = (cardId, headline, description, users, category, s
     TASK_CARD.appendChild(createDescription(headline, description));
     TASK_CARD.appendChild(createProgress(subtask));
     TASK_CARD.appendChild(createPerson(users));
-    TASK_CARD.appendChild(createMobile());
+    TASK_CARD.appendChild(createMobile(cardId));
     document.getElementById(TASK_STATUS[0].value).appendChild(TASK_CARD);
 };
 
@@ -278,11 +278,11 @@ const createPersonShortcutContent = (contact) => {
  * @returns {HTMLElement} Ein `div`-Element mit der Klasse 'taskbottommobilesmall', das die Kategorie und einen Button enthält.
  * ====================================================================================================
  */
-const createMobile = () => {
+const createMobile = (cardId) => {
     const MOBILE = document.createElement('div');
     MOBILE.className = 'taskbottommobilesmall';
     MOBILE.appendChild(createMobileCategory());
-    MOBILE.appendChild(createMobileButton());
+    MOBILE.appendChild(createMobileButton(cardId));
     return MOBILE;
 };
 
@@ -298,7 +298,7 @@ const createMobile = () => {
  * @returns {HTMLElement} Ein `select`-Element, das ein Dropdown-Menü mit den verfügbaren Kategorien enthält.
  * ====================================================================================================
  */
-const createMobileCategory = (category) => {
+export function createMobileCategory(category) {
     const MOBILE_CATEGORY = document.createElement('select');
     MOBILE_CATEGORY.id = 'taskCategorySelect';
 
@@ -308,7 +308,7 @@ const createMobileCategory = (category) => {
     });
 
     // Füge die ersten 4 Kategorie-Optionen hinzu
-    TASK_STATUS.slice(0, 6).forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
+    TASK_STATUS.slice(0, 4).forEach(option => MOBILE_CATEGORY.appendChild(createMobileCategoryOptions(option)));
 
     // Setze den Wert der aktuell ausgewählten Kategorie
     const selectedOption = MOBILE_CATEGORY.querySelector(`option[value="${category}"]`);
@@ -348,7 +348,7 @@ const createMobileCategoryOptions = (option) => {
  * @returns {HTMLElement} Ein `button`-Element mit der ID 'moveTaskButton' und dem Text 'Move'.
  * ====================================================================================================
  */
-const createMobileButton = () => {
+const createMobileButton = (cardId) => {
   const MOBILE_BTN = document.createElement('button');
   MOBILE_BTN.id = 'moveTaskButton';
 
@@ -362,7 +362,7 @@ const createMobileButton = () => {
   // Füge einen Event-Listener für die switchCategory-Funktion hinzu
   MOBILE_BTN.addEventListener('click', () => {
     import('./draganddrop.js').then(module => {
-      module.switchCategory();
+      module.switchCategory(cardId);
     });
   });
 

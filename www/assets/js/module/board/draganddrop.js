@@ -1,3 +1,4 @@
+import { TASK_STATUS } from '../../initBoard.js';
 
 /**
  * Aktiviert Drag-and-Drop-Funktionalität für die Container und Karten.
@@ -147,34 +148,27 @@ function removeHoverEffect(target) {
  * @function switchCategory
  * ====================================================================================================
  */
+import { createMobileCategory } from './create_taskCard.js';
 
-export const switchCategory = () => {
+export const switchCategory = (cardId) => {
     const selectElement = document.getElementById('taskCategorySelect');
     const selectedOption = selectElement.options[selectElement.selectedIndex];
-    const taskCard = document.querySelector('.taskcard'); // Vorausgesetzt, dass die Taskcard die Klasse "taskcard" hat
-    const targetCategory = document.querySelector(`#${selectedOption.value}`); // Vorausgesetzt, dass die Kategorie-Container die ID des Kategorie-Werts haben
-  
-    if (targetCategory) {
-      // Überprüfen, ob die Kategorie leer oder gefüllt ist
-      const isCategoryEmpty = targetCategory.children.length === 1;
-  
-      if (isCategoryEmpty) {
-        // Kategorie ist leer, zeige das leere Zustands-Element an
-        const emptyStateElement = targetCategory.querySelector('#tasktnotfounddrag');
-        emptyStateElement.style.display = 'flex';
-      } else {
-        // Kategorie ist gefüllt, blende das leere Zustands-Element aus
-        const emptyStateElement = targetCategory.querySelector('#tasktnotfounddrag');
-        emptyStateElement.style.display = 'none';
-      }
-  
-      // Speichere die neue Position der Task-Karte
-      localStorage.setItem(taskCard.id, selectedOption.value);
-  
-      // Verschiebe die Task-Karte in den Ziel-Kategorie-Container
-      targetCategory.appendChild(taskCard);
-  
-      // Aktualisiere den Zustand der Kategorie
-      updateEmptyState();
-    }
-  };
+    const taskCard = document.getElementById(`taskCardID${cardId}`);
+
+    // Verwende den Code von createMobileCategory, um den richtigen Div-Container auszuwählen
+    const category = TASK_STATUS.find(option => option.value === selectedOption.value).value;
+    const mobileCategory = createMobileCategory(category);
+    const targetContainer = document.getElementById(mobileCategory.id);
+
+    // Finde den richtigen Container-Element
+    const container = document.getElementById('taskToDo'); // oder 'taskInProgress', 'taskAwaitFeedback', 'taskDone'
+
+    // Füge das taskCard-Element zum Container hinzu
+    container.appendChild(taskCard);
+
+    // Speichere die neue Position der Task-Karte
+    localStorage.setItem(taskCard.id, selectedOption.value);
+
+    // Aktualisiere den Zustand der Kategorie
+    updateEmptyState();
+};
