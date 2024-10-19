@@ -226,5 +226,6 @@ export {
     initAddTask,
     addSubTaskToList,
     deleteItem,
-    taskForm
+    taskForm,
+    loadNextPage
 };
