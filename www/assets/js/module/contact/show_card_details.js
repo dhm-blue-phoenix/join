@@ -1,159 +1,129 @@
 import { extractInitials } from '../modules.js';
 import { deleteContact } from './delete_card.js';
-import { contacts } from './show_cards.js';
 import { showContactEditPopup } from './show_editPopup.js';
 
-const ID_BTN_editDelet = document.getElementById('editdeletcontact');
-const ID_contactCard = document.getElementById('showContactcard');
-const ID_personShortcut = document.getElementById('personShortcut');
-const ID_personName = document.getElementById('personName');
-const ID_personEmail = document.getElementById('personEmail');
-const ID_personTel = document.getElementById('personTel');
-const ID_delContactBtn = document.getElementById('delContactBtn');
-const ID_dnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
-const ID_phone = document.getElementById('phone');
-const BTN_ID = ['delContactBtn', 'editContactBtn', 'delContactBtnMobile', 'editContactBtnMobile'];
-const BTN_FUNC = { delete: deleteContact, edit: showContactEditPopup };
 
-const CLASS_BTN_hideCardArrow = document.querySelector('.hidecontactcardarrow');
-const CLASS_dnone = document.querySelectorAll('.d-none');
-
+const idBtnEditDelete = document.getElementById('editdeletcontact');
+const idContactCard = document.getElementById('showContactcard');
+const idPersonShortcut = document.getElementById('personShortcut');
+const idPersonName = document.getElementById('personName');
+const idPersonEmail = document.getElementById('personEmail');
+const idPersonTel = document.getElementById('personTel');
+const idDelContactBtn = document.getElementById('delContactBtn');
+const idDnoneInfoHeadline = document.getElementById('dnoneInfoHeadline');
+const idPhone = document.getElementById('phone');
+const btnId = [
+    'delContactBtn',
+    'editContactBtn',
+    'delContactBtnMobile',
+    'editContactBtnMobile'
+];
+const btnFunc = { delete: deleteContact, edit: showContactEditPopup };
+const classBtnHideCardArrow = document.querySelector('.hidecontactcardarrow');
+const classDnone = document.querySelectorAll('.d-none');
 const screenWidth = window.innerWidth;
 
+
 let userDetails = false;
-let lastCart;
+let lastCard;
+
 
 /**
- * Zeigt die Details eines Kontakts an und aktiviert die Kontaktkarte.
- * ====================================================================================================
- * Diese Funktion zeigt die Kontaktkarte mit der angegebenen ID an, entfernt die "d-none" Klasse von 
- * Elementen, rendert die Kontaktdaten und entfernt die letzte aktive Kontaktkarte. Zusätzlich werden 
- * die Attribute der Bearbeiten- und Löschen-Buttons gesetzt und Event-Listener für diese Buttons hinzugefügt.
- * ====================================================================================================
- * @param {string} cardId Die ID der Kontakt-Karte, die angezeigt werden soll.
- * @param {string} personName Der Name des Kontakts.
- * @param {string} personEmail Die E-Mail-Adresse des Kontakts.
- * @param {string} personTel Die Telefonnummer des Kontakts.
- * @param {string} persionShortBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * @returns {void}
- * ====================================================================================================
+ * Shows the contact details in the UI.
+ *
+ * @param {string} cardId - The ID of the card to show.
+ * @param {string} personName - The name of the person.
+ * @param {string} personEmail - The email of the person.
+ * @param {string} personTel - The phone number of the person.
+ * @param {string} shortcutBackColor - The background color for the initials shortcut.
  */
-export function showContactDetails(cardId, personName, personEmail, personTel, persionShortBackColor) {
+export function showContactDetails(cardId, personName, personEmail, personTel, shortcutBackColor) {
     cardId === 'user' ? userConfig() : contactConfig();
     const card = document.getElementById(cardId);
-    if (!card) throw new Error('Element with ID', cardId, 'not found.');
-    setCardActive(CLASS_dnone, card);
-    updateContactDetails(personName, personEmail, personTel, persionShortBackColor);
+    if (!card) throw new Error('Element with ID ' + cardId + ' not found.');
+    setCardActive(classDnone, card);
+    updateContactDetails(personName, personEmail, personTel, shortcutBackColor);
     setBtnAttribute(personEmail);
     addEventFromBtn();
     deselectPreviousCard(card);
     showMobileContactCard();
-};
+}
+
 
 /**
- * Konfiguriert die Ansicht, wenn der Benutzer angezeigt wird.
- * ====================================================================================================
- * Setzt das Benutzerdetail-Flag, verbirgt bestimmte Buttons und Textbereiche 
- * und ändert den Informationstext zu 'User Information'.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Configures the UI for user details.
  */
 const userConfig = () => {
     userDetails = true;
-    ID_delContactBtn.style.display = 'none';
-    ID_dnoneInfoHeadline.textContent = 'User Information';
-    ID_phone.style.display = 'none';
-    ID_personTel.style.display = 'none';
+    idDelContactBtn.style.display = 'none';
+    idDnoneInfoHeadline.textContent = 'User Information';
+    idPhone.style.display = 'none';
+    idPersonTel.style.display = 'none';
 };
 
+
 /**
- * Konfiguriert die Ansicht, wenn ein Kontakt angezeigt wird.
- * ====================================================================================================
- * Setzt das Benutzerdetail-Flag auf false, zeigt relevante Buttons an und 
- * ändert den Informationstext zu 'Contact Information'.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Configures the UI for contact details.
  */
 const contactConfig = () => {
     userDetails = false;
-    ID_delContactBtn.style.display = 'flex';
-    ID_dnoneInfoHeadline.textContent = 'Contact Information';
-    ID_phone.style.display = 'block';
-    ID_personTel.style.display = 'block';
+    idDelContactBtn.style.display = 'flex';
+    idDnoneInfoHeadline.textContent = 'Contact Information';
+    idPhone.style.display = 'block';
+    idPersonTel.style.display = 'block';
 };
 
+
 /**
- * Die Funktion blendet beim Laden der Contact-Seite die mobile Contactcard aus.
-*/
+ * Hides the contact card on page load.
+ */
 window.addEventListener('load', () => {
     const contactCard = document.getElementById('showContactcard');
     contactCard.style.display = 'none';
 });
 
+
 /**
- * Zeigt die Kontaktkarte in der mobilen Ansicht an und startet die Einblende-Animation.
- * ====================================================================================================
- * Diese Funktion überprüft die Bildschirmbreite und blendet die Kontaktkarte ein,
- * falls die Ansicht auf einem mobilen Gerät (Bildschirmbreite ≤ 1300px) erfolgt. 
- * Zusätzlich wird eine Einblende-Animation für die Kontaktkarte und die Edit/Delete-Buttons gestartet.
- * ====================================================================================================
- * @returns {void}
+ * Shows the mobile contact card if the screen width is small.
  */
 const showMobileContactCard = () => {
     if (screenWidth <= 1300) {
-        ID_contactCard.style.display = 'block';
-        ID_contactCard.style.animation = 'slideIn 0.3s forwards';
-        ID_BTN_editDelet.style.animation = 'slideIn 0.3s forwards';
+        idContactCard.style.display = 'block';
+        idContactCard.style.animation = 'slideIn 0.3s forwards';
+        idBtnEditDelete.style.animation = 'slideIn 0.3s forwards';
         addEventFromHideCardArrow();
-    };
+    }
 };
 
+
 /**
- * Verbirgt die Kontaktkarte in der mobilen Ansicht und startet die Ausblende-Animation.
- * ====================================================================================================
- * Diese Funktion überprüft die Bildschirmbreite und blendet die Kontaktkarte aus,
- * falls die Ansicht auf einem mobilen Gerät (Bildschirmbreite ≤ 1300px) erfolgt.
- * Zusätzlich wird eine Ausblende-Animation für die Kontaktkarte und die Edit/Delete-Buttons gestartet.
- * Die tatsächliche Ausblendung der Kontaktkarte erfolgt nach der Animation.
- * ====================================================================================================
- * @returns {void}
+ * Hides the mobile contact card.
  */
 export const hideMobileContactCard = () => {
     if (screenWidth <= 1300) {
-        ID_BTN_editDelet.style.animation = 'slideOut 0.3s forwards';
-        ID_contactCard.style.animation = 'slideOut 0.3s forwards';
-        deselectPreviousCard(lastCart);
+        idBtnEditDelete.style.animation = 'slideOut 0.3s forwards';
+        idContactCard.style.animation = 'slideOut 0.3s forwards';
+        deselectPreviousCard(lastCard);
     };
 };
 
+
 /**
- * Fügt einen Event-Listener zum Button hinzu, der die Kontaktkarte in der mobilen Ansicht ausblendet.
- * ====================================================================================================
- * Diese Funktion überprüft, ob der Button zum Ausblenden der Kontaktkarte (`CLASS_BTN_hideCardArrow`) existiert.
- * Falls vorhanden, wird der vorherige Event-Listener für das `click`-Ereignis entfernt und ein neuer Event-Listener
- * hinzugefügt. Dieser Event-Listener ruft die `hideMobileContactCard`-Funktion auf, wenn der Button angeklickt wird.
- * ====================================================================================================
- * @returns {void}
+ * Adds click event listeners to the hide card arrow button.
  */
 const addEventFromHideCardArrow = () => {
-    if (CLASS_BTN_hideCardArrow) {
-        CLASS_BTN_hideCardArrow.removeEventListener('click', hideMobileContactCard);
-        CLASS_BTN_hideCardArrow.addEventListener('click', hideMobileContactCard);
+    if (classBtnHideCardArrow) {
+        classBtnHideCardArrow.removeEventListener('click', hideMobileContactCard);
+        classBtnHideCardArrow.addEventListener('click', hideMobileContactCard);
     };
 };
 
+
 /**
- * Setzt das Styling und die Sichtbarkeit für die angegebene Kontaktkarte.
- * ====================================================================================================
- * Diese Funktion entfernt die Klasse "d-none" von allen angegebenen Elementen, 
- * fügt der angegebenen Karte die Klasse "cardactive" hinzu und entfernt die Klasse "card".
- * ====================================================================================================
- * @param {NodeListOf<Element>} dnone Eine Liste von Elementen, deren "d-none" Klasse entfernt werden soll.
- * @param {HTMLElement} card Das HTML-Element der Kontaktkarte, das aktiviert werden soll.
- * @returns {void}
- * ====================================================================================================
+ * Activates the specified card and removes the hidden class from elements.
+ *
+ * @param {NodeList} dnone - The elements with the d-none class.
+ * @param {HTMLElement} card - The card element to activate.
  */
 const setCardActive = (dnone, card) => {
     dnone.forEach(element => { element.classList.remove('d-none'); });
@@ -162,95 +132,71 @@ const setCardActive = (dnone, card) => {
     card.style.pointerEvents = "none";
 };
 
+
 /**
- * Aktualisiert die detaillierten Kontaktdaten im Benutzerinterface.
- * ====================================================================================================
- * Diese Funktion zeigt die Kontaktdaten des angegebenen Kontakts in den entsprechenden HTML-Elementen an.
- * Es werden keine Event-Listener hinzugefügt; dies geschieht in den nachfolgenden Funktionen.
- * ====================================================================================================
- * func extractInitials() - findet man in der './extractInitials.js'
- * ====================================================================================================
- * @param {string} name Der Name des Kontakts.
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @param {string} tel Die Telefonnummer des Kontakts.
- * @param {string} shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * @returns {void}
- * ====================================================================================================
+ * Updates the contact details displayed in the UI.
+ *
+ * @param {string} name - The name of the person.
+ * @param {string} email - The email of the person.
+ * @param {string} tel - The phone number of the person.
+ * @param {string} shortcutBackColor - The background color for the initials shortcut.
  */
 const updateContactDetails = (name, email, tel, shortcutBackColor) => {
     const initials = extractInitials(name);
-    ID_personShortcut.textContent = initials;
-    ID_personShortcut.style.backgroundColor = shortcutBackColor;
-    ID_personName.textContent = name;
-    ID_personEmail.textContent = email;
-    ID_personTel.textContent = tel;
+    idPersonShortcut.textContent = initials;
+    idPersonShortcut.style.backgroundColor = shortcutBackColor;
+    idPersonName.textContent = name;
+    idPersonEmail.textContent = email;
+    idPersonTel.textContent = tel;
 };
 
+
 /**
- * Setzt die Attribute für die Bearbeiten- und Löschen-Buttons.
- * ====================================================================================================
- * Diese Funktion fügt den Bearbeiten- und Löschen-Buttons das Attribut "data-email" mit der angegebenen 
- * E-Mail-Adresse hinzu. Dies wird benötigt, um die E-Mail-Adresse beim Klicken auf die Buttons zu übergeben.
- * ====================================================================================================
- * @param {string} email Die E-Mail-Adresse des Kontakts, die den Buttons zugewiesen wird.
- * @returns {void}
- * ====================================================================================================
+ * Sets the data-email attribute for buttons.
+ *
+ * @param {string} email - The email to set as the data-email attribute.
  */
 const setBtnAttribute = (email) => {
-    BTN_ID.forEach((id) => document.getElementById(id).setAttribute('data-email', email));
+    btnId.forEach((id) => document.getElementById(id).setAttribute('data-email', email));
 };
 
+
 /**
- * Fügt Event-Listener zu den Bearbeiten- und Löschen-Schaltflächen hinzu.
- * ====================================================================================================
- * Diese Funktion durchsucht eine Liste von Button-IDs und fügt jedem Button einen Event-Listener hinzu.
- * Beim Klicken auf einen Button wird basierend auf der ID des Buttons entweder die Bearbeiten- oder
- * die Löschen-Funktion aufgerufen, indem die E-Mail-Adresse des zu bearbeitenden oder zu löschenden Kontakts
- * als Parameter übergeben wird.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Adds click event listeners to buttons.
  */
 const addEventFromBtn = () => {
-    BTN_ID.forEach((id) => {
+    btnId.forEach((id) => {
         const element = document.getElementById(id);
         element.removeEventListener('click', handleButtonClick);
         element.addEventListener('click', handleButtonClick);
     });
 };
 
+
 /**
- * Handler für die Klick-Ereignisse der Buttons.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn ein Button geklickt wird. Sie bestimmt, welche Aktion ausgeführt
- * werden soll (bearbeiten oder löschen), und ruft die entsprechende Funktion mit der E-Mail-Adresse auf.
- * ====================================================================================================
- * @param {Event} event - Das Klick-Ereignis.
- * ====================================================================================================
+ * Handles button click events.
+ *
+ * @param {MouseEvent} event - The click event.
  */
 const handleButtonClick = (event) => {
     const target = event.currentTarget;
-    if (userDetails) return BTN_FUNC['edit']('user');
+    if (userDetails) return btnFunc['edit']('user');
     const email = target.getAttribute('data-email');
     const action = target.id.includes('del') ? 'delete' : 'edit';
-    BTN_FUNC[action](email);
+    btnFunc[action](email);
 };
 
+
 /**
- * Entfernt die Klasse der zuletzt aktiven Kontaktkarte und setzt den Zustand zurück.
- * ====================================================================================================
- * Diese Funktion entfernt die "cardactive"-Klasse von der zuletzt aktiven Kontaktkarte und fügt 
- * die "card"-Klasse wieder hinzu. Sie setzt auch den Zeiger-Events-Stil zurück.
- * ====================================================================================================
- * @param {HTMLElement} card Die aktuell aktive Kontakt-Karte.
- * @returns {void}
- * ====================================================================================================
+ * Deselects the previously selected card.
+ *
+ * @param {HTMLElement} card - The card element to deselect.
  */
 const deselectPreviousCard = (card) => {
-    lastCart !== undefined && (
-        lastCart.classList.remove('cardactive'),
-        lastCart.classList.add('card'),
-        lastCart.style.pointerEvents = ""
-    );
-    lastCart = card;
+    if (lastCard !== undefined) {
+        lastCard.classList.remove('cardactive');
+        lastCard.classList.add('card');
+        lastCard.style.pointerEvents = "";
+    }
+    lastCard = card;
 };

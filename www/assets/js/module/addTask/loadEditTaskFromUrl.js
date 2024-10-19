@@ -2,133 +2,151 @@ import { retrievingData } from '../dataResponse.js';
 import { setBtnPrio, addEventFromCancelBtn } from './addEvents.js';
 import { addSubTaskToList, taskForm } from '../../initAddTask.js';
 
-const ID_SUBMIT_BTN = document.querySelector('.taskbuttoncreat');
-const ID_BTN_CANCEL = document.getElementById('taskbuttonCancel');
+
+const idSubmitBtn = document.querySelector('.taskbuttoncreat');
+const idBtnCancel = document.getElementById('taskbuttonCancel');
 const items = {
     title: 'value',
     description: 'textContent',
     date: 'value',
     prio: 'btn',
     category: 'value',
-    subtask: 'forEach'
+    subtask: 'forEach',
 };
 const btnPrios = ['urgent', 'medium', 'low'];
+
+
 let editTaskId;
 
+
 /**
- * Lädt die Bearbeitungsdaten für eine Aufgabe aus der URL und aktualisiert die DOM-Elemente.
- * ====================================================================================================
- * @async
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Aufgabe erfolgreich geladen und aktualisiert wurde.
- * ====================================================================================================
+ * Loads the task data to edit from the URL.
+ * @returns {Promise<void>}
  */
 async function loadEditTaskFromUrl() {
     try {
         const taskId = getTaskIdFromUrl();
         editTaskId = taskId;
         if (taskId === null) return;
+
         const boardData = await fetchBoardData();
         const taskData = extractTaskData(boardData, taskId);
         updateDomWithTaskData(taskData);
     } catch (error) {
-        console.error('Fehler beim Laden der zu bearbeitenden Aufgabe:', error);
+        console.error('Error loading task for editing:', error);
     };
 };
 
+
 /**
- * Extrahiert die Aufgaben-ID aus den URL-Parametern.
- * ====================================================================================================
- * @returns {string|null} Die Aufgaben-ID als String, falls vorhanden, oder null, falls keine gefunden wurde.
- * ====================================================================================================
+ * Retrieves the task ID from the URL parameters.
+ * @returns {string|null}
  */
 const getTaskIdFromUrl = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get("task");
-    if (!taskId) return null;
-    return taskId;
+    return taskId ? taskId : null;
 };
 
+
 /**
- * Holt die Board-Daten asynchron.
- * ====================================================================================================
- * @async
- * @returns {Promise<Array>} Ein Promise, das ein Array von Aufgabenobjekten auflöst.
- * ====================================================================================================
+ * Fetches board data from the data source.
+ * @returns {Promise<Array>}
  */
 const fetchBoardData = async () => {
     const boardData = await retrievingData('');
     if (!Array.isArray(boardData)) {
-        throw new Error('Board-Daten sind kein Array!');
-    };
+        throw new Error('Board data is not an array!');
+    }
     return boardData;
 };
 
+
 /**
- * Findet die Aufgabe mit der angegebenen ID in den Board-Daten.
- * ====================================================================================================
- * @param {Array} boardData Ein Array von Aufgabenobjekten.
- * @param {string} taskId Die ID der zu suchenden Aufgabe.
- * @returns {Object|undefined} Das gefundene Aufgabenobjekt, oder undefined, falls keine Aufgabe gefunden wurde.
- * ====================================================================================================
+ * Extracts task data from board data using the task ID.
+ * @param {Array} boardData - The board data array.
+ * @param {string} taskId - The task ID to find.
+ * @returns {Object}
  */
 const extractTaskData = (boardData, taskId) => {
     const task = boardData.find(task => task.hasOwnProperty(taskId));
     if (!task) {
-        throw new Error(`Fehler bei Task-ID (${taskId}): Task nicht gefunden!`);
-    };
+        throw new Error(`Error with task ID (${taskId}): Task not found!`);
+    }
     return task[taskId];
-}
+};
+
 
 /**
- * Aktualisiert die DOM-Elemente mit den Daten einer Aufgabe.
- * ====================================================================================================
- * @param {Object} taskData - Ein Objekt, das die Daten der Aufgabe enthält. Die Keys sollten den IDs der DOM-Elemente entsprechen.
- * ====================================================================================================
+ * Updates the DOM with the provided task data.
+ * @param {Object} taskData - The task data to update the DOM with.
  */
 const updateDomWithTaskData = (taskData) => {
     updateAssignedTo(taskData);
-    ID_SUBMIT_BTN.textContent = 'Save!';
-    Object.entries(items).forEach(([id, type]) => {
-        const item = document.getElementById(id);
-        if (item) {
-            if (type !== 'forEach') {
-                updateText(item, type, taskData[id]);
-                return;
-            };
-            item[type] = taskData[id].forEach((sub) => {
-                updateSubTask(sub.text);
-            });
-        } else if (type === 'btn') {
-            updatePrioBtn(taskData, id);
-        } else {
-            console.warn(`Element mit ID "${id}" nicht gefunden`);
-        };
-    });
+    idSubmitBtn.textContent = 'Save!';
+    updateItems(taskData);
     updateCancelBtn();
 };
 
-function updateCancelBtn() {
-    addEventFromCancelBtn();
-    ID_BTN_CANCEL.style.display = 'inline-block';
-};
 
 /**
- * Aktualisiert den Text oder die Eingabewerte eines DOM-Elements.
- * ====================================================================================================
- * @param {HTMLElement} element - Das zu aktualisierende DOM-Element.
- * @param {string} type - Der Typ des Elements (z.B. "value", "innerText").
- * @param {string} text - Der Text oder Wert, der dem Element zugewiesen wird.
- * ====================================================================================================
+ * Updates the items in the DOM based on the provided task data.
+ * @param {Object} taskData - The task data containing information for the items.
+ */
+const updateItems = (taskData) => {
+    Object.entries(items).forEach(([id, type]) => {
+        const item = document.getElementById(id);
+        if (item) {
+            updateItem(item, type, taskData[id]);
+        } else if (type === 'btn') {
+            updatePrioBtn(taskData, id);
+        } else {
+            console.warn(`Element with ID "${id}" not found`);
+        }
+    });
+};
+
+
+/**
+ * Updates an individual item in the DOM based on its type.
+ * @param {HTMLElement} item - The DOM element to update.
+ * @param {string} type - The type of the update (e.g., 'value', 'textContent').
+ * @param {any} data - The data to set in the item.
+ */
+const updateItem = (item, type, data) => {
+    if (type !== 'forEach') {
+        updateText(item, type, data);
+    } else {
+        data.forEach((sub) => {
+            updateSubTask(sub.text);
+        });
+    }
+};
+
+
+/**
+ * Updates the cancel button and sets its event listeners.
+ */
+const updateCancelBtn = () => {
+    addEventFromCancelBtn();
+    idBtnCancel.style.display = 'inline-block';
+};
+
+
+/**
+ * Updates the specified element's text or value based on the type.
+ * @param {HTMLElement} element - The element to update.
+ * @param {string} type - The type of the update (e.g., 'value', 'textContent').
+ * @param {string} text - The text or value to set.
  */
 const updateText = (element, type, text) => {
     element[type] = text;
 };
 
+
 /**
- * Fügt eine Unteraufgabe hinzu, wenn der Text der Unteraufgabe nicht undefiniert ist.
- * ====================================================================================================
- * @param {string} text - Der Text der Unteraufgabe.
- * ====================================================================================================
+ * Updates the subtask field with the given text.
+ * @param {string} text - The text for the subtask.
  */
 const updateSubTask = (text) => {
     if (text !== undefined) {
@@ -137,12 +155,11 @@ const updateSubTask = (text) => {
     }
 };
 
+
 /**
- * Aktualisiert den Prioritätsbutton basierend auf den übergebenen Aufgabendaten.
- * ====================================================================================================
- * @param {Object} taskData - Ein Objekt, das die Daten der Aufgabe enthält, einschließlich der Priorität.
- * @param {string} id - Die ID des Buttons, der aktualisiert werden soll.
- * ====================================================================================================
+ * Updates the priority button based on task data.
+ * @param {Object} taskData - The task data containing priority info.
+ * @param {string} id - The ID of the priority button.
  */
 const updatePrioBtn = (taskData, id) => {
     const btn = taskData[id];
@@ -153,39 +170,57 @@ const updatePrioBtn = (taskData, id) => {
     });
 };
 
-/**
- * Aktualisiert die Anzeige der zugewiesenen Person auf der Task-Karte.
- * ====================================================================================================
- * Diese Funktion sorgt dafür, dass die Anzeige der zugewiesenen Person auf der Task-Karte sichtbar ist.
- * Momentan wird immer ein Text-Element mit dem Text "Das ist ein Test" hinzugefügt.
- * ====================================================================================================
- */
 
+/**
+ * Updates the assigned persons display in the DOM.
+ * @param {Object} taskData - The task data containing assigned persons.
+ */
 const updateAssignedTo = (taskData) => {
     const selectedPersonContainer = document.getElementById('selectedPerson');
-    selectedPersonContainer.style.display = 'flex'; // Setze den Style auf "display: flex;"
-    selectedPersonContainer.innerHTML = ''; // Lösche den Inhalt des Containers
+    selectedPersonContainer.style.display = 'flex';
+    selectedPersonContainer.innerHTML = '';
 
-    const assignedPersons = taskData.assigned; // Annahme: taskData ist das Objekt mit den Aufgaben-Daten
+    const assignedPersons = taskData.assigned;
+    taskForm.assigned = assignedPersons;
 
-    taskForm.assigned = (assignedPersons);
-
-    // Starte die Schleife bei Index 1, um die erste Person zu überspringen
     assignedPersons.slice(1).forEach((person) => {
-        const nameShortcutDiv = document.createElement('div');
-        nameShortcutDiv.id = 'nameShortcut';
-        nameShortcutDiv.style.backgroundColor = person.color;
-
-        // Get the first and last name
-        const fullName = person.name; // Assuming person.name contains the full name
-        const nameParts = fullName.split(' '); // Split the name by spaces
-        const firstName = nameParts[0];
-        const lastName = nameParts[1] || ''; // Handle cases with no last name
-
-        nameShortcutDiv.textContent = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : '')).toUpperCase(); // Display initials
-
+        const nameShortcutDiv = createNameShortcutDiv(person);
         selectedPersonContainer.appendChild(nameShortcutDiv);
     });
 };
+
+
+/**
+ * Creates a name shortcut div for a person.
+ * @param {Object} person - The person object containing name and color.
+ * @returns {HTMLDivElement} - The created name shortcut div element.
+ */
+const createNameShortcutDiv = (person) => {
+    const nameShortcutDiv = document.createElement('div');
+    nameShortcutDiv.id = 'nameShortcut';
+    nameShortcutDiv.style.backgroundColor = person.color;
+
+    const fullName = person.name;
+    const nameParts = fullName.split(' ');
+    const firstName = nameParts[0];
+    const lastName = nameParts[1] || '';
+
+    nameShortcutDiv.textContent = getInitials(firstName, lastName);
+    return nameShortcutDiv;
+};
+
+
+/**
+ * Gets the initials from first name and last name.
+ * @param {string} firstName - The first name of the person.
+ * @param {string} lastName - The optional last name of the person.
+ * @returns {string} - The initials derived from first and last name.
+ */
+const getInitials = (firstName, lastName) => {
+    const firstInitial = firstName.charAt(0);
+    const lastInitial = lastName ? lastName.charAt(0) : '';
+    return (firstInitial + lastInitial).toUpperCase();
+};
+
 
 export { loadEditTaskFromUrl, editTaskId };

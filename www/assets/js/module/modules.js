@@ -1,67 +1,52 @@
 import { retrievingData, deleteData } from './dataResponse.js';
 
+
 const storedLocalUserID = localStorage.getItem('userID');
 const storedSessionUserID = sessionStorage.getItem('userID');
 
+
 /**
- * Überprüft, ob ein Benutzer bereits in der Datenbank existiert.
- * ====================================================================================================
- * Diese Funktion ruft die Benutzerdaten aus der Datenbank ab und sucht nach einem 
- * Benutzer, der mit den übergebenen Daten übereinstimmt.
- * ====================================================================================================
- * @async
- * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
- * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
- * ====================================================================================================
+ * Retrieves user data based on provided search criteria.
+ * @param {Object} find - Object containing email and password to search for.
+ * @returns {Object} - User object matching the search criteria.
  */
 async function loadUserData(find) {
     try {
         const users = await retrievingData('');
         const user = await findUser(users[1], find);
         return user;
-    } catch (err) { };
+    } catch (err) {
+        console.error('Error loading user data:', err);
+        throw err;
+    };
 };
 
+
 /**
- * Sucht nach einem Benutzer in der Liste der Benutzer.
- * ====================================================================================================
- * Diese Funktion durchsucht die Liste der Benutzer nach einem Benutzer, der mit den 
- * übergebenen Daten übereinstimmt.
- * ====================================================================================================
- * @async
- * @param {Array} users Die Liste der Benutzer.
- * @param {Object} find Ein Objekt mit den Benutzerdaten, nach denen gesucht werden soll.
- * @returns {Object} Der gefundene Benutzer oder undefined, wenn kein Benutzer gefunden wurde.
- * ====================================================================================================
+ * Finds a user in the provided list based on email and password.
+ * @param {Object} users - List of users to search through.
+ * @param {Object} find - Object containing email and password to search for.
+ * @returns {Object} - User object matching the search criteria.
  */
 async function findUser(users, find) {
     return Object.entries(users).find(([id, user]) => user.email === find.email && user.password === find.pw);
 };
 
+
 /**
- * Holt die Benutzerdaten eines bestimmten Benutzers aus der Firebase Realtime Database.
- * ====================================================================================================
- * Diese Funktion ruft die Benutzerdaten eines bestimmten Benutzers aus der Datenbank ab.
- * ====================================================================================================
- * @async 
- * @param {String} uid Die eindeutige Benutzer-ID.
- * @returns {Object} Die Benutzerdaten des bestimmten Benutzers.
- * ====================================================================================================
+ * Retrieves user data based on user ID.
+ * @param {string} uid - User ID to retrieve data for.
+ * @returns {Object} - User object associated with the provided ID.
  */
 async function findUserById(uid) {
     return await retrievingData('users/' + uid);
 };
 
+
 /**
- * Lädt die Benutzer-ID aus dem lokalen Speicher oder der Session.
- * ====================================================================================================
- * Diese Funktion versucht, die Benutzer-ID zuerst aus dem lokalen Speicher (`localStorage`) und 
- * anschließend aus der Session (`sessionStorage`) zu laden. Wenn keine Benutzer-ID gefunden wird, 
- * wird ein Fehler ausgelöst.
- * ====================================================================================================
- * @returns {string} Die Benutzer-ID, wenn sie im lokalen Speicher oder in der Session gefunden wurde.
- * @throws {Error} Wenn keine Benutzer-ID gefunden wird.
- * ====================================================================================================
+ * Loads the stored user ID from either localStorage or sessionStorage.
+ * Redirects to index.html if neither is available.
+ * @returns {string} - Stored user ID.
  */
 function loadUserIdFromStored() {
     if (storedLocalUserID) return storedLocalUserID;
@@ -69,51 +54,34 @@ function loadUserIdFromStored() {
     window.location.href = './index.html';
 };
 
+
 /**
- * Lädt die Kontakt-ID basierend auf der E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion ruft die Kontakt-ID für den angegebenen Benutzer ab, indem sie die E-Mail-Adresse nutzt.
- * ====================================================================================================
- * func loadContactsId() - findet man in der './dataResponse.js'
- * ====================================================================================================
- * @async
- * @param {string} userID Die ID des Benutzers, zu dem der Kontakt gehört.
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @returns {Promise<string>} Die ID des Kontakts.
- * @throws {Error} Wenn ein Fehler beim Laden der Kontakt-ID auftritt.
- * ====================================================================================================
+ * Retrieves contact ID based on user ID, email, and category.
+ * @param {string} userID - User ID to search under.
+ * @param {string} email - Email of the contact to find.
+ * @param {string} category - Category ('taskCard' or 'contactCard') to search under.
+ * @returns {string} - Contact ID.
  */
 async function getContactId(userID, email, category) {
     return await loadElementById(`users/${userID}/`, email, category);
 };
 
+
 /**
- * Extrahiert die Initialen aus einem Benutzernamen.
- * ====================================================================================================
- * Diese Funktion teilt den Benutzernamen in einzelne Namensteile auf, extrahiert den
- * ersten Buchstaben jedes Namens und gibt diese als Initialen zurück.
- * ====================================================================================================
- * @param {String} username Der Benutzername.
- * @returns {String} Die Initialen des Benutzers.
- * ====================================================================================================
+ * Extracts initials from a given username.
+ * @param {string} username - User's full name.
+ * @returns {string} - Initials extracted from the username.
  */
 function extractInitials(username) {
     return username.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
 };
 
+
 /**
- * Lädt Elemente basierend auf dem angegebenen Pfad.
- * ====================================================================================================
- * Diese Funktion ruft die Daten von einem angegebenen Pfad ab und extrahiert die Kontaktkarten
- * aus den Daten. Die Kontaktkarten werden als Array zurückgegeben.
- * ====================================================================================================
- * func retrievingData() - findet man in der './dataResponse.js'
- * ====================================================================================================
- * @async
- * @param {string} patch Der Pfad, von dem die Daten abgerufen werden sollen.
- * @returns {Promise<Array>} Ein Promise, das ein Array von Kontaktkarten zurückgibt.
- * @throws {Error} Wenn ein Fehler beim Abrufen der Daten auftritt.
- * ====================================================================================================
+ * Loads elements based on patch and value.
+ * @param {string} patch - Patch to retrieve data from.
+ * @param {string} value - Value to search for within the retrieved data.
+ * @returns {Array} - Array of elements loaded based on the patch and value.
  */
 async function loadElementByPatch(patch, value) {
     const DATA = await retrievingData(patch);
@@ -121,101 +89,71 @@ async function loadElementByPatch(patch, value) {
     return CARTS;
 };
 
+
 /**
- * Lädt ein Element basierend auf der ID und Kategorie.
- * ====================================================================================================
- * Diese Funktion lädt Daten basierend auf einem Pfad (`patch`), einer Typenkennung (`type`) und einer 
- * Kategorie (`category`). Abhängig von der Kategorie (`taskCard` oder `contactCard`) wird die entsprechende 
- * ID gesucht und zurückgegeben.
- * 
- * - Bei `category === 'taskCard'` wird nach einer Task-ID gesucht.
- * - Bei `category === 'contactCard'` wird nach einer Kontakt-ID gesucht.
- * 
- * Die Funktion verwendet `retrievingData`, um die Daten zu laden, und anschließend `findTaskById` oder 
- * `findContactById`, um die ID im Datensatz zu finden.
- * ====================================================================================================
- * @function loadElementById
- * @param {string} patch Der Pfad, um die Daten abzurufen.
- * @param {string|number} type Die ID des Elements, das gesucht wird.
- * @param {string} category Die Kategorie des Elements (z.B. 'taskCard' oder 'contactCard').
- * @returns {Promise<string|number|undefined>} Die gefundene ID des Elements oder `undefined`, wenn kein Element gefunden wird.
+ * Loads element by ID based on patch, type, and category.
+ * @param {string} patch - Patch to retrieve data from.
+ * @param {string} type - Type of element to search for.
+ * @param {string} category - Category ('taskCard' or 'contactCard') to search under.
+ * @returns {Object} - Element ID based on the provided parameters.
  */
 async function loadElementById(patch, type, category) {
     if (category === 'taskCard') {
         const DATA = await retrievingData(patch);
         const TASK_ID = await findTaskById(DATA[5], type);
         return TASK_ID;
-    }
+    };
     if (category === 'contactCard') {
         const DATA = await retrievingData(patch);
         const CONTACT_ID = await findContactById(DATA[0], type);
         return CONTACT_ID;
-    }
+    };
 };
 
+
 /**
- * Findet eine Task basierend auf der ID.
- * ====================================================================================================
- * Diese Funktion durchsucht eine Liste von Tasks und findet das Task-Objekt, dessen ID mit der 
- * übergebenen `findId` übereinstimmt.
- * ====================================================================================================
- * @function findTaskById
- * @param {Object} tasks Ein Objekt, das die Tasks enthält.
- * @param {string|number} findId Die ID der Task, die gefunden werden soll.
- * @returns {Array|undefined} Ein Array mit [ID, Task-Objekt], wenn die Task gefunden wurde, oder `undefined`, wenn keine Übereinstimmung gefunden wurde.
+ * Finds a task by its ID.
+ * @param {Object} tasks - List of tasks to search through.
+ * @param {string} findId - ID of the task to find.
+ * @returns {Object} - Task object matching the provided ID.
  */
 async function findTaskById(tasks, findId) {
     return Object.entries(tasks).find(([id, task]) => task.id === findId);
 };
 
+
 /**
- * Sucht ein Element in den Kontakten basierend auf der E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion durchsucht die Kontakte und gibt das erste Element zurück, dessen E-Mail-Adresse
- * mit der angegebenen übereinstimmt.
- * ====================================================================================================
- * @param {Object} contacts Ein Objekt, das die zu durchsuchenden Kontakte enthält.
- * @param {string} findEmail Die E-Mail-Adresse, die gesucht wird.
- * @returns {[string, Object]} Ein Array mit der Kontakt-ID und dem Kontakt-Objekt.
- * @throws {Error} Wenn ein Fehler beim Suchen des Kontakts auftritt.
- * ====================================================================================================
+ * Finds a contact by its email.
+ * @param {Object} contacts - List of contacts to search through.
+ * @param {string} findEmail - Email of the contact to find.
+ * @returns {Object} - Contact object matching the provided email.
  */
 async function findContactById(contacts, findEmail) {
     return Object.entries(contacts).find(([id, contact]) => contact.email === findEmail);
 };
 
+
 /**
- * Löscht ein Element basierend auf dem angegebenen Pfad.
- * ====================================================================================================
- * Diese Funktion löscht Daten von einem angegebenen Pfad und gibt eine Konsolennachricht aus,
- * um die Aktion zu bestätigen.
- * ====================================================================================================
- * func deleteData() - findet man in der './dataResponse.js'
- * ====================================================================================================
- * @async
- * @param {string} patch Der Pfad, von dem die Daten gelöscht werden sollen.
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Daten erfolgreich gelöscht wurden.
- * @throws {Error} Wenn ein Fehler beim Löschen der Daten auftritt.
- * ====================================================================================================
+ * Deletes an element by its ID.
+ * @param {string} patch - Patch to delete data from.
  */
-async function deletElementById(patch) {
+async function deleteElementById(patch) {
     await deleteData(patch);
 };
 
+
 /**
- * Lädt das aktuelle Browserfenster neu.
- * ====================================================================================================
- * Diese Funktion lädt die aktuelle Seite im Browser neu, indem sie die `window.location.reload()` 
- * Methode aufruft.
- * ====================================================================================================
- * @function reloadWindow
- * @returns {void} Die Funktion gibt keinen Wert zurück, sondern lädt das Fenster neu.
+ * Reloads the current window.
  */
 const reloadWindow = () => {
     window.location.reload();
 };
 
-// KEINE BESCHREIBUNG!!!
+
+/**
+ * Loads task data and returns an array of task IDs.
+ * @returns {Array} - Array of task IDs.
+ */
 const loadTaskData = async () => {
     const taskData = await retrievingData('board');
     const taskIds = [];
@@ -224,17 +162,18 @@ const loadTaskData = async () => {
             if (task !== '' && task !== 'none') {
                 if (!taskIds.includes(task.id)) {
                     taskIds.push(task.id);
-                };
-            };
-        };
+                }
+            }
+        }
     });
     return taskIds;
 };
 
+
 export {
     loadTaskData,
     reloadWindow,
-    deletElementById,
+    deleteElementById,
     loadElementById,
     loadElementByPatch,
     extractInitials,

@@ -1,4 +1,4 @@
-import { deletElementById, reloadWindow } from '../modules.js';
+import { deleteElementById, reloadWindow } from '../modules.js';
 import { retrievingData } from '../dataResponse.js';
 
 /**
@@ -18,6 +18,6 @@ export async function deleteTaskCard(event) {
     const taskId = event.currentTarget.getAttribute('task-id');
     const tasks = await retrievingData('');
     const currentTask = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === taskId);
-    await await deletElementById(`board/${currentTask[0]}`);
+    await await deleteElementById(`board/${currentTask[0]}`);
     reloadWindow();
 };

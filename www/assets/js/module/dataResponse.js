@@ -1,18 +1,14 @@
 const baseURL = "https://join-393a6-default-rtdb.europe-west1.firebasedatabase.app/";
 
+
 /**
- * Holt die Benutzerdaten aus der Firebase Realtime Database.
- * ====================================================================================================
- * Diese Funktion ruft die Benutzerdaten aus der Datenbank ab und gibt sie als Liste 
- * zurück.
- * ====================================================================================================
- * @async
- * @returns {Array} Die Liste der Benutzer.
- * ====================================================================================================
+ * Retrieves data from Firebase database based on provided path.
+ * @param {string} path - Path to retrieve data from.
+ * @returns {Promise<Array>} - Resolves with array of retrieved data values.
  */
-export async function retrievingData(patch) {
+export async function retrievingData(path) {
     try {
-        const response = await fetch(baseURL + patch + '.json');
+        const response = await fetch(baseURL + path + '.json');
         await checkAnswer(response);
         const data = await response.json();
         return Object.values(data);
@@ -21,19 +17,14 @@ export async function retrievingData(patch) {
     };
 };
 
+
 /**
- * Löscht Daten aus der Firebase Realtime Database.
- * ====================================================================================================
- * Diese Funktion sendet eine DELETE-Anfrage an die Datenbank, um die Ressource
- * am angegebenen Pfad zu entfernen.
- * ====================================================================================================
- * @async
- * @param {string} patch Der Pfad zur Ressource, die gelöscht werden soll.
- * ====================================================================================================
+ * Deletes data from Firebase database based on provided path.
+ * @param {string} path - Path to delete data from.
  */
-export async function deleteData(patch) {
+export async function deleteData(path) {
     try {
-        const deleteResponse = await fetch(baseURL + patch + '.json', {
+        const deleteResponse = await fetch(baseURL + path + '.json', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,21 +36,15 @@ export async function deleteData(patch) {
     };
 };
 
+
 /**
- * Aktualisiert Daten in der Firebase Realtime Database.
- * ====================================================================================================
- * Diese Funktion sendet eine PUT-Anfrage an die Datenbank, um vorhandene Daten
- * zu aktualisieren. Der angegebene Pfad und die Daten werden verwendet, um die
- * Zielressource zu bestimmen und deren Inhalte zu überschreiben.
- * ====================================================================================================
- * @async
- * @param {string} patch Der Pfad zur Ressource, die aktualisiert werden soll.
- * @param {Object} data Ein Objekt mit den Daten, die die vorhandenen Inhalte überschreiben sollen.
- * ====================================================================================================
+ * Updates data in Firebase database at the provided path.
+ * @param {string} path - Path to update data.
+ * @param {Object} data - Data object to update.
  */
-export async function updateData(patch, data) {
+export async function updateData(path, data) {
     try {
-        const updateResponse = await fetch(baseURL + patch + '.json', {
+        const updateResponse = await fetch(baseURL + path + '.json', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,20 +57,15 @@ export async function updateData(patch, data) {
     };
 };
 
+
 /**
- * Lädt Patch-Daten auf den Server hoch.
- * ====================================================================================================
- * Diese Funktion sendet die übergebenen Daten an den Server und speichert sie 
- * unter dem angegebenen Patch.
- * ====================================================================================================
- * @async
- * @param {String} patch Der Pfad, unter dem die Daten gespeichert werden sollen.
- * @param {Object} data Die zu speichernden Daten.
- * ====================================================================================================
+ * Uploads data to Firebase database at the provided path.
+ * @param {string} path - Path to upload data to.
+ * @param {Object} data - Data object to upload.
  */
-export async function uploadPatchData(patch, data) {
+export async function uploadPatchData(path, data) {
     try {
-        const patchResponse = await fetch(baseURL + patch + '.json', {
+        const patchResponse = await fetch(baseURL + path + '.json', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -98,14 +78,11 @@ export async function uploadPatchData(patch, data) {
     };
 };
 
+
 /**
- * Überprüft, ob die Antwort auf eine Anfrage erfolgreich war.
- * ====================================================================================================
- * Diese Funktion wirft einen Fehler, wenn die Antwort nicht erfolgreich war.
- * ====================================================================================================
- * @async
- * @param {Response} response Die Antwort auf die Anfrage.
- * ====================================================================================================
+ * Checks the HTTP response and throws an error if it's not ok.
+ * @param {Response} response - HTTP response object.
+ * @throws {Error} - Throws an error if response status is not ok.
  */
 async function checkAnswer(response) {
     if (!response.ok) {
@@ -113,13 +90,11 @@ async function checkAnswer(response) {
     };
 };
 
+
 /**
- * Behandelt einen Fehler, der bei der Ausführung einer Funktion aufgetreten ist.
- * ====================================================================================================
- * Diese Funktion gibt den Fehler auf der Konsole aus.
- * ====================================================================================================
- * @param {Error} err Der aufgetretene Fehler.
- * ====================================================================================================
+ * Handles errors by throwing them.
+ * @param {Error} err - Error object to handle.
+ * @throws {Error} - Throws the received error.
  */
 function handleError(err) {
     throw err;

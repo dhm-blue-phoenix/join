@@ -13,25 +13,25 @@ import {
     setBtnPrio
 } from './module/addTask/addEvents.js';
 
-const ID_INPUT_TASK = ['title', 'description', 'date', 'category'];
-const USER_ID = loadUserIdFromStored();
-const RESET_TASK_FORM = {
-    'id': '',
-    'title': '',
-    'description': '',
-    'assigned': ['none'],
-    'date': '',
-    'prio': '',
-    'category': '',
-    'subtask': ['none']
+
+const idInputTask = ['title', 'description', 'date', 'category'];
+const userId = loadUserIdFromStored();
+const resetTaskForm = {
+    id: '',
+    title: '',
+    description: '',
+    assigned: ['none'],
+    date: '',
+    prio: '',
+    category: '',
+    subtask: ['none']
 };
-let taskForm = RESET_TASK_FORM;
+
+
+let taskForm = resetTaskForm;
 let taskId;
 
-/**
- * Lädt und initialisiert die Seite nach dem vollständigen Laden des DOM.
- * ====================================================================================================
- */
+
 document.addEventListener('DOMContentLoaded', () => {
     setBtnPrio('medium');
     addEventFromAddTask();
@@ -43,36 +43,34 @@ document.addEventListener('DOMContentLoaded', () => {
     loadEditTaskFromUrl();
 });
 
+
 /**
- * Startet den Prozess des Hinzufügens eines neuen Tasks.
- * ====================================================================================================
- * @param {Event} event - Das 'submit'-Ereignis des Formulars.
- * ====================================================================================================
+ * Initializes the add task process.
+ * @param {Event} event - The event triggered by form submission.
  */
 async function initAddTask(event) {
     event.preventDefault();
     try {
-        const TASKS = await loadElementByPatch(`users/${USER_ID}`, 4);
-        taskId = TASKS.length;
+        const tasks = await loadElementByPatch(`users/${userId}`, 4);
+        taskId = tasks.length;
         await loadDataToForm();
         await uploadData();
-        resetFrom();
+        resetForm();
         loadNextPage();
     } catch (err) {
-        console.error(`Es ist ein Fehler beim Erstellen des Tasks aufgetreten! ${err}`);
+        console.error(`Error occurred while creating the task! ${err}`);
     };
 };
 
+
 /**
- * Lädt die Formulardaten in das Task-Objekt und weist eine neue ID zu.
- * ====================================================================================================
+ * Loads data into the task form.
+ * @returns {Promise<void>}
  */
 const loadDataToForm = async () => {
     try {
-        ID_INPUT_TASK.forEach((key, i) => {
-            if (ID_INPUT_TASK[i]) {
-                taskForm[key] = document.getElementById(ID_INPUT_TASK[i]).value;
-            };
+        idInputTask.forEach((key) => {
+            taskForm[key] = document.getElementById(key).value;
         });
         const taskIds = await loadTaskData();
         const ids = Array.from(taskIds).sort((a, b) => a - b);
@@ -80,13 +78,14 @@ const loadDataToForm = async () => {
         while (ids.includes(String(nextId))) { nextId++; }
         taskForm.id = String(nextId);
     } catch (err) {
-        console.error('Beim Laden der Tasks ist ein Problem aufgetreten:', err);
+        console.error('Error occurred while loading tasks:', err);
     };
 };
 
+
 /**
- * Synchronisiert die Daten mit dem Server, entweder durch Hochladen oder Aktualisieren.
- * ====================================================================================================
+ * Uploads task data to the server.
+ * @returns {Promise<void>}
  */
 async function uploadData() {
     try {
@@ -97,25 +96,26 @@ async function uploadData() {
         };
         await uploadPatchData('board/', taskForm);
     } catch (error) {
-        console.error('Fehler beim Synchronisieren der Daten:', error);
+        console.error('Error occurred while synchronizing data:', error);
     };
 };
 
+
 /**
- * Überbrüft die Ids.
- * ====================================================================================================
+ * Checks if task IDs exist.
+ * @returns {Promise<void>}
  */
 const checkedId = async () => {
     const data = await retrievingData('');
     const ids = Object.keys(data[0]);
     if (ids.length === 0) {
-        throw new Error('Keine IDs gefunden.');
+        throw new Error('No IDs found.');
     };
 };
 
+
 /**
- * Fügt einen Subtask zur Liste hinzu und aktualisiert die Anzeige.
- * ====================================================================================================
+ * Adds a subtask to the list.
  */
 const addSubTaskToList = () => {
     const type = 'subtask';
@@ -127,13 +127,10 @@ const addSubTaskToList = () => {
     renderList(type);
 };
 
+
 /**
- * Rendert die Liste für den angegebenen Type 'subtask'.
- * Diese Funktion greift auf das HTML-Element zu, das der Liste entspricht, und rendert die
- * zugehörigen Elemente basierend auf dem angegebenen Typ.
- * ====================================================================================================
- * @param {string} type - Der Typ der Liste, der gerendert werden soll.
- * ====================================================================================================
+ * Renders the list of subtasks.
+ * @param {string} type - The type of list to render (subtask).
  */
 const renderList = (type) => {
     const listElement = document.getElementById(`${type}-list`);
@@ -144,13 +141,11 @@ const renderList = (type) => {
     setDelSubtask();
 };
 
+
 /**
- * Erstellt neue Listeneinträge für die übergebenen Elemente.
- * Diese Funktion iteriert über die Elemente und erstellt für jedes Element einen neuen Listeneintrag,
- * der dann in der Liste angezeigt wird.
- * ====================================================================================================
- * @param {Array} items - Eine Liste von Elementen (z.B. Subtasks), die gerendert werden sollen.
- * ====================================================================================================
+ * Creates new list items.
+ * @param {string} type - The type of items to create (subtask).
+ * @param {Array} items - The items to create in the list.
  */
 const createNewListItem = (type, items) => {
     let number = 1;
@@ -162,9 +157,9 @@ const createNewListItem = (type, items) => {
     });
 };
 
+
 /**
- * Setzt die EventListener für das Löschen von Subtasks.
- * ====================================================================================================
+ * Sets the delete functionality for subtasks.
  */
 const setDelSubtask = () => {
     for (let i = 0; i < (taskForm.subtask.length - 1); i++) {
@@ -173,54 +168,54 @@ const setDelSubtask = () => {
     };
 };
 
-/**
- * Löscht ein Item aus der Liste, basierend auf dem Event und aktualisiert die Anzeige.
- * ====================================================================================================
- * @param {Event} event - Das Event, das das Löschen auslöst.
- * ====================================================================================================
- */
-const deleteItem = (event) => {
-    const TARGET = event.currentTarget;
-    const KEY = TARGET.getAttribute('key');
-    const TYPE = TARGET.getAttribute('type');
-    taskForm[TYPE].splice(KEY, 1);
-    renderList(TYPE);
-};
 
 /**
- * Setzt das Formular auf den Ausgangszustand zurück.
- * ====================================================================================================
+ * Deletes a task item.
+ * @param {Event} event - The event triggered by clicking the delete button.
  */
-const resetFrom = () => {
+const deleteItem = (event) => {
+    const target = event.currentTarget;
+    const key = target.getAttribute('key');
+    const type = target.getAttribute('type');
+    taskForm[type].splice(key, 1);
+    renderList(type);
+};
+
+
+/**
+ * Resets the task form.
+ */
+const resetForm = () => {
     clearInput();
     resetFromTaskForm();
     setBtnPrio('medium');
 };
 
+
 /**
- * Leert alle Eingabefelder im Formular.
- * ====================================================================================================
+ * Clears the input fields.
  */
 const clearInput = () => {
-    ID_INPUT_TASK.forEach((id) => document.getElementById(id).value = '');
+    idInputTask.forEach((id) => document.getElementById(id).value = '');
 };
 
+
 /**
- * Setzt die Daten im Task-Formular zurück auf den Ausgangszustand.
- * ====================================================================================================
+ * Resets the task form to the initial state.
  */
 const resetFromTaskForm = () => {
-    taskForm = RESET_TASK_FORM;
+    taskForm = resetTaskForm;
 };
 
+
 /**
- * Lädt die nächste Seite und speichert den aktiven Navigation-Button.
- * ====================================================================================================
+ * Loads the next page in the application.
  */
 const loadNextPage = () => {
     localStorage.setItem('activNavBtn', 'nav-btn1');
     window.location.href = './board.html';
 };
+
 
 export {
     initAddTask,

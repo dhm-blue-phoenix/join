@@ -1,145 +1,113 @@
 /**
- * Generiert die Überschrift für eine Gruppe von Kontaktkarten.
- * ====================================================================================================
- * Diese Funktion erstellt und fügt zwei `div`-Elemente in den angegebenen Container ein:
- * Ein Element für den Anfangsbuchstaben der Kontaktgruppe und eine Trennlinie.
- * ====================================================================================================
- * @param {HTMLElement} container Das HTML-Element, in das die Überschrift eingefügt wird.
- * @param {string} letter Der Anfangsbuchstabe der Kontaktgruppe.
- * ====================================================================================================
+ * Generates a card headline with a letter and a separating line.
+ * @param {HTMLElement} container - The container element to append the headline to.
+ * @param {string} letter - The letter to display in the headline.
  */
 export const generateCardHeadline = (container, letter) => {
-    container.appendChild(createDivLetter(letter));    
+    container.appendChild(createDivLetter(letter));
     container.appendChild(createDivTrennline());
 };
 
+
 /**
- * Erstellt ein `div`-Element, das den Anfangsbuchstaben einer Kontaktgruppe enthält.
- * ====================================================================================================
- * Diese Funktion erzeugt ein `div`-Element mit einer CSS-Klasse und setzt den Textinhalt
- * auf den übergebenen Buchstaben, in Großbuchstaben umgewandelt.
- * ====================================================================================================
- * @param {string} letter Der Anfangsbuchstabe der Kontaktgruppe.
- * @returns {HTMLElement} Das erstellte `div`-Element mit dem Buchstaben.
- * ====================================================================================================
+ * Creates a div element displaying a letter in uppercase.
+ * @param {string} letter - The letter to display.
+ * @returns {HTMLDivElement} The created div element.
  */
 const createDivLetter = (letter) => {
-    const DIV_LETTER = document.createElement('div');
-    DIV_LETTER.className = 'letter';
-    DIV_LETTER.textContent = letter.toUpperCase();
-    return DIV_LETTER;
+    const divLetter = document.createElement('div');
+    divLetter.className = 'letter';
+    divLetter.textContent = letter.toUpperCase();
+    return divLetter;
 };
 
+
 /**
- * Erstellt ein `div`-Element für eine Trennlinie zwischen Kontaktgruppen.
- * ====================================================================================================
- * Diese Funktion erzeugt ein `div`-Element mit einer CSS-Klasse, das als Trennlinie
- * zwischen verschiedenen Gruppen von Kontaktkarten dient.
- * ====================================================================================================
- * @returns {HTMLElement} Das erstellte `div`-Element für die Trennlinie.
- * ====================================================================================================
+ * Creates a div element used as a separating line for contact cards.
+ * @returns {HTMLDivElement} The created div element.
  */
 const createDivTrennline = () => {
-    const DIV_TRENNLINE = document.createElement('div');
-    DIV_TRENNLINE.className = 'ContactcardsTrennline';
-    return DIV_TRENNLINE;
+    const divTrennline = document.createElement('div');
+    divTrennline.className = 'ContactcardsTrennline';
+    return divTrennline;
 };
 
+
 /**
- * Erstellt eine Kontaktkarte und fügt sie dem angegebenen Container hinzu.
- * ====================================================================================================
- * Diese Funktion erstellt eine Kontaktkarte mit den angegebenen Informationen und fügt sie
- * einem Container hinzu. Die Karte enthält den Namen, die E-Mail-Adresse und die Telefonnummer
- * des Kontakts sowie einen farbigen Hintergrund für das Namens-Shortcut.
- * ====================================================================================================
- * @param {HTMLElement} container Der HTML-Container, dem die erstellte Kontaktkarte hinzugefügt wird.
- * @param {string} key Ein eindeutiger Schlüssel, der die Kontaktkarte identifiziert.
- * @param {number} id Eine eindeutige ID für die Kontaktkarte.
- * @param {string} name Der Name des Kontakts.
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @param {string} tel Die Telefonnummer des Kontakts.
- * @param {string} shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * ====================================================================================================
+ * Creates a contact card and appends it to the specified container.
+ * @param {HTMLElement} container - The container element to append the card to.
+ * @param {string} key - The key for the card.
+ * @param {string} id - The id for the card.
+ * @param {string} name - The name displayed on the card.
+ * @param {string} email - The email displayed on the card.
+ * @param {string} tel - The telephone number displayed on the card.
+ * @param {string} shortcutBackColor - The background color for the shortcut element.
  */
 export const createContactCard = (container, key, id, name, email, tel, shortcutBackColor) => {
-    const DIV_CARD = document.createElement('div');
-    DIV_CARD.className = 'card';
-    DIV_CARD.id = key.toLowerCase() + id;
-    DIV_CARD.setAttribute('data-key', key.toLowerCase() + id);
-    DIV_CARD.setAttribute('data-name', name);
-    DIV_CARD.setAttribute('data-email', email);
-    DIV_CARD.setAttribute('data-tel', tel);
-    DIV_CARD.setAttribute('data-shortcut-color', shortcutBackColor);
-    DIV_CARD.appendChild(createContactShort(name, shortcutBackColor));
-    DIV_CARD.appendChild(createContactEmail(name, email));
-    container.appendChild(DIV_CARD);
+    const divCard = document.createElement('div');
+    divCard.className = 'card';
+    divCard.id = `${key.toLowerCase()}${id}`;
+    divCard.setAttribute('data-key', `${key.toLowerCase()}${id}`);
+    divCard.setAttribute('data-name', name);
+    divCard.setAttribute('data-email', email);
+    divCard.setAttribute('data-tel', tel);
+    divCard.setAttribute('data-shortcut-color', shortcutBackColor);
+    divCard.appendChild(createContactShort(name, shortcutBackColor));
+    divCard.appendChild(createContactEmail(name, email));
+    container.appendChild(divCard);
 };
 
+
 /**
- * Erstellt ein Div-Element, das das Namens-Shortcut für den Kontakt enthält.
- * ====================================================================================================
- * Diese Funktion erstellt ein Div-Element mit dem Namens-Shortcut, basierend auf den Initialen des Namens.
- * Die Hintergrundfarbe des Divs wird ebenfalls festgelegt.
- * ====================================================================================================
- * @param {string} name Der vollständige Name des Kontakts.
- * @param {string} shortBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * @returns {HTMLElement} Das erstellte Div-Element mit dem Namens-Shortcut.
- * ====================================================================================================
+ * Creates a div element displaying the short name for a contact.
+ * @param {string} name - The full name of the contact.
+ * @param {string} shortBackColor - The background color for the short name element.
+ * @returns {HTMLDivElement} The created div element.
  */
 export const createContactShort = (name, shortBackColor) => {
-    const DIV_ShortName = document.createElement('div');
-    DIV_ShortName.id = 'nameShortcut';
-    DIV_ShortName.style.backgroundColor = shortBackColor;
-    DIV_ShortName.textContent = name.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
-    return DIV_ShortName;
+    const divShortName = document.createElement('div');
+    divShortName.id = 'nameShortcut';
+    divShortName.style.backgroundColor = shortBackColor;
+    divShortName.textContent = name.split(' ').map(namePart => namePart[0]).join('').toUpperCase();
+    return divShortName;
 };
 
+
 /**
- * Erstellt ein Div-Element, das die E-Mail-Adresse des Kontakts anzeigt.
- * ====================================================================================================
- * Diese Funktion erstellt ein Div-Element, das den Namen des Kontakts und seine E-Mail-Adresse enthält.
- * ====================================================================================================
- * @param {string} name Der Name des Kontakts.
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @returns {HTMLElement} Das erstellte Div-Element mit dem Namen und der E-Mail-Adresse.
- * ====================================================================================================
+ * Creates a div element displaying the contact's email.
+ * @param {string} name - The name of the contact.
+ * @param {string} email - The email address of the contact.
+ * @returns {HTMLDivElement} The created div element.
  */
 const createContactEmail = (name, email) => {
-    const DIV_EMAIL = document.createElement('div');
-    DIV_EMAIL.className = 'nameemail';
-    DIV_EMAIL.appendChild(createEmailName(name));
-    DIV_EMAIL.appendChild(createEmailAnchor(email));
-    return DIV_EMAIL;
+    const divEmail = document.createElement('div');
+    divEmail.className = 'nameemail';
+    divEmail.appendChild(createEmailName(name));
+    divEmail.appendChild(createEmailAnchor(email));
+    return divEmail;
 };
 
+
 /**
- * Erstellt ein Paragraph-Element, das den Namen des Kontakts anzeigt.
- * ====================================================================================================
- * Diese Funktion erstellt ein Paragraph-Element (`<p>`), das den Namen des Kontakts enthält.
- * ====================================================================================================
- * @param {string} name Der Name des Kontakts.
- * @returns {HTMLElement} Das erstellte Paragraph-Element mit dem Namen des Kontakts.
- * ====================================================================================================
+ * Creates a paragraph element displaying the contact's name.
+ * @param {string} name - The name of the contact.
+ * @returns {HTMLParagraphElement} The created paragraph element.
  */
 const createEmailName = (name) => {
-    const DIV_EMAIL_NAME = document.createElement('p');
-    DIV_EMAIL_NAME.textContent = name;
-    return DIV_EMAIL_NAME;
+    const divEmailName = document.createElement('p');
+    divEmailName.textContent = name;
+    return divEmailName;
 };
 
+
 /**
- * Erstellt ein Anker-Element, das die E-Mail-Adresse des Kontakts anzeigt und verlinkt.
- * ====================================================================================================
- * Diese Funktion erstellt ein Anker-Element (`<a>`), das die E-Mail-Adresse des Kontakts enthält
- * und einen Link zu einer Mailto-Adresse darstellt.
- * ====================================================================================================
- * @param {string} email Die E-Mail-Adresse des Kontakts.
- * @returns {HTMLElement} Das erstellte Anker-Element mit der E-Mail-Adresse.
- * ====================================================================================================
+ * Creates an anchor element linking to the contact's email address.
+ * @param {string} email - The email address of the contact.
+ * @returns {HTMLAnchorElement} The created anchor element.
  */
 const createEmailAnchor = (email) => {
-    const DIV_EMAIL_ANCHOR = document.createElement('a');
-    DIV_EMAIL_ANCHOR.href = `mailto:${email}`; // Mailto-Link hinzugefügt
-    DIV_EMAIL_ANCHOR.textContent = email;
-    return DIV_EMAIL_ANCHOR;
+    const divEmailAnchor = document.createElement('a');
+    divEmailAnchor.href = `mailto:${email}`;
+    divEmailAnchor.textContent = email;
+    return divEmailAnchor;
 };

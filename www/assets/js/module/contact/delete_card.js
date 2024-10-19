@@ -1,22 +1,13 @@
-import { dnonePersionCard } from '../dnone.js';
+import { dnonePersonCard } from '../dnone.js';
 import { showContactCards } from './show_cards.js';
-import { loadUserIdFromStored, getContactId, deletElementById } from '../modules.js';
+import { loadUserIdFromStored, getContactId, deleteElementById } from '../modules.js';
 import { hideMobileContactCard } from './show_card_details.js';
 
+
 /**
- * Löscht den Kontakt anhand der angegebenen E-Mail-Adresse.
- * ====================================================================================================
- * Diese Funktion lädt die ID des Kontakts basierend auf der E-Mail-Adresse, löscht dann den Kontakt und 
- * aktualisiert die Ansicht, um die Änderungen widerzuspiegeln.
- * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './modules.js'
- * func getContactId() - findet man in der './modules.js'
- * ====================================================================================================
- * @async
- * @param {string} email Die E-Mail-Adresse des Kontakts, der gelöscht werden soll.
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn der Kontakt erfolgreich gelöscht wurde.
- * @throws {Error} Wenn ein Fehler beim Löschen des Kontakts auftritt.
- * ====================================================================================================
+ * Deletes a contact by email.
+ * @param {string} email - The email of the contact to delete.
+ * @returns {Promise<void>}
  */
 export async function deleteContact(email) {
     try {
@@ -26,43 +17,27 @@ export async function deleteContact(email) {
         await updateContactDisplay();
         hideMobileContactCard();
     } catch (err) {
-        console.error(`Fehler beim Löschen des Kontakts: ${err}`);
+        console.error(`Error deleting contact: ${err}`);
     };
 };
 
-/**
- * Entfernt den Kontakt aus der Datenbank.
- * ====================================================================================================
- * Diese Funktion löscht den Kontakt anhand der angegebenen Benutzer- und Kontakt-ID aus der Datenbank.
- * ====================================================================================================
- * func deletElementById() - findet man in der './modules.js'
- * ====================================================================================================
- * @async
- * @param {string} userID Die ID des Benutzers.
- * @param {string} contactId Die ID des zu löschenden Kontakts.
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn der Kontakt erfolgreich gelöscht wurde.
- * @throws {Error} Wenn ein Fehler beim Löschen des Kontakts auftritt.
- * ====================================================================================================
- */
-async function removeContact(userID, contactId) {
-    await deletElementById(`users/${userID}/contacts/${contactId[0]}`);
-};
 
 /**
- * Aktualisiert die Anzeige der Kontaktkarten.
- * ====================================================================================================
- * Diese Funktion aktualisiert die Anzeige, um die gelöschten Kontakte zu reflektieren,
- * und versteckt die Kontaktkarte bei Bedarf.
- * ====================================================================================================
- * func showContactCards() - findet man in der './showContactCards.js'
- * func dnonePersionCard() - findet man in der './dnone.js'
- * ====================================================================================================
- * @async
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Anzeige erfolgreich aktualisiert wurde.
- * @throws {Error} Wenn ein Fehler bei der Anzeigeaktualisierung auftritt.
- * ====================================================================================================
+ * Removes a contact using userID and contactId.
+ * @param {string} userID - The ID of the user.
+ * @param {string} contactId - The ID of the contact to remove.
+ * @returns {Promise<void>}
+ */
+async function removeContact(userID, contactId) {
+    await deleteElementById(`users/${userID}/contacts/${contactId[0]}`);
+};
+
+
+/**
+ * Updates the display of contacts.
+ * @returns {Promise<void>}
  */
 async function updateContactDisplay() {
     await showContactCards();
-    dnonePersionCard();
+    dnonePersonCard();
 };

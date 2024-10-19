@@ -1,29 +1,17 @@
 import { loadUserData } from './module/modules.js';
 import { autoForm } from './module/login_autoForm.js';
 
-const ID_FORM_LOGIN = document.getElementById('loginForm');
-const ID_BTN_guestLogin = document.getElementById('guestloginbtn');
 
-const ID_INPUT_EMAIL = document.getElementById('userEmail');
-const ID_INPUT_PW = document.getElementById('userPassword');
-const ID_INPUT_CHECKBOX = document.getElementById('inputCheckbox');
+const idFormLogin = document.getElementById('loginForm');
+const idBtnGuestLogin = document.getElementById('guestloginbtn');
+const idInputEmail = document.getElementById('userEmail');
+const idInputPW = document.getElementById('userPassword');
+const idInputCheckbox = document.getElementById('inputCheckbox');
+const idErrEmail = document.getElementById('emailError');
 
-const ID_ERR_EMAIL = document.getElementById('emailError');
 
 /**
- * Wird ausgeführt, wenn das DOM vollständig geladen ist.
- * ====================================================================================================
- * Diese Funktion wird automatisch aufgerufen, wenn das DOM vollständig geladen und bereit ist. 
- * Sie überprüft, ob das `ID_FORM_LOGIN`-Element vorhanden ist, entfernt einen eventuell 
- * vorhandenen `submit`-Event-Listener und fügt einen neuen hinzu, der die Funktion `initLogin` 
- * auslöst. Darüber hinaus wird überprüft, ob das `ID_BTN_guestLogin`-Element existiert, 
- * der `click`-Event-Listener wird entfernt, wenn vorhanden, und ein neuer Listener wird hinzugefügt, 
- * der die Funktion `initGuestLogin` aufruft. Abschließend wird die Funktion `autoForm` aufgerufen, 
- * um das Formular mit vorab gespeicherten Daten auszufüllen.
- * ====================================================================================================
- * @listens document#DOMContentLoaded - Das Ereignis, das ausgelöst wird, wenn das DOM vollständig geladen ist.
- * @returns {void}
- * ====================================================================================================
+ * Initializes the event listeners once the DOM is fully loaded.
  */
 document.addEventListener('DOMContentLoaded', async () => {
     addEventFromLogin();
@@ -31,122 +19,78 @@ document.addEventListener('DOMContentLoaded', async () => {
     await autoForm();
 });
 
+
 /**
- * Fügt einen Event-Listener zum Login-Formular hinzu.
- * ====================================================================================================
- * Diese Funktion überprüft, ob das Login-Formular (`ID_FORM_LOGIN`) existiert.
- * Falls vorhanden, wird der vorherige Event-Listener für das `submit`-Ereignis entfernt
- * und ein neuer Event-Listener hinzugefügt. Dieser Event-Listener ruft die `initLogin`-Funktion
- * auf, wenn das Formular abgeschickt wird.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Adds event listener for the login form.
  */
 const addEventFromLogin = () => {
-    ID_FORM_LOGIN.removeEventListener('submit', initLogin);
-    ID_FORM_LOGIN.addEventListener('submit', initLogin);
+    idFormLogin.removeEventListener('submit', initLogin);
+    idFormLogin.addEventListener('submit', initLogin);
 };
 
+
 /**
- * Fügt einen Event-Listener zum Gast-Login-Button hinzu.
- * ====================================================================================================
- * Diese Funktion überprüft, ob der Button für den Gast-Login (`ID_BTN_guestLogin`) existiert.
- * Falls vorhanden, wird der vorherige Event-Listener für das `click`-Ereignis entfernt
- * und ein neuer Event-Listener hinzugefügt. Dieser Event-Listener ruft die `initGuestLogin`-Funktion
- * auf, wenn der Button angeklickt wird.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Adds event listener for the guest login button.
  */
 const addEventFromGuestLogin = () => {
-    ID_BTN_guestLogin.removeEventListener('click', initGuestLogin);
-    ID_BTN_guestLogin.addEventListener('click', initGuestLogin);
+    idBtnGuestLogin.removeEventListener('click', initGuestLogin);
+    idBtnGuestLogin.addEventListener('click', initGuestLogin);
 };
 
+
 /**
- * Führt den Gast-Login durch und leitet zur Hauptseite weiter.
- * ====================================================================================================
- * Diese Funktion speichert eine vordefinierte Benutzer-ID in der Sitzung und leitet den Benutzer
- * anschließend zur Hauptseite weiter. Die Benutzer-ID wird dabei nicht lokal gespeichert.
- * ====================================================================================================
- * @async
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn der Gast-Login abgeschlossen ist
- * und die Weiterleitung erfolgt.
- * ====================================================================================================
+ * Initializes the guest login process.
+ * @returns {Promise<void>}
  */
 async function initGuestLogin() {
     await saveSessionUserID('-O0wPZV3YT41s7Ja0eKd', false);
     loadWindow();
 };
 
+
 /**
- * Initialisiert den Anmeldevorgang.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn der Benutzer das Anmeldeformular absendet. Sie prüft, ob
- * die Checkbox für den automatischen Login aktiviert ist, und führt die Anmelde- und 
- * Authentifizierungslogik durch. Bei erfolgreicher Authentifizierung wird je nach Status
- * der Checkbox die Benutzer-ID lokal oder in der Sitzung gespeichert.
- * ====================================================================================================
- * func loadUserData() = findet man in der './module/modules.js'
- * ====================================================================================================
- * @param {Event} event Das Ereignis, das durch das Absenden des Anmeldeformulars ausgelöst wird.
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn der Anmeldevorgang abgeschlossen ist.
- * @throws {Error} Wenn ein Fehler beim Laden der Benutzerdaten oder beim Speichern der Benutzer-ID auftritt.
- * ====================================================================================================
+ * Initializes the login process.
+ * @param {Event} event - The event triggered by the form submission.
+ * @returns {Promise<void>}
  */
 async function initLogin(event) {
     try {
         event.preventDefault();
-        resetErrMessegs();
-        const statusCheckbox = ID_INPUT_CHECKBOX.checked;
+        resetErrMessages();
+        const statusCheckbox = idInputCheckbox.checked;
         const formData = await loadFormData();
         const user = await loadUserData(formData);
-        if (user === undefined) return checkUser(user);
+        if (user === undefined) return checkUser();
         checkStatusFromCheckbox(statusCheckbox, user);
         loadWindow();
     } catch (err) {
-        console.error(`Fehler beim Initialisieren der Anmeldung: ${err}`);
+        console.error(`Error during login initialization: ${err}`);
     };
 };
 
-/**
- * Setzt alle Fehlermeldungen zurück.
- * ====================================================================================================
- * Diese Funktion blendet alle Fehlermeldungen aus, um sicherzustellen, dass keine alten
- * Fehlermeldungen angezeigt werden, wenn das Formular erneut abgesendet wird.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
- */
-const resetErrMessegs = () => {
-    ID_ERR_EMAIL.style.display = 'none';
-};
 
 /**
- * Zeigt eine Fehlermeldung an, wenn der Benutzer nicht gefunden wird.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn der Benutzer in der Datenbank nicht gefunden wird.
- * Die Fehlermeldung wird angezeigt, um den Benutzer darüber zu informieren.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Resets the error messages displayed to the user.
+ */
+const resetErrMessages = () => {
+    idErrEmail.style.display = 'none';
+};
+
+
+/**
+ * Displays an error message when the user is not found.
  */
 const checkUser = () => {
-    ID_ERR_EMAIL.textContent = 'Benutzer nicht gefunden!';
-    ID_ERR_EMAIL.style.display = 'block';
+    idErrEmail.textContent = 'User not found!';
+    idErrEmail.style.display = 'block';
 };
 
+
 /**
- * Speichert die Benutzer-ID basierend auf dem Status der Checkbox.
- * ====================================================================================================
- * Diese Funktion speichert die Benutzer-ID entweder in den lokalen Speicher oder in die Sitzung,
- * abhängig davon, ob die Checkbox für den automatischen Login aktiviert ist oder nicht.
- * ====================================================================================================
- * @async
- * @param {boolean} statusCheckbox Der Status der Checkbox für den automatischen Login.
- * @returns {Promise<void>} Ein Promise, das aufgelöst wird, wenn die Benutzer-ID erfolgreich gespeichert wurde.
- * @throws {Error} Wenn ein Fehler beim Speichern der Benutzer-ID auftritt.
- * ====================================================================================================
+ * Checks the status of the checkbox and saves the user ID accordingly.
+ * @param {boolean} statusCheckbox - The checkbox status.
+ * @param {Object} user - The user data.
+ * @returns {Promise<void>}
  */
 const checkStatusFromCheckbox = async (statusCheckbox, user) => {
     if (statusCheckbox) {
@@ -156,31 +100,23 @@ const checkStatusFromCheckbox = async (statusCheckbox, user) => {
     };
 };
 
+
 /**
- * Lädt die Formulardaten aus den Eingabefeldern.
- * ====================================================================================================
- * Diese Funktion liest die Werte aus den Eingabefeldern für E-Mail und Passwort und
- * gibt sie als Objekt zurück.
- * ====================================================================================================
- * @returns {Object} Ein Objekt mit den Formulardaten.
- * ====================================================================================================
+ * Loads form data from the input fields.
+ * @returns {{email: string, pw: string}} - The form data.
  */
 const loadFormData = () => {
     return {
-        'email': ID_INPUT_EMAIL.value,
-        'pw': ID_INPUT_PW.value
+        email: idInputEmail.value,
+        pw: idInputPW.value
     };
 };
 
+
 /**
- * Speichert die Benutzer-ID und den Auto-Login-Status im lokalen Storage.
- * ====================================================================================================
- * Diese Funktion speichert die Benutzer-ID und den Auto-Login-Status im lokalen 
- * Storage. Zuvor wird der Benutzer-ID-Eintrag im Session-Storage gelöscht.
- * ====================================================================================================
- * @param {String} userID Die eindeutige Benutzer-ID.
- * @param {Boolean} autoLogin Der Auto-Login-Status.
- * ====================================================================================================
+ * Saves the user ID and auto-login status to local storage.
+ * @param {string} userID - The user ID to save.
+ * @param {boolean} autoLogin - The auto-login status.
  */
 const saveLocalUserID = (userID, autoLogin) => {
     sessionStorage.removeItem('userID');
@@ -188,15 +124,11 @@ const saveLocalUserID = (userID, autoLogin) => {
     localStorage.setItem('autoLogin', autoLogin);
 };
 
+
 /**
- * Speichert die Benutzer-ID im Session-Storage und den Auto-Login-Status im lokalen Storage.
- * ====================================================================================================
- * Diese Funktion speichert die Benutzer-ID im Session-Storage und den Auto-Login-Status 
- * im lokalen Storage. Zuvor wird der Benutzer-ID-Eintrag im lokalen Storage gelöscht.
- * ====================================================================================================
- * @param {String} userID Die eindeutige Benutzer-ID.
- * @param {Boolean} autoLogin Der Auto-Login-Status.
- * ====================================================================================================
+ * Saves the user ID and auto-login status to session storage.
+ * @param {string} userID - The user ID to save.
+ * @param {boolean} autoLogin - The auto-login status.
  */
 const saveSessionUserID = (userID, autoLogin) => {
     localStorage.removeItem('userID');
@@ -204,11 +136,9 @@ const saveSessionUserID = (userID, autoLogin) => {
     localStorage.setItem('autoLogin', autoLogin);
 };
 
+
 /**
- * Lädt die nächste Seite.
- * ====================================================================================================
- * Diese Funktion leitet den Benutzer zur nächsten Seite weiter.
- * ====================================================================================================
+ * Redirects the user to the summary page.
  */
 const loadWindow = () => {
     localStorage.setItem('activNavBtn', 'nav-btn0');

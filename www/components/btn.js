@@ -1,76 +1,124 @@
+/**
+ * Initialize navigation once the DOM is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    navInit();
+    initializeNavigation();
   }, 1000);
 });
 
-function navInit() {
-  const lastActiveBtn = localStorage.getItem('activeNavBtn');
-  setActiveButton(lastActiveBtn);
-  loadBtns();
+
+/**
+ * Initializes navigation buttons and sets the last active button from localStorage.
+ */
+function initializeNavigation() {
+  const lastActiveButtonId = localStorage.getItem('activeNavButton');
+  setActiveButton(lastActiveButtonId);
+  initializeButtons();
 };
 
-const setActiveButton = (id) => {
-  document.getElementById(id)?.classList.add('active');
+
+/**
+ * Sets a button as active by adding the 'active' class.
+ * @param {string} buttonId - The ID of the button to be activated.
+ */
+function setActiveButton(buttonId) {
+  document.getElementById(buttonId)?.classList.add('active');
 };
 
-const loadBtns = () => {
-  loadBtnsForProfile();
-  loadBtnsForNavBar();
+
+/**
+ * Initializes both profile and navbar buttons.
+ */
+function initializeButtons() {
+  initializeProfileButtons();
+  initializeNavBarButtons();
 };
 
-const loadBtnsForProfile = () => {
-  const btns = document.querySelectorAll('.profile-btns');
-  btns.forEach((btn) => {
-    const element = document.getElementById(btn.getAttribute('id'));
-    element.removeEventListener('click', () => profileEventHandler);
-    element.addEventListener('click', (event) => { profileEventHandler(event) });
+
+/**
+ * Attaches event listeners to profile buttons.
+ */
+function initializeProfileButtons() {
+  const buttons = document.querySelectorAll('.profile-btns');
+  buttons.forEach((button) => {
+    const element = document.getElementById(button.getAttribute('id'));
+    element.removeEventListener('click', handleProfileEvent);
+    element.addEventListener('click', (event) => handleProfileEvent(event));
   });
 };
 
-const loadBtnsForNavBar = () => {
-  const btns = document.querySelectorAll('.navBar-btns');
-  btns.forEach((btn) => {
-    const element = document.getElementById(btn.getAttribute('id'));
-    element.removeEventListener('click', () => navEventHandler);
-    element.addEventListener('click', (event) => { navEventHandler(event) });
+
+/**
+ * Attaches event listeners to navigation bar buttons.
+ */
+function initializeNavBarButtons() {
+  const buttons = document.querySelectorAll('.navBar-btns');
+  buttons.forEach((button) => {
+    const element = document.getElementById(button.getAttribute('id'));
+    element.removeEventListener('click', handleNavEvent);
+    element.addEventListener('click', (event) => handleNavEvent(event));
   });
 };
 
-const profileEventHandler = (event) => {
-  const btn = event.currentTarget;
-  const btnHref = btn.getAttribute('data-href');
-  const btnId = btn.getAttribute('data-id');
-  loadNextPage(btnId, btnHref);
+
+/**
+ * Handles the profile button click event and loads the next page.
+ * @param {Event} event - The click event.
+ */
+function handleProfileEvent(event) {
+  const button = event.currentTarget;
+  const buttonHref = button.getAttribute('data-href');
+  const buttonId = button.getAttribute('data-id');
+  loadNextPage(buttonId, buttonHref);
 };
 
-const navEventHandler = (event) => {
-  const btn = event.currentTarget;
-  const btnHref = btn.getAttribute('data-href');
-  loadNextPage(btn.id, btnHref);
+
+/**
+ * Handles the navigation bar button click event and loads the next page.
+ * @param {Event} event - The click event.
+ */
+function handleNavEvent(event) {
+  const button = event.currentTarget;
+  const buttonHref = button.getAttribute('data-href');
+  loadNextPage(button.id, buttonHref);
 };
 
-const loadNextPage = (btnId, page) => {
-  removeLastActiveBtn();
-  setActiveButton(btnId);
-  const lastActiveBtn = localStorage.getItem('activeNavBtn');
-  localStorage.setItem('lastActiveNavBtn', lastActiveBtn);
-  localStorage.setItem('activeNavBtn', btnId);
-  window.location.href = page;
+
+/**
+ * Loads the next page, sets the active button, and updates localStorage.
+ * @param {string} buttonId - The ID of the button clicked.
+ * @param {string} pageUrl - The URL of the next page to load.
+ */
+function loadNextPage(buttonId, pageUrl) {
+  removeLastActiveButton();
+  setActiveButton(buttonId);
+  const lastActiveButtonId = localStorage.getItem('activeNavButton');
+  localStorage.setItem('lastActiveNavButton', lastActiveButtonId);
+  localStorage.setItem('activeNavButton', buttonId);
+  window.location.href = pageUrl;
 };
 
-const removeLastActiveBtn = () => {
-  const lastActiveBtn = localStorage.getItem('activeNavBtn');
-  document.getElementById(lastActiveBtn)?.classList.remove('active');
+
+/**
+ * Removes the 'active' class from the last active button.
+ */
+function removeLastActiveButton() {
+  const lastActiveButtonId = localStorage.getItem('activeNavButton');
+  document.getElementById(lastActiveButtonId)?.classList.remove('active');
 };
 
+
+/**
+ * Navigates back to the previous page by restoring the last active button.
+ */
 function backToPreviousPage() {
-  const lastActiveBtn = localStorage.getItem('lastActiveNavBtn');
-  const btns = document.querySelectorAll('.navBar-btns');
-  btns.forEach(btn => {
-    if (btn.id === lastActiveBtn) {
-      const path = btn.getAttribute('data-href');
-      loadNextPage(lastActiveBtn, path);
+  const lastActiveButtonId = localStorage.getItem('lastActiveNavButton');
+  const buttons = document.querySelectorAll('.navBar-btns');
+  buttons.forEach(button => {
+    if (button.id === lastActiveButtonId) {
+      const path = button.getAttribute('data-href');
+      loadNextPage(lastActiveButtonId, path);
     };
   });
 };

@@ -6,66 +6,66 @@ import {
     loadNextPage
 } from '../../initAddTask.js';
 
+
+const idFormAddTask = document.getElementById('formAddTask');
+const idBtnAddSubtask = document.getElementById('addSubTask');
+const idBtnUrgent = document.getElementById('urgent');
+const idBtnMedium = document.getElementById('medium');
+const idBtnLow = document.getElementById('low');
+const idBtnCancel = document.getElementById('taskbuttonCancel');
+
+
 let lastBtnPrio = 'medium';
 
-const ID_FORM_ADD_TASK = document.getElementById('formAddTask');
-const ID_BTN_ADD_SUBTASK = document.getElementById('addSubTask');
-const ID_BTN_URGENT = document.getElementById('urgent');
-const ID_BTN_MEDIUM = document.getElementById('medium');
-const ID_BTN_LOW = document.getElementById('low');
-const ID_BTN_CANCEL = document.getElementById('taskbuttonCancel');
 
 /**
- * Entfernt den bisherigen 'submit'-EventListener vom Task-Formular und fügt ihn erneut hinzu.
- * ====================================================================================================
+ * Initializes event listener for form submission.
  */
 const addEventFromAddTask = () => {
-    ID_FORM_ADD_TASK.removeEventListener('submit', initAddTask);
-    ID_FORM_ADD_TASK.addEventListener('submit', initAddTask);
+    idFormAddTask.removeEventListener('submit', initAddTask);
+    idFormAddTask.addEventListener('submit', initAddTask);
 };
 
+
 /**
- * Entfernt den bisherigen 'click'-EventListener vom Dringlichkeitsbutton und fügt ihn erneut hinzu.
- * ====================================================================================================
+ * Initializes event listener for urgent button click.
  */
 const addEventFromBtnUrgent = () => {
-    ID_BTN_URGENT.removeEventListener('click', handleUrgentClick);
-    ID_BTN_URGENT.addEventListener('click', handleUrgentClick);
+    idBtnUrgent.removeEventListener('click', handleUrgentClick);
+    idBtnUrgent.addEventListener('click', handleUrgentClick);
 };
 
+
 /**
- * Entfernt den bisherigen 'click'-EventListener vom Mittlerer-Prioritäts-Button und fügt ihn erneut hinzu.
- * ====================================================================================================
+ * Initializes event listener for medium button click.
  */
 const addEventFromBtnMedium = () => {
-    ID_BTN_MEDIUM.removeEventListener('click', handleMediumClick);
-    ID_BTN_MEDIUM.addEventListener('click', handleMediumClick);
+    idBtnMedium.removeEventListener('click', handleMediumClick);
+    idBtnMedium.addEventListener('click', handleMediumClick);
 };
 
+
 /**
- * Entfernt den bisherigen 'click'-EventListener vom Niedriger-Prioritäts-Button und fügt ihn erneut hinzu.
- * ====================================================================================================
+ * Initializes event listener for low button click.
  */
 const addEventFromBtnLow = () => {
-    ID_BTN_LOW.removeEventListener('click', handleLowClick);
-    ID_BTN_LOW.addEventListener('click', handleLowClick);
+    idBtnLow.removeEventListener('click', handleLowClick);
+    idBtnLow.addEventListener('click', handleLowClick);
 };
 
+
 /**
- * Entfernt den bisherigen 'click'-EventListener vom Subtask-Hinzufügen-Button und fügt ihn erneut hinzu.
- * ====================================================================================================
+ * Initializes event listener for add subtask button click.
  */
 const addEventFromAddSubTask = () => {
-    ID_BTN_ADD_SUBTASK.removeEventListener('click', addSubTaskToList);
-    ID_BTN_ADD_SUBTASK.addEventListener('click', addSubTaskToList);
+    idBtnAddSubtask.removeEventListener('click', addSubTaskToList);
+    idBtnAddSubtask.addEventListener('click', addSubTaskToList);
 };
 
+
 /**
- * Entfernt den bisherigen 'click'-EventListener vom Zuweisungs-Listen-Löschbutton mit der angegebenen Nummer
- * und fügt ihn erneut hinzu.
- * ====================================================================================================
- * @param {number} number - Die Nummer des Zuweisungs-Listen-Löschbuttons.
- * ====================================================================================================
+ * Initializes event listener for deleting an item from assigned list.
+ * @param {number} number - The index number of the item.
  */
 const addEventFromDelListAssigned = (number) => {
     const ID_BTN_ASSIGNED_LIST_DEL = document.getElementById('list_assigned_btn_delete' + number);
@@ -73,12 +73,10 @@ const addEventFromDelListAssigned = (number) => {
     ID_BTN_ASSIGNED_LIST_DEL.addEventListener('click', deleteItem);
 };
 
+
 /**
- * Entfernt den bisherigen 'click'-EventListener vom Subtask-Listen-Löschbutton mit der angegebenen Nummer
- * und fügt ihn erneut hinzu.
- * ====================================================================================================
- * @param {number} number - Die Nummer des Subtask-Listen-Löschbuttons.
- * ====================================================================================================
+ * Initializes event listener for deleting a subtask from list.
+ * @param {number} number - The index number of the subtask.
  */
 const addEventFromDelListSubTask = (number) => {
     const ID_BTN_SUBTASK_LIST_DEL = document.getElementById('list_subtask_btn_delete' + number);
@@ -86,40 +84,43 @@ const addEventFromDelListSubTask = (number) => {
     ID_BTN_SUBTASK_LIST_DEL.addEventListener('click', deleteItem);
 };
 
-const addEventFromCancelBtn = () => {
-    ID_BTN_CANCEL.removeEventListener('click', loadNextPage);
-    ID_BTN_CANCEL.addEventListener('click', loadNextPage);
-};
 
 /**
- * Setzt die Priorität des Tasks auf "urgent" und aktualisiert den Button-Status.
- * ====================================================================================================
+ * Initializes event listener for cancel button click.
+ */
+const addEventFromCancelBtn = () => {
+    idBtnCancel.removeEventListener('click', loadNextPage);
+    idBtnCancel.addEventListener('click', loadNextPage);
+};
+
+
+/**
+ * Handles click event on urgent button.
  */
 const handleUrgentClick = () => {
     setBtnPrio('urgent');
 };
 
+
 /**
- * Setzt die Priorität des Tasks auf "medium" und aktualisiert den Button-Status.
- * ====================================================================================================
+ * Handles click event on medium button.
  */
 const handleMediumClick = () => {
     setBtnPrio('medium');
 };
 
+
 /**
- * Setzt die Priorität des Tasks auf "low" und aktualisiert den Button-Status.
- * ====================================================================================================
+ * Handles click event on low button.
  */
 const handleLowClick = () => {
     setBtnPrio('low');
 };
 
+
 /**
- * Setzt die angeklickte Priorität und aktualisiert den Button-Status.
- * ====================================================================================================
- * @param {string} prio - Die Priorität, die gesetzt werden soll ("urgent", "medium", "low").
- * ====================================================================================================
+ * Sets priority button styling and task form priority.
+ * @param {string} prio - Priority value ('urgent', 'medium', 'low').
  */
 const setBtnPrio = (prio) => {
     lastBtn();
@@ -129,14 +130,15 @@ const setBtnPrio = (prio) => {
     lastBtnPrio = prio;
 };
 
+
 /**
- * Setzt den letzten Prioritätsbutton zurück, indem der "active"-Status entfernt und der Button wieder aktiviert wird.
- * ====================================================================================================
+ * Resets styling and enables the last used priority button.
  */
 const lastBtn = () => {
     document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');
     document.getElementById(lastBtnPrio).disabled = false;
 };
+
 
 export {
     addEventFromAddTask,

@@ -3,36 +3,25 @@ import { loadUserIdFromStored, loadElementByPatch } from '../modules.js';
 import { generateCardHeadline, createContactCard } from './create_card.js';
 import { showUserDetails } from './user/show_user_details.js';
 
+
 const CLASS_Contactcards = document.querySelector('.Contactcards');
+
 
 export let contacts;
 let userID;
 
+
 /**
- * Zeigt die Kontaktkarten im Benutzerinterface an.
- * ====================================================================================================
- * Diese Funktion lädt die Kontaktdaten des Benutzers, organisiert sie nach dem Anfangsbuchstaben und 
- * zeigt sie in einer Liste von Kontaktkarten an.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Fetches contacts data asynchronously.
  */
 export async function showContactCards() {
     await fetchContacts();
     createSortedContacts();
 };
 
+
 /**
- * Lädt die Kontaktdaten des Benutzers und organisiert sie.
- * ====================================================================================================
- * Diese Funktion ruft die Kontaktdaten von einem Remote-Server ab und organisiert sie 
- * nach Anfangsbuchstaben. Bei einem Fehler wird eine Fehlermeldung in die Konsole ausgegeben.
- * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './modules.js'
- * func loadElementByPatch() - findet man in der './modules.js'
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Fetches contacts data from the server.
  */
 export async function fetchContacts() {
     try {
@@ -41,24 +30,14 @@ export async function fetchContacts() {
         const tempContacts = await loadElementByPatch(`users/${userID}/`, 0);
         organizeContacts(tempContacts);
     } catch (err) {
-        console.error(`Es ist ein Problem beim Laden der Kontakte aufgetreten: ${err}`);
+        console.error(`An error occurred while loading contacts: ${err}`);
     };
 };
 
+
 /**
- * Organisiert die Kontaktdaten nach dem Anfangsbuchstaben des Namens.
- * ====================================================================================================
- * Diese Funktion filtert den ungültigen Eintrag aus den Kontaktdaten heraus, sortiert die 
- * verbleibenden Kontakte alphabetisch nach ihrem Namen und organisiert sie in einem Objekt, 
- * das nach dem Anfangsbuchstaben des Namens strukturiert ist.
- * ====================================================================================================
- * @param {Array<Object>} data Eine Liste von Kontaktdatenobjekten.
- * @param {string} data[].name Der Name des Kontakts.
- * @param {string} data[].email Die E-Mail-Adresse des Kontakts.
- * @param {string} data[].tel Die Telefonnummer des Kontakts.
- * @param {string} data[].shortcutBackColor Die Hintergrundfarbe des Namens-Shortcuts.
- * @returns {Object} Ein Objekt, in dem die Kontakte nach dem Anfangsbuchstaben ihres Namens gruppiert sind.
- * ====================================================================================================
+ * Organizes fetched contacts into an alphabetical dictionary.
+ * @param {Array} data - The array of contacts to organize.
  */
 function organizeContacts(data) {
     const validContacts = data.filter(contact => contact && contact.name);
@@ -72,17 +51,9 @@ function organizeContacts(data) {
     });
 };
 
+
 /**
- * Zeigt die sortierten Kontaktkarten an.
- * ====================================================================================================
- * Diese Funktion erstellt HTML-Elemente für die Kontaktkarten und fügt sie in das DOM ein. 
- * Sie fügt außerdem Event-Listener hinzu, um auf Klickereignisse zu reagieren.
- * ====================================================================================================
- * func generateCardHeadline() - findet man in der './createHtmlElements.js'
- * func createContactCard() - findet man in der './createHtmlElements.js'
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Creates sorted contact cards and appends them to the DOM.
  */
 function createSortedContacts() {
     const cardsContainer = CLASS_Contactcards;
@@ -99,17 +70,9 @@ function createSortedContacts() {
     attachCardEvents();
 };
 
+
 /**
- * Fügt Klick-Ereignislistener zu den Kontaktkarten hinzu.
- * ====================================================================================================
- * Diese Funktion fügt Event-Listener zu allen Kontaktkarten hinzu, um auf Klickereignisse zu reagieren
- * und die Kontaktdetails anzuzeigen. Die Funktion entfernt zuvor vorhandene Event-Listener, um sicherzustellen,
- * dass keine doppelten Listener vorhanden sind, bevor neue hinzugefügt werden.
- * ====================================================================================================
- * @function handleCardClick - Funktion zum Umgang mit Klick-Ereignissen auf Kontaktkarten.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Attaches click event listeners to each contact card.
  */
 const attachCardEvents = () => {
     const cards = document.querySelectorAll('.card');
@@ -119,19 +82,10 @@ const attachCardEvents = () => {
     });
 };
 
+
 /**
- * Behandelt das Klick-Ereignis auf einer Kontaktkarte.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn eine Kontaktkarte angeklickt wird. Sie extrahiert die relevanten
- * Datenattribute von der angeklickten Karte und ruft die Funktion `showContactDetails` auf, um die
- * Kontaktdetails anzuzeigen.
- * ====================================================================================================
- * func showContactDetails() - findet man in der './showContactDetails.js'
- * ====================================================================================================
- * @param {Event} event - Das Klick-Ereignisobjekt, das die Details der angeklickten Karte enthält.
- * ====================================================================================================
- * @returns {void}
- * ====================================================================================================
+ * Handles click events on contact cards.
+ * @param {Event} event - The click event object.
  */
 const handleCardClick = (event) => {
     const target = event.currentTarget;

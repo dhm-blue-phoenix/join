@@ -3,28 +3,24 @@ import { getContactId } from '../modules.js';
 import { extractInitials } from '../modules.js';
 import { retrievingData } from '../dataResponse.js';
 
-const ID_editPersionShortcut = document.getElementById('editPersionShortcut');
-const ID_INPUT_editPersionName = document.getElementById('editPersionName');
-const ID_INPUT_editPersionEmail = document.getElementById('editPersionEmail');
-const ID_INPUT_editPersionTel = document.getElementById('editPersionTel');
-const ID_editPopupAnimation = document.getElementById('editcontactpopupanimation');
+
+const idEditPersonShortcut = document.getElementById('editPersonShortcut');
+const idInputEditPersonName = document.getElementById('editPersonName');
+const idInputEditPersonEmail = document.getElementById('editPersonEmail');
+const idInputEditPersonTel = document.getElementById('editPersonTel');
+const idEditPopupAnimation = document.getElementById('editcontactpopupanimation');
+
 
 export let editContactId;
 let editUser = false;
 
+
 /**
- * Zeigt das Bearbeitungs-Popup für einen Kontakt an.
- * ====================================================================================================
- * Diese asynchrone Funktion entfernt eine CSS-Klasse, die das Bearbeitungs-Popup versteckt.
- * Sie lädt die Benutzer-ID aus dem Speicher und ruft dann die Kontakt-ID basierend auf der
- * E-Mail des Kontakts ab. Schließlich werden die Kontaktdaten in das Bearbeitungsformular importiert.
- * ====================================================================================================
- * func loadUserIdFromStored() - findet man in der './loadUserIdFromStored.js'
- * func getContactId() - findet man in der './getContactId.js'
- * ====================================================================================================
- * @param {string} email Die E-Mail-Adresse des Kontakts, der bearbeitet werden soll.
- * ====================================================================================================
-*/
+ * Displays the contact edit popup and loads user data if applicable.
+ *
+ * @param {string} email - The email of the contact to edit or 'user' for the current user.
+ * @returns {Promise<void>}
+ */
 export async function showContactEditPopup(email) {
     try {
         showPopup();
@@ -33,75 +29,64 @@ export async function showContactEditPopup(email) {
             editUser = true;
             const user = await retrievingData(`users/${userID}/`);
             const userData = {
-                'shortcutBackColor': user[4],
-                'name': user[2],
-                'email': user[1]
+                shortcutBackColor: user[4],
+                name: user[2],
+                email: user[1]
             };
             importFromEditFormData(userData);
         } else {
             const contactId = await getContactId(userID, email, 'contactCard');
             importFromEditFormData(contactId[1]);
             editContactId = contactId[0];
-        };
+        }
     } catch (err) {
-        console.error(`Es ist ein Problem beim Öffnen des Edid Popups aufgetreten! ${err}`);
+        console.error(`Es ist ein Problem beim Öffnen des Edit Popups aufgetreten! ${err}`);
     };
 };
 
+
 /**
- * Zeigt das Bearbeitungs-Popup an und startet die Anzeigeanimation.
- * ====================================================================================================
- * Diese Funktion macht das Bearbeitungs-Popup sichtbar, indem sie eine Klasse entfernt, 
- * die das Popup normalerweise ausblendet. Gleichzeitig wird durch das Hinzufügen und 
- * Entfernen von CSS-Klassen eine Animation aktiviert, die das sanfte Einblenden des 
- * Popups ermöglicht.
- * ====================================================================================================
+ * Shows the edit contact popup.
  */
 const showPopup = () => {
     removeClass('editcontactpopup');
-    ID_editPopupAnimation.classList.remove('hide');
-    ID_editPopupAnimation.classList.add('show');
+    idEditPopupAnimation.classList.remove('hide');
+    idEditPopupAnimation.classList.add('show');
 };
 
+
 /**
- * Entfernt eine spezifische CSS-Klasse von einem Element.
- * ====================================================================================================
- * Diese Funktion sucht ein HTML-Element anhand seiner ID und entfernt die angegebene
- * CSS-Klasse, um Änderungen im DOM sichtbar zu machen.
- * ====================================================================================================
- * @param {string} id Die ID des Elements, von dem die Klasse entfernt werden soll.
- * ====================================================================================================
+ * Removes a class from the element with the specified ID.
+ *
+ * @param {string} id - The ID of the element.
  */
 const removeClass = (id) => {
     document.getElementById(id).classList.remove('d-nonepopup');
 };
 
+
 /**
- * Importiert die Kontaktdaten in das Bearbeitungsformular.
- * ====================================================================================================
- * Diese Funktion aktualisiert die Felder des Bearbeitungsformulars
- * mit den übergebenen Kontaktdaten.
- * ====================================================================================================
- * func extractInitials() - findet man in der './extractInitials.js'
- * ====================================================================================================
- * @param {Object} data Ein Objekt mit den Kontaktdaten.
- * @param {string} data.name Der Name des Kontakts.
- * @param {string} data.email Die E-Mail-Adresse des Kontakts.
- * @param {string} data.tel Die Telefonnummer des Kontakts.
- * ====================================================================================================
+ * Imports data into the edit form fields.
+ *
+ * @param {Object} data - The data object containing contact information.
+ * @param {string} data.shortcutBackColor - The background color for the shortcut.
+ * @param {string} data.name - The name of the contact.
+ * @param {string} data.email - The email of the contact.
+ * @param {string} [data.tel] - The phone number of the contact (optional).
  */
 const importFromEditFormData = (data) => {
-    ID_editPersionShortcut.textContent = extractInitials(data.name);
-    ID_editPersionShortcut.style.backgroundColor = data.shortcutBackColor;
-    ID_INPUT_editPersionName.value = data.name;
-    ID_INPUT_editPersionEmail.value = data.email;
+    idEditPersonShortcut.textContent = extractInitials(data.name);
+    idEditPersonShortcut.style.backgroundColor = data.shortcutBackColor;
+    idInputEditPersonName.value = data.name;
+    idInputEditPersonEmail.value = data.email;
     if (editUser) {
-        ID_INPUT_editPersionTel.disabled = true;
-        ID_INPUT_editPersionTel.style.display = 'none';
-        ID_INPUT_editPersionTel.value = null;
-        return editUser = false;
+        idInputEditPersonTel.disabled = true;
+        idInputEditPersonTel.style.display = 'none';
+        idInputEditPersonTel.value = null;
+        editUser = false;
+        return;
     };
-    ID_INPUT_editPersionTel.disabled = false;
-    ID_INPUT_editPersionTel.style.display = 'block';
-    ID_INPUT_editPersionTel.value = data.tel;
+    idInputEditPersonTel.disabled = false;
+    idInputEditPersonTel.style.display = 'block';
+    idInputEditPersonTel.value = data.tel;
 };

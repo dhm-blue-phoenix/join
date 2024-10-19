@@ -1,51 +1,42 @@
 import { extractInitials, loadUserIdFromStored, findUserById } from './module/modules.js';
 
-const ID_username = document.getElementById('username');
-const ID_usernamenote = document.getElementById('usernamenote');
-const ID_account = document.getElementById('account');
+
+const idUsername = document.getElementById('username');
+const idUsernamenote = document.getElementById('usernamenote');
+const idAccount = document.getElementById('account');
+
 
 /**
- * Initialisiert das Benutzerprofil, nachdem die DOM-Inhalte vollständig geladen sind.
- * ====================================================================================================
- * 1. Überprüft, ob eine Benutzer-ID im lokalen Speicher oder in der Sitzung gespeichert ist.
- * 2. Lädt den Benutzernamen anhand dieser Benutzer-ID.
- * 3. Extrahiert die Initialen aus dem Benutzernamen.
- * 4. Zeigt den Benutzernamen und die Initialen im Profil an.
- * ====================================================================================================
- * func extractInitials() - findet man in der ./module/modules.js
- * ====================================================================================================
+ * Initializes the user profile after the DOM content is fully loaded.
+ * Adds an event listener to the document to call the loadUserName() function when the DOM content is fully loaded.
+ * @listens document#DOMContentLoaded - The event that is triggered when the DOM content is fully loaded.
  * @async
- * @function
- * @throws {Error} Wenn keine Benutzer-ID gefunden wird, der Benutzername nicht geladen werden kann oder ein Fehler beim Verarbeiten auftritt.
- * ====================================================================================================
+ * @throws {Error} If no user ID is found, username cannot be loaded, or an error occurs during processing.
+ * @returns {void}
 */
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const username = await loadUserName();
         const usernamenote = await loadUserName();
         const initials = extractInitials(username);
-        ID_account.textContent = initials;
-        ID_username && (ID_username.textContent = username);
-        ID_usernamenote && (ID_usernamenote.textContent = usernamenote);
+        idAccount.textContent = initials;
+        if (idUsername) idUsername.textContent = username;
+        if (idUsernamenote) idUsernamenote.textContent = usernamenote;
     } catch (err) {
-        console.error(`Es ist ein Problem beim Laden des Benutzerprofils aufgetreten! ${err}`);
+        console.error(`An error occurred while loading the user profile! ${err}`);
     };
 });
 
+
 /**
- * Lädt den Benutzernamen anhand der gespeicherten Benutzer-ID.
- * ====================================================================================================
- * Ruft die Benutzer-ID von der Funktion checkStored() ab und sucht den Benutzernamen mittels der Benutzer-ID.
- * ====================================================================================================
- * func findUserById() - findet man in der './module/modules.js'
- * ====================================================================================================
+ * Loads the username based on the stored user ID.
+ * Retrieves the user ID from the loadUserIdFromStored() function and searches for the username using the user ID.
  * @async
- * @returns {string} Der Benutzername des gefundenen Benutzers.
- * @throws {Error} Wenn der Benutzer nicht gefunden wird.
- * ====================================================================================================
+ * @returns {string} The username of the found user.
+ * @throws {Error} If the user is not found.
  */
 async function loadUserName() {
-    let userID = loadUserIdFromStored();
+    const userID = loadUserIdFromStored();
     const userData = await findUserById(userID);
     return userData[2];
 };
