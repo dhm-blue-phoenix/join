@@ -139,6 +139,7 @@ input:focus {
     justify-content: flex-start;
     font-size: 16px;
     color: var(--text-color07);
+    cursor: pointer;
   }
   
   .dropdown-content a:hover {
