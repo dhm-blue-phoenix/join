@@ -4,7 +4,7 @@ import { generateCardHeadline, createContactCard } from './create_card.js';
 import { showUserDetails } from './user/show_user_details.js';
 
 
-const CLASS_Contactcards = document.querySelector('.Contactcards');
+const classContactCard = document.querySelector('.Contactcards');
 
 
 export let contacts;
@@ -56,7 +56,7 @@ function organizeContacts(data) {
  * Creates sorted contact cards and appends them to the DOM.
  */
 function createSortedContacts() {
-    const cardsContainer = CLASS_Contactcards;
+    const cardsContainer = classContactCard;
     cardsContainer.innerHTML = '';
     Object.keys(contacts).forEach(key => {
         generateCardHeadline(cardsContainer, key);

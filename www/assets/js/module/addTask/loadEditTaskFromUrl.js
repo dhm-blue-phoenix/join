@@ -28,7 +28,6 @@ async function loadEditTaskFromUrl() {
         const taskId = getTaskIdFromUrl();
         editTaskId = taskId;
         if (taskId === null) return;
-
         const boardData = await fetchBoardData();
         const taskData = extractTaskData(boardData, taskId);
         updateDomWithTaskData(taskData);
@@ -179,10 +178,8 @@ const updateAssignedTo = (taskData) => {
     const selectedPersonContainer = document.getElementById('selectedPerson');
     selectedPersonContainer.style.display = 'flex';
     selectedPersonContainer.innerHTML = '';
-
     const assignedPersons = taskData.assigned;
     taskForm.assigned = assignedPersons;
-
     assignedPersons.slice(1).forEach((person) => {
         const nameShortcutDiv = createNameShortcutDiv(person);
         selectedPersonContainer.appendChild(nameShortcutDiv);
@@ -199,12 +196,10 @@ const createNameShortcutDiv = (person) => {
     const nameShortcutDiv = document.createElement('div');
     nameShortcutDiv.id = 'nameShortcut';
     nameShortcutDiv.style.backgroundColor = person.color;
-
     const fullName = person.name;
     const nameParts = fullName.split(' ');
     const firstName = nameParts[0];
     const lastName = nameParts[1] || '';
-
     nameShortcutDiv.textContent = getInitials(firstName, lastName);
     return nameShortcutDiv;
 };

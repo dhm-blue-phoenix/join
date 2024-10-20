@@ -68,9 +68,9 @@ const addEventFromAddSubTask = () => {
  * @param {number} number - The index number of the item.
  */
 const addEventFromDelListAssigned = (number) => {
-    const ID_BTN_ASSIGNED_LIST_DEL = document.getElementById('list_assigned_btn_delete' + number);
-    ID_BTN_ASSIGNED_LIST_DEL.removeEventListener('click', deleteItem);
-    ID_BTN_ASSIGNED_LIST_DEL.addEventListener('click', deleteItem);
+    const idBtmAssignedListDel = document.getElementById('list_assigned_btn_delete' + number);
+    idBtmAssignedListDel.removeEventListener('click', deleteItem);
+    idBtmAssignedListDel.addEventListener('click', deleteItem);
 };
 
 
@@ -79,9 +79,9 @@ const addEventFromDelListAssigned = (number) => {
  * @param {number} number - The index number of the subtask.
  */
 const addEventFromDelListSubTask = (number) => {
-    const ID_BTN_SUBTASK_LIST_DEL = document.getElementById('list_subtask_btn_delete' + number);
-    ID_BTN_SUBTASK_LIST_DEL.removeEventListener('click', deleteItem);
-    ID_BTN_SUBTASK_LIST_DEL.addEventListener('click', deleteItem);
+    const idBtmSubtaskListDel = document.getElementById('list_subtask_btn_delete' + number);
+    idBtmSubtaskListDel.removeEventListener('click', deleteItem);
+    idBtmSubtaskListDel.addEventListener('click', deleteItem);
 };
 
 

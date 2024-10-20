@@ -84,9 +84,9 @@ function extractInitials(username) {
  * @returns {Array} - Array of elements loaded based on the patch and value.
  */
 async function loadElementByPatch(patch, value) {
-    const DATA = await retrievingData(patch);
-    const CARTS = Object.values(DATA[value]);
-    return CARTS;
+    const data = await retrievingData(patch);
+    const cards = Object.values(data[value]);
+    return cards;
 };
 
 
@@ -99,14 +99,14 @@ async function loadElementByPatch(patch, value) {
  */
 async function loadElementById(patch, type, category) {
     if (category === 'taskCard') {
-        const DATA = await retrievingData(patch);
-        const TASK_ID = await findTaskById(DATA[5], type);
-        return TASK_ID;
+        const data = await retrievingData(patch);
+        const taskId = await findTaskById(data[5], type);
+        return taskId;
     };
     if (category === 'contactCard') {
-        const DATA = await retrievingData(patch);
-        const CONTACT_ID = await findContactById(DATA[0], type);
-        return CONTACT_ID;
+        const data = await retrievingData(patch);
+        const contactId = await findContactById(data[0], type);
+        return contactId;
     };
 };
 
