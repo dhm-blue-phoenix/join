@@ -1,3 +1,6 @@
+let type;
+
+
 /**
  * Creates a new list item and appends it to the specified list.
  * @param {string} id - The ID of the list to append the item to.
