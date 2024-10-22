@@ -5,21 +5,28 @@ import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, a
 const TASK_STATUS = [
     {
         'value': 'taskToDo',
-        'text': 'To do'
+        'text': 'To do',
+        'count': '2'
     },
     {
         'value': 'taskInProgress',
-        'text': 'In progress'
+        'text': 'In progress',
+        'count': ''
     },
     {
         'value': 'taskAwaitFeedback',
-        'text': 'Await feedback'
+        'text': 'Await feedback',
+        'count': ''
     },
     {
         'value': 'taskDone',
-        'text': 'Done'
+        'text': 'Done',
+        'count': ''
     }
 ];
+
+console.log(TASK_STATUS[0].count);
+
 
 
 /**
