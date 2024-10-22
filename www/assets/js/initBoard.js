@@ -21,6 +21,9 @@ const TASK_STATUS = [
     }
 ];
 
+console.log(TASK_STATUS[0].value);
+
+
 /**
  * Führt Initialisierungsfunktionen aus, sobald das DOM vollständig geladen ist.
  * ====================================================================================================

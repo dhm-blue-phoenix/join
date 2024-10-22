@@ -102,7 +102,6 @@
     }
     .ownContact{
       width: 80vw;
-      padding: 8px;
       gap: 16px;
     }
     .cardactive {
@@ -284,6 +283,14 @@
       /* scrollbar-width: auto; */
     }
   
+    .OwnCard {
+      width: 80vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px 0 16px;
+      gap: 8px;
+    }
     .Contactcards {
       width: 80vw;
       display: flex;
@@ -355,6 +362,9 @@
     .addcontactpopupleftside {
       width: 100%;
       height: 352px;
+    }
+    .OwnCard {
+      width: 90%;
     }
     .Contactcards {
       width: 90%;
