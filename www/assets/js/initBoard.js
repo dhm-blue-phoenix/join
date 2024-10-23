@@ -3,17 +3,10 @@ import { createTaskCard } from './module/board/create_taskCard.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board/draganddrop.js';
 import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
 
-let TASK_STATUS = []; 
 
-/**
- * Führt Initialisierungsfunktionen aus, sobald das DOM vollständig geladen ist.
- * ====================================================================================================
- * Diese Funktion wird ausgeführt, wenn das gesamte HTML-Dokument geladen und geparst wurde. 
- * Sie ruft mehrere asynchrone Funktionen auf, um das Taskboard zu initialisieren, das Drag-and-Drop 
- * zu aktivieren, gespeicherte Positionen der Aufgaben wiederherzustellen und den Status des 
- * Taskboards zu aktualisieren.
- * ====================================================================================================
- */
+let taskStatus = []; 
+
+ 
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTaskStatus();
     await initTaskBord();
@@ -26,26 +19,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
 });
 
+
+/**
+ * L d die Task-Status-Daten von der Datenbank.
+ * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
+ * @returns {Promise<void>}
+ */
 async function loadTaskStatus() {
     try {
         const data = await retrievingData(`board/taskStatus`);
-        TASK_STATUS = data;
+        taskStatus = data;
         console.log('debug/loadTaskStatus - Task-Status in Tabelle:');
-        console.table(TASK_STATUS)
+        console.table(taskStatus);
     } catch (err) {
         console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
     };
 };
 
-/**
- * Fügt "Keine Aufgabe!"-Container zu den angegebenen Task-Containern hinzu.
- * ====================================================================================================
- * Diese Funktion erstellt und fügt einen "Keine Aufgabe!"-Container zu jedem der spezifizierten 
- * Task-Container (`taskToDo`, `taskInProgress`, `taskAwaitFeedback`, `taskDone`) hinzu, um anzuzeigen, 
- * dass keine Aufgaben vorhanden sind. Jeder dieser Container enthält eine `div` mit dem Text "No Task!".
- * ====================================================================================================
- */
 
+/**
+ * Adds "No Tasks!" placeholders to specified task containers.
+ * 
+ * This function creates a placeholder element indicating that there are no tasks
+ * and appends it to each task container specified by their IDs.
+ * 
+ * The placeholder consists of a div with an ID of 'tasktnotfounddrag' and a class
+ * of 'tasktnotfound', containing a paragraph element with the text "No Tasks!".
+ */
 function addTaskNotFoundContainers() {
     const taskContainers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
     taskContainers.forEach((containerId) => {
@@ -58,20 +58,12 @@ function addTaskNotFoundContainers() {
         taskNotFoundContainer.appendChild(paragraph);
         container.appendChild(taskNotFoundContainer);
     });
-}
+};
 
+ 
 /**
- * Initialisiert das Taskboard, indem es Aufgaben aus einer Datenquelle lädt und Task-Karten erstellt.
- * ====================================================================================================
- * Diese Funktion lädt den Benutzer-ID und die zugehörigen Aufgaben aus einer Datenquelle. Anschließend
- * werden die Aufgaben gefiltert, um nur diejenigen zu berücksichtigen, die eine gültige Titelinformation 
- * besitzen. Für jede gefilterte Aufgabe wird eine Task-Karte erstellt und ein Event-Listener für die 
- * Interaktion hinzugefügt.
- * ====================================================================================================
- * @async
- * @function initTaskBord
- * @returns {void} Die Funktion gibt keinen Wert zurück, sondern sorgt dafür, dass das Taskboard mit den geladenen Aufgaben befüllt und interaktiv wird.
- * ====================================================================================================
+ * Initializes the task board by retrieving all tasks from the server, filtering out non-title tasks, clearing the board, and rendering the filtered tasks.
+ * @returns {Promise<void>}
  */
 async function initTaskBord() {
     try {
@@ -88,8 +80,15 @@ async function initTaskBord() {
     };
 };
 
+
+/**
+ * Clears all task containers on the board by setting their innerHTML to an empty string.
+ * @function clearBoard
+ * @returns {void} - The function doesn't return a value, it only clears the board.
+ */
 const clearBoard = () => {
-    TASK_STATUS.forEach(id => document.getElementById(id.value).innerHTML = '');
+    taskStatus.forEach(id => document.getElementById(id.value).innerHTML = '');
 };
 
-export { initTaskBord, clearBoard, TASK_STATUS };
+
+export { initTaskBord, clearBoard, taskStatus };

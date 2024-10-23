@@ -2,26 +2,32 @@ import { initShowTaskDetails } from './show_taskDetails.js';
 import { reloadWindow } from '../modules.js';
 import { searchToTasks } from './search_to_tasks.js';
 
-const ID_INPUT_SEARCH = document.getElementById('boardSearch');
+
+const idInputSearch = document.getElementById('boardSearch');
+
 
 /**
- * Fügt ein Klick-Event für das Schließen des Task-Karten-Popups hinzu.
- * ====================================================================================================
- * Diese Funktion stellt sicher, dass das Fenster neu geladen wird, wenn auf das Element 
- * zum Schließen des Task-Karten-Popups geklickt wird.
- * ====================================================================================================
+ * Initializes the event listener for the close button in the task card popup.
+ * @function addEventToCloseTaskCard
+ * @description If the close button in the task card popup is found, it removes any previous event listeners and adds a new one.
+ * The event listener is set to call the `reloadWindow` function whenever the `click` event is fired.
+ * If the close button is not found, it logs a warning message to the console.
  */
 const addEventToCloseTaskCard = () => {
     setTimeout(() => {
-        const ELEMENT = document.getElementById('CLOSE_TASK_CARD_POPUP');
-        ELEMENT.removeEventListener('click', reloadWindow);
-        ELEMENT.addEventListener('click', reloadWindow);
+        const element = document.getElementById('CLOSE_TASK_CARD_POPUP');
+        element.removeEventListener('click', reloadWindow);
+        element.addEventListener('click', reloadWindow);
     }, 1000);
 };
 
+
 /**
- * Fügt ein Klick-Event für das weiterleiten zu addTask Seite hinzu.
- * ====================================================================================================
+ * Initializes event listeners for all elements with the class `loadNextPage`.
+ * @function addEventToLoadAddTask
+ * @description If any elements with the class `loadNextPage` are found, it removes any previous event listeners and adds a new one.
+ * The event listener is set to redirect to the add task page whenever the `click` event is fired.
+ * If no elements with the class `loadNextPage` are found, it logs a warning message to the console.
  */
 const addEventToLoadAddTask = () => {
     document.querySelectorAll('.loadNextPage').forEach(element => {
@@ -33,15 +39,14 @@ const addEventToLoadAddTask = () => {
     });
 };
 
+
 /**
- * Fügt ein Klick-Event-Listener zu einer Task-Karte hinzu.
- * ====================================================================================================
- * Diese Funktion sucht ein Element mit der angegebenen ID, entfernt einen eventuell vorhandenen
- * 'click'-Event-Listener, und fügt dann einen neuen 'click'-Event-Listener hinzu, der die 
- * Funktion `handleClick` auslöst.
- * ====================================================================================================
- * @param {string} id Die ID des DOM-Elements, zu dem der Event-Listener hinzugefügt werden soll.
- * ====================================================================================================
+ * Initializes event listener for a task card.
+ * @function addEventFromTaskCard
+ * @param {string} id - The id of the task card element.
+ * @description If the task card element is found, it removes any previous event listeners and adds a new one.
+ * The event listener is set to call the `handleClick` function whenever the `click` event is fired.
+ * If the task card element is not found, it logs a warning message to the console.
  */
 const addEventFromTaskCard = (id) => {
     let element = document.getElementById(id);
@@ -49,28 +54,33 @@ const addEventFromTaskCard = (id) => {
     element.addEventListener('click', handleClick);
 };
 
-// NEW FUNTKION
-const addEventToSearch = () => {
-    if (!ID_INPUT_SEARCH) return console.warn('Id Search not found!');
-    ID_INPUT_SEARCH.removeEventListener('input', searchToTasks);
-    ID_INPUT_SEARCH.addEventListener('input', searchToTasks);
-};
 
 /**
- * Behandelt den Klick auf ein Element und zeigt Details zu einer Aufgabe an.
- * ====================================================================================================
- * Diese Funktion wird bei einem Klick auf ein spezifisches Element ausgelöst. Sie lädt die 
- * zugehörigen Attributdaten des geklickten Elements, zeigt ein Popup an und initialisiert die 
- * Anzeige der Aufgaben-Details.
- * ====================================================================================================
- * @param {Event} event Das Event-Objekt, das den Klick repräsentiert. Es enthält Informationen über das geklickte Element und den Kontext des Events.
- * ====================================================================================================
+ * Initializes event listener for the search input field.
+ * @function addEventToSearch
+ * @description If the search input field is found, it removes any previous event listeners and adds a new one.
+ * The event listener is set to call the `searchToTasks` function whenever the `input` event is fired.
+ * If the search input field is not found, it logs a warning message to the console.
+ */
+const addEventToSearch = () => {
+    if (!idInputSearch) return console.warn('Id Search not found!');
+    idInputSearch.removeEventListener('input', searchToTasks);
+    idInputSearch.addEventListener('input', searchToTasks);
+};
+
+
+/**
+ * Handles a click event on a task card.
+ * @function handleClick
+ * @param {MouseEvent} event - The click event object.
+ * @description Retrieves the task ID from the clicked element and initializes the display of the task details popup.
  */
 const handleClick = (event) => {
-    const TARGET = event.currentTarget;
-    const TASK_ID = TARGET.getAttribute('task-id');
+    const target = event.currentTarget;
+    const taskId = target.getAttribute('task-id');
     showPopup('TaskcardPopupanimation', 'taskCardpopup');
-    initShowTaskDetails(TASK_ID);
+    initShowTaskDetails(taskId);
 };
+
 
 export { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch };

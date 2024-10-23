@@ -2,43 +2,51 @@ import { deleteTaskCard } from './delete_taskCard.js';
 import { editTaskCard } from './edit_taskCard.js';
 import { updateData, retrievingData } from '../dataResponse.js';
 
-const IDS = ['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
+
+const ids = ['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO', 'PERSONS', 'SUBTASKS', 'BTN_CONTAINER'];
 const item = ['category', 'title', 'description', 'date', 'prio', 'assigned', 'subtask'];
 let taskId;
 
+
 /**
- * Initialisiert die Anzeige der Details einer Aufgabe.
- * ====================================================================================================
- * Diese Funktion aktualisiert die verschiedenen Teile der Task-Karte basierend auf den übergebenen 
- * Daten. Sie verwendet eine Reihe von Hilfsfunktionen, um spezifische DOM-Elemente zu aktualisieren. 
- * Am Ende wird eine Event-Handler-Funktion für das Löschen der Aufgabe hinzugefügt.
- * ====================================================================================================
- * @function initShowTaskDetails
- * @param {Object} taskData Ein Objekt, das die Details der Aufgabe enthält.
- * ====================================================================================================
+ * Initializes the details of a task with the given ID by retrieving its data from the server and updating the DOM accordingly.
+ * @param {number|string} id - The ID of the task to initialize.
+ * @returns {Promise<void>} - A promise that resolves when the task details have been loaded and the DOM has been updated.
  */
 export async function initShowTaskDetails(id) {
     try {
         taskId = id;
         const dataResponse = await retrievingData('board');
         const taskData = dataResponse.find(task => task.id === taskId);
-        IDS.forEach((id, value) => {
-            if (['TITLE', 'DESCRIPTION_HEADLINE', 'DESCRIPTION_CONTENT', 'DATE', 'BTN_PRIO'].includes(id)) updateTextContent(id, taskData[item[value]]);
-            if (id === 'PERSONS') {
-                let persion = taskData[item[value]].filter(item => item !== 'none');
-                if (persion.length > 0) {
-                    updatePersons(id, persion);
-                };
-            };
-            if (id === 'SUBTASKS') {
-                let subtask = taskData[item[value]].filter(item => item !== 'none');
-                if (subtask.length > 0) {
-                    updateSubtasks(id, subtask, taskId, true);
-                } else {
-                    updateSubtasks(id, '', taskId, false)
-                };
-            };
-            if (id === 'BTN_CONTAINER') updateButtonContainer(id);
+        ids.forEach((id, value) => {
+            switch (id) {
+                case 'TITLE':
+                case 'DESCRIPTION_HEADLINE':
+                case 'DESCRIPTION_CONTENT':
+                case 'DATE':
+                case 'BTN_PRIO':
+                    updateTextContent(id, taskData[item[value]]);
+                    break;
+                case 'PERSONS':
+                    let persons = taskData[item[value]].filter(item => item !== 'none');
+                    if (persons.length > 0) {
+                        updatePersons(id, persons);
+                    }
+                    break;
+                case 'SUBTASKS':
+                    let subtasks = taskData[item[value]].filter(item => item !== 'none');
+                    if (subtasks.length > 0) {
+                        updateSubtasks(id, subtasks, taskId, true);
+                    } else {
+                        updateSubtasks(id, '', taskId, false)
+                    }
+                    break;
+                case 'BTN_CONTAINER':
+                    updateButtonContainer(id);
+                    break;
+                default:
+                    break;
+            }
         });
         addEventFromDelTaskCard();
         addEventToEditTaskCard();
@@ -47,61 +55,55 @@ export async function initShowTaskDetails(id) {
     };
 };
 
-/**
 
-Aktualisiert den Textinhalt eines HTML-Elements.
-====================================================================================================
-Diese Funktion setzt den Textinhalt eines HTML-Elements, das durch die gegebene ID identifiziert wird,
-auf den angegebenen Text. Wenn die ID 'BTN_PRIO' ist, wird ein Container-Element mit der Klasse 'PrioContainer'
-erstellt, das ein Icon und den Text enthält. Andernfalls wird der Textinhalt des Elements direkt aktualisiert.
-Dies wird verwendet, um Texte in verschiedenen Teilen der Benutzeroberfläche zu aktualisieren, wie z.B. Titel,
-Beschreibungen, Daten und Prioritäten.
-====================================================================================================
-@function updateTextContent
-@param {string} id Die ID des HTML-Elements, dessen Textinhalt aktualisiert werden soll.
-@param {string} text Der neue Text, der im HTML-Element angezeigt werden soll.
-==================================================================================================== */
+/**
+ * Updates the content of an element with the given text.
+ * If the element ID is 'BTN_PRIO', it creates a container with an image and a text span.
+ * Otherwise, it simply sets the textContent of the element.
+ * @param {string} id - The ID of the element to update.
+ * @param {string} text - The text content to update the element with.
+ * @returns {void} - The function returns no value.
+ */
 const updateTextContent = (id, text) => {
     const element = document.getElementById(id);
     if (id === 'BTN_PRIO') {
-      const prioContainer = document.createElement('div');
-      prioContainer.className = 'PrioContainer';
-      const prioIcon = document.createElement('img');
-      switch (text.toLowerCase()) {
-        case 'low':
-          prioIcon.src = '../../../join/www/resources/symbols/PrioLow.png';
-          break;
-        case 'medium':
-          prioIcon.src = '../../../join/www/resources/symbols/boardmiddleprio.png';
-          break;
-        case 'urgent':
-          prioIcon.src = '../../../join/www/resources/symbols/PrioUrgent.png';
-          break;
-        default:
-          console.log('Unbekannte Priorität:', text);
-      }
-      prioIcon.alt = '';
-      prioContainer.appendChild(prioIcon);
-      const prioText = document.createElement('span');
-      prioText.textContent = text;
-      prioContainer.appendChild(prioText);
-      element.innerHTML = '';
-      element.appendChild(prioContainer);
+        const prioContainer = document.createElement('div');
+        prioContainer.className = 'PrioContainer';
+        const prioIcon = document.createElement('img');
+        switch (text.toLowerCase()) {
+            case 'low':
+                prioIcon.src = '../../../join/www/resources/symbols/PrioLow.png';
+                break;
+            case 'medium':
+                prioIcon.src = '../../../join/www/resources/symbols/boardmiddleprio.png';
+                break;
+            case 'urgent':
+                prioIcon.src = '../../../join/www/resources/symbols/PrioUrgent.png';
+                break;
+            default:
+                console.log('Unbekannte Priorität:', text);
+        }
+        prioIcon.alt = '';
+        prioContainer.appendChild(prioIcon);
+        const prioText = document.createElement('span');
+        prioText.textContent = text;
+        prioContainer.appendChild(prioText);
+        element.innerHTML = '';
+        element.appendChild(prioContainer);
     } else {
-      element.textContent = text;
+        element.textContent = text;
     }
-  };
+};
+
+
 /**
- * Aktualisiert die Anzeige der Personen auf der Task-Karte.
- * ====================================================================================================
- * Diese Funktion leeren den Inhalt eines HTML-Elements, das durch die gegebene ID identifiziert wird, 
- * und fügt neue Kontaktkarten hinzu, die aus den übergebenen Personendaten erstellt werden. Die Personendaten
- * werden von einem JSON-String in ein JavaScript-Array umgewandelt und anschließend verarbeitet.
- * ====================================================================================================
- * @function updatePersons
- * @param {string} id Die ID des HTML-Elements, das die Personenanzeigen enthält.
- * @param {string} personsData Ein JSON-String, der ein Array von Personendaten enthält.
- * ====================================================================================================
+ * Updates the container with person cards.
+ * 
+ * This function clears the existing content of a container element and generates and appends
+ * person card elements with associated data.
+ * 
+ * @param {string} id - The ID of the container element to update.
+ * @param {Object[]} personsData - An array of person data objects containing color, shortname, and name.
  */
 const updatePersons = (id, personsData) => {
     const element = document.getElementById(id);
@@ -109,19 +111,17 @@ const updatePersons = (id, personsData) => {
     personsData.forEach(personData => createPersionCard(element, personData));
 };
 
+ 
 /**
- * Aktualisiert die Anzeige der Unteraufgaben auf der Task-Karte.
- * ====================================================================================================
- * Diese Funktion leeren den Inhalt eines HTML-Elements, das durch die gegebene ID identifiziert wird,
- * und fügt neue Unteraufgaben hinzu, die aus den übergebenen Daten erstellt werden. Die Unteraufgaben werden
- * aus einem JSON-String in ein JavaScript-Array umgewandelt. Die erste Unteraufgabe wird entfernt, 
- * und für jede verbleibende Unteraufgabe werden die entsprechenden Elemente erstellt und hinzugefügt.
- * ====================================================================================================
- * @function updateSubtasks
- * @param {string} id Die ID des HTML-Elements, das die Unteraufgaben enthält.
- * @param {string} subtasks Ein JSON-String, der ein Array von Unteraufgaben enthält.
- * @param {number} taskId Die ID der aktuellen Aufgabe, um die Unteraufgaben eindeutig zuzuordnen.
- * ====================================================================================================
+ * Updates the subtask elements within a specified container.
+ * 
+ * This function clears the existing content of a container element and either displays a message
+ * if no subtasks are found or generates and appends subtask elements with associated event listeners.
+ * 
+ * @param {string} id - The ID of the container element to update.
+ * @param {Object[]} subtasks - An array of subtask data objects containing status and text.
+ * @param {number|string} taskId - The ID of the task to which the subtasks belong.
+ * @param {boolean} status - A flag indicating whether subtasks are present.
  */
 const updateSubtasks = (id, subtasks, taskId, status) => {
     const element = document.getElementById(id);
@@ -133,17 +133,14 @@ const updateSubtasks = (id, subtasks, taskId, status) => {
     });
 };
 
+ 
 /**
- * Aktualisiert den Button-Container auf der Task-Karte.
- * ====================================================================================================
- * Diese Funktion leeren den Inhalt eines HTML-Elements, das durch die gegebene ID identifiziert wird,
- * und fügt neue Buttons hinzu, die für die Bearbeitung, Trennung und Löschung der Aufgabe zuständig sind.
- * Die Buttons werden durch separate Funktionen erstellt und in den Button-Container eingefügt.
- * ====================================================================================================
- * @function updateButtonContainer
- * @param {string} id Die ID des HTML-Elements, das den Button-Container darstellt.
- * @param {number} taskId Die ID der aktuellen Aufgabe, die für die Löschfunktion benötigt wird.
- * ====================================================================================================
+ * Updates the container with the buttons for editing, separating, and deleting a task card.
+ *
+ * Retrieves the container element by ID, clears its content, and appends the three button
+ * elements created by the functions createBtnEdit(), createBtnTrennline(), and createBtnDelete().
+ *
+ * @param {string} id - The ID of the container element to update.
  */
 const updateButtonContainer = (id) => {
     const buttonFunctions = [createBtnEdit(), createBtnTrennline(), createBtnDelete()];
@@ -152,179 +149,146 @@ const updateButtonContainer = (id) => {
     buttonFunctions.forEach(button => element.appendChild(button));
 };
 
+ 
 /**
- * Erstellt und fügt eine Kontaktkarte für eine Person zur angegebenen Container hinzu.
- * ====================================================================================================
- * Diese Funktion erstellt ein neues `div`-Element für eine Kontaktkarte, füllt es mit den entsprechenden 
- * Informationen zur Person (Kurzname und Name) und fügt diese Karte dem angegebenen Container hinzu.
- * Die Kontaktkarte wird verwendet, um die zugewiesenen Personen auf der Task-Karte anzuzeigen.
- * ====================================================================================================
- * @function createPersionCard
- * @param {HTMLElement} container Das HTML-Element, zu dem die Kontaktkarte hinzugefügt wird.
- * @param {Object} persionData Ein Objekt, das die Informationen der Person enthält, einschließlich 
- *                              `shortBackColor` (Hintergrundfarbe des Kurznamens), `shortname` (Kurzname) 
- *                              und `name` (vollständiger Name der Person).
- * ====================================================================================================
+ * Creates and appends a person card element to a specified container.
+ * 
+ * This function generates a div element representing a person assigned
+ * to a task, including elements for the person's shortname and full name.
+ * It appends the created person card to the provided container.
+ * 
+ * @param {HTMLElement} container - The container to which the person card will be appended.
+ * @param {Object} persionData - An object containing data for the person, including color, shortname, and name.
  */
 const createPersionCard = (container, persionData) => {
-    const PERSION = document.createElement('div');
-    PERSION.className = 'taskcardbigassignedtoperson';
-    PERSION.appendChild(createPersionShortname(persionData.color, persionData.short));
-    PERSION.appendChild(createPersionName(persionData.name));
-    container.appendChild(PERSION);
+    const persion = document.createElement('div');
+    persion.className = 'taskcardbigassignedtoperson';
+    persion.appendChild(createPersionShortname(persionData.color, persionData.short));
+    persion.appendChild(createPersionName(persionData.name));
+    container.appendChild(persion);
 };
 
+ 
 /**
- * Erstellt ein Element für den Kurzname einer Person.
- * ====================================================================================================
- * Diese Funktion erstellt ein neues `div`-Element, das den Kurzname einer Person darstellt. 
- * Das Element erhält eine Hintergrundfarbe und den Kurzname der Person. Es wird als Teil der Kontaktkarte 
- * verwendet, um eine visuelle Darstellung des Namens der Person zu bieten.
- * ====================================================================================================
- * @function createPersionShortname
- * @param {string} color Die Hintergrundfarbe des Kurznamens.
- * @param {string} shortname Der Kurzname der Person, der im Element angezeigt wird.
- * @returns {HTMLElement} Ein `div`-Element, das den Kurzname der Person mit der angegebenen Hintergrundfarbe enthält.
- * ====================================================================================================
+ * Creates a div element displaying the short name for a person assigned to a task.
+ * @param {string} color - The background color for the short name element.
+ * @param {string} shortname - The short name of the person.
+ * @returns {HTMLDivElement} The created div element.
  */
 const createPersionShortname = (color, shortname) => {
-    const SHORTNAME = document.createElement('div');
-    SHORTNAME.id = 'nameShortcut';
-    SHORTNAME.style.backgroundColor = color;
-    SHORTNAME.textContent = shortname;
-    return SHORTNAME;
+    const short = document.createElement('div');
+    short.id = 'nameShortcut';
+    short.style.backgroundColor = color;
+    short.textContent = shortname;
+    return short;
 };
 
+
 /**
- * Erstellt ein Element für den vollständigen Namen einer Person.
- * ====================================================================================================
- * Diese Funktion erstellt ein neues `span`-Element, das den vollständigen Namen einer Person darstellt. 
- * Das Element wird verwendet, um den Namen innerhalb der Kontaktkarte darzustellen, nachdem der Kurzname hinzugefügt wurde.
- * ====================================================================================================
- * @function createPersionName
- * @param {string} name Der vollständige Name der Person, der im Element angezeigt wird.
- * @returns {HTMLElement} Ein `span`-Element, das den vollständigen Namen der Person enthält.
- * ====================================================================================================
+ * Creates a span element with the provided text content.
+ * 
+ * @param {string} text - The text content for the span element.
+ * @returns {HTMLSpanElement} - The created span element containing the text.
  */
-const createPersionName = (name) => {
-    const NAME = document.createElement('span');
-    NAME.textContent = name;
-    return NAME;
+const createPersionName = (text) => {
+    const name = document.createElement('span');
+    name.textContent = text;
+    return name;
 };
 
+ 
 /**
- * Erstellt und fügt eine Unteraufgabe zur angegebenen Container hinzu.
- * ====================================================================================================
- * Diese Funktion erstellt ein `div`-Element für eine Unteraufgabe, das eine Checkbox und den Text der 
- * Unteraufgabe enthält. Das Element wird dann dem angegebenen Container hinzugefügt. Die Checkbox 
- * zeigt den Status der Unteraufgabe an (erledigt oder nicht erledigt) und der Text beschreibt die Aufgabe.
- * ====================================================================================================
- * @function createSubtask
- * @param {HTMLElement} container Das HTML-Element, zu dem die Unteraufgabe hinzugefügt wird.
- * @param {Object} subtask Ein Objekt, das die Details der Unteraufgabe enthält, einschließlich des Status (`status`) und des Textes (`text`).
- * @param {number} taskId Die ID der übergeordneten Aufgabe, um die Unteraufgabe eindeutig zuzuordnen.
- * @param {number} value Der Index der Unteraufgabe, der für die Identifizierung der Checkbox verwendet wird.
- * ====================================================================================================
+ * Creates a subtask element and appends it to the specified container.
+ * 
+ * This function generates a subtask element with a checkbox and text, assigns it
+ * the appropriate class name, and appends it to the provided container element.
+ * 
+ * @param {HTMLElement} container - The container to which the subtask element will be appended.
+ * @param {Object} data - An object containing the subtask data, including status and text.
+ * @param {number|string} taskId - The ID of the task to which the subtask belongs.
+ * @param {number} value - The index of the subtask within the task.
  */
-const createSubtask = (container, subtask, taskId, value) => {
-    const SUBTASKS = document.createElement('div');
-    SUBTASKS.className = 'taskcardbigsubtaskscheckbox';
-    SUBTASKS.appendChild(createSubtaskInputBox(subtask.status, taskId, value));
-    SUBTASKS.appendChild(createSubtaskText(subtask.text));
-    container.appendChild(SUBTASKS);
+const createSubtask = (container, data, taskId, value) => {
+    const subtask = document.createElement('div');
+    subtask.className = 'taskcardbigsubtaskscheckbox';
+    subtask.appendChild(createSubtaskInputBox(data.status, taskId, value));
+    subtask.appendChild(createSubtaskText(data.text));
+    container.appendChild(subtask);
 };
 
+
 /**
- * Erstellt ein Eingabefeld für eine Unteraufgabe in Form einer Checkbox.
- * ====================================================================================================
- * Diese Funktion erstellt ein `input`-Element vom Typ `checkbox`, das den Status der Unteraufgabe anzeigt.
- * Die Checkbox wird mit einer eindeutigen ID versehen, die auf der Aufgaben-ID und dem Index der Unteraufgabe basiert.
- * Der Status der Checkbox wird auf `true` oder `false` gesetzt, basierend auf dem übergebenen Status der Unteraufgabe.
- * ====================================================================================================
- * @function createSubtaskInputBox
- * @param {boolean} status Der Status der Unteraufgabe, der angibt, ob die Checkbox aktiviert (`true`) oder deaktiviert (`false`) sein soll.
- * @param {number} taskId Die ID der übergeordneten Aufgabe, die in der ID der Checkbox verwendet wird.
- * @param {number} value Der Index der Unteraufgabe, der in der ID der Checkbox verwendet wird.
- * @returns {HTMLElement} Ein `input`-Element vom Typ `checkbox`, das den Status der Unteraufgabe anzeigt.
- * ====================================================================================================
+ * Creates a checkbox element for a subtask and assigns it an ID and a status.
+ * @param {boolean} status - The initial status of the checkbox (checked or unchecked).
+ * @param {number|string} taskId - The ID of the task to which the subtask belongs.
+ * @param {number} value - The index of the subtask in the task.
+ * @returns {HTMLInputElement} - The created checkbox element.
  */
 const createSubtaskInputBox = (status, taskId, value) => {
-    const INPUTBOX = document.createElement('input');
-    INPUTBOX.type = 'checkbox';
-    INPUTBOX.id = `CHEACKBOX_${taskId}${value}`;
-    INPUTBOX.checked = status;
-    return INPUTBOX;
+    const inputbox = document.createElement('input');
+    inputbox.type = 'checkbox';
+    inputbox.id = `CHEACKBOX_${taskId}${value}`;
+    inputbox.checked = status;
+    return inputbox;
 };
 
+
 /**
- * Erstellt ein Element für den Text einer Unteraufgabe.
- * ====================================================================================================
- * Diese Funktion erstellt ein neues `span`-Element, das den Text der Unteraufgabe anzeigt. 
- * Das Element wird verwendet, um den Text der Unteraufgabe zusammen mit der Checkbox darzustellen.
- * ====================================================================================================
- * @function createSubtaskText
- * @param {string} text Der Text der Unteraufgabe, der im Element angezeigt wird.
- * @returns {HTMLElement} Ein `span`-Element, das den Text der Unteraufgabe enthält.
- * ====================================================================================================
+ * Creates a span element with the given text content.
+ * @param {string} data - The text content for the span element.
+ * @returns {HTMLSpanElement} - The created span element.
  */
-const createSubtaskText = (text) => {
-    const TEXT = document.createElement('span');
-    TEXT.textContent = text;
-    return TEXT;
+const createSubtaskText = (data) => {
+    const text = document.createElement('span');
+    text.textContent = data;
+    return text;
 };
 
+
 /**
- * Fügt einem Checkbox-Element ein `change`-Ereignis hinzu, um auf Änderungen zu reagieren.
- * ====================================================================================================
- * Diese Funktion bindet einen Event-Listener an das Checkbox-Element mit der angegebenen ID. Der Event-Listener
- * reagiert auf Änderungen des Status der Checkbox (aktiviert/deaktiviert) und ruft eine Funktion auf, die 
- * den neuen Status und die ID der Checkbox verarbeitet.
- * ====================================================================================================
- * @function createAddEventFromCheackbox
- * @param {string} id Die ID des Checkbox-Elements, zu dem der `change`-Event-Listener hinzugefügt werden soll.
- * ====================================================================================================
+ * Adds an event listener to a checkbox element to call handleChange when the checkbox is changed.
+ * This function first removes any existing event listener, then adds a new one.
+ * @param {string} id - The ID of the checkbox element to add the event listener to.
  */
 const createAddEventFromCheackbox = (id) => {
-    const ELEMENT = document.getElementById(id);
-    ELEMENT.removeEventListener('change', handleChange);
-    ELEMENT.addEventListener('change', (event) => {
-        const TARGET = event.currentTarget;
-        handleChange(TARGET.checked, TARGET.id);
+    const element = document.getElementById(id);
+    element.removeEventListener('change', handleChange);
+    element.addEventListener('change', (event) => {
+        const target = event.currentTarget;
+        handleChange(target.checked, target.id);
     });
 };
 
+
 /**
- * Verarbeitet die Änderung des Status einer Checkbox und aktualisiert die entsprechende Unteraufgabe.
- * ====================================================================================================
- * Diese Funktion wird aufgerufen, wenn sich der Status einer Checkbox ändert. Sie ruft eine Funktion auf, 
- * um die Unteraufgabe basierend auf dem neuen Status der Checkbox zu aktualisieren.
- * ====================================================================================================
- * @function handleChange
- * @param {boolean} change Der neue Status der Checkbox, der angibt, ob sie aktiviert (`true`) oder deaktiviert (`false`) ist.
- * @param {string} id Die ID der Checkbox, die den Kontext oder die spezifische Unteraufgabe identifiziert.
- * ====================================================================================================
+ * Handles a change event from a subtask checkbox element.
+ *
+ * This function takes the new status of the checkbox and the ID of the checkbox element as arguments.
+ * It then calls `updateSubtaskInputBox` to update the subtask's completion status in the DOM and data source.
+ *
+ * @param {boolean} change - The new status of the checkbox (checked or unchecked).
+ * @param {string} id - The ID of the checkbox element, used to extract task and subtask indices.
+ * @returns {void} - The function doesn't return a value, it only triggers the update process.
  */
 const handleChange = (change, id) => {
     updateSubtaskInputBox(change, id);
 };
 
+
 /**
- * Aktualisiert den Status einer Unteraufgabe basierend auf dem Zustand einer Checkbox.
- * ====================================================================================================
- * Diese asynchrone Funktion wird aufgerufen, wenn eine Checkbox innerhalb einer Task-Card aktiviert oder 
- * deaktiviert wird. Sie aktualisiert den Status der entsprechenden Unteraufgabe sowohl im UI als auch 
- * in der persistenten Datenspeicherung. Dies umfasst das Aktualisieren der entsprechenden Datenstruktur 
- * der Task-Card und das Speichern der Änderungen im Backend.
- * ====================================================================================================
- * @async
- * @function updateSubtaskInputBox
- * @param {boolean} status Der neue Status der Checkbox, der angibt, ob die Unteraufgabe abgeschlossen (`true`) oder nicht abgeschlossen (`false`) ist.
- * @param {string} id Die eindeutige ID der Checkbox, die sowohl die Task-Card als auch die Unteraufgabe innerhalb dieser Karte identifiziert.
- * ====================================================================================================
+ * Updates the status of a subtask input box and persists the change to the data source.
+ *
+ * This asynchronous function modifies the status of a subtask checkbox in the DOM,
+ * retrieves the corresponding task and subtask indices, toggles the subtask's completion status,
+ * and updates the data source with the new status.
+ *
+ * @param {boolean} status - The new status to set for the checkbox (checked or unchecked).
+ * @param {string} id - The ID of the checkbox element, used to extract task and subtask indices.
+ * @returns {Promise<void>} - A promise that resolves when the status update is complete.
  */
 const updateSubtaskInputBox = async (status, id) => {
-    const INPUT_BOX = document.getElementById(id);
-    INPUT_BOX.change = status;
+    const inputBox = document.getElementById(id);
+    inputBox.change = status;
     const { task, sub } = getCheckboxIndex(id);
     const tasks = await retrievingData('');
     const currentTask = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === task);
@@ -333,13 +297,14 @@ const updateSubtaskInputBox = async (status, id) => {
     updateData(`board/${currentTask[0]}`, currentTask[1]);
 };
 
+
 /**
- * Extrahiert den Index der Checkbox aus der ID.
- * ====================================================================================================
- * @function getCheckboxIndex
- * @param {string} id Die ID der Checkbox.
- * @returns {number} Der Index der Checkbox.
- * ====================================================================================================
+ * Extracts the task and subtask index from a checkbox ID string.
+ * The ID is expected to be in the format "CHEACKBOX_<taskId><subtaskIndex>".
+ * 
+ * @param {string} id - The ID string from which to extract task and subtask indices.
+ * @returns {Object} An object containing the task and subtask indices.
+ *                   Returns { task: null, sub: null } if extraction fails.
  */
 const getCheckboxIndex = (id) => {
     const regex = /CHEACKBOX_(\d)(\d)/;
@@ -352,98 +317,92 @@ const getCheckboxIndex = (id) => {
     return { task: null, sub: null };
 };
 
+
 /**
- * Erstellt einen Bearbeiten-Button für eine Task-Karte.
- * ====================================================================================================
- * Diese Funktion erstellt ein `button`-Element, das als Bearbeiten-Button dient. Der Button erhält
- * einen Bild-Icon durch die Funktion `createBtnEditImg` und wird für die Bearbeitung einer Task-Karte verwendet.
- * ====================================================================================================
- * @function createBtnEdit
- * @returns {HTMLElement} Ein `button`-Element, das einen Bearbeiten-Button darstellt.
- * ====================================================================================================
+ * Creates an edit button element for a task card.
+ * 
+ * This function constructs a button element with a specific ID and task ID attribute,
+ * appends an image to it, and returns the button. The button is intended to be used
+ * for editing a task card.
+ * 
+ * @returns {HTMLButtonElement} - The created edit button element.
  */
 const createBtnEdit = () => {
-    const BTN_EDIT = document.createElement('button');
-    BTN_EDIT.type = 'button';
-    BTN_EDIT.id = `EDIT${taskId}`;
-    BTN_EDIT.setAttribute('task-id', taskId);
-    BTN_EDIT.appendChild(createBtnImg('./resources/symbols/edit.png'));
-    return BTN_EDIT;
+    const btnEdit = document.createElement('button');
+    btnEdit.type = 'button';
+    btnEdit.id = `EDIT${taskId}`;
+    btnEdit.setAttribute('task-id', taskId);
+    btnEdit.appendChild(createBtnImg('./resources/symbols/edit.png'));
+    return btnEdit;
 };
 
+
 /**
- * Erstellt eine Trennlinie zwischen Buttons.
- * ====================================================================================================
- * Diese Funktion erstellt ein `div`-Element, das als visuelle Trennlinie zwischen verschiedenen Buttons 
- * dient. Es erhält eine CSS-Klasse, die für das Design und die Positionierung der Trennlinie verantwortlich ist.
- * ====================================================================================================
- * @function createBtnTrennline
- * @returns {HTMLElement} Ein `div`-Element, das als Trennlinie zwischen Buttons verwendet wird.
- * ====================================================================================================
+ * Creates a button element used as a separating line for the task card.
+ * @returns {HTMLDivElement} The created div element.
  */
 const createBtnTrennline = () => {
-    const BTN_TRENNLINE = document.createElement('div');
-    BTN_TRENNLINE.className = 'buttonstrennline';
-    return BTN_TRENNLINE;
+    const btnTrennline = document.createElement('div');
+    btnTrennline.className = 'buttonstrennline';
+    return btnTrennline;
 };
 
+
 /**
- * Erstellt einen Löschen-Button für eine Task-Karte.
- * ====================================================================================================
- * Diese Funktion erstellt ein `button`-Element, das als Löschen-Button dient. Der Button erhält eine 
- * eindeutige ID basierend auf der übergebenen Task-ID und ein Bild-Icon durch die Funktion `createBtnDeleteImg`.
- * Der Button wird verwendet, um eine Task-Karte zu löschen.
- * ====================================================================================================
- * @function createBtnDelete
- * @param {number|string} taskId Die ID der Task, für die der Löschen-Button erstellt wird.
- * @returns {HTMLElement} Ein `button`-Element, das einen Löschen-Button darstellt.
- * ====================================================================================================
+ * Creates a delete button element for a task card.
+ * 
+ * This function creates a button element with a specific ID and task ID attribute,
+ * appends an image to it, and returns the button. The button is intended to be used
+ * for deleting a task card.
+ * 
+ * @returns {HTMLButtonElement} - The created delete button element.
  */
 const createBtnDelete = () => {
-    const BTN_DEL = document.createElement('button');
-    BTN_DEL.type = 'button';
-    BTN_DEL.id = `DEL${taskId}`;
-    BTN_DEL.setAttribute('task-id', taskId);
-    BTN_DEL.appendChild(createBtnImg('./resources/symbols/delete.svg'));
-    return BTN_DEL;
+    const btnDel = document.createElement('button');
+    btnDel.type = 'button';
+    btnDel.id = `DEL${taskId}`;
+    btnDel.setAttribute('task-id', taskId);
+    btnDel.appendChild(createBtnImg('./resources/symbols/delete.svg'));
+    return btnDel;
 };
 
+
 /**
- * Erstellt ein Bild-Element für den Löschen-Button.
- * ====================================================================================================
- * Diese Funktion erstellt ein `img`-Element, das als Icon für den Löschen-Button verwendet wird. 
- * Das Bild wird von der angegebenen Quelle geladen, und es wird ein alternativer Text bereitgestellt, 
- * um Barrierefreiheit zu gewährleisten.
- * ====================================================================================================
- * @function createBtnDeleteImg
- * @returns {HTMLElement} Ein `img`-Element, das das Löschen-Icon darstellt.
- * ====================================================================================================
+ * Creates and returns an image element for a button.
+ * @param {string} img - The source of the image.
+ * @returns {HTMLImageElement} - The created image element.
  */
 const createBtnImg = (img) => {
-    const BTN_IMG = document.createElement('img');
-    BTN_IMG.src = img;
-    BTN_IMG.alt = '';
-    return BTN_IMG;
+    const btnImg = document.createElement('img');
+    btnImg.src = img;
+    btnImg.alt = '';
+    return btnImg;
 };
+
 
 /**
- * Fügt einem Löschen-Button einen `click`-Event-Listener hinzu, der eine Task-Karte löscht.
- * ====================================================================================================
- * Diese Funktion fügt dem Button, der zum Löschen einer Task-Karte dient, einen `click`-Event-Listener hinzu.
- * Der Event-Listener entfernt vorherige Event-Listener und bindet dann eine Funktion ein, die beim Klicken 
- * des Buttons die entsprechende Task-Karte löscht.
- * ====================================================================================================
- * @function addEventFromDelTaskCard
- * ====================================================================================================
+ * Adds a click event listener to the delete button of a task card.
+ * 
+ * This function selects the delete button using the task ID, removes any existing click event listeners,
+ * and attaches a new click event listener that triggers the deleteTaskCard function with the event object.
+ * This ensures that the correct handler is called when the button is clicked.
  */
 const addEventFromDelTaskCard = () => {
-    const ELEMENT = document.getElementById(`DEL${taskId}`);
-    ELEMENT.removeEventListener('click', () => deleteTaskCard());
-    ELEMENT.addEventListener('click', (event) => deleteTaskCard(event));
+    const element = document.getElementById(`DEL${taskId}`);
+    element.removeEventListener('click', () => deleteTaskCard());
+    element.addEventListener('click', (event) => deleteTaskCard(event));
 };
 
+
+/**
+ * Adds a click event listener to the edit button of a task card.
+ * 
+ * This function selects the edit button using the task ID, removes any existing click event listeners, 
+ * and attaches a new click event listener that triggers the editTaskCard function. This ensures that 
+ * the correct handler is called when the button is clicked.
+ */
 const addEventToEditTaskCard = () => {
-    const ELEMENT = document.getElementById(`EDIT${taskId}`);
-    ELEMENT.removeEventListener('click', () => editTaskCard());
-    ELEMENT.addEventListener('click', (event) => editTaskCard(event));
+    const element = document.getElementById(`EDIT${taskId}`);
+    element.removeEventListener('click', () => editTaskCard());
+    element.addEventListener('click', (event) => editTaskCard(event));
 };

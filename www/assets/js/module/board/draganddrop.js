@@ -1,4 +1,4 @@
-import { TASK_STATUS } from '../../initBoard.js';
+import { taskStatus } from '../../initBoard.js';
 
 /**
  * Aktiviert Drag-and-Drop-Funktionalität für die Container und Karten.
@@ -156,7 +156,7 @@ export const switchCategory = (cardId) => {
     const taskCard = document.getElementById(`taskCardID${cardId}`);
 
     // Verwende den Code von createMobileCategory, um den richtigen Div-Container auszuwählen
-    const category = TASK_STATUS.find(option => option.value === selectedOption.value).value;
+    const category = taskStatus.find(option => option.value === selectedOption.value).value;
     const mobileCategory = createMobileCategory(category);
     const targetContainer = document.getElementById(mobileCategory.cardId);
 

@@ -1,10 +1,11 @@
 import { retrievingData } from '../dataResponse.js';
 
+
 /**
- * Bearbeitet eine Task-Karte und lädt die entsprechende Task auf eine neue Seite.
- * ====================================================================================================
- * @param {Event} event - Das Event-Objekt, das beim Klick auf die Task-Karte ausgelöst wird.
- * ====================================================================================================
+ * Edits a task card by loading its details on a new page.
+ * 
+ * @param {Event} event - The event object triggered by a user interaction on a task card.
+ * @returns {Promise<void>} - A promise that resolves when the task details have been loaded.
  */
 export async function editTaskCard(event) {
     const taskId = event.currentTarget.getAttribute('task-id');
@@ -13,11 +14,12 @@ export async function editTaskCard(event) {
     loadNextPage(currentTask);
 };
 
+
 /**
- * Lädt die nächste Seite und speichert die aktuelle Navigationsoption im localStorage.
- * ====================================================================================================
- * @param {Array} currentTask - Das Array, das die Task-Daten enthält, die geladen werden sollen.
- * ====================================================================================================
+ * Loads the add task page with the details of the task card that was edited.
+ * 
+ * @param {object} currentTask - The object containing the details of the task card.
+ * @returns {void} - Nothing is returned.
  */
 const loadNextPage = (currentTask) => {
     localStorage.setItem('activNavBtn', 'nav-btn2');
