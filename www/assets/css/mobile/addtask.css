@@ -1,6 +1,7 @@
 @media (max-width: 1300px) {
   .buttonsdivobile {
     display: flex;
+    gap: 4px;
   }
   .list-item {
     width: auto;
@@ -32,11 +33,13 @@
     padding-top: 6px;
   }
   .footercontent {
+    padding: 16px;
     display: flex;
+    box-shadow: #00000062 0px -1px 7px 0px;
   }
 
   .addtaskmain {
-    height: calc(100vh - 251px);
+    height: calc(100vh - 265px);
   }
 
   .layout button {
@@ -183,7 +186,6 @@
     position: fixed;
     bottom: 80px;
     left: 0;
-    padding: 4px 0;
     background-color: var(--back-color01);
   }
 
@@ -232,7 +234,7 @@
   }
 
   .footercontent {
-    width: 99%;
+    width: 100%;
     font-size: 16px;
   }
 
@@ -276,6 +278,27 @@
   }
 }
 
+@media (max-width: 630px) {
+  #taskbuttonCancel,
+  .taskbuttonclear {
+    width: 80px;
+    height: 55px;
+    font-size: 16px;
+  }
+  .taskbuttoncreat {
+    width: 145px;
+    height: 55px;
+    font-size: 16px;
+
+  }
+
+  .footercontent {
+    flex-direction: column;
+    box-shadow: #00000062 0px -1px 7px 0px;
+    padding: 12px 0; 
+  }
+}
+
 @media (max-width: 500px) {
   .popupAddtaskHeader h2 {
     font-size: 32px !important;
@@ -284,13 +307,5 @@
   .taskcardbig h3 {
     /* font-size: 32px; */
     font-weight: 700;
-  }
-
-  .footercontent {
-    flex-direction: column;
-  }
-
-  .addtaskmain {
-    height: calc(100vh - 267px);
   }
 }
