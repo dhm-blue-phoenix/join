@@ -2,36 +2,8 @@ import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board/create_taskCard.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board/draganddrop.js';
 import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
-const TASK_STATUS = [
-    {
-        'value': 'taskToDo',
-        'text': 'To do',
-        'count': '',
-        'prio': ''
-    },
-    {
-        'value': 'taskInProgress',
-        'text': 'In progress',
-        'count': '',
-        'prio': ''
-    },
-    {
-        'value': 'taskAwaitFeedback',
-        'text': 'Await feedback',
-        'count': '',
-        'prio': ''
-    },
-    {
-        'value': 'taskDone',
-        'text': 'Done',
-        'count': '',
-        'prio': ''
-    }
-];
 
-console.log(TASK_STATUS[0].count);
-
-
+let TASK_STATUS = []; 
 
 /**
  * Führt Initialisierungsfunktionen aus, sobald das DOM vollständig geladen ist.
@@ -43,6 +15,7 @@ console.log(TASK_STATUS[0].count);
  * ====================================================================================================
  */
 document.addEventListener('DOMContentLoaded', async () => {
+    await loadTaskStatus();
     await initTaskBord();
     addEventToCloseTaskCard();
     addEventToLoadAddTask();
@@ -52,6 +25,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     restoreTaskPositions();  // Positionen wiederherstellen
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
 });
+
+async function loadTaskStatus() {
+    try {
+        const data = await retrievingData(`board/taskStatus`);
+        TASK_STATUS = data;
+        console.log('debug/loadTaskStatus - Task-Status in Tabelle:');
+        console.table(TASK_STATUS)
+    } catch (err) {
+        console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
+    };
+};
 
 /**
  * Fügt "Keine Aufgabe!"-Container zu den angegebenen Task-Containern hinzu.
@@ -65,16 +49,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 function addTaskNotFoundContainers() {
     const taskContainers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
     taskContainers.forEach((containerId) => {
-      const container = document.getElementById(containerId);
-      const taskNotFoundContainer = document.createElement('div');
-      taskNotFoundContainer.id = 'tasktnotfounddrag';
-      taskNotFoundContainer.className = 'tasktnotfound';
-      const paragraph = document.createElement('p');
-      paragraph.textContent = 'No Tasks!';
-      taskNotFoundContainer.appendChild(paragraph);
-      container.appendChild(taskNotFoundContainer);
+        const container = document.getElementById(containerId);
+        const taskNotFoundContainer = document.createElement('div');
+        taskNotFoundContainer.id = 'tasktnotfounddrag';
+        taskNotFoundContainer.className = 'tasktnotfound';
+        const paragraph = document.createElement('p');
+        paragraph.textContent = 'No Tasks!';
+        taskNotFoundContainer.appendChild(paragraph);
+        container.appendChild(taskNotFoundContainer);
     });
-  }
+}
 
 /**
  * Initialisiert das Taskboard, indem es Aufgaben aus einer Datenquelle lädt und Task-Karten erstellt.
