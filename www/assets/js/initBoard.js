@@ -6,22 +6,26 @@ const TASK_STATUS = [
     {
         'value': 'taskToDo',
         'text': 'To do',
-        'count': '2'
+        'count': '',
+        'prio': ''
     },
     {
         'value': 'taskInProgress',
         'text': 'In progress',
-        'count': ''
+        'count': '',
+        'prio': ''
     },
     {
         'value': 'taskAwaitFeedback',
         'text': 'Await feedback',
-        'count': ''
+        'count': '',
+        'prio': ''
     },
     {
         'value': 'taskDone',
         'text': 'Done',
-        'count': ''
+        'count': '',
+        'prio': ''
     }
 ];
 
