@@ -65,7 +65,7 @@
 .taskBoard {
   display: flex;
   gap: 26px;
-  padding-left: 8px;
+  /* padding-left: 8px; */
 }
 
 .taskBoard h3 {
@@ -74,9 +74,11 @@
 }
 
 .task {
-  width: 246px;
-  height: 688px;
-  /* background-color: aquamarine; */
+      /* width: 246px; */
+      height: 613px;
+      /* background-color: #ffffff; */
+      padding: 8px;
+      border-radius: 8px;
 }
 
 .taskheadline {
@@ -107,18 +109,18 @@
 
 .taskList {
   width: 276px;
-  height: 65vh !important;
+  height: 565px !important;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  height: 100vh;
   transition: background-color 0.2s ease-in-out;
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: auto;
   overflow-x: hidden;
   padding: 8px 0;
+  border: 2px dashed #dbdbdb9d;
 }
 
 .taskList.drag-over {
@@ -128,17 +130,16 @@
 
 .drop-hover {
   height: 70vh;
-  border-radius: 24px;
-  border: 1px dashed #007BFF; /* Blauer, gestrichelter Rand */
-  background-color: #f0f8ff; /* Heller Hintergrund */
+  border: 2px dashed #c4c4c4;
+  background-color: #49494910;
 }
 
 .tasktnotfound {
   width: 246px;
   height: 48px;
-  border: 1px dashed var(--back-color07);
-  border-radius: 24px;
-  background-color: var(--back-color05);
+  border: 1px solid #0000001a;
+  border-radius: 12px;
+  background-color: #2929292a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -147,7 +148,7 @@
 }
 
 .tasktnotfound p {
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .taskcard {

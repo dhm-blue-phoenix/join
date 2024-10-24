@@ -87,7 +87,7 @@ main {
   height: calc(100% - 96px);
   top: 96px;
   left: 232px;
-  overflow: auto;
+  overflow: hidden;
   padding-bottom: 40px;
 }
 
@@ -119,6 +119,9 @@ main {
 }
 
 @media (max-width: 1300px) {
+  .task {
+    height: 500px;
+}
   main {
     position: absolute;
     width: 100%;
