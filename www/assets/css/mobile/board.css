@@ -17,6 +17,42 @@
 }
 
 @media (max-width: 1165px) {
+  .taskbottommobilesmall {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .taskCategorySelect {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  #moveTaskButton {
+    width: 110px;
+    height: 42px;
+    border: none;
+    background-color: var(--back-color02);
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-color02) !important;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #moveTaskButton:hover {
+    background-color: var(--back-color03);
+    box-shadow: #00000062 0px 2px 4px 0px;
+  }
   .task {
     height: auto !important;
 }
@@ -31,6 +67,7 @@
   }
 
   .taskcard {
+    gap: 8px;
     cursor: pointer;
     justify-content: center;
   }
@@ -149,6 +186,7 @@
     overflow: auto;
     overflow-y: hidden;
     padding: 9px;
+    border: none;
     
   }
   .taskList.drag-over {
@@ -168,43 +206,5 @@
 }
 
 @media (max-width: 1100px) {
-  .taskbottommobilesmall {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    gap: 8px;
-  }
-
-  .taskCategorySelect {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-
-  #moveTaskButton {
-    width: 110px;
-    height: 42px;
-    border: none;
-    background-color: var(--back-color02);
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--text-color02) !important;
-    transition: 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  #moveTaskButton:hover {
-    background-color: var(--back-color03);
-    box-shadow: #00000062 0px 2px 4px 0px;
-  }
-  .taskcard {
-    gap: 8px;
-  }
+  
 }
