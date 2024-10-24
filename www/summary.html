@@ -65,14 +65,14 @@
         <div class="summarybtncontainer">
           <div class="summarybtn todo">
             <img src="./resources/symbols/summary-symbol01.png" alt="">
-            <div class="innersummarybtn">
+            <div class="innersummarybtn" id="countTasksinToDo">
               <h2>1</h2>
               To-do
             </div>
           </div>
           <div class="summarybtn done">
             <img src="./resources/symbols/summary-symbol02.png" alt="">
-            <div class="innersummarybtn">
+            <div class="innersummarybtn" id="countTasksinDone">
               <h2>1</h2>
               Done
             </div>
@@ -94,19 +94,19 @@
         </div>
         <div class="summarybtncontainer">
           <div class="summarybtn tasksinboard">
-            <div class="innersummarybtn">
+            <div class="innersummarybtn" id="countTasksinBoard">
                 <h2>5</h2>
                 <p>Tasks in Board</p>
               </div>
           </div>
           <div class="summarybtn tasksinprogress">
-            <div class="innersummarybtn">
-                <h2>2</h2>
+            <div class="innersummarybtn" id="countTasksinProgress">
+                <h2>0</h2>
                 <p>Tasks In Progress</p>
               </div>
           </div>
           <div class="summarybtn awaitingfeedback">
-            <div class="innersummarybtn">
+            <div class="innersummarybtn" id="countTasksinAwait">
                 <h2>2</h2>
                 <p>Awaiting Feedback</p>
               </div>
@@ -114,8 +114,8 @@
         </div>
       </div>
       <div class="welcomenotecontainer">
-        <p>Good morning,</p>
-        <h2 id="username">Gast User</h2>
+        <p id="massage"></p>
+        <h2 id="username"></h2>
       </div>
     </div>
     </main>

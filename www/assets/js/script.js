@@ -170,6 +170,7 @@ if (currentWindow.includes('summary.html')) {
 
 // Event listener for the page load
 window.addEventListener('load', showWelcomeContent);
+window.addEventListener('load', showGreeting);
 
 
 /**
@@ -192,3 +193,16 @@ function btnsnavbar() {
     }
     btns[0].className += " active";
 };
+
+function showGreeting() {
+    const currentHour = new Date().getHours();
+    const massage = document.getElementById("massage");
+  
+    if (currentHour >= 0 && currentHour < 12) {
+      massage.textContent = "Good morning,";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      massage.textContent = "Good afternoon,";
+    } else {
+      massage.textContent = "Good evening,";
+    }
+  }
