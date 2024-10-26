@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
  * Initializes navigation buttons and sets the last active button from localStorage.
  */
 function initializeNavigation() {
-  const lastActiveButtonId = localStorage.getItem('activeNavButton');
+  const lastActiveButtonId = localStorage.getItem('activNavBtn');
+  console.log(lastActiveButtonId);
+  
   setActiveButton(lastActiveButtonId);
   initializeButtons();
 };
@@ -93,9 +95,9 @@ function handleNavEvent(event) {
 function loadNextPage(buttonId, pageUrl) {
   removeLastActiveButton();
   setActiveButton(buttonId);
-  const lastActiveButtonId = localStorage.getItem('activeNavButton');
-  localStorage.setItem('lastActiveNavButton', lastActiveButtonId);
-  localStorage.setItem('activeNavButton', buttonId);
+  const lastActiveButtonId = localStorage.getItem('activNavBtn');
+  localStorage.setItem('lastActivNavBtn', lastActiveButtonId);
+  localStorage.setItem('activNavBtn', buttonId);
   window.location.href = pageUrl;
 };
 
@@ -104,7 +106,7 @@ function loadNextPage(buttonId, pageUrl) {
  * Removes the 'active' class from the last active button.
  */
 function removeLastActiveButton() {
-  const lastActiveButtonId = localStorage.getItem('activeNavButton');
+  const lastActiveButtonId = localStorage.getItem('activNavBtn');
   document.getElementById(lastActiveButtonId)?.classList.remove('active');
 };
 
@@ -113,7 +115,7 @@ function removeLastActiveButton() {
  * Navigates back to the previous page by restoring the last active button.
  */
 function backToPreviousPage() {
-  const lastActiveButtonId = localStorage.getItem('lastActiveNavButton');
+  const lastActiveButtonId = localStorage.getItem('lastActivNavBtn');
   const buttons = document.querySelectorAll('.navBar-btns');
   buttons.forEach(button => {
     if (button.id === lastActiveButtonId) {
