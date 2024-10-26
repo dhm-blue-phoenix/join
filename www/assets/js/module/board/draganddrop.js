@@ -85,6 +85,7 @@ export function restoreTaskPositions() {
             const container = document.getElementById(savedContainerId);
             if (container) {
                 container.appendChild(card);
+                updateEmptyState();
             };
         };
     });
