@@ -29,8 +29,6 @@ async function loadTaskStatus() {
     try {
         const data = await retrievingData(`board/taskStatus`);
         taskStatus = data;
-        console.log('debug/loadTaskStatus - Task-Status in Tabelle:');
-        console.table(taskStatus);
     } catch (err) {
         console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
     };

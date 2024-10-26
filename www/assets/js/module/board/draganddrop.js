@@ -1,4 +1,5 @@
 import { taskStatus } from '../../initBoard.js';
+import { retrievingData, updateData } from '../dataResponse.js';
 
 /**
  * Aktiviert Drag-and-Drop-Funktionalität für die Container und Karten.
@@ -66,24 +67,42 @@ function drop(event) {
  * @param {string} cardId - Die ID der Karte.
  * @param {string} containerId - Die ID des Containers, in dem die Karte abgelegt wurde.
  */
-function saveTaskPosition(cardId, containerId) {
-    localStorage.setItem(cardId, containerId);
-}
+async function saveTaskPosition(cardId, containerId) {
+    const taskId = document.getElementById(cardId).getAttribute('task-id');
+    const id = await loadTasksToBoard(taskId);
+    await updateData(`board/${id[0]}/boardStatus`, containerId);
+};
 
-/**
+/** 
  * Stellt die Positionen aller Karten basierend auf dem lokalen Speicher wieder her.
  */
 export function restoreTaskPositions() {
-    document.querySelectorAll('[id^=taskCardID]').forEach(card => {
-        const savedContainerId = localStorage.getItem(card.id);
+    document.querySelectorAll('[id^=taskCardID]').forEach(async (card) => {
+        const taskId = document.getElementById(card.id).getAttribute('task-id');
+        const taskData = await loadTasksToBoard(taskId);
+        const savedContainerId = taskData[1].boardStatus;
         if (savedContainerId) {
             const container = document.getElementById(savedContainerId);
             if (container) {
                 container.appendChild(card);
-            }
-        }
+            };
+        };
     });
-}
+};
+
+/**
+ * Lädt die Aufgaben auf das Board basierend auf der Aufgaben-ID.
+ * 
+ * @async
+ * @function loadTasksToBoard
+ * @param {string} taskId - Die ID der Aufgabe, die geladen werden soll.
+ * @returns {Promise<Object>} - Ein Promise, das das gefundene Aufgabenobjekt zurückgibt.
+ */
+async function loadTasksToBoard(taskId) {
+    let taskData = await retrievingData('');
+    taskData = Object.entries(taskData[0]).find(([id, findTask]) => findTask.id === taskId);
+    return taskData;
+};
 
 /**
  * Aktualisiert den Zustand der leeren Anzeige für alle Container.
@@ -169,7 +188,7 @@ export const switchCategory = (cardId) => {
     container.appendChild(taskCard);
 
     // Speichere die neue Position der Task-Karte
-    localStorage.setItem(taskCard.id, selectedOption.value);
+    saveTaskPosition(taskCard.id, selectedOption.value);
 
     // Aktualisiere den Zustand der Kategorie
     updateEmptyState();
