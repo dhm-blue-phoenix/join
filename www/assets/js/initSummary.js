@@ -1,6 +1,8 @@
 import { retrievingData } from './module/dataResponse.js';
+import { initEvents } from './module/summary/addEvents.js';
 
 document.addEventListener('DOMContentLoaded', function () {
+  initEvents();
   showGreeting();
   init();
   loadTaskStatusData();
