@@ -1,5 +1,6 @@
 import { deleteElementById, reloadWindow } from '../modules.js';
 import { retrievingData } from '../dataResponse.js';
+import { updateTaskStatusInDatabase } from './draganddrop.js';
 
 
 /**
@@ -12,5 +13,6 @@ export async function deleteTaskCard(event) {
     const tasks = await retrievingData('');
     const currentTask = Object.entries(tasks[0]).find(([id, findTask]) => findTask.id === taskId);
     await await deleteElementById(`board/${currentTask[0]}`);
+    await updateTaskStatusInDatabase();
     reloadWindow();
 };

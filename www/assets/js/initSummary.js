@@ -9,6 +9,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /**
+ * Initialisiert die Anzeige der Task-Statistik auf der Summary-Seite.
+ * Läd die Anzahl der Tasks pro Kategorie und die Anzahl der Tasks mit Prio 'urgent' von der Datenbank.
+ * Füllt die Container mit den ermittelten Anzahlen.
+ * @returns {Promise<void>}
+ */
+
+async function init() {
+  const urgentTaskCount = await loadTaskStatusPrio();
+  const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
+  // Hier kannst du die Daten verwenden, wie du möchtest
+
+  const containers = [
+    { id: 'countTasksinToDo', text: 'To-do', data: taskStatusData[0].count },
+    { id: 'countTasksinDone', text: 'Done', data: taskStatusData[3].count },
+    { id: 'countTasksinBoard', text: 'Tasks in Board', data: totalTaskCount },
+    { id: 'countTasksinProgress', text: 'Tasks In Progress', data: taskStatusData[1].count },
+    { id: 'countTasksinAwait', text: 'Awaiting Feedback', data: taskStatusData[2].count },
+    { id: 'countPrioUrgent', text: 'Urgent', data: urgentTaskCount },
+  ];
+
+  containers.forEach(container => {
+    const element = document.getElementById(container.id);
+    element.innerHTML = '';
+    const h2Element = document.createElement('h2');
+    h2Element.textContent = container.data;
+    element.appendChild(h2Element);
+    const pElement = document.createElement('p');
+    pElement.textContent = container.text;
+    element.appendChild(pElement);
+  });
+}
+
+/**
  * Läd die Task-Status-Daten von der Datenbank.
  * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
  * @param {string} path - Der Pfad, von dem die Daten geladen werden sollen.
@@ -36,7 +69,7 @@ async function loadTaskStatusPrio() {
   try {
     let urgentTaskCount = 0;
     const data = await retrievingData(`board/`);
-    console.log(data);
+    // console.log(data);
     const tasks = data;
     for (let i = 0; i < tasks.length; i++) {
       const task = tasks[i];
@@ -44,7 +77,7 @@ async function loadTaskStatusPrio() {
         urgentTaskCount++;
       }
     }
-    console.log(`Anzahl der Taskcards mit Prio 'urgent': ${urgentTaskCount}`);
+    // console.log(`Anzahl der Taskcards mit Prio 'urgent': ${urgentTaskCount}`);
     return urgentTaskCount;
   } catch (err) {
     console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
@@ -76,36 +109,6 @@ async function loadTaskStatusData() {
   } catch (err) {
     console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
   };
-}
-
-/**
- * Initialisiert die Anzeige der Task-Statistik auf der Summary-Seite.
- * Läd die Anzahl der Tasks pro Kategorie und die Anzahl der Tasks mit Prio 'urgent' von der Datenbank.
- * Füllt die Container mit den ermittelten Anzahlen.
- * @returns {Promise<void>}
- */
-
-async function init() {
-  const urgentTaskCount = await loadTaskStatusPrio();
-  const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
-  // Hier kannst du die Daten verwenden, wie du möchtest
-
-  // Leere den Inhalt der DIV-Container
-  document.getElementById('countTasksinToDo').innerHTML = '';
-  document.getElementById('countTasksinDone').innerHTML = '';
-  document.getElementById('countTasksinBoard').innerHTML = '';
-  document.getElementById('countTasksinProgress').innerHTML = '';
-  document.getElementById('countTasksinAwait').innerHTML = '';
-  document.getElementById('countPrioUrgent').innerHTML = '';
-
-
-  // Fülle die Container mit einer 1
-  document.getElementById('countTasksinToDo').innerHTML = `<h2>${taskStatusData[0].count}</h2> To-do`;
-  document.getElementById('countTasksinDone').innerHTML = `<h2>${taskStatusData[3].count}</h2> Done`;
-  document.getElementById('countTasksinBoard').innerHTML = `<h2>${totalTaskCount}</h2> Tasks in Board`;
-  document.getElementById('countTasksinProgress').innerHTML = `<h2>${taskStatusData[1].count}</h2> Tasks In Progress`;
-  document.getElementById('countTasksinAwait').innerHTML = `<h2>${taskStatusData[2].count}</h2> Awaiting Feedback`;
-  document.getElementById('countPrioUrgent').innerHTML = `<h2>${urgentTaskCount}</h2>Urgent`;
 }
 
 /**
