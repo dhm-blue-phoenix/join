@@ -120,18 +120,17 @@
   overflow: auto;
   overflow-x: hidden;
   padding: 8px 0;
-  border: 2px dashed #dbdbdb9d;
+  border: 2px dashed #b6b6b69d;
 }
 
 .taskList.drag-over {
   height: 70vh;
-  border: 1px dashed var(--back-color07);
 }
 
 .drop-hover {
   height: 70vh;
-  border: 2px dashed #c4c4c4;
-  background-color: #49494910;
+  border: 2px dashed #888888;
+  background-color: #5c5c5c2a;
 }
 
 .tasktnotfound {
