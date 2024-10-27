@@ -1,4 +1,5 @@
 import { taskStatus } from '../../initBoard.js';
+import { updateTaskStatusInDatabase } from './draganddrop.js';
 
 
 /**
@@ -11,7 +12,7 @@ import { taskStatus } from '../../initBoard.js';
  * @param {array} subtask The subtasks of the task card.
  * @returns {undefined}
  */
-export const createTaskCard = (cardId, headline, description, users, category, subtask) => {
+export const createTaskCard = async (cardId, headline, description, users, category, subtask) => {
     const taskCard = document.createElement('div');
     taskCard.id = `taskCardID${cardId}`;
     taskCard.className = 'taskcard';
@@ -23,6 +24,7 @@ export const createTaskCard = (cardId, headline, description, users, category, s
     taskCard.appendChild(createPerson(users));
     taskCard.appendChild(createMobile(cardId));
     document.getElementById(taskStatus[0].value).appendChild(taskCard);
+    await updateTaskStatusInDatabase();
 };
 
 

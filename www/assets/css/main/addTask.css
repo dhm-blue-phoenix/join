@@ -7,6 +7,11 @@
 /* p{
   margin-bottom: 8px;
 } */
+.buttonsdivobile {
+  display: flex;
+  gap: 4px;
+}
+
 #selectedPerson {
   display: flex;
   padding: 8px;
