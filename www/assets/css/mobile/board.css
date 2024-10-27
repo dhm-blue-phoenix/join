@@ -23,6 +23,7 @@
     height: 120px;
     overflow: auto;
     width: 90%;
+    overflow-x: hidden;
 }
   .taskbottommobilesmall {
     display: flex;
