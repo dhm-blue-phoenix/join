@@ -15,27 +15,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     addEventToSearch();
     enableDragAndDrop();
     addTaskNotFoundContainers();
-    restoreTaskPositions();  // Positionen wiederherstellen
-    updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
+    restoreTaskPositions();
+    updateEmptyState();
     setTimeout(async () => {
         await updateTaskStatusInDatabase();
     }, 1000);
 });
 
+
 /**
- * L d die Task-Status-Daten von der Datenbank.
- * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
+ * Loads the task status data from the database.
+ * The data is stored in the global variable `taskStatus`.
  * @returns {Promise<void>}
  */
 async function loadTaskStatus() {
     try {
         const data = await retrievingData(`board/taskStatus/`);
         taskStatus = data;
-        // console.log('debug/loadTaskStatus - Task-Status in Tabelle:');
-        // console.table(taskStatus);
         return taskStatus;
     } catch (err) {
-        console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
+        console.error(`A severe error occurred during rendering!! ${err}`);
     };
 };
 
@@ -79,7 +78,7 @@ async function initTaskBord() {
             addEventFromTaskCard(`taskCardID${id}`);
         });
     } catch (err) {
-        console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
+        console.error(`A severe error occurred during rendering!! ${err}`);
     };
 };
 

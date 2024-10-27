@@ -13,6 +13,7 @@ import {
     setBtnPrio
 } from './module/addTask/addEventsToAddTask.js';
 
+
 const idInputTask = ['title', 'description', 'date', 'category'];
 const userId = loadUserIdFromStored();
 const resetTaskForm = {
@@ -56,7 +57,6 @@ async function initAddTask(event) {
         await loadDataToForm();
         await uploadData();
         resetForm();
-        // await updateTaskStatusInDatabase();
         loadNextPage();
     } catch (err) {
         console.error(`Error occurred while creating the task! ${err}`);

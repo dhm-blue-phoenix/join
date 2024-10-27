@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const username = await loadUserName();
         const usernamenote = await loadUserName();
         const initials = extractInitials(username);
-        idAccount.textContent = initials;
+        if (idAccount) idAccount.textContent = initials;
         if (idUsername) idUsername.textContent = username;
         if (idUsernamenote) idUsernamenote.textContent = usernamenote;
     } catch (err) {
