@@ -1,6 +1,6 @@
 import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board/create_taskCard.js';
-import { enableDragAndDrop, restoreTaskPositions, updateEmptyState, updateTaskStatusInDatabase } from './module/board/draganddrop.js';
+import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board/draganddrop.js';
 import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
 
 
@@ -10,7 +10,6 @@ let taskStatus = [];
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTaskStatus();
     await initTaskBord();
-    await updateTaskStatusInDatabase();
     addEventToCloseTaskCard();
     addEventToLoadAddTask();
     addEventToSearch();
@@ -20,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
 });
 
+
 /**
  * L d die Task-Status-Daten von der Datenbank.
  * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
@@ -27,11 +27,8 @@ document.addEventListener('DOMContentLoaded', async () => {
  */
 async function loadTaskStatus() {
     try {
-        const data = await retrievingData(`board/taskStatus/`);
+        const data = await retrievingData(`board/taskStatus`);
         taskStatus = data;
-        // console.log('debug/loadTaskStatus - Task-Status in Tabelle:');
-        // console.table(taskStatus);
-        return taskStatus;
     } catch (err) {
         console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
     };
@@ -92,4 +89,4 @@ const clearBoard = () => {
 };
 
 
-export { initTaskBord, clearBoard, taskStatus, loadTaskStatus };
+export { initTaskBord, clearBoard, taskStatus };
