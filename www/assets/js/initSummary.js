@@ -7,11 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
   loadTaskStatusPrio()
 });
 
-
 /**
- * Initialisiert die Anzeige der Task-Statistik auf der Summary-Seite.
- * Läd die Anzahl der Tasks pro Kategorie und die Anzahl der Tasks mit Prio 'urgent' von der Datenbank.
- * Füllt die Container mit den ermittelten Anzahlen.
+ * Initialisiert die Summary-Seite.
+ * Lädt die Task-Status-Daten von der Datenbank und aktualisiert die Anzeige.
  * @returns {Promise<void>}
  */
 
