@@ -200,7 +200,7 @@ function removeHoverEffect(target) {
  * @function switchCategory
  * ====================================================================================================
  */
-import { createMobileCategory } from './create_taskCard.js';
+import { createMobileCategory } from './createTaskCard.js';
 
 export const switchCategory = (cardId) => {
     const selectElement = document.getElementById(`taskCategorySelect${cardId}`);

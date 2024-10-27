@@ -1,6 +1,6 @@
 import { retrievingData } from '../dataResponse.js';
-import { createTaskCard } from './create_taskCard.js';
-import { addEventFromTaskCard } from './addEvents.js';
+import { createTaskCard } from './createTaskCard.js';
+import { addEventFromTaskCard } from './addEventsToBoard.js';
 import { initTaskBord, clearBoard } from '../../initBoard.js';
 
 

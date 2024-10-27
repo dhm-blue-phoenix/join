@@ -70,7 +70,7 @@ const signedUp = (formData) => {
   idSignedUpContainerBG.classList.remove('d-nonepopup');
   idSignedUpContainer.appendChild(createMessage());
   setTimeout(() => {
-    window.location.href = `./index.html?formEmail=${encodeURIComponent(formData.email)}&formPw=${encodeURIComponent(formData.pw)}`;
+    window.location.href = `./index.html?formEmail=${encodeURIComponent(formData.email)}`;
   }, 2000);
 };
 

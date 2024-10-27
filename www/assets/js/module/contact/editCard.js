@@ -1,9 +1,9 @@
 import { loadUserIdFromStored } from '../modules.js';
-import { editContactId } from './show_editPopup.js';
-import { showContactCards } from './show_cards.js';
+import { editContactId } from './showEditPopup.js';
+import { showContactCards } from './showCards.js';
 import { dnonePersonCard, resetEditContactForm } from '../dnone.js';
 import { updateData } from '../dataResponse.js';
-import { hideMobileContactCard } from './show_card_details.js';
+import { hideMobileContactCard } from './showCardDetails.js';
 
 
 /**

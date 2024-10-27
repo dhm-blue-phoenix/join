@@ -1,5 +1,5 @@
-import { fetchUserData } from './show_user_card.js';
-import { showContactDetails } from '../show_card_details.js';
+import { fetchUserData } from './showUserCard.js';
+import { showContactDetails } from '../showCardDetails.js';
 
 
 /**

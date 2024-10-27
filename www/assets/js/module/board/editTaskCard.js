@@ -22,6 +22,5 @@ export async function editTaskCard(event) {
  * @returns {void} - Nothing is returned.
  */
 const loadNextPage = (currentTask) => {
-    localStorage.setItem('activNavBtn', 'nav-btn2');
     window.location.href = `./addTask.html?task=${currentTask[0]}`;
 };

@@ -11,7 +11,7 @@ import {
     addEventFromAddSubTask,
     addEventFromDelListSubTask,
     setBtnPrio
-} from './module/addTask/addEvents.js';
+} from './module/addTask/addEventsToAddTask.js';
 
 const idInputTask = ['title', 'description', 'date', 'category'];
 const userId = loadUserIdFromStored();
@@ -213,7 +213,6 @@ const resetFromTaskForm = () => {
  * Loads the next page in the application.
  */
 const loadNextPage = () => {
-    localStorage.setItem('activNavBtn', 'nav-btn1');
     window.location.href = './board.html';
 };
 

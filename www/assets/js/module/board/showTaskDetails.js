@@ -1,5 +1,5 @@
-import { deleteTaskCard } from './delete_taskCard.js';
-import { editTaskCard } from './edit_taskCard.js';
+import { deleteTaskCard } from './deleteTaskCard.js';
+import { editTaskCard } from './editTaskCard.js';
 import { updateData, retrievingData } from '../dataResponse.js';
 
 
@@ -72,13 +72,13 @@ const updateTextContent = (id, text) => {
         const prioIcon = document.createElement('img');
         switch (text.toLowerCase()) {
             case 'low':
-                prioIcon.src = '../../../join/www/resources/symbols/PrioLow.png';
+                prioIcon.src = '../../../resources/symbols/PrioLow.png';
                 break;
             case 'medium':
-                prioIcon.src = '../../../join/www/resources/symbols/boardmiddleprio.png';
+                prioIcon.src = '../../../resources/symbols/boardmiddleprio.png';
                 break;
             case 'urgent':
-                prioIcon.src = '../../../join/www/resources/symbols/PrioUrgent.png';
+                prioIcon.src = '../../../resources/symbols/PrioUrgent.png';
                 break;
             default:
                 console.log('Unbekannte Priorität:', text);

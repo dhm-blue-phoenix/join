@@ -1,5 +1,5 @@
 import { loadUserData } from './module/modules.js';
-import { autoForm } from './module/login_autoForm.js';
+import { autoForm } from './module/loginAutoForm.js';
 
 
 const idFormLogin = document.getElementById('loginForm');
@@ -141,6 +141,5 @@ const saveSessionUserID = (userID, autoLogin) => {
  * Redirects the user to the summary page.
  */
 const loadWindow = () => {
-    localStorage.setItem('activNavBtn', 'nav-btn0');
     window.location.href = './summary.html';
 };

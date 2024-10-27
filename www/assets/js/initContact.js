@@ -1,7 +1,7 @@
-import { showUserCard } from './module/contact/user/show_user_card.js';
-import { showContactCards } from './module/contact/show_cards.js';
-import { editContact } from './module/contact/edit_card.js';
-import { addContact } from './module/contact/add_card.js';
+import { showUserCard } from './module/contact/user/showUserCard.js';
+import { showContactCards } from './module/contact/showCards.js';
+import { editContact } from './module/contact/editCard.js';
+import { addContact } from './module/contact/addCard.js';
 
 
 const idEditPersonShortcut = document.getElementById('editPersonShortcut');

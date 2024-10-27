@@ -1,6 +1,6 @@
 import { extractInitials } from '../modules.js';
-import { deleteContact } from './delete_card.js';
-import { showContactEditPopup } from './show_editPopup.js';
+import { deleteContact } from './deleteCard.js';
+import { showContactEditPopup } from './showEditPopup.js';
 
 
 const idBtnEditDelete = document.getElementById('editdeletcontact');

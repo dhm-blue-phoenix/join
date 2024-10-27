@@ -1,7 +1,7 @@
 import { dnonePersonCard } from '../dnone.js';
-import { showContactCards } from './show_cards.js';
+import { showContactCards } from './showCards.js';
 import { loadUserIdFromStored, getContactId, deleteElementById } from '../modules.js';
-import { hideMobileContactCard } from './show_card_details.js';
+import { hideMobileContactCard } from './showCardDetails.js';
 
 
 /**

@@ -32,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(/join/www/resources/symbols/search.png);
+  background-image: url(/resources/symbols/search.png);
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
 }

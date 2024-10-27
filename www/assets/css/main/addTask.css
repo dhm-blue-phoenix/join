@@ -178,7 +178,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url(/join/www/resources/symbols/arrow_drop_downaa.png);
+  background-image: url(/resources/symbols/arrow_drop_downaa.png);
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
   cursor: pointer;
@@ -198,7 +198,7 @@
   font-size: 20px;
   font-weight: 400;
   padding: 12px 40px 12px 21px;
-  background-image: url(/join/www/resources/symbols/arrow_drop_downaa.png);
+  background-image: url(/resources/symbols/arrow_drop_downaa.png);
   background-repeat: no-repeat;
   background-position: right 15px top 50%;
   cursor: pointer;

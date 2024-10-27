@@ -1,6 +1,6 @@
-import { initShowTaskDetails } from './show_taskDetails.js';
+import { initShowTaskDetails } from './showTaskDetails.js';
 import { reloadWindow } from '../modules.js';
-import { searchToTasks } from './search_to_tasks.js';
+import { searchToTasks } from './searchToTasks.js';
 
 
 const idInputSearch = document.getElementById('boardSearch');
@@ -29,7 +29,6 @@ const addEventToLoadAddTask = () => {
     document.querySelectorAll('.loadNextPage').forEach(element => {
         element.removeEventListener('click', () => { });
         element.addEventListener('click', () => {
-            localStorage.setItem('activNavBtn', 'nav-btn2');
             window.location.href = './addTask.html';
         });
     });

@@ -20,7 +20,6 @@ function addEventToBtn() {
  * @function loadNextWindow
  */
 function loadNextWindow() {
-    localStorage.setItem('activNavBtn', 'nav-btn1');
     window.location.href = './board.html';
 };
 

@@ -1,5 +1,5 @@
 import { retrievingData } from '../dataResponse.js';
-import { setBtnPrio, addEventFromCancelBtn } from './addEvents.js';
+import { setBtnPrio, addEventFromCancelBtn } from './addEventsToAddTask.js';
 import { addSubTaskToList, taskForm } from '../../initAddTask.js';
 
 

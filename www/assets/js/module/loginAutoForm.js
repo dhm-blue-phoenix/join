@@ -28,7 +28,7 @@ export async function autoForm() {
  */
 function getDataFromUrl(encode) {
     ID_inputCheckbox.checked = false;
-    return [decodeURIComponent(encode[0]), decodeURIComponent(encode[1])];
+    return [decodeURIComponent(encode[0])];
 };
 
 
@@ -48,8 +48,9 @@ async function getDataFromAutoLogin() {
  * @param {Array} userData - Array containing user email and password.
  */
 const fillForm = (userData) => {
-    if (userData[0] === 'null' || userData[1] === 'null') userData = ['', ''];
+    if (userData[0] === 'null') userData = ['', ''];
     ID_inputEmail.value = userData[0];
+    if (userData[1] === 'null' || userData[1] === undefined) userData = [userData[0], ''];
     ID_inputPW.value = userData[1];
 };
 

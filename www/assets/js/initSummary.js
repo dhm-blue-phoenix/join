@@ -1,5 +1,5 @@
 import { retrievingData } from './module/dataResponse.js';
-import { initEvents } from './module/summary/addEvents.js';
+import { initEvents } from './module/summary/addEventsToSummary.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   initEvents();

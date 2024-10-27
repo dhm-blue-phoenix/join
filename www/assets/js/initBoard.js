@@ -1,12 +1,12 @@
 import { retrievingData } from './module/dataResponse.js';
-import { createTaskCard } from './module/board/create_taskCard.js';
+import { createTaskCard } from './module/board/createTaskCard.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState, updateTaskStatusInDatabase } from './module/board/draganddrop.js';
-import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
+import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEventsToBoard.js';
 
 
-let taskStatus = []; 
+let taskStatus = [];
 
- 
+
 document.addEventListener('DOMContentLoaded', async () => {
     await loadTaskStatus();
     await initTaskBord();
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addTaskNotFoundContainers();
     restoreTaskPositions();  // Positionen wiederherstellen
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
-    setTimeout( async () => {
+    setTimeout(async () => {
         await updateTaskStatusInDatabase();
     }, 1000);
 });
@@ -63,7 +63,7 @@ function addTaskNotFoundContainers() {
     });
 };
 
- 
+
 /**
  * Initializes the task board by retrieving all tasks from the server, filtering out non-title tasks, clearing the board, and rendering the filtered tasks.
  * @returns {Promise<void>}
@@ -92,9 +92,7 @@ async function initTaskBord() {
 const clearBoard = () => {
     taskStatus.forEach(id => {
         const element = document.getElementById(id.value);
-        if (element){
-            element.innerHTML = '';
-        }
+        element.innerHTML = '';
     });
 };
 

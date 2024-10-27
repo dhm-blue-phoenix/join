@@ -67,7 +67,7 @@ const createListBtn = (btnImg, number) => {
  */
 const createListBtnImg = (btnImg, number) => {
     const listBtnImg = document.createElement('img');
-    listBtnImg.src = `../../join/www/resources/symbols/${btnImg}`;
+    listBtnImg.src = `../../resources/symbols/${btnImg}`;
     listBtnImg.alt = `btn_img_${btnImg}`;
     listBtnImg.id = `list_${type}_btn_${btnImg.substring(0, btnImg.indexOf('.'))}${number}`;
     listBtnImg.setAttribute('key', number);
