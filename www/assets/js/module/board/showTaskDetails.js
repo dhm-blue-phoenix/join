@@ -1,5 +1,6 @@
 import { deleteTaskCard } from './deleteTaskCard.js';
 import { editTaskCard } from './editTaskCard.js';
+import { restoreTaskPositions } from './draganddrop.js';
 import { updateData, retrievingData } from '../dataResponse.js';
 
 

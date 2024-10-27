@@ -3,20 +3,27 @@
     width: auto;
     padding-left: 8px;
     padding-right: 8px;
-}
+  }
   .boardmain {
     margin: 0 !important;
-}
+  }
   .taskList {
     height: 520px !important;
   }
   .boardmain {
     margin: 32px 64px;
   }
-
 }
 
 @media (max-width: 1165px) {
+  .teskdescription p {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-color06);
+    height: 120px;
+    overflow: auto;
+    width: 90%;
+}
   .taskbottommobilesmall {
     display: flex;
     flex-direction: column;
@@ -55,7 +62,7 @@
   }
   .task {
     height: auto !important;
-}
+  }
   /* .taskcard {
       cursor: default;
     } */
@@ -67,9 +74,13 @@
   }
 
   .taskcard {
+    /* width: 192px; */
+    height: auto !important;
     gap: 8px;
     cursor: pointer;
     justify-content: center;
+    border-radius: 24px 0 0 0;
+    /* border-radius: 24px 0 24px 0; */
   }
   .boardmain {
     height: calc(100vh - 176px);
@@ -151,13 +162,14 @@
     flex-direction: column;
     width: 70%;
     align-items: center;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     padding-bottom: 14px;
   }
 
   .task {
-    width: 100%;
+    width: 90vw;
     height: auto;
+    padding: 0;
     /* background-color: aquamarine; */
   }
 
@@ -177,7 +189,6 @@
   .taskList {
     width: 100%;
     height: auto !important;
-    max-height: auto;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -185,9 +196,8 @@
     gap: 8px;
     overflow: auto;
     overflow-y: hidden;
-    padding: 9px;
+    padding: 8px;
     border: none;
-    
   }
   .taskList.drag-over {
     height: auto;
@@ -197,14 +207,14 @@
 
 @media (max-width: 770px) {
   .taskBoard {
-    width: 95vw;
+    width: auto;
     padding: 8px 0;
   }
   .BoardTop div {
+    padding-right: 8px;
     width: 95vw;
   }
 }
 
 @media (max-width: 1100px) {
-  
 }

@@ -14,8 +14,10 @@ const idInputSearch = document.getElementById('boardSearch');
  * If the close button is not found, it logs a warning message to the console.
  */
 const addEventToCloseTaskCard = () => {
-        const element = document.getElementById('CLOSE_TASK_CARD_POPUP');
-};
+    const element = document.getElementById('CLOSE_TASK_CARD_POPUP');
+    element.removeEventListener('click', reloadWindow);
+    element.addEventListener('click', reloadWindow);
+  };
 
 
 /**
