@@ -4,12 +4,32 @@ document.addEventListener('DOMContentLoaded', function () {
   showGreeting();
   init();
   loadTaskStatusData();
+  loadTaskStatusPrio()
 });
 
 async function loadTaskStatusFromServer(path) {
   try {
     const data = await retrievingData(path);
     return data;
+  } catch (err) {
+    console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
+  };
+}
+
+async function loadTaskStatusPrio() {
+  try {
+    let urgentTaskCount = 0;
+    const data = await retrievingData(`board/`);
+    console.log(data);
+    const tasks = data;
+    for (let i = 0; i < tasks.length; i++) {
+      const task = tasks[i];
+      if (task.prio === 'urgent') {
+        urgentTaskCount++;
+      }
+    }
+    console.log(`Anzahl der Taskcards mit Prio 'urgent': ${urgentTaskCount}`);
+    return urgentTaskCount;
   } catch (err) {
     console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
   };
@@ -37,6 +57,7 @@ async function loadTaskStatusData() {
 }
 
 async function init() {
+  const urgentTaskCount = await loadTaskStatusPrio();
   const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
   // Hier kannst du die Daten verwenden, wie du möchtest
 
@@ -46,6 +67,8 @@ async function init() {
   document.getElementById('countTasksinBoard').innerHTML = '';
   document.getElementById('countTasksinProgress').innerHTML = '';
   document.getElementById('countTasksinAwait').innerHTML = '';
+  document.getElementById('countPrioUrgent').innerHTML = '';
+
 
   // Fülle die Container mit einer 1
   document.getElementById('countTasksinToDo').innerHTML = `<h2>${taskStatusData[0].count}</h2> To-do`;
@@ -53,6 +76,7 @@ async function init() {
   document.getElementById('countTasksinBoard').innerHTML = `<h2>${totalTaskCount}</h2> Tasks in Board`;
   document.getElementById('countTasksinProgress').innerHTML = `<h2>${taskStatusData[1].count}</h2> Tasks In Progress`;
   document.getElementById('countTasksinAwait').innerHTML = `<h2>${taskStatusData[2].count}</h2> Awaiting Feedback`;
+  document.getElementById('countPrioUrgent').innerHTML = `<h2>${urgentTaskCount}</h2>Urgent`;
 }
 
 /**

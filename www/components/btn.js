@@ -12,9 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * Initializes navigation buttons and sets the last active button from localStorage.
  */
 function initializeNavigation() {
-  const lastActiveButtonId = localStorage.getItem('activNavBtn');
-  console.log(lastActiveButtonId);
-  
+  const lastActiveButtonId = localStorage.getItem('activNavBtn');  
   setActiveButton(lastActiveButtonId);
   initializeButtons();
 };
