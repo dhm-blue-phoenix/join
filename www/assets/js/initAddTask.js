@@ -24,7 +24,8 @@ const resetTaskForm = {
     date: '',
     prio: '',
     category: '',
-    subtask: ['none']
+    subtask: ['none'],
+    boardStatus: 'taskToDo'
 };
 
 

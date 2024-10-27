@@ -1,4 +1,5 @@
 import { taskStatus } from '../../initBoard.js';
+import { retrievingData, updateData } from '../dataResponse.js';
 
 /**
  * Aktiviert Drag-and-Drop-Funktionalität für die Container und Karten.
@@ -61,29 +62,81 @@ function drop(event) {
     removeHoverEffect(event.target);
 }
 
-/**
- * Speichert die Position einer Karte im lokalen Speicher.
- * @param {string} cardId - Die ID der Karte.
- * @param {string} containerId - Die ID des Containers, in dem die Karte abgelegt wurde.
- */
-function saveTaskPosition(cardId, containerId) {
-    localStorage.setItem(cardId, containerId);
+import { loadTaskStatus } from '../../initBoard.js';
+
+
+async function saveTaskPosition(cardId, containerId) {
+    const taskId = document.getElementById(cardId).getAttribute('task-id');
+    const id = await loadTasksToBoard(taskId);
+    await updateData(`board/${id[0]}/boardStatus`, containerId);
+    updateTaskStatusInDatabase();
+};
+
+
+async function updateTaskStatusInDatabase() {
+    try {
+        const taskStatusData = await loadTaskStatus();
+        const categoryMapping = {
+            taskToDo: 0,
+            taskInProgress: 1,
+            taskAwaitFeedback: 2,
+            taskDone: 3
+        };
+        taskStatusData.forEach((category) => {
+            const containerId = category.value;
+            const container = document.getElementById(containerId);
+            const currentCardCount = container.querySelectorAll('[id^=taskCardID]').length;
+            // console.log(`Kategorie: ${category.text}, Anzahl Taskcards: ${currentCardCount}`);
+
+            // Aktualisieren Sie data.count in der Datenbank für jede Kategorie
+            const data = {
+                count: currentCardCount,
+                prio: category.prio,
+                text: category.text,
+                value: category.value
+            };
+            const path = `board/taskStatus/${categoryMapping[containerId]}`;
+            updateData(path, data); // Verwenden Sie updateData aus dataResponse.js
+        });
+
+        // ... Rest der Funktion bleibt gleich ...
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der Datenbank: ', error);
+    }
 }
+
 
 /**
  * Stellt die Positionen aller Karten basierend auf dem lokalen Speicher wieder her.
  */
 export function restoreTaskPositions() {
-    document.querySelectorAll('[id^=taskCardID]').forEach(card => {
-        const savedContainerId = localStorage.getItem(card.id);
+    document.querySelectorAll('[id^=taskCardID]').forEach(async (card) => {
+        const taskId = document.getElementById(card.id).getAttribute('task-id');
+        const taskData = await loadTasksToBoard(taskId);
+        const savedContainerId = taskData[1].boardStatus;
         if (savedContainerId) {
             const container = document.getElementById(savedContainerId);
             if (container) {
                 container.appendChild(card);
-            }
-        }
+                updateEmptyState();
+            };
+        };
     });
-}
+};
+
+/**
+ * Lädt die Aufgaben auf das Board basierend auf der Aufgaben-ID.
+ * 
+ * @async
+ * @function loadTasksToBoard
+ * @param {string} taskId - Die ID der Aufgabe, die geladen werden soll.
+ * @returns {Promise<Object>} - Ein Promise, das das gefundene Aufgabenobjekt zurückgibt.
+ */
+async function loadTasksToBoard(taskId) {
+    let taskData = await retrievingData('');
+    taskData = Object.entries(taskData[0]).find(([id, findTask]) => findTask.id === taskId);
+    return taskData;
+};
 
 /**
  * Aktualisiert den Zustand der leeren Anzeige für alle Container.
@@ -169,8 +222,11 @@ export const switchCategory = (cardId) => {
     container.appendChild(taskCard);
 
     // Speichere die neue Position der Task-Karte
-    localStorage.setItem(taskCard.id, selectedOption.value);
+    saveTaskPosition(taskCard.id, selectedOption.value);
 
     // Aktualisiere den Zustand der Kategorie
     updateEmptyState();
+    updateTaskStatusInDatabase();
 };
+
+export { updateTaskStatusInDatabase };

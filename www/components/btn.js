@@ -4,7 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     initializeNavigation();
-  }, 1000);
+  }, 100);
 });
 
 
