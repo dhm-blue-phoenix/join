@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
 });
 
-
 /**
  * L d die Task-Status-Daten von der Datenbank.
  * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
@@ -27,8 +26,11 @@ document.addEventListener('DOMContentLoaded', async () => {
  */
 async function loadTaskStatus() {
     try {
-        const data = await retrievingData(`board/taskStatus`);
+        const data = await retrievingData(`board/taskStatus/`);
         taskStatus = data;
+        // console.log('debug/loadTaskStatus - Task-Status in Tabelle:');
+        // console.table(taskStatus);
+        return taskStatus;
     } catch (err) {
         console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
     };
@@ -89,4 +91,4 @@ const clearBoard = () => {
 };
 
 
-export { initTaskBord, clearBoard, taskStatus };
+export { initTaskBord, clearBoard, taskStatus, loadTaskStatus };

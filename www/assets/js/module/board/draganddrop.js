@@ -62,18 +62,51 @@ function drop(event) {
     removeHoverEffect(event.target);
 }
 
-/**
- * Speichert die Position einer Karte im lokalen Speicher.
- * @param {string} cardId - Die ID der Karte.
- * @param {string} containerId - Die ID des Containers, in dem die Karte abgelegt wurde.
- */
+import { loadTaskStatus } from '../../initBoard.js';
+
+
 async function saveTaskPosition(cardId, containerId) {
     const taskId = document.getElementById(cardId).getAttribute('task-id');
     const id = await loadTasksToBoard(taskId);
     await updateData(`board/${id[0]}/boardStatus`, containerId);
+    updateTaskStatusInDatabase();
 };
 
-/** 
+
+async function updateTaskStatusInDatabase() {
+    try {
+        const taskStatusData = await loadTaskStatus();
+        const categoryMapping = {
+            taskToDo: 0,
+            taskInProgress: 1,
+            taskAwaitFeedback: 2,
+            taskDone: 3
+        };
+        taskStatusData.forEach((category) => {
+            const containerId = category.value;
+            const container = document.getElementById(containerId);
+            const currentCardCount = container.querySelectorAll('[id^=taskCardID]').length;
+            // console.log(`Kategorie: ${category.text}, Anzahl Taskcards: ${currentCardCount}`);
+
+            // Aktualisieren Sie data.count in der Datenbank für jede Kategorie
+            const data = {
+                count: currentCardCount,
+                prio: category.prio,
+                text: category.text,
+                value: category.value
+            };
+            const path = `board/taskStatus/${categoryMapping[containerId]}`;
+            updateData(path, data); // Verwenden Sie updateData aus dataResponse.js
+        });
+
+        // ... Rest der Funktion bleibt gleich ...
+    } catch (error) {
+        console.error('Fehler beim Aktualisieren der Datenbank: ', error);
+    }
+}
+
+
+/**
  * Stellt die Positionen aller Karten basierend auf dem lokalen Speicher wieder her.
  */
 export function restoreTaskPositions() {
@@ -193,4 +226,7 @@ export const switchCategory = (cardId) => {
 
     // Aktualisiere den Zustand der Kategorie
     updateEmptyState();
+    updateTaskStatusInDatabase();
 };
+
+export { updateTaskStatusInDatabase };
