@@ -59,7 +59,7 @@ const addEventFromTaskCard = (id) => {
  * If the search input field is not found, it logs a warning message to the console.
  */
 const addEventToSearch = () => {
-    if (!idInputSearch) return console.warn('Id Search not found!');
+    if (!idInputSearch) return;
     idInputSearch.removeEventListener('input', searchToTasks);
     idInputSearch.addEventListener('input', searchToTasks);
 };

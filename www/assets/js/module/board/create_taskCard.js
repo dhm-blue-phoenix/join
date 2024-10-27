@@ -1,6 +1,4 @@
 import { taskStatus } from '../../initBoard.js';
-import { updateTaskStatusInDatabase } from './draganddrop.js';
-
 
 /**
  * Creates a task card element with the given information and appends it to the DOM.
@@ -24,7 +22,6 @@ export const createTaskCard = async (cardId, headline, description, users, categ
     taskCard.appendChild(createPerson(users));
     taskCard.appendChild(createMobile(cardId));
     document.getElementById(taskStatus[0].value).appendChild(taskCard);
-    await updateTaskStatusInDatabase();
 };
 
 

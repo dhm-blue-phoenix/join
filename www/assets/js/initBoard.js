@@ -1,6 +1,6 @@
 import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board/create_taskCard.js';
-import { enableDragAndDrop, restoreTaskPositions, updateEmptyState } from './module/board/draganddrop.js';
+import { enableDragAndDrop, restoreTaskPositions, updateEmptyState, updateTaskStatusInDatabase } from './module/board/draganddrop.js';
 import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEvents.js';
 
 
@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     addTaskNotFoundContainers();
     restoreTaskPositions();  // Positionen wiederherstellen
     updateEmptyState();  // Aktualisiert die Anzeige der leeren Zustände
+    setTimeout( async () => {
+        await updateTaskStatusInDatabase();
+    }, 1000);
 });
 
 /**
@@ -87,7 +90,12 @@ async function initTaskBord() {
  * @returns {void} - The function doesn't return a value, it only clears the board.
  */
 const clearBoard = () => {
-    taskStatus.forEach(id => document.getElementById(id.value).innerHTML = '');
+    taskStatus.forEach(id => {
+        const element = document.getElementById(id.value);
+        if (element){
+            element.innerHTML = '';
+        }
+    });
 };
 
 

@@ -13,7 +13,6 @@ import {
     setBtnPrio
 } from './module/addTask/addEvents.js';
 
-
 const idInputTask = ['title', 'description', 'date', 'category'];
 const userId = loadUserIdFromStored();
 const resetTaskForm = {
@@ -33,7 +32,7 @@ let taskForm = resetTaskForm;
 let taskId;
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     setBtnPrio('medium');
     addEventFromAddTask();
     addEventFromBtnUrgent();
@@ -57,6 +56,7 @@ async function initAddTask(event) {
         await loadDataToForm();
         await uploadData();
         resetForm();
+        // await updateTaskStatusInDatabase();
         loadNextPage();
     } catch (err) {
         console.error(`Error occurred while creating the task! ${err}`);

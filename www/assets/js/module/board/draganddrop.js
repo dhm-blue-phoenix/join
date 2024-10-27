@@ -1,5 +1,6 @@
 import { taskStatus } from '../../initBoard.js';
 import { retrievingData, updateData } from '../dataResponse.js';
+import { loadTaskStatus } from '../../initBoard.js';
 
 /**
  * Aktiviert Drag-and-Drop-Funktionalität für die Container und Karten.
@@ -62,7 +63,6 @@ function drop(event) {
     removeHoverEffect(event.target);
 }
 
-import { loadTaskStatus } from '../../initBoard.js';
 
 
 async function saveTaskPosition(cardId, containerId) {
@@ -99,7 +99,6 @@ async function updateTaskStatusInDatabase() {
             updateData(path, data); // Verwenden Sie updateData aus dataResponse.js
         });
 
-        // ... Rest der Funktion bleibt gleich ...
     } catch (error) {
         console.error('Fehler beim Aktualisieren der Datenbank: ', error);
     }
