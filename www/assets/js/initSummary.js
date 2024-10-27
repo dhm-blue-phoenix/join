@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
   loadTaskStatusPrio()
 });
 
+
+/**
+ * Läd die Task-Status-Daten von der Datenbank.
+ * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
+ * @param {string} path - Der Pfad, von dem die Daten geladen werden sollen.
+ * @returns {Promise<Array>} - Ein Promise, das die gefundene Task-Status-Daten zur ck gibt.
+ * @throws {Error} Wenn ein Fehler bei der Daten bertragung auftritt.
+ */
+
 async function loadTaskStatusFromServer(path) {
   try {
     const data = await retrievingData(path);
@@ -15,6 +24,13 @@ async function loadTaskStatusFromServer(path) {
     console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
   };
 }
+
+/**
+ * Läd die Anzahl der Tasks mit Prio 'urgent' von der Datenbank.
+ * Die Anzahl wird zurückgegeben.
+ * @returns {Promise<number>} - Ein Promise, das die Anzahl der Tasks mit Prio 'urgent' zur ck gibt.
+ * @throws {Error} Wenn ein Fehler bei der Daten bertragung auftritt.
+ */
 
 async function loadTaskStatusPrio() {
   try {
@@ -35,6 +51,17 @@ async function loadTaskStatusPrio() {
   };
 }
 
+/**
+ * Läd die Task-Status-Daten von der Datenbank.
+ * Die Daten werden in einer Array-Struktur gespeichert, die die folgenden Eigenschaften enthält:
+ * - count: Die Anzahl der Tasks mit dem jeweiligen Status
+ * - prio: Der Prio-Wert des Status (low, medium, urgent)
+ * - text: Der Text des Status (z.B. "zu erledigen")
+ * - value: Der Wert des Status (0, 1, 2 oder 3)
+ * Die Funktion gibt ein Promise zur ck, das die gefundene Task-Status-Daten enth lt.
+ * @returns {Promise<Object>} - Ein Promise mit den gefundenen Task-Status-Daten
+ * @throws {Error} Wenn ein Fehler bei der Daten bertragung auftritt.
+ */
 async function loadTaskStatusData() {
   try {
     let totalTaskCount = 0;
@@ -43,9 +70,6 @@ async function loadTaskStatusData() {
       const data = await loadTaskStatusFromServer(`board/taskStatus/${i}`);
       const formattedData = {
         count: data[0],
-        prio: data[1],
-        text: data[2],
-        value: data[3]
       };
       taskStatusData.push(formattedData);
       totalTaskCount += formattedData.count;
