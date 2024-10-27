@@ -1,9 +1,45 @@
-document.addEventListener('DOMContentLoaded', function() {
+import { retrievingData } from './module/dataResponse.js';
+
+document.addEventListener('DOMContentLoaded', function () {
   showGreeting();
   init();
+  loadTaskStatusData();
 });
 
-function init() {
+async function loadTaskStatusFromServer(path) {
+  try {
+    const data = await retrievingData(path);
+    return data;
+  } catch (err) {
+    console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
+  };
+}
+
+async function loadTaskStatusData() {
+  try {
+    let totalTaskCount = 0;
+    const taskStatusData = [];
+    for (let i = 0; i <= 3; i++) {
+      const data = await loadTaskStatusFromServer(`board/taskStatus/${i}`);
+      const formattedData = {
+        count: data[0],
+        prio: data[1],
+        text: data[2],
+        value: data[3]
+      };
+      taskStatusData.push(formattedData);
+      totalTaskCount += formattedData.count;
+    }
+    return { taskStatusData, totalTaskCount };
+  } catch (err) {
+    console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
+  };
+}
+
+async function init() {
+  const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
+  // Hier kannst du die Daten verwenden, wie du möchtest
+
   // Leere den Inhalt der DIV-Container
   document.getElementById('countTasksinToDo').innerHTML = '';
   document.getElementById('countTasksinDone').innerHTML = '';
@@ -12,11 +48,11 @@ function init() {
   document.getElementById('countTasksinAwait').innerHTML = '';
 
   // Fülle die Container mit einer 1
-  document.getElementById('countTasksinToDo').innerHTML = '<h2>1</h2> To-do';
-  document.getElementById('countTasksinDone').innerHTML = '<h2>1</h2> Done';
-  document.getElementById('countTasksinBoard').innerHTML = '<h2>1</h2> Tasks in Board';
-  document.getElementById('countTasksinProgress').innerHTML = '<h2>12</h2> Tasks In Progress';
-  document.getElementById('countTasksinAwait').innerHTML = '<h2>1</h2> Awaiting Feedback';
+  document.getElementById('countTasksinToDo').innerHTML = `<h2>${taskStatusData[0].count}</h2> To-do`;
+  document.getElementById('countTasksinDone').innerHTML = `<h2>${taskStatusData[3].count}</h2> Done`;
+  document.getElementById('countTasksinBoard').innerHTML = `<h2>${totalTaskCount}</h2> Tasks in Board`;
+  document.getElementById('countTasksinProgress').innerHTML = `<h2>${taskStatusData[1].count}</h2> Tasks In Progress`;
+  document.getElementById('countTasksinAwait').innerHTML = `<h2>${taskStatusData[2].count}</h2> Awaiting Feedback`;
 }
 
 /**

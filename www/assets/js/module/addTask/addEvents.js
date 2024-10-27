@@ -6,7 +6,6 @@ import {
     loadNextPage
 } from '../../initAddTask.js';
 
-
 const idFormAddTask = document.getElementById('formAddTask');
 const idBtnAddSubtask = document.getElementById('addSubTask');
 const idBtnUrgent = document.getElementById('urgent');
@@ -16,7 +15,6 @@ const idBtnCancel = document.getElementById('taskbuttonCancel');
 
 
 let lastBtnPrio = 'medium';
-
 
 /**
  * Initializes event listener for form submission.
