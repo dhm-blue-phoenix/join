@@ -7,20 +7,22 @@ import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, a
 let taskStatus = [];
 
 
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadTaskStatus();
-    await initTaskBord();
-    addEventToCloseTaskCard();
-    addEventToLoadAddTask();
-    addEventToSearch();
-    enableDragAndDrop();
-    addTaskNotFoundContainers();
-    restoreTaskPositions();
-    updateEmptyState();
-    setTimeout(async () => {
-        await updateTaskStatusInDatabase();
-    }, 1000);
-});
+if (window.location.pathname === '/board.html') {
+    document.addEventListener('DOMContentLoaded', async () => {        
+        await loadTaskStatus();
+        await initTaskBord();
+        addEventToCloseTaskCard();
+        addEventToLoadAddTask();
+        addEventToSearch();
+        enableDragAndDrop();
+        addTaskNotFoundContainers();
+        restoreTaskPositions();
+        updateEmptyState();
+        setTimeout(async () => {
+            await updateTaskStatusInDatabase();
+        }, 1000);
+    });
+};
 
 
 /**

@@ -12,6 +12,7 @@ const items = {
     prio: 'btn',
     category: 'value',
     subtask: 'forEach',
+    boardStatus: 'status'
 };
 const btnPrios = ['urgent', 'medium', 'low'];
 
@@ -40,7 +41,7 @@ async function loadEditTaskFromUrl() {
  * Retrieves the task ID from the URL parameters.
  * @returns {string|null}
  */
-const getTaskIdFromUrl = () => {
+function getTaskIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get("task");
     return taskId ? taskId : null;
@@ -51,11 +52,11 @@ const getTaskIdFromUrl = () => {
  * Fetches board data from the data source.
  * @returns {Promise<Array>}
  */
-const fetchBoardData = async () => {
+async function fetchBoardData () {
     const boardData = await retrievingData('');
     if (!Array.isArray(boardData)) {
         throw new Error('Board data is not an array!');
-    }
+    };
     return boardData;
 };
 
@@ -66,11 +67,11 @@ const fetchBoardData = async () => {
  * @param {string} taskId - The task ID to find.
  * @returns {Object}
  */
-const extractTaskData = (boardData, taskId) => {
+function extractTaskData(boardData, taskId) {
     const task = boardData.find(task => task.hasOwnProperty(taskId));
     if (!task) {
         throw new Error(`Error with task ID (${taskId}): Task not found!`);
-    }
+    };
     return task[taskId];
 };
 
@@ -79,7 +80,7 @@ const extractTaskData = (boardData, taskId) => {
  * Updates the DOM with the provided task data.
  * @param {Object} taskData - The task data to update the DOM with.
  */
-const updateDomWithTaskData = (taskData) => {
+function updateDomWithTaskData(taskData) {
     updateAssignedTo(taskData);
     idSubmitBtn.textContent = 'Save!';
     updateItems(taskData);
@@ -91,17 +92,33 @@ const updateDomWithTaskData = (taskData) => {
  * Updates the items in the DOM based on the provided task data.
  * @param {Object} taskData - The task data containing information for the items.
  */
-const updateItems = (taskData) => {
+function updateItems(taskData) {
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
-        if (item) {
+        if (item) {            
             updateItem(item, type, taskData[id]);
-        } else if (type === 'btn') {
-            updatePrioBtn(taskData, id);
         } else {
-            console.warn(`Element with ID "${id}" not found`);
-        }
+            switch (type) {
+                case 'btn':
+                    updatePrioBtn(taskData, id);
+                    break;
+                case 'status':
+                    updateStatus(taskData[id]);
+                    break;
+                default:
+                    console.warn(`Element with ID "${id}" not found`);
+            };
+        };
     });
+};
+
+
+/**
+ * Updates the board status in the task form with the provided task data.
+ * @param {Object} taskData - The data used to update the board status.
+ */
+const updateStatus = (taskData) => {
+    taskForm.boardStatus = taskData;
 };
 
 
@@ -111,21 +128,21 @@ const updateItems = (taskData) => {
  * @param {string} type - The type of the update (e.g., 'value', 'textContent').
  * @param {any} data - The data to set in the item.
  */
-const updateItem = (item, type, data) => {
+function updateItem(item, type, data) {
     if (type !== 'forEach') {
         updateText(item, type, data);
     } else {
         data.forEach((sub) => {
             updateSubTask(sub.text);
         });
-    }
+    };
 };
 
 
 /**
  * Updates the cancel button and sets its event listeners.
  */
-const updateCancelBtn = () => {
+function updateCancelBtn() {
     addEventFromCancelBtn();
     idBtnCancel.style.display = 'inline-block';
 };
@@ -150,7 +167,7 @@ const updateSubTask = (text) => {
     if (text !== undefined) {
         document.getElementById('subtask').value = text;
         addSubTaskToList();
-    }
+    };
 };
 
 
@@ -164,7 +181,7 @@ const updatePrioBtn = (taskData, id) => {
     btnPrios.forEach(prio => {
         if (prio === btn) {
             setBtnPrio(prio);
-        }
+        };
     });
 };
 
