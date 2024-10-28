@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
+import { getTaskCategory } from './module/addTask/loadEditTaskFromUrl.js';
+
+
 /**
  * Initializes the add task process.
  * @param {Event} event - The event triggered by form submission.
@@ -52,17 +55,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function initAddTask(event) {
     event.preventDefault();
     try {
-        const tasks = await loadElementByPatch(`users/${userId}`, 4);
-        taskId = tasks.length;
-        await loadDataToForm();
-        await uploadData();
-        resetForm();
-        loadNextPage();
+      const tasks = await loadElementByPatch(`users/${userId}/email`, 4);
+      taskId = tasks.length;
+      console.log(taskId);
+      return
+      await loadDataToForm();
+      const taskData = await loadTaskData(taskId);
+      await uploadData();
+      const taskCategory = getTaskCategory(taskData);
+      console.log(`Task-Kategorie: ${taskCategory}`);
+      console.log(taskCategory);
+      return
+      await switchCategory(taskCategory, taskId);
+      resetForm();
+      loadNextPage();
     } catch (err) {
-        console.error(`Error occurred while creating the task! ${err}`);
+      console.error(`Error occurred while creating the task! ${err}`);
     };
-};
+  }
 
+
+  /**
+ * Verschiebt die Taskcard in die entsprechende Kategorie.
+ * @param {string} category - Die Kategorie, in die die Taskcard verschoben werden soll.
+ * @param {number} taskId - Die ID der Taskcard.
+ */
+function switchCategory(category, taskId) {
+    const taskCards = document.querySelectorAll('.task-card');
+    const taskCard = Array.from(taskCards).find(card => card.dataset.taskId === taskId.toString());
+    if (taskCard) {
+      const categoryElement = document.querySelector(`[data-category="${category}"]`);
+      if (categoryElement) {
+        categoryElement.appendChild(taskCard);
+      } else {
+        console.error(`Category element for ${category} not found.`);
+      }
+    } else {
+      console.error(`Task card with ID ${taskId} not found.`);
+    }
+  }
 
 /**
  * Loads data into the task form.
