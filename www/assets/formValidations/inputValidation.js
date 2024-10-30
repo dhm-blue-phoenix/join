@@ -10,7 +10,7 @@ let message = '';
  * @param {string} text - The text to validate.
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
-const validateText = (text) => {
+const validateTitle = (text) => {
     if (!/^[a-zA-Z\s]+$/.test(text)) {
         return { status: false, msg: 'Title can only contain letters and spaces.' };
     };
@@ -33,9 +33,9 @@ const validateText = (text) => {
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
 const validateDescription = (description) => {
-    if (description === '') return { status: true };
-    if (!/^[\w\s.,!?'"-]{10,500}$/.test(description)) {
-        return { status: false, msg: 'Description must be between 10 and 500 characters and can include letters, numbers, and certain punctuation.' };
+    if (description.length === 0) return { status: true };
+    if (!/^[\w\s.,!?'"-]{1,500}$/.test(description)) {
+        return { status: false, msg: 'Description must be between 1 and 500 characters and can include letters, numbers, and certain punctuation.' };
     };
     return { status: true };
 };
@@ -153,7 +153,7 @@ const validateField = (fieldName, value) => {
     value = value.trim();
     switch (fieldName) {
         case 'title':
-            return validateText(value);
+            return validateTitle(value);
         case 'des':
             return validateDescription(value);
         case 'name':

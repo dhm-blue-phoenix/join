@@ -40,6 +40,7 @@ const createListText = (text, number) => {
 const createListOptions = (number) => {
     const listOptions = document.createElement('div');
     listOptions.className = 'list-item-option';
+    listOptions.appendChild(createListBtn('edit.svg', number));
     listOptions.appendChild(createListBtn('delete.svg', number));
     return listOptions;
 };

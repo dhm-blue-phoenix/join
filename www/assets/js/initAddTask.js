@@ -9,6 +9,7 @@ import {
     addEventFromBtnMedium,
     addEventFromBtnLow,
     addEventFromAddSubTask,
+    addEventFromEditListSubTask,
     addEventFromDelListSubTask,
     setBtnPrio
 } from './module/addTask/addEventsToAddTask.js';
@@ -168,6 +169,7 @@ const renderList = (type) => {
     const items = taskForm[type];
     if (!items) return;
     createNewListItem(type, items);
+    setEditSubtask();
     setDelSubtask();
 };
 
@@ -185,6 +187,17 @@ const createNewListItem = (type, items) => {
             createListItem(type, text, number++);
         };
     });
+};
+
+
+/**
+ * Sets the edit functionality for subtasks.
+ */
+const setEditSubtask = () => {
+    for (let i = 0; i < (taskForm.subtask.length - 1); i++) {
+        let number = (i + 1);
+        addEventFromEditListSubTask(number);
+    };
 };
 
 
@@ -210,6 +223,23 @@ const deleteItem = (event) => {
     taskForm[type].splice(key, 1);
     renderList(type);
 };
+
+
+/**
+ * Edit a task item.
+ * @param {Event} event - The event triggered by clicking the edit button.
+ */
+const editItem = (event) => {
+    console.warn('Edit Subtask In entwicklung!');
+    
+    const target = event.currentTarget;
+    const key = target.getAttribute('key');
+    const type = target.getAttribute('type');
+
+    return console.log('editSubtask', key, type);
+    renderList(type);
+};
+// &#x2713;
 
 
 /**
@@ -249,6 +279,7 @@ const loadNextPage = () => {
 export {
     initAddTask,
     addSubTaskToList,
+    editItem,
     deleteItem,
     taskForm,
     loadNextPage

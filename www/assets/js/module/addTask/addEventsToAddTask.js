@@ -1,6 +1,7 @@
 import {
     initAddTask,
     addSubTaskToList,
+    editItem,
     deleteItem,
     taskForm,
     loadNextPage
@@ -75,6 +76,16 @@ const addEventFromDelListAssigned = (number) => {
 
 
 /**
+ * Initializes event listener for editing a subtask from list.
+ * @param {number} number - The index number of the subtask.
+ */
+const addEventFromEditListSubTask = (number) => {
+    const idBtmSubtaskListDel = document.getElementById('list_subtask_btn_edit' + number);
+    idBtmSubtaskListDel.removeEventListener('click', editItem);
+    idBtmSubtaskListDel.addEventListener('click', editItem);
+};
+
+/**
  * Initializes event listener for deleting a subtask from list.
  * @param {number} number - The index number of the subtask.
  */
@@ -83,7 +94,6 @@ const addEventFromDelListSubTask = (number) => {
     idBtmSubtaskListDel.removeEventListener('click', deleteItem);
     idBtmSubtaskListDel.addEventListener('click', deleteItem);
 };
-
 
 /**
  * Initializes event listener for cancel button click.
@@ -147,6 +157,7 @@ export {
     addEventFromBtnLow,
     addEventFromAddSubTask,
     addEventFromDelListAssigned,
+    addEventFromEditListSubTask,
     addEventFromDelListSubTask,
     addEventFromCancelBtn,
     setBtnPrio
