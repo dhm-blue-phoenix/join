@@ -12,9 +12,8 @@ import {
     addEventFromDelListSubTask,
     setBtnPrio
 } from './module/addTask/addEventsToAddTask.js';
-import { initValidation } from '../formValidations/inputValidation.js';
 import { formTesting } from '../formValidations/addTask/testing.js';
-
+import { validateTaskForm } from './module/validation.js';
 
 const idInputTask = ['title', 'description', 'date', 'category'];
 const userId = loadUserIdFromStored();
@@ -29,13 +28,13 @@ const resetTaskForm = {
     subtask: ['none'],
     boardStatus: 'taskToDo'
 };
-const msgErrIds = {
-    'title': 'msgErrTitle',
-    'description': 'msgErrDes',
-    'date': 'msgErrDate',
-    'category': 'msgErrCategory'
-};
-const testing = true;
+const fieldsToValidate = [
+    { id: 'title', type: 'title', value: '' },
+    { id: 'description', type: 'des', value: '' },
+    { id: 'date', type: 'date', value: '' },
+    { id: 'category', type: 'category', value: '' }
+];
+const testing = false;
 
 
 let taskForm = resetTaskForm;
@@ -65,12 +64,7 @@ async function initAddTask(event) {
         const tasks = await loadElementByPatch(`users/${userId}`, 4);
         taskId = tasks.length;
         await loadDataToForm();
-        const fieldsToValidate = [
-            { id: 'title', type: 'title', value: taskForm['title'] },
-            { id: 'description', type: 'des', value: taskForm['description'] },
-            { id: 'date', type: 'date', value: taskForm['date'] },
-            { id: 'category', type: 'category', value: taskForm['category'] }
-        ];
+        loadDataToValidateFields();
         if (validateTaskForm(fieldsToValidate)) {
             if (testing) return console.warn('Task wurde erfolgreich erstellt!');
             await uploadData();
@@ -80,56 +74,6 @@ async function initAddTask(event) {
     } catch (err) {
         console.error(`Error occurred while creating the task: ${err}`);
     };
-};
-
-
-/**
- * Validates a list of form fields.
- *
- * This function checks whether all specified fields are valid
- * by calling the `validateField` function for each field.
- *
- * @param {Array<{ id: string, type: string, value: any }>} fieldsToValidate - 
- * An array of objects representing the fields to be validated.
- * Each object should have the following properties:
- *   - id: The ID of the HTML element.
- *   - type: The type of the field (e.g., 'text', 'email').
- *   - value: The current value of the field.
- *
- * @returns {boolean} Returns true if all fields are valid, otherwise false.
- */
-const validateTaskForm = (fieldsToValidate) => {    
-    const isValid = fieldsToValidate.every(({ id, type, value }) => {
-        const valid = validateField(id, type, value);
-        return valid;
-    });
-    return isValid;
-};
-
-
-/**
- * Validates a single form field.
- *
- * This function checks the value of a field based on its type
- * and sets the border color of the field to red if the validation fails.
- *
- * @param {string} fieldId - The ID of the HTML element to be validated.
- * @param {string} type - The type of the field (e.g., 'text', 'email').
- * @param {any} value - The current value of the field to be validated.
- *
- * @returns {boolean} Returns true if the field is valid, otherwise false.
- */
-const validateField = (fieldId, type, value) => {
-    document.getElementById(fieldId).style.borderColor = '';
-    document.getElementById(msgErrIds[fieldId]).textContent = '';
-    const result = initValidation(type, value);
-    if (!result.status) {
-        document.getElementById(fieldId).style.borderColor = 'red';
-        document.getElementById(msgErrIds[fieldId]).style.display = 'block';
-        document.getElementById(msgErrIds[fieldId]).textContent = result.msg;        
-        return false;
-    };
-    return true;
 };
 
 
@@ -150,6 +94,22 @@ const loadDataToForm = async () => {
     } catch (err) {
         console.error('Error occurred while loading tasks:', err);
     };
+};
+
+
+/**
+ * Loads data from the `taskForm` object into the `fieldsToValidate` array.
+ *
+ * This function iterates over each field in the `fieldsToValidate` array and assigns
+ * the corresponding value from the `taskForm` based on the field's ID.
+ * The `value` property of each field in `fieldsToValidate` is updated accordingly.
+ *
+ * @returns {void} This function does not return a value.
+ */
+const loadDataToValidateFields = () => {
+    fieldsToValidate.forEach(field => {
+        field.value = taskForm[field.id];
+    });
 };
 
 

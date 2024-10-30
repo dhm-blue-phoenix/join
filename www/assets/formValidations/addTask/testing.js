@@ -1,3 +1,6 @@
+const form = document.getElementById('formAddTask');
+
+
 let testingElements = {};
 
 
@@ -45,7 +48,14 @@ async function formTesting() {
                 element.textContent = value
         );
     });
+    triggerSubmitEvent();
     console.log('%cForm Testing!', 'color: yellow; font-weight: bold; font-size: 16px');
+};
+
+
+const triggerSubmitEvent = () => {
+    const event = new Event('submit', { bubbles: true, cancelable: true }); // Erstellen eines neuen Submit-Events
+    form.dispatchEvent(event); // Auslösen des Submit-Events
 };
 
 

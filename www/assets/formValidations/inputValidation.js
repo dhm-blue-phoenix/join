@@ -123,7 +123,15 @@ const validateDate = (date) => {
 };
 
 
-// new
+/**
+ * Validates the selected category.
+ *
+ * This function checks if the provided category is either 'User Story'
+ * or 'Technical Task'. If the category is valid, it returns a success status.
+ *
+ * @param {string} category - The category to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
 const validateCategory = (category) => {
     if (category === 'User Story' || category === 'Technical Task') {
         return { status: true };
