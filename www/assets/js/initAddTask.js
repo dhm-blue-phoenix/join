@@ -12,6 +12,8 @@ import {
     addEventFromDelListSubTask,
     setBtnPrio
 } from './module/addTask/addEventsToAddTask.js';
+import { initValidation } from '../formValidations/inputValidation.js';
+import { formTesting } from '../formValidations/addTask/testing.js';
 
 
 const idInputTask = ['title', 'description', 'date', 'category'];
@@ -27,6 +29,7 @@ const resetTaskForm = {
     subtask: ['none'],
     boardStatus: 'taskToDo'
 };
+const testing = true;
 
 
 let taskForm = resetTaskForm;
@@ -42,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addEventFromAddSubTask();
     renderUsers();
     loadEditTaskFromUrl();
+    testing && formTesting();
 });
 
 
@@ -55,12 +59,65 @@ async function initAddTask(event) {
         const tasks = await loadElementByPatch(`users/${userId}`, 4);
         taskId = tasks.length;
         await loadDataToForm();
-        await uploadData();
-        resetForm();
-        loadNextPage();
+        const fieldsToValidate = [
+            { id: 'title', type: 'text', value: taskForm['title'] },
+            { id: 'description', type: 'des', value: taskForm['description'] }
+        ];
+        if (validateTaskForm(fieldsToValidate)) {
+            if (testing) return console.warn('Task wurde erfolgreich erstellt!');
+            await uploadData();
+            resetForm();
+            loadNextPage();
+        };
     } catch (err) {
-        console.error(`Error occurred while creating the task! ${err}`);
+        console.error(`Error occurred while creating the task: ${err}`);
     };
+};
+
+
+/**
+ * Validates a list of form fields.
+ *
+ * This function checks whether all specified fields are valid
+ * by calling the `validateField` function for each field.
+ *
+ * @param {Array<{ id: string, type: string, value: any }>} fieldsToValidate - 
+ * An array of objects representing the fields to be validated.
+ * Each object should have the following properties:
+ *   - id: The ID of the HTML element.
+ *   - type: The type of the field (e.g., 'text', 'email').
+ *   - value: The current value of the field.
+ *
+ * @returns {boolean} Returns true if all fields are valid, otherwise false.
+ */
+const validateTaskForm = (fieldsToValidate) => {
+    const isValid = fieldsToValidate.every(({ id, type, value }) => {
+        const valid = validateField(id, type, value);
+        return valid;
+    });
+    return isValid;
+};
+
+
+/**
+ * Validates a single form field.
+ *
+ * This function checks the value of a field based on its type
+ * and sets the border color of the field to red if the validation fails.
+ *
+ * @param {string} fieldId - The ID of the HTML element to be validated.
+ * @param {string} type - The type of the field (e.g., 'text', 'email').
+ * @param {any} value - The current value of the field to be validated.
+ *
+ * @returns {boolean} Returns true if the field is valid, otherwise false.
+ */
+const validateField = (fieldId, type, value) => {
+    const result = initValidation(type, value);
+    if (!result.status) {
+        document.getElementById(fieldId).style.borderColor = 'red';
+        return false;
+    };
+    return true;
 };
 
 
