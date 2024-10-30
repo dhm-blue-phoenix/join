@@ -118,6 +118,14 @@ main {
   margin: 0;
 }
 
+.msg-err {
+  color: red;
+  font-size: 15px;
+  padding: 8px;
+  margin-bottom: -31px;
+  display: none;
+}
+
 @media (max-width: 1300px) {
   .task {
     height: 500px;

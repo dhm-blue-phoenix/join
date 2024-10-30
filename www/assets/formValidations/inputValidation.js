@@ -1,33 +1,152 @@
 let message = '';
 
 
-const validateText = (text) => /^[a-zA-Z0-9\s]+$/.test(text);
-const validateDescription = (description) => /^[\w\s.,!?'"-]{10,500}$/.test(description);
-const validateName = (name) => /^[a-zA-Z\s]+$/.test(name);
-const validateEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|de)$/.test(email);
-const validatePassword = (password) => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
-const validateTel = (tel) => /^\d{10,15}$/.test(tel);
+/**
+ * Validates a text input.
+ *
+ * This function checks if the text contains only letters and spaces,
+ * and whether it meets the length requirements of 5 to 20 characters.
+ *
+ * @param {string} text - The text to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validateText = (text) => {
+    if (!/^[a-zA-Z\s]+$/.test(text)) {
+        return { status: false, msg: 'Title can only contain letters and spaces.' };
+    };
+    if (text.length < 5 || text.length > 20) {
+        return { status: false, msg: 'Title must be between 5 and 20 characters long.' };
+    };
+    return { status: true };
+};
+
+
+
+/**
+ * Validates a description input.
+ *
+ * This function checks if the description is empty and,
+ * if not, verifies that it is between 10 and 500 characters long
+ * and contains only valid characters.
+ *
+ * @param {string} description - The description to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validateDescription = (description) => {
+    if (description === '') return { status: true };
+    if (!/^[\w\s.,!?'"-]{10,500}$/.test(description)) {
+        return { status: false, msg: 'Description must be between 10 and 500 characters and can include letters, numbers, and certain punctuation.' };
+    };
+    return { status: true };
+};
+
+
+/**
+ * Validates a name input.
+ *
+ * This function checks if the name contains only letters and spaces.
+ *
+ * @param {string} name - The name to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validateName = (name) => {
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        return { status: false, msg: 'Name can only contain letters and spaces.' };
+    };
+    return { status: true };
+};
+
+
+/**
+ * Validates an email address.
+ *
+ * This function checks if the email is in a valid format
+ * (e.g., example@example.com).
+ *
+ * @param {string} email - The email to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validateEmail = (email) => {
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|de|at|org)$/.test(email)) {
+        return { status: false, msg: 'Email must be a valid format (e.g., example@example.com).' };
+    };
+    return { status: true };
+};
+
+
+/**
+ * Validates a password.
+ *
+ * This function checks if the password meets the required criteria:
+ * at least 8 characters long, includes letters, numbers, and special characters.
+ *
+ * @param {string} password - The password to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validatePassword = (password) => {
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+        return { status: false, msg: 'Password must be at least 8 characters long and include letters, numbers, and special characters.' };
+    };
+    return { status: true };
+};
+
+
+/**
+ * Validates a telephone number.
+ *
+ * This function checks if the telephone number is between 10 and 15 digits long.
+ *
+ * @param {string} tel - The telephone number to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validateTel = (tel) => {
+    if (!/^\d{10,15}$/.test(tel)) {
+        return { status: false, msg: 'Telephone must be between 10 and 15 digits long.' };
+    };
+    return { status: true };
+};
+
+
+/**
+ * Validates that the selected date is not in the past.
+ *
+ * @param {string} date - The date to validate in 'YYYY-MM-DD' format.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the status and message.
+ */
+const validateDate = (date) => {
+    const selectedDate = new Date(date);
+    const today = new Date();
+    if (selectedDate < today) {
+        return { status: false, msg: 'Date must not be in the past.' };
+    };
+    return { status: true };
+};
+
+
+// new
+const validateCategory = (category) => {
+    if (category === 'User Story' || category === 'Technical Task') {
+        return { status: true };
+    };
+    return { status: false, msg: 'User Story or Technical Task must be selected.' };;
+};
 
 
 /**
  * Validates the value of a given field based on its name.
  *
- * This function determines the appropriate validation function to call
- * based on the field name provided. It returns the result of the validation.
- *
  * @param {string} fieldName - The name of the field to validate. 
- * Possible values include 'text', 'des', 'name', 'email', 'pw', and 'tel'.
+ * Possible values include 'text', 'des', 'name', 'email', 'pw', 'tel', and 'date'.
  * @param {any} value - The value of the field that needs to be validated.
  *
- * @returns {boolean} Returns true if the value is valid; otherwise, false.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and a message.
  */
 const validateField = (fieldName, value) => {
     value = value.trim();
     switch (fieldName) {
-        case 'text':
+        case 'title':
             return validateText(value);
         case 'des':
-            if(value === '') return true;
             return validateDescription(value);
         case 'name':
             return validateName(value);
@@ -37,8 +156,12 @@ const validateField = (fieldName, value) => {
             return validatePassword(value);
         case 'tel':
             return validateTel(value);
+        case 'date':
+            return validateDate(value);
+        case 'category':
+            return validateCategory(value);
         default:
-            return true;
+            return { status: true, msg: '' };
     };
 };
 
@@ -46,23 +169,19 @@ const validateField = (fieldName, value) => {
 /**
  * Initializes the validation process for a given field.
  *
- * This function calls the `validateField` function to check the validity
- * of the field's value and sets an error message if the validation fails.
- *
  * @param {string} field - The name of the field to validate.
  * @param {string} string - The value to validate for the specified field.
  *
- * @returns {{status: boolean, msg: string}} An object containing the validation
- * status and a message. The `status` is true if the value is valid, 
- * and `msg` contains an error message if it is invalid.
+ * @returns {{status: boolean, msg: string}} An object containing the validation status and a message.
  */
 function initValidation(field, string) {
-    message = '';
-    const status = validateField(field, string);
-    status || (message = 'Ungültige Eingabe!');
+    const { status, msg } = validateField(field, string);
+    if (!status) {
+        message = msg;
+    };
     return {
-        'status': status,
-        'msg': message
+        status,
+        msg: message
     };
 };
 

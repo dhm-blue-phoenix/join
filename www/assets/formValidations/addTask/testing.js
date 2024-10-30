@@ -40,7 +40,7 @@ async function formTesting() {
     Object.entries(testingElements).forEach(([id, value]) => {
         const element = document.getElementById(id);
         element && (
-            ['INPUT', 'SELECT'].includes(element.tagName) ?
+            ['INPUT', 'SELECT'].includes(element.tagName) ?            
                 element.value = value :
                 element.textContent = value
         );

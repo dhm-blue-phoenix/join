@@ -29,6 +29,12 @@ const resetTaskForm = {
     subtask: ['none'],
     boardStatus: 'taskToDo'
 };
+const msgErrIds = {
+    'title': 'msgErrTitle',
+    'description': 'msgErrDes',
+    'date': 'msgErrDate',
+    'category': 'msgErrCategory'
+};
 const testing = true;
 
 
@@ -60,8 +66,10 @@ async function initAddTask(event) {
         taskId = tasks.length;
         await loadDataToForm();
         const fieldsToValidate = [
-            { id: 'title', type: 'text', value: taskForm['title'] },
-            { id: 'description', type: 'des', value: taskForm['description'] }
+            { id: 'title', type: 'title', value: taskForm['title'] },
+            { id: 'description', type: 'des', value: taskForm['description'] },
+            { id: 'date', type: 'date', value: taskForm['date'] },
+            { id: 'category', type: 'category', value: taskForm['category'] }
         ];
         if (validateTaskForm(fieldsToValidate)) {
             if (testing) return console.warn('Task wurde erfolgreich erstellt!');
@@ -90,7 +98,7 @@ async function initAddTask(event) {
  *
  * @returns {boolean} Returns true if all fields are valid, otherwise false.
  */
-const validateTaskForm = (fieldsToValidate) => {
+const validateTaskForm = (fieldsToValidate) => {    
     const isValid = fieldsToValidate.every(({ id, type, value }) => {
         const valid = validateField(id, type, value);
         return valid;
@@ -112,9 +120,13 @@ const validateTaskForm = (fieldsToValidate) => {
  * @returns {boolean} Returns true if the field is valid, otherwise false.
  */
 const validateField = (fieldId, type, value) => {
+    document.getElementById(fieldId).style.borderColor = '';
+    document.getElementById(msgErrIds[fieldId]).textContent = '';
     const result = initValidation(type, value);
     if (!result.status) {
         document.getElementById(fieldId).style.borderColor = 'red';
+        document.getElementById(msgErrIds[fieldId]).style.display = 'block';
+        document.getElementById(msgErrIds[fieldId]).textContent = result.msg;        
         return false;
     };
     return true;
