@@ -2,6 +2,7 @@ import { loadUserIdFromStored, extractInitials } from '../../modules.js';
 import { retrievingData } from '../../dataResponse.js';
 
 
+const OwnCard = document.getElementById('OwnCard');
 const idUserCard = document.getElementById('userCard');
 const idUserShort = document.getElementById('userShort');
 const idUserName = document.getElementById('userName');
@@ -17,6 +18,7 @@ async function showUserCard() {
     try {
         const [short, name, email] = await fetchUserData();
         if (name === 'Guest') {
+            OwnCard.style.display = 'none';
             idUserCard.style.display = 'none';
             return;
         };

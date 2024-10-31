@@ -45,6 +45,7 @@ export function showContactDetails(cardId, personName, personEmail, personTel, s
     updateContactDetails(personName, personEmail, personTel, shortcutBackColor);
     setBtnAttribute(personEmail);
     addEventFromBtn();
+    showContactCard();
     deselectPreviousCard(card);
     showMobileContactCard();
 }
@@ -88,13 +89,24 @@ window.addEventListener('load', () => {
  */
 const showMobileContactCard = () => {
     if (screenWidth <= 1300) {
-        idContactCard.style.display = 'block';
+        idContactCard.style.display = 'flex';
+        idContactCard.style.position = 'fixed';
         idContactCard.style.animation = 'slideIn 0.3s forwards';
         idBtnEditDelete.style.animation = 'slideIn 0.3s forwards';
         addEventFromHideCardArrow();
     }
 };
 
+const showContactCard = () => {
+    idContactCard.style.right = '0'; // Container wieder rechts außerhalb des Bildschirms positionieren
+    idContactCard.style.animation = 'none'; // Animation zurücksetzen
+    idContactCard.style.position = 'relative';
+    idContactCard.style.display = 'flex';
+    setTimeout(() => {
+        idContactCard.style.animation = 'slideIn 0.3s forwards'; // Animation erneut setzen
+        idBtnEditDelete.style.animation = 'slideIn 0.3s forwards';
+    }, 0);
+};
 
 /**
  * Hides the mobile contact card.

@@ -82,7 +82,6 @@ const attachCardEvents = () => {
     });
 };
 
-
 /**
  * Handles click events on contact cards.
  * @param {Event} event - The click event object.

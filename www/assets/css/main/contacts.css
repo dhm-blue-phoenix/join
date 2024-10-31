@@ -600,9 +600,20 @@ body {
   display: none;
 }
 #showContactcard {
-  position: relative; /* Standardpositionierung */
-  right: 0;
-  display: flex !important; /* Immer sichtbar */
+  position: fixed; /* Wichtig, um das Element von außerhalb des Bildschirms zu bewegen */
+  right: -100%; /* Standardpositionierung rechts außerhalb des Bildschirms */
+  display: none; /* Standardmäßig nicht sichtbar */
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideOutToRight {

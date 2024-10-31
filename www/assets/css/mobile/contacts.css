@@ -323,8 +323,8 @@
   
     .addNewContact {
       position: fixed;
-      bottom: 103px;
-      right: 32px;
+      bottom: 100px;
+      right: 15px;
       width: 56px;
       height: 56px;
       border-radius: 46px;
