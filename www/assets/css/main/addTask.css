@@ -248,18 +248,31 @@
   color: var(--back-color02);
 }
 
-.layout button:hover {
-  background-color: #2ba0d2;
-  color: #fff;
-}
-
 .layout button p:hover {
   color: var(--back-color01);
 }
 
-.layout .activBtnPrio {
-  background-color: #2a3647;
+/* .layout .activBtnPrio {
+  background-color: #ffba3a;
   color: #fff;
+} */
+
+.layout .low {
+  background-color: #48f731;
+  color: #fff;
+}
+.layout .medium {
+  background-color: #ffba3a;
+  color: #fff;
+}
+.layout .urgent {
+  background-color: #f73131;
+  color: #fff;
+}
+
+.layout button:hover {
+  box-shadow: #00000062 0px 2px 3px 0px;
+  transform: none;
 }
 
 .subtask {

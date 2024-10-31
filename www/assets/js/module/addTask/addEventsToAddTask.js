@@ -127,26 +127,45 @@ const handleLowClick = () => {
     setBtnPrio('low');
 };
 
-
 /**
  * Sets priority button styling and task form priority.
  * @param {string} prio - Priority value ('urgent', 'medium', 'low').
  */
 const setBtnPrio = (prio) => {
-    lastBtn();
-    document.getElementById(prio).classList.add('activBtnPrio');
-    document.getElementById(prio).disabled = true;
+    lastBtn(prio);
+    const prioButton = document.getElementById(prio);
+    const imgElement = prioButton.querySelector('img');
+    if (imgElement) {
+        imgElement.remove();
+    }
+    const newImgElement = document.createElement('img');
+    newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
+    prioButton.appendChild(newImgElement);
+    prioButton.classList.add(prio);
+    prioButton.disabled = true;
     taskForm.prio = prio;
     lastBtnPrio = prio;
 };
 
+// newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
 
 /**
  * Resets styling and enables the last used priority button.
  */
-const lastBtn = () => {
-    document.getElementById(lastBtnPrio).classList.remove('activBtnPrio');
-    document.getElementById(lastBtnPrio).disabled = false;
+const lastBtn = (prio) => {
+    const lastButton = document.getElementById(lastBtnPrio);
+    if (lastButton) {
+        const imgElement = lastButton.querySelector('img');
+        if (imgElement) {
+            imgElement.remove();
+        }
+        const newImgElement = document.createElement('img');
+        newImgElement.src = `./resources/symbols/Prio${lastBtnPrio}.png`;
+        newImgElement.alt = '';
+        lastButton.appendChild(newImgElement);
+        lastButton.classList.remove(lastBtnPrio);
+        lastButton.disabled = false;
+    }
 };
 
 
