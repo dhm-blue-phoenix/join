@@ -1,10 +1,10 @@
 @media (max-width: 1300px) {
+  #subtask-list {
+    height: auto;
+}
   .buttonsdivobile {
     display: flex;
     gap: 4px;
-  }
-  .list-item {
-    width: auto;
   }
   .personCardsmall {
     background-color: var(--back-color01);
@@ -295,7 +295,7 @@
   .footercontent {
     flex-direction: column;
     box-shadow: #00000062 0px -1px 7px 0px;
-    padding: 12px 0; 
+    padding: 6px 0; 
   }
 }
 
