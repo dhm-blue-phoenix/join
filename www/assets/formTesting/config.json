@@ -1,0 +1,16 @@
+{
+    "addTask": {
+        "title": "Testing Task",
+        "description": "testing des",
+        "date": "2024-02-22",
+        "category": "User Story"
+    },
+    "contact": {
+        "addPersonName": "Test Contact Name",
+        "addPersonEmail": "email@d",
+        "addPersonTel": "103892",
+        "editPersonName": "Edit Name",
+        "editPersonEmail": "edEmail@d",
+        "editPersonTel": "21222"
+    }
+}

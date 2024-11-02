@@ -41,8 +41,11 @@
         <div class="personShortcut" style="margin-bottom: 75px;" id="editPersonShortcut">SM</div>
         <form id="editContactForm" class="editpersoninput">
           <input type="text" id="editPersonName" required>
+          <span id="msgErrEditName" class="msg-err"></span>
           <input type="email" id="editPersonEmail" required>
+          <span id="msgErrEditEmail" class="msg-err"></span>
           <input type="number" id="editPersonTel" required>
+          <span id="msgErrEditTel" class="msg-err"></span>
           <div class="bottombuttons">
             <button class="deletebtn" type="reset">Delete</button>
             <button class="savebtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Save</button>
@@ -69,8 +72,11 @@
         <img class="usericon" src="./resources/symbols/usericon.png" alt="">
         <form id="addContactForm" class="addpersoninput">
           <input type="text" id="addPersonName" placeholder="Name" required>
+          <span id="msgErrAddName" class="msg-err"></span>
           <input type="email" id="addPersonEmail" placeholder="Email" required>
+          <span id="msgErrAddEmail" class="msg-err"></span>
           <input type="number" id="addPersonTel" placeholder="Phone" required>
+          <span id="msgErrAddTel" class="msg-err"></span>
           <div class="bottombuttons">
             <button class="cancelbtn" type="reset">Cancel &#128473</button>
             <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create

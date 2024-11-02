@@ -13,7 +13,7 @@ import {
     addEventFromDelListSubTask,
     setBtnPrio
 } from './module/addTask/addEventsToAddTask.js';
-import { formTesting } from '../formValidations/addTask/testing.js';
+import { formTesting } from '../formTesting/testing.js';
 import { validateTaskForm } from './module/validation.js';
 
 const idInputTask = ['title', 'description', 'date', 'category'];
@@ -65,7 +65,7 @@ async function initAddTask(event) {
         const tasks = await loadElementByPatch(`users/${userId}`, 4);
         taskId = tasks.length;
         await loadDataToForm();
-        loadDataToValidateFields();
+        loadDataToValidateFields();        
         if (validateTaskForm(fieldsToValidate)) {
             if (testing) return console.warn('Task wurde erfolgreich erstellt!');
             await uploadData();
@@ -90,7 +90,7 @@ const loadDataToForm = async () => {
         const taskIds = await loadTaskData();
         const ids = Array.from(taskIds).sort((a, b) => a - b);
         let nextId = 0;
-        while (ids.includes(String(nextId))) { nextId++; }
+        while (ids.includes(String(nextId))) { nextId++; };
         taskForm.id = String(nextId);
     } catch (err) {
         console.error('Error occurred while loading tasks:', err);

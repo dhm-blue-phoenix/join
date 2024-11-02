@@ -1,4 +1,4 @@
-import { initValidation } from '../../formValidations/inputValidation.js';
+import { initValidation } from '../../formTesting/inputValidation.js';
 
 
 const msgErrIds = {
@@ -6,7 +6,12 @@ const msgErrIds = {
     'title': 'msgErrTitle',
     'description': 'msgErrDes',
     'date': 'msgErrDate',
-    'category': 'msgErrCategory'
+    'addPersonName': 'msgErrAddName',
+    'addPersonEmail': 'msgErrAddEmail',
+    'addPersonTel': 'msgErrAddTel',
+    'editPersonName': 'msgErrEditName',
+    'editPersonEmail': 'msgErrEditEmail',
+    'editPersonTel': 'msgErrEditTel'
 };
 
 
@@ -49,8 +54,8 @@ const validateTaskForm = (fieldsToValidate) => {
  */
 const resetValidateField = (fields) => {
     fields.forEach(({ id }) => {
-        const element = document.getElementById(id);
-        const msg = document.getElementById(msgErrIds[id]);
+        const element = document.getElementById(id);        
+        const msg = document.getElementById(msgErrIds[id]);        
         if(!element || !msg) return;
         element.style.borderColor = '';
         msg.textContent = '';

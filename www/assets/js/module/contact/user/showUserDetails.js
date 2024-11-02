@@ -2,6 +2,9 @@ import { fetchUserData } from './showUserCard.js';
 import { showContactDetails } from '../showCardDetails.js';
 
 
+let showUser = false;
+
+
 /**
  * Fetches user data and displays user contact details.
  * @async
@@ -11,6 +14,7 @@ import { showContactDetails } from '../showCardDetails.js';
  */
 async function showUserDetails() {
     try {
+        showUser = true;
         const [short, name, email] = await fetchUserData();
         showContactDetails('user', name, email, '', short);
     } catch (err) {
@@ -19,4 +23,4 @@ async function showUserDetails() {
 };
 
 
-export { showUserDetails };
+export { showUserDetails, showUser };

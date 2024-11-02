@@ -11,11 +11,11 @@ let message = '';
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
 const validateTitle = (text) => {
-    if (!/^[a-zA-Z\s]+$/.test(text)) {
-        return { status: false, msg: 'Title can only contain letters and spaces.' };
+    if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(text)) {
+        return { status: false, msg: 'Title can only contain letters, including German characters, spaces, and hyphens.' };
     };
-    if (text.length < 5 || text.length > 20) {
-        return { status: false, msg: 'Title must be between 5 and 20 characters long.' };
+    if (text.length < 5 || text.length > 60) {
+        return { status: false, msg: 'Title must be between 5 and 60 characters long.' };
     };
     return { status: true };
 };
@@ -34,8 +34,8 @@ const validateTitle = (text) => {
  */
 const validateDescription = (description) => {
     if (description.length === 0) return { status: true };
-    if (!/^[\w\s.,!?'"-]{1,500}$/.test(description)) {
-        return { status: false, msg: 'Description must be between 1 and 500 characters and can include letters, numbers, and certain punctuation.' };
+    if (!/^[\w\s.,!?'"äöüÄÖÜß-]{1,500}$/.test(description)) {
+        return { status: false, msg: 'Description must be between 1 and 500 characters and can include letters, numbers, spaces, and certain punctuation.' };
     };
     return { status: true };
 };
@@ -50,8 +50,8 @@ const validateDescription = (description) => {
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
 const validateName = (name) => {
-    if (!/^[a-zA-Z\s]+$/.test(name)) {
-        return { status: false, msg: 'Name can only contain letters and spaces.' };
+    if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(name)) {
+        return { status: false, msg: 'Name can only contain letters, including German characters, spaces, and hyphens.' };
     };
     return { status: true };
 };
@@ -136,7 +136,7 @@ const validateCategory = (category) => {
     if (category === 'User Story' || category === 'Technical Task') {
         return { status: true };
     };
-    return { status: false, msg: 'User Story or Technical Task must be selected.' };;
+    return { status: false, msg: 'User Story or Technical Task must be selected.' };
 };
 
 

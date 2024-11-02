@@ -1,7 +1,10 @@
 import { showUserCard } from './module/contact/user/showUserCard.js';
+import { showUser } from './module/contact/user/showUserDetails.js';
 import { showContactCards } from './module/contact/showCards.js';
 import { editContact } from './module/contact/editCard.js';
 import { addContact } from './module/contact/addCard.js';
+import { formTesting } from '../formTesting/testing.js';
+import { validateTaskForm } from './module/validation.js';
 
 
 const idEditPersonShortcut = document.getElementById('editPersonShortcut');
@@ -22,6 +25,17 @@ const shortcutColors = [
     "#FFB833",
     "#8E33FF"
 ];
+const fieldsToValidateAdd = [
+    { id: 'addPersonName', type: 'name', value: '' },
+    { id: 'addPersonEmail', type: 'email', value: '' },
+    { id: 'addPersonTel', type: 'tel', value: '' },
+];
+let fieldsToValidateEdit = [
+    { id: 'editPersonName', type: 'name', value: '' },
+    { id: 'editPersonEmail', type: 'email', value: '' },
+    { id: 'editPersonTel', type: 'tel', value: '' }
+];
+const testing = false;
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -29,6 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     showContactCards();
     addEventFromAddContact();
     addEventFromEditContact();
+    testing && formTesting();
 });
 
 
@@ -61,7 +76,11 @@ function initAddForm(event) {
         idInputAddPersonEmail.value,
         idInputAddPersonTel.value
     );
-    addContact(formData);
+    loadDataToValidateFields('add', formData);
+    if (validateTaskForm(fieldsToValidateAdd)) {
+        if (testing) return console.warn('Contact wurde erfolgreich erstellt!');
+        addContact(formData);
+    };
 };
 
 
@@ -72,7 +91,7 @@ function initAddForm(event) {
  * @param {string} tel - The telephone number of the person.
  * @returns {Object} The contact data.
  */
-function loadDataAddForm(name, email, tel) {
+const loadDataAddForm = (name, email, tel) => {
     const randomNumber = Math.floor(Math.random() * shortcutColors.length);
     const contactData = {
         shortcutBackColor: shortcutColors[randomNumber],
@@ -88,14 +107,49 @@ function loadDataAddForm(name, email, tel) {
  * Initializes the edit contact form submission.
  * @param {Event} event - The form submission event.
  */
-function initEditForm(event) {
+const initEditForm = (event) => {
     event.preventDefault();
     const formData = loadDataFromEditForm(
         idInputEditPersonName.value,
         idInputEditPersonEmail.value,
         idInputEditPersonTel.value
     );
-    editContact(formData);
+    isUser();
+    loadDataToValidateFields('edit', formData);
+    if (validateTaskForm(fieldsToValidateEdit)) {
+        if (testing) return console.warn('Contact wurde erfolgreich geendert!');
+        editContact(formData);
+    };
+};
+
+
+/**
+ * Modifies `fieldsToValidateEdit` based on the `showUser` flag.
+ * If `showUser` is true, it removes two fields starting from index 2 in `fieldsToValidateEdit`.
+ * If `showUser` is false and the third field is missing, it adds a field with `id`, `type`, and `value` properties.
+ * 
+ * @function isUser
+ */
+const isUser = () => {
+    if(!fieldsToValidateEdit[2]) fieldsToValidateEdit.push({ id: 'editPersonTel', type: 'tel', value: '' });
+    if(showUser) fieldsToValidateEdit.splice(2, 2);
+};
+
+
+/**
+ * Loads data into specific fields for validation based on the popup type.
+ * Selects the fields to validate (either "add" or "edit") and assigns values 
+ * from `formData` to each field based on its type.
+ * 
+ * @function loadDataToValidateFields
+ * @param {string} popup - The type of popup, either "add" or "edit".
+ * @param {Object} formData - An object containing field values, with keys matching field types.
+ */
+const loadDataToValidateFields = (popup, formData) => {
+    const fieldVars = { "add": fieldsToValidateAdd, "edit": fieldsToValidateEdit };
+    fieldVars[popup].forEach(field => {
+        field.value = formData[field.type];
+    });
 };
 
 
@@ -106,7 +160,7 @@ function initEditForm(event) {
  * @param {string} tel - The telephone number of the person.
  * @returns {Object} The form data.
  */
-function loadDataFromEditForm(name, email, tel) {
+const loadDataFromEditForm = (name, email, tel) => {
     const style = window.getComputedStyle(idEditPersonShortcut);
     const formData = {
         shortcutBackColor: style.backgroundColor,
@@ -116,3 +170,5 @@ function loadDataFromEditForm(name, email, tel) {
     };
     return formData;
 };
+
+export { fieldsToValidateEdit };
