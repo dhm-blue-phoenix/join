@@ -40,12 +40,18 @@
 
         <div class="personShortcut" style="margin-bottom: 75px;" id="editPersonShortcut">SM</div>
         <form id="editContactForm" class="editpersoninput">
-          <input type="text" id="editPersonName" required>
-          <span id="msgErrEditName" class="msg-err"></span>
-          <input type="email" id="editPersonEmail" required>
-          <span id="msgErrEditEmail" class="msg-err"></span>
-          <input type="number" id="editPersonTel" required>
-          <span id="msgErrEditTel" class="msg-err"></span>
+          <div>
+            <input type="text" id="editPersonName" required>
+            <span id="msgErrEditName" class="msg-err"></span>
+          </div>
+          <div>
+            <input type="email" id="editPersonEmail" required>
+            <span id="msgErrEditEmail" class="msg-err"></span>
+          </div>
+          <div>
+            <input type="number" id="editPersonTel" required>
+            <span id="msgErrEditTel" class="msg-err"></span>
+          </div>
           <div class="bottombuttons">
             <button class="deletebtn" type="reset">Delete</button>
             <button class="savebtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Save</button>
@@ -71,12 +77,18 @@
         </button>
         <img class="usericon" src="./resources/symbols/usericon.png" alt="">
         <form id="addContactForm" class="addpersoninput">
-          <input type="text" id="addPersonName" placeholder="Name" required>
-          <span id="msgErrAddName" class="msg-err"></span>
-          <input type="email" id="addPersonEmail" placeholder="Email" required>
-          <span id="msgErrAddEmail" class="msg-err"></span>
-          <input type="number" id="addPersonTel" placeholder="Phone" required>
-          <span id="msgErrAddTel" class="msg-err"></span>
+          <div>
+            <input type="text" id="addPersonName" placeholder="Name" required>
+            <span id="msgErrAddName" class="msg-err"></span>
+          </div>
+          <div>
+            <input type="email" id="addPersonEmail" placeholder="Email" required>
+            <span id="msgErrAddEmail" class="msg-err"></span>
+          </div>
+          <div>
+            <input type="number" id="addPersonTel" placeholder="Phone" required>
+            <span id="msgErrAddTel" class="msg-err"></span>
+          </div>
           <div class="bottombuttons">
             <button class="cancelbtn" type="reset">Cancel &#128473</button>
             <button class="creatbtn" type="submit"><img src="./resources/symbols/check.svg" alt="">Create
@@ -118,22 +130,22 @@
 
         <!-- Own Contactcard -->
         <div class="OwnCard" id="OwnCard">
-        <div class="letter">You:</div>
-        <div class="ContactcardsTrennline"></div>
-        <div class="ownContact">
-          <div id="userCard" class="card">
-            <div id="userShort" class="nameShortcut"></div>
-            <div class="nameemail">
-              <p id="userName"></p>
-              <a id="userEmail" href="#mail"></a>
+          <div class="letter">You:</div>
+          <div class="ContactcardsTrennline"></div>
+          <div class="ownContact">
+            <div id="userCard" class="card">
+              <div id="userShort" class="nameShortcut"></div>
+              <div class="nameemail">
+                <p id="userName"></p>
+                <a id="userEmail" href="#mail"></a>
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <!-- Own Contactcard Ende -->
 
         <div class="Contactcards" id="Contactcards">
-          
+
         </div>
       </div>
 
@@ -152,28 +164,28 @@
             <p id="personName"></p>
 
             <button id="editdeletcontact" class="addEditDeletContactmobile">
-            <img src="./resources/symbols/dots.png" alt=""></button>
+              <img src="./resources/symbols/dots.png" alt=""></button>
 
             <div class="dropdownedlitdelete" id="dropdownEditDeletContact">
               <div id="personOptions" class="personOptionscss">
-              <button type="button" id="editContactBtnMobile">
-                <img src="./resources/symbols/edit.png" alt="" /> Edit
-              </button>
+                <button type="button" id="editContactBtnMobile">
+                  <img src="./resources/symbols/edit.png" alt="" /> Edit
+                </button>
 
-              <button type="button" id="delContactBtnMobile">
-                <img src="./resources/symbols/delete.svg" alt="" /> Delete
-              </button>
-            </div>
+                <button type="button" id="delContactBtnMobile">
+                  <img src="./resources/symbols/delete.svg" alt="" /> Delete
+                </button>
+              </div>
             </div>
 
 
 
             <div class="personInfo" id="personOptions">
               <button type="button" id="editContactBtn">
-                <img src="./resources/symbols/edit.png" alt=""/> Edit
+                <img src="./resources/symbols/edit.png" alt="" /> Edit
               </button>
               <button type="button" id="delContactBtn">
-                <img src="./resources/symbols/delete.svg" alt=""/> Delete
+                <img src="./resources/symbols/delete.svg" alt="" /> Delete
               </button>
             </div>
           </div>
@@ -186,7 +198,7 @@
           <p id="personTel"></p>
         </div>
       </div>
-      
+
     </div>
   </main>
 </body>
