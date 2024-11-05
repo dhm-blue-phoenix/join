@@ -225,21 +225,93 @@ const deleteItem = (event) => {
 };
 
 
+
+
 /**
- * Edit a task item.
- * @param {Event} event - The event triggered by clicking the edit button.
+ * Aktiviert den Bearbeitungsmodus für eine Unteraufgabe, so dass der Text geändert werden kann.
+ *
+ * Diese Funktion wird durch ein Klick-Ereignis auf den Bearbeiten-Button einer Unteraufgabe ausgelöst.
+ * Sie macht den Text der Unteraufgabe bearbeitbar, versteckt die Bearbeiten- und Löschen-Buttons
+ * und erstellt einen Speichern-Button zum Speichern der Änderungen.
+ * Der Speichern-Button ermöglicht es dem Benutzer, den bearbeiteten Text zu speichern,
+ * das Aufgabenformular zu aktualisieren und die aktualisierte Liste anzuzeigen.
+ * Die Funktion behandelt auch das "Blur"-Ereignis, um Änderungen zu speichern und die Benutzeroberfläche
+ * in ihren ursprünglichen Zustand zurückzusetzen, wenn das Eingabefeld den Fokus verliert.
+ *
+ * @param {Event} event - Das Ereignis, das durch das Klicken des Bearbeiten-Buttons ausgelöst wird.
  */
+
 const editItem = (event) => {
-    console.warn('Edit Subtask In entwicklung!');
-    
     const target = event.currentTarget;
     const key = target.getAttribute('key');
     const type = target.getAttribute('type');
+    const subtaskInput = document.getElementById(`list_edit${key}`);
+    subtaskInput.classList.add('editsubtask');
 
-    return console.log('editSubtask', key, type);
-    renderList(type);
+    // Mach das Inputfeld editierbar
+    subtaskInput.readOnly = false;
+    subtaskInput.focus();
+
+    const subEditButton = document.getElementById(`edit_${key}`);
+    const subDeleteButton = document.getElementById(`delete_${key}`);
+
+    // Ausblenden der Edit- und Delete-Buttons
+    subEditButton.style.display = 'none';
+    subDeleteButton.style.display = 'none';
+
+    // Erstelle einen "Save"-Button
+    const saveButton = document.createElement('button');
+    saveButton.textContent = '✔';
+
+    // Füge den Save-Button dem Container hinzu
+    const saveButtonContainer = document.createElement('div');
+    saveButtonContainer.appendChild(saveButton);
+
+    // Füge den Save-Button-Container an die richtige Stelle im DOM ein
+    subtaskInput.parentNode.appendChild(saveButtonContainer);
+
+    // Zeige den Save-Button an
+    saveButton.style.display = 'flex';
+
+    saveButton.onclick = () => {
+        // Speichere den bearbeiteten Text
+        const newSubtaskText = subtaskInput.value;
+        taskForm.subtask[key].text = newSubtaskText;
+        renderList(type);
+
+        // Mach das Inputfeld wieder nicht editierbar
+        subtaskInput.readOnly = true;
+
+        // Entferne den Save-Button-Container
+        saveButtonContainer.remove();
+
+        // Zeige die Edit- und Delete-Buttons wieder an
+        subEditButton.style.display = 'flex';
+        subDeleteButton.style.display = 'flex';
+    };
+
+    // Füge einen Event-Listener für das blur-Ereignis hinzu
+    subtaskInput.addEventListener('blur', (event) => {
+        if (event.relatedTarget === saveButton) {
+            return;
+        }
+
+        // Speichere den bearbeiteten Text
+        const newSubtaskText = subtaskInput.value;
+        taskForm.subtask[key].text = newSubtaskText;
+        renderList(type);
+
+        // Mach das Inputfeld wieder nicht editierbar
+        subtaskInput.readOnly = true;
+
+        // Entferne den Save-Button-Container
+        saveButtonContainer.remove();
+
+        // Zeige die Edit- und Delete-Buttons wieder an
+        subEditButton.style.display = 'block';
+        subDeleteButton.style.display = 'block';
+    });
 };
-// &#x2713;
 
 
 /**

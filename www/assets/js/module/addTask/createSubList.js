@@ -40,8 +40,9 @@ const createListText = (text, number) => {
 const createListOptions = (number) => {
     const listOptions = document.createElement('div');
     listOptions.className = 'list-item-option';
-    listOptions.appendChild(createListBtn('edit.svg', number));
-    listOptions.appendChild(createListBtn('delete.svg', number));
+    listOptions.id = 'list-item-option';
+    listOptions.appendChild(createListBtn('edit.svg', number, 'edit')); // Create edit button
+    listOptions.appendChild(createListBtn('delete.svg', number, 'delete')); // Create delete button
     return listOptions;
 };
 
@@ -52,9 +53,10 @@ const createListOptions = (number) => {
  * @param {number} number - The unique number identifier for the list item.
  * @returns {HTMLButtonElement} - The created button element.
  */
-const createListBtn = (btnImg, number) => {
+const createListBtn = (btnImg, number, btnType) => {
     const listBtn = document.createElement('button');
     listBtn.type = 'button';
+    listBtn.id = `${btnType}_${number}`; // Assign a unique ID to the button
     listBtn.appendChild(createListBtnImg(btnImg, number));
     return listBtn;
 };
