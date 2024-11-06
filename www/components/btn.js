@@ -32,7 +32,7 @@ function initializeNavigation() {
 function setActiveButton(id) {
   const element = document.getElementById(id);
   if (!element) {
-    return initializeNavigation();
+    return setTimeout(initializeNavigation, 100);
   };
   element.classList.add("active");
 };
