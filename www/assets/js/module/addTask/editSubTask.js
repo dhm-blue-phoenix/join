@@ -93,6 +93,7 @@ const appendSaveButtonToDOM = (subtaskInput, saveButton) => {
  */
 const addBlurEventListener = (subtaskInput, saveButton, key, type) => {
     subtaskInput.addEventListener('blur', (event) => {
+        console.log('btn');
         if (event.relatedTarget === saveButton) return;
         saveChanges(subtaskInput, key, type, saveButton);
     });
