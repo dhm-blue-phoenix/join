@@ -21,19 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
  * Initializes navigation buttons and sets the last active button from localStorage.
  */
 function initializeNavigation() {
-  navigates.some(({ page, id }) => page === currentPage && setActiveButton(page, id));
+  navigates.some(({ page, id }) => page === currentPage && setActiveButton(id));
 };
 
 
 /**
  * Sets a button as active by adding the 'active' class.
- * @param {string} page - The page path.
  * @param {string} id - The ID of the button to be activated.
  */
-function setActiveButton(page, id) {
+function setActiveButton(id) {
   const element = document.getElementById(id);
   if (!element) {
-    return console.warn(`Navigation element not found!\n Page: ${page}, Button ID: ${id}`);
+    return initializeNavigation();
   };
   element.classList.add("active");
 };
