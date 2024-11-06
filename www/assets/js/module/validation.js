@@ -6,6 +6,8 @@ const msgErrIds = {
     'title': 'msgErrTitle',
     'description': 'msgErrDes',
     'date': 'msgErrDate',
+    'subtask': 'msgErrSubtask',
+    'list_item': 'msgErrSubtask',
     'addPersonName': 'msgErrAddName',
     'addPersonEmail': 'msgErrAddEmail',
     'addPersonTel': 'msgErrAddTel',
@@ -30,7 +32,7 @@ const msgErrIds = {
  *
  * @returns {boolean} Returns true if all fields are valid, otherwise false.
  */
-const validateTaskForm = (fieldsToValidate) => {    
+const validateTaskForm = (fieldsToValidate) => {
     resetValidateField(fieldsToValidate);
     const isValid = fieldsToValidate.every(({ id, type, value }) => {
         const valid = validateField(id, type, value);
@@ -54,12 +56,23 @@ const validateTaskForm = (fieldsToValidate) => {
  */
 const resetValidateField = (fields) => {
     fields.forEach(({ id }) => {
-        const element = document.getElementById(id);        
-        const msg = document.getElementById(msgErrIds[id]);        
-        if(!element || !msg) return;
+        const element = document.getElementById(id);
+        const msg = document.getElementById(msgErrIds[removeNumbers(id)]);
+        if (!element || !msg) return;
         element.style.borderColor = '';
         msg.textContent = '';
     });
+};
+
+
+/**
+ * Removes all numbers from a given string.
+ *
+ * @param {string} string - The input string.
+ * @returns {string} - The string with numbers removed.
+ */
+const removeNumbers = (string) => {
+    return string.replace(/\d+/g, '');
 };
 
 
@@ -79,8 +92,8 @@ const validateField = (fieldId, type, value) => {
     const result = initValidation(type, value);
     if (!result.status) {
         document.getElementById(fieldId).style.borderColor = 'red';
-        document.getElementById(msgErrIds[fieldId]).style.display = 'block';
-        document.getElementById(msgErrIds[fieldId]).textContent = result.msg;        
+        document.getElementById(msgErrIds[removeNumbers(fieldId)]).style.display = 'block';
+        document.getElementById(msgErrIds[removeNumbers(fieldId)]).textContent = result.msg;
         return false;
     };
     return true;

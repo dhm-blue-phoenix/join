@@ -80,9 +80,9 @@ const addEventFromDelListAssigned = (number) => {
  * @param {number} number - The index number of the subtask.
  */
 const addEventFromEditListSubTask = (number) => {
-    const idBtmSubtaskListDel = document.getElementById('list_subtask_btn_edit' + number);
-    idBtmSubtaskListDel.removeEventListener('click', editItem);
-    idBtmSubtaskListDel.addEventListener('click', editItem);
+    const idBtmSubtaskListEdit = document.getElementById('list_subtask_btn_edit' + number);
+    idBtmSubtaskListEdit.removeEventListener('click', editItem);
+    idBtmSubtaskListEdit.addEventListener('click', editItem);
 };
 
 /**

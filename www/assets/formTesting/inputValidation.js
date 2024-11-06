@@ -21,6 +21,25 @@ const validateTitle = (text) => {
 };
 
 
+/**
+ * Validates a text input.
+ *
+ * This function checks if the text contains only letters and spaces,
+ * and whether it meets the length requirements of 5 to 20 characters.
+ *
+ * @param {string} text - The text to validate.
+ * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
+ */
+const validateText = (text) => {
+    if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(text)) {
+        return { status: false, msg: 'Text can only contain letters, including German characters, spaces, and hyphens.' };
+    };
+    if (text.length < 5 || text.length > 60) {
+        return { status: false, msg: 'Text must be between 5 and 60 characters long.' };
+    };
+    return { status: true };
+};
+
 
 /**
  * Validates a description input.
@@ -152,6 +171,8 @@ const validateCategory = (category) => {
 const validateField = (fieldName, value) => {
     value = value.trim();
     switch (fieldName) {
+        case 'text':
+            return validateText(value);
         case 'title':
             return validateTitle(value);
         case 'des':

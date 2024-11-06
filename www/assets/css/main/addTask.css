@@ -330,7 +330,7 @@
 }
 
 #subtask-list {
-  /* padding: 8px 0; */
+  margin: 32px 0 !important;
   overflow: auto;
   overflow-x: hidden;
   height: 200px;

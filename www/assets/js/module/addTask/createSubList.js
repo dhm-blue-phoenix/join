@@ -11,6 +11,7 @@ const createListItem = (id, text, number) => {
     type = id;
     const listItem = document.createElement('li');
     listItem.className = 'list-item';
+    listItem.id = `list_item${number}`;
     listItem.appendChild(createListText(text, number));
     listItem.appendChild(createListOptions(number));
     document.getElementById(`${id}-list`).appendChild(listItem);
