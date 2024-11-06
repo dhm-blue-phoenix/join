@@ -78,7 +78,7 @@ const appendSaveButtonToDOM = (subtaskInput, saveButton) => {
         saveButtonContainer.classList.add('save-button-container');
         saveButtonContainer.appendChild(saveButton);
         subtaskInput.parentNode.appendChild(saveButtonContainer);
-    }
+    };
     saveButton.style.display = 'flex';
 };
 
@@ -93,7 +93,6 @@ const appendSaveButtonToDOM = (subtaskInput, saveButton) => {
  */
 const addBlurEventListener = (subtaskInput, saveButton, key, type) => {
     subtaskInput.addEventListener('blur', (event) => {
-        console.log('btn');
         if (event.relatedTarget === saveButton) return;
         saveChanges(subtaskInput, key, type, saveButton);
     });
