@@ -13,15 +13,17 @@ const navigates = [
  * Initialize navigation once the DOM is fully loaded.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(initializeNavigation, 100);
+  initializeNavigation();
 });
 
 
 /**
  * Initializes navigation buttons and sets the last active button from localStorage.
  */
-function initializeNavigation() {
-  navigates.some(({ page, id }) => page === currentPage && setActiveButton(id));
+const initializeNavigation = () => {
+  setTimeout(() => {
+    navigates.some(({ page, id }) => page === currentPage && setActiveButton(id));
+  }, 100);
 };
 
 
@@ -29,10 +31,10 @@ function initializeNavigation() {
  * Sets a button as active by adding the 'active' class.
  * @param {string} id - The ID of the button to be activated.
  */
-function setActiveButton(id) {
+const setActiveButton = (id) => {
   const element = document.getElementById(id);
   if (!element) {
-    return setTimeout(initializeNavigation, 100);
+    return initializeNavigation();
   };
   element.classList.add("active");
 };
