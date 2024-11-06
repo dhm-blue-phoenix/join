@@ -14,7 +14,7 @@ const items = {
     subtask: 'forEach',
     boardStatus: 'status'
 };
-const btnPrios = ['urgent', 'medium', 'low'];
+const btnPrios = ['Urgent', 'Medium', 'Low'];
 
 
 let editTaskId;
