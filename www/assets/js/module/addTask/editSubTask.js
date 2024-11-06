@@ -104,16 +104,13 @@ const addBlurEventListener = (subtaskInput, saveButton, key, type) => {
 const saveChanges = (subtaskInput, key, type, saveButton) => {
     const newSubtaskText = subtaskInput.value.trim();
     const validateSubTaskItem = [{ id: itemId, type: 'text', value: newSubtaskText }];
+    subtaskInput.readOnly = true;
+    saveButton.parentNode.remove();
+    showEditAndDeleteButtons(key);
     if (validateTaskForm(validateSubTaskItem)) {
         taskForm.subtask[key].text = newSubtaskText;
         renderList(type);
-        subtaskInput.readOnly = true;
-        saveButton.parentNode.remove();
-        showEditAndDeleteButtons(key);
     } else {
-        subtaskInput.readOnly = true;
-        saveButton.parentNode.remove();
-        showEditAndDeleteButtons(key);
         const event = new Event('click', { bubbles: true, cancelable: true });
         document.getElementById('list_subtask_btn_edit' + key).dispatchEvent(event);
     };
