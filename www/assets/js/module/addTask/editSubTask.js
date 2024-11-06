@@ -70,9 +70,15 @@ const createSaveButton = (key, type, subtaskInput) => {
  * @param {HTMLButtonElement} saveButton - The save button.
  */
 const appendSaveButtonToDOM = (subtaskInput, saveButton) => {
-    const saveButtonContainer = document.createElement('div');
-    saveButtonContainer.appendChild(saveButton);
-    subtaskInput.parentNode.appendChild(saveButtonContainer);
+    const existingButtonContainer = subtaskInput.parentNode.querySelector('.save-button-container');
+    if (existingButtonContainer) {
+        existingButtonContainer.appendChild(saveButton);
+    } else {
+        const saveButtonContainer = document.createElement('div');
+        saveButtonContainer.classList.add('save-button-container');
+        saveButtonContainer.appendChild(saveButton);
+        subtaskInput.parentNode.appendChild(saveButtonContainer);
+    }
     saveButton.style.display = 'flex';
 };
 
