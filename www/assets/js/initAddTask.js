@@ -37,7 +37,7 @@ const fieldsToValidate = [
     { id: 'date', type: 'date', value: '' },
     { id: 'category', type: 'category', value: '' }
 ];
-const testing = true;
+const testing = false;
 
 
 let taskForm = resetTaskForm;
