@@ -76,7 +76,7 @@ const updateTextContent = (id, text) => {
                 prioIcon.src = '../../../resources/symbols/PrioLow.png';
                 break;
             case 'medium':
-                prioIcon.src = '../../../resources/symbols/boardmiddleprio.png';
+                prioIcon.src = '../../../resources/symbols/PrioMedium.png';
                 break;
             case 'urgent':
                 prioIcon.src = '../../../resources/symbols/PrioUrgent.png';
