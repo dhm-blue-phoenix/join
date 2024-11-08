@@ -55,6 +55,24 @@
     color: var(--text-color01);
 }
 
+/* Ungecheckte Checkboxen */
+input[type="checkbox"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-image: url('../../../resources/checkbox.png');
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  border: none;
+  cursor: pointer;
+  padding: 0 !important;
+}
+
+/* Gecheckte Checkboxen */
+input[type="checkbox"]:checked {
+  background-image: url('../../../resources/checkboxactiv.png');
+}
+
 /*
     Stile für spezifische Elemente wie Bilder, Schaltflächen und Links.
 */

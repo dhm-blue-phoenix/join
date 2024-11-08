@@ -34,11 +34,7 @@
   padding: 8px;
 }
 
-.Personcardcheckbox {
-  width: 18px !important;
-  padding: 0 !important;
-  cursor: pointer !important;
-}
+
 
 .Initialenperson {
   width: 42px;
@@ -518,15 +514,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  /* box-shadow: rgba(0, 0, 0, 0.384) 0px 0px 4px 0px; */
-  /* background-color: #2a3647; */
   padding: 8px;
   border-radius: 8px;
   transition: 0.2s;
 }
 
 .taskcardbigsubtaskscheckbox:hover {
-  background-color: #cecece;
+  background-color: #cfcfcf;
   cursor: pointer;
 }
 
@@ -539,11 +533,6 @@
 .taskcardbigsubtaskscheckbox input {
   cursor: pointer;
   border: none;
-}
-
-.taskcardbigsubtaskscheckbox input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
 }
 
 .taskcardbigeditdelete {

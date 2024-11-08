@@ -166,13 +166,6 @@
   background-position: right 15px top 50%;
 }
 
-.checkbox {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-  border: 2px solid var(--back-color02) !important;
-}
-
 .loginbtnscontainer {
   display: flex;
   gap: 32px;
