@@ -11,7 +11,8 @@ import {
     addEventFromAddSubTask,
     addEventFromEditListSubTask,
     addEventFromDelListSubTask,
-    setBtnPrio
+    setBtnPrio,
+    addEventToValidateFields
 } from './module/addTask/addEventsToAddTask.js';
 import { formTesting } from '../formTesting/testing.js';
 import { validateTaskForm } from './module/validation.js';
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addEventFromAddSubTask();
     renderUsers();
     loadEditTaskFromUrl();
+    addEventToValidateFields();
     testing && formTesting();
 });
 

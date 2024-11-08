@@ -14,8 +14,8 @@ const validateTitle = (text) => {
     if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(text)) {
         return { status: false, msg: 'Title can only contain letters, including German characters, spaces, and hyphens.' };
     };
-    if (text.length < 5 || text.length > 60) {
-        return { status: false, msg: 'Title must be between 5 and 60 characters long.' };
+    if (text.length < 1 || text.length > 60) {
+        return { status: false, msg: 'Title must be between 1 and 60 characters long.' };
     };
     return { status: true };
 };
@@ -54,7 +54,7 @@ const validateText = (text) => {
 const validateDescription = (description) => {
     if (description.length === 0) return { status: true };
     if (!/^[\w\s.,!?'"äöüÄÖÜß-]{1,500}$/.test(description)) {
-        return { status: false, msg: 'Description must be between 1 and 500 characters and can include letters, numbers, spaces, and certain punctuation.' };
+        return { status: false, msg: 'Description must be between 500 characters and can include letters, numbers, spaces, and certain punctuation.' };
     };
     return { status: true };
 };
@@ -138,6 +138,9 @@ const validateDate = (date) => {
     if (selectedDate < today) {
         return { status: false, msg: 'Date must not be in the past.' };
     };
+    if (date.length === 0) {
+        return { status: false, msg: 'Date must be specified.' };
+    };
     return { status: true };
 };
 
@@ -175,7 +178,7 @@ const validateField = (fieldName, value) => {
             return validateText(value);
         case 'title':
             return validateTitle(value);
-        case 'des':
+        case 'description':
             return validateDescription(value);
         case 'name':
             return validateName(value);

@@ -6,6 +6,7 @@ import {
     taskForm,
     loadNextPage
 } from '../../initAddTask.js';
+import { validateTaskForm, msgErrIds } from '../validation.js';
 
 
 const idFormAddTask = document.getElementById('formAddTask');
@@ -14,6 +15,7 @@ const idBtnUrgent = document.getElementById('urgent');
 const idBtnMedium = document.getElementById('medium');
 const idBtnLow = document.getElementById('low');
 const idBtnCancel = document.getElementById('taskbuttonCancel');
+const validFieldIds = ['title', 'description', 'date', 'category'];
 
 
 let lastBtnPrio = 'medium';
@@ -75,12 +77,12 @@ const addEventFromDelListAssigned = (number) => {
 };
 
 
-function clearAddTaskForms() {
+const clearAddTaskForms = () => {
     let selectedPersonContainer = document.getElementById('selectedPerson');
     let subtaskListContainer = document.getElementById('subtask-list');
-
     console.log(subtaskListContainer);
-}
+};
+
 
 /**
  * Initializes event listener for editing a subtask from list.
@@ -92,6 +94,7 @@ const addEventFromEditListSubTask = (number) => {
     idBtmSubtaskListEdit.addEventListener('click', editItem);
 };
 
+
 /**
  * Initializes event listener for deleting a subtask from list.
  * @param {number} number - The index number of the subtask.
@@ -101,6 +104,7 @@ const addEventFromDelListSubTask = (number) => {
     idBtmSubtaskListDel.removeEventListener('click', deleteItem);
     idBtmSubtaskListDel.addEventListener('click', deleteItem);
 };
+
 
 /**
  * Initializes event listener for cancel button click.
@@ -134,6 +138,7 @@ const handleLowClick = () => {
     setBtnPrio('low');
 };
 
+
 /**
  * Sets priority button styling and task form priority.
  * @param {string} prio - Priority value ('urgent', 'medium', 'low').
@@ -144,7 +149,7 @@ const setBtnPrio = (prio) => {
     const imgElement = prioButton.querySelector('img');
     if (imgElement) {
         imgElement.remove();
-    }
+    };
     const newImgElement = document.createElement('img');
     newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
     prioButton.appendChild(newImgElement);
@@ -153,8 +158,8 @@ const setBtnPrio = (prio) => {
     taskForm.prio = prio;
     lastBtnPrio = prio;
 };
-
 // newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
+
 
 /**
  * Resets styling and enables the last used priority button.
@@ -165,14 +170,66 @@ const lastBtn = (prio) => {
         const imgElement = lastButton.querySelector('img');
         if (imgElement) {
             imgElement.remove();
-        }
+        };
         const newImgElement = document.createElement('img');
         newImgElement.src = `./resources/symbols/Prio${lastBtnPrio}.png`;
         newImgElement.alt = '';
         lastButton.appendChild(newImgElement);
         lastButton.classList.remove(lastBtnPrio);
         lastButton.disabled = false;
-    }
+    };
+};
+
+
+/**
+ * Adds event listeners to the specified elements for validation.
+ *
+ * @param {string[]} validFieldIds - An array of element IDs to validate.
+ */
+const addEventToValidateFields = () => {
+    validFieldIds.forEach((field) => {
+        const element = document.getElementById(field);
+        if (element) {
+            element.addEventListener("input", validateFieldsFromInput);
+        };
+    });
+};
+
+
+/**
+ * Validates a field based on its input type and value.
+ *
+ * @param {Event} event - The input event.
+ */
+const validateFieldsFromInput = (event) => {
+    const inputType = event.target.type;
+    const text = event.target.value;
+    const validField = checkFieldsToType(inputType, text);
+    if (validField) {
+        const isValid = validateTaskForm([validField]);
+        if (isValid && msgErrIds[validField.type]) {            
+            document.getElementById(msgErrIds[validField.type]).style.borderColor = "";
+        };
+    };
+};
+
+
+/**
+ * Maps input types to corresponding valid field IDs.
+ *
+ * @param {string} inputType - The input type.
+ * @param {string} text - The input value.
+ * @returns {{ id: string, type: string, value: string } | null} - The corresponding valid field object or null if not found.
+ */
+const checkFieldsToType = (inputType, text) => {
+    const typeMapping = {
+        'text': validFieldIds[0],
+        'textarea': validFieldIds[1],
+        'date': validFieldIds[2],
+        'select-one': validFieldIds[3]
+    };
+    const currentField = typeMapping[inputType];
+    return { id: currentField, type: currentField, value: text };
 };
 
 
@@ -186,5 +243,6 @@ export {
     addEventFromEditListSubTask,
     addEventFromDelListSubTask,
     addEventFromCancelBtn,
-    setBtnPrio
+    setBtnPrio,
+    addEventToValidateFields
 };

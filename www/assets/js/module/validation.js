@@ -7,6 +7,7 @@ const msgErrIds = {
     'description': 'msgErrDes',
     'date': 'msgErrDate',
     'subtask': 'msgErrSubtask',
+    'category': 'msgErrCategory',
     'list_item': 'msgErrSubtask',
     'addPersonName': 'msgErrAddName',
     'addPersonEmail': 'msgErrAddEmail',
@@ -100,4 +101,4 @@ const validateField = (fieldId, type, value) => {
 };
 
 
-export { validateTaskForm };
+export { validateTaskForm, msgErrIds };
