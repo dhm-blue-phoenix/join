@@ -79,7 +79,6 @@ async function initAddTask(event) {
     };
 };
 
-
 /**
  * Loads data into the task form.
  * @returns {Promise<void>}
@@ -246,6 +245,32 @@ const resetForm = () => {
 const clearInput = () => {
     idInputTask.forEach((id) => document.getElementById(id).value = '');
 };
+
+/**
+ * Leer alle Inputfelder + selectedPersonContainer + subtaskListContainer + setzt die Prio auf medium.
+ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    const clearButton = document.querySelector('.taskbuttonclear');
+    const form = document.getElementById('formAddTask');
+    const selectedPersonContainer = document.getElementById('selectedPerson');
+    const subtaskListContainer = document.getElementById('subtask-list');
+  
+    clearButton.addEventListener('click', function() {
+      // Eingabefelder leeren
+      setBtnPrio('medium');
+      const inputFields = form.querySelectorAll('input');
+      inputFields.forEach(function(inputField) {
+        inputField.value = '';
+      });
+  
+      // selectedPersonContainer leeren
+      selectedPersonContainer.innerHTML = '';
+  
+      // subtaskListContainer leeren
+      subtaskListContainer.innerHTML = '';
+    });
+  });
 
 
 /**

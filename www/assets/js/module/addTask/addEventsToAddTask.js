@@ -75,6 +75,13 @@ const addEventFromDelListAssigned = (number) => {
 };
 
 
+function clearAddTaskForms() {
+    let selectedPersonContainer = document.getElementById('selectedPerson');
+    let subtaskListContainer = document.getElementById('subtask-list');
+
+    console.log(subtaskListContainer);
+}
+
 /**
  * Initializes event listener for editing a subtask from list.
  * @param {number} number - The index number of the subtask.

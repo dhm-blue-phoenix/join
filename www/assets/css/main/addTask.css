@@ -330,10 +330,10 @@
 }
 
 #subtask-list {
-  margin: 16px 0 !important;
+  margin: 0 !important;
   overflow: auto;
   overflow-x: hidden;
-  height: 200px;
+  height: 188px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
