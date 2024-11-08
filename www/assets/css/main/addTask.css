@@ -332,6 +332,7 @@
   height: 188px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
   margin-top: 4px;
   padding: 0;
