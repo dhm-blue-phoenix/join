@@ -20,7 +20,7 @@ export const createTaskCard = async (cardId, headline, description, users, categ
     taskCard.appendChild(createCategory(category));
     taskCard.appendChild(createDescription(headline, description));
     taskCard.appendChild(createProgress(subtask));
-    taskCard.appendChild(createPerson(users, prio, cardId)); // Hier wird der Wert von prio korrekt übergeben
+    taskCard.appendChild(createPerson(users, prio, cardId));
     taskCard.appendChild(createMobile(cardId));
     
     document.getElementById(taskStatus[0].value).appendChild(taskCard);
@@ -208,16 +208,15 @@ const createPersonShortcutContent = (contact) => {
     return persionShortcutContent;
 };
 
-
 /**
- * Creates a priority shortcut button element for a task card.
+ * Creates an image element representing a priority icon for a task card.
  * 
- * This function constructs a button element with a specific ID and task ID attribute,
- * appends an image to it, and returns the button. The button is intended to be used
- * for selecting a priority level for a task card.
+ * This function generates an image element based on the priority level provided.
+ * The image source is set according to the priority level ('low', 'medium', 'urgent').
  * 
- * @param {string} prio - The priority level of the task card.
- * @returns {HTMLButtonElement} - The created priority shortcut button element.
+ * @param {number|string} cardId - The ID of the task card.
+ * @param {string} prio - The priority level of the task ('low', 'medium', 'urgent').
+ * @returns {HTMLImageElement} - The created image element for the priority icon.
  */
 const createPrioShortcut = (cardId, prio) => {
     const prioIcon = document.createElement('img');
