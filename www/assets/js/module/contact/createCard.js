@@ -107,7 +107,7 @@ const createEmailName = (name) => {
  */
 const createEmailAnchor = (email) => {
     const divEmailAnchor = document.createElement('a');
-    divEmailAnchor.href = `mailto:${email}`;
+    // divEmailAnchor.href = `mailto:${email}`;
     divEmailAnchor.textContent = email;
     return divEmailAnchor;
 };

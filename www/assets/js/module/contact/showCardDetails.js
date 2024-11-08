@@ -159,6 +159,7 @@ const updateContactDetails = (name, email, tel, shortcutBackColor) => {
     idPersonShortcut.style.backgroundColor = shortcutBackColor;
     idPersonName.textContent = name;
     idPersonEmail.textContent = email;
+    idPersonEmail.href = `mailto:${email}`;
     idPersonTel.textContent = tel;
 };
 
