@@ -10,17 +10,19 @@ import { taskStatus } from '../../initBoard.js';
  * @param {array} subtask The subtasks of the task card.
  * @returns {undefined}
  */
-export const createTaskCard = async (cardId, headline, description, users, category, subtask) => {
+export const createTaskCard = async (cardId, headline, description, users, category, subtask, prio) => {
     const taskCard = document.createElement('div');
     taskCard.id = `taskCardID${cardId}`;
     taskCard.className = 'taskcard';
     taskCard.draggable = true;
     taskCard.setAttribute('task-id', cardId);
+    
     taskCard.appendChild(createCategory(category));
     taskCard.appendChild(createDescription(headline, description));
     taskCard.appendChild(createProgress(subtask));
-    taskCard.appendChild(createPerson(users));
+    taskCard.appendChild(createPerson(users, prio, cardId)); // Hier wird der Wert von prio korrekt übergeben
     taskCard.appendChild(createMobile(cardId));
+    
     document.getElementById(taskStatus[0].value).appendChild(taskCard);
 };
 
@@ -167,10 +169,13 @@ const createProgressText = (progressText) => {
  * @param {string[]} contacts - An array of contact names assigned to the task.
  * @returns {HTMLDivElement} - The created container element.
  */
-const createPerson = (contacts) => {
+const createPerson = (contacts, prio, cardId) => {
     const persion = document.createElement('div');
+    persion.id = 'taskPersons';
     persion.className = 'taskPersons';
     persion.appendChild(createPersonShortcut(contacts));
+    const prioIcon = createPrioShortcut(cardId, prio);
+    persion.appendChild(prioIcon);
     return persion;
 };
 
@@ -201,6 +206,37 @@ const createPersonShortcutContent = (contact) => {
     persionShortcutContent.style.backgroundColor = contact.color;
     persionShortcutContent.textContent = contact.short;
     return persionShortcutContent;
+};
+
+
+/**
+ * Creates a priority shortcut button element for a task card.
+ * 
+ * This function constructs a button element with a specific ID and task ID attribute,
+ * appends an image to it, and returns the button. The button is intended to be used
+ * for selecting a priority level for a task card.
+ * 
+ * @param {string} prio - The priority level of the task card.
+ * @returns {HTMLButtonElement} - The created priority shortcut button element.
+ */
+const createPrioShortcut = (cardId, prio) => {
+    const prioIcon = document.createElement('img');
+    switch (prio.toLowerCase()) {
+        case 'low':
+            prioIcon.src = './resources/symbols/PrioLow.png';
+            break;
+        case 'medium':
+            prioIcon.src = './resources/symbols/PrioMedium.png';
+            break;
+        case 'urgent':
+            prioIcon.src = './resources/symbols/PrioUrgent.png';
+            break;
+        default:
+            console.log('Unbekannte Priorität:', prio);
+    }
+    prioIcon.alt = '';
+    prioIcon.className = 'taskcardbigprioshortcut'; // Optional: Füge die Klasse hinzu, wenn du sie benötigst
+    return prioIcon;
 };
 
 

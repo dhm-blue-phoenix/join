@@ -228,13 +228,16 @@
 }
 
 .taskPersons {
+  width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
 }
-
+/* 
 .taskPersons img {
-  width: 17px;
-}
+  width: 18px;
+  height: 18px;
+} */
 
 .nameShortcutContent {
   margin-left: 10px;
@@ -333,10 +336,10 @@
   height: auto;
 }
 
-.PrioContainer img {
+/* .PrioContainer img {
   width: 16px;
   height: 16px;
-}
+} */
 
 #taskNotFound {
   position: fixed;

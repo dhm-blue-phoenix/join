@@ -11,7 +11,6 @@ if (window.location.pathname === '/board.html') {
     document.addEventListener('DOMContentLoaded', async () => {        
         await loadTaskStatus();
         await initTaskBord();
-        
         addEventToLoadAddTask();
         addEventToSearch();
         enableDragAndDrop();
@@ -20,8 +19,8 @@ if (window.location.pathname === '/board.html') {
         updateEmptyState();
         setTimeout(async () => {
             await updateTaskStatusInDatabase();
-            addEventToCloseTaskCard();
         }, 1000);
+        addEventToCloseTaskCard();
     });
 };
 
@@ -76,8 +75,8 @@ async function initTaskBord() {
         const taskFilters = tempTasks.filter(task => task && task.title);
         clearBoard();
         taskFilters.forEach((task) => {
-            let { id, title: headline, description, assigned: users, category, subtask } = task;
-            createTaskCard(id, headline, description, users, category, subtask);
+            let { id, title: headline, description, assigned: users, category, subtask, prio } = task;
+            createTaskCard(id, headline, description, users, category, subtask, prio);
             addEventFromTaskCard(`taskCardID${id}`);
         });
     } catch (err) {
