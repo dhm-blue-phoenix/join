@@ -1,3 +1,8 @@
+#PERSONS {
+  max-height: 180px;
+  overflow: auto;
+}
+
 .board {
   display: flex;
   justify-content: center;
@@ -74,11 +79,11 @@
 }
 
 .task {
-      /* width: 246px; */
-      height: 613px;
-      /* background-color: #ffffff; */
-      padding: 8px;
-      border-radius: 8px;
+  /* width: 246px; */
+  height: 613px;
+  /* background-color: #ffffff; */
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .taskheadline {
@@ -274,12 +279,11 @@
   width: auto !important;
 } */
 
-
 .taskbottommobilesmall {
   display: none;
 }
 
-.boardmobile{
+.boardmobile {
   width: 100%;
 }
 
@@ -321,7 +325,7 @@
   animation: slideOutToRight 0.3s ease-out forwards;
 }
 
-.PrioContainer{
+.PrioContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -329,7 +333,7 @@
   height: auto;
 }
 
-.PrioContainer img{
+.PrioContainer img {
   width: 16px;
   height: 16px;
 }

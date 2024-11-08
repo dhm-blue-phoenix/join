@@ -67,7 +67,7 @@ async function initAddTask(event) {
         const tasks = await loadElementByPatch(`users/${userId}`, 4);
         taskId = tasks.length;
         await loadDataToForm();
-        loadDataToValidateFields();        
+        loadDataToValidateFields();
         if (validateTaskForm(fieldsToValidate)) {
             if (testing) return console.warn('Task wurde erfolgreich erstellt!');
             await uploadData();
@@ -155,11 +155,11 @@ const addSubTaskToList = () => {
     const input = document.getElementById(type);
     const trimmedValue = input.value.trim();
     if (!trimmedValue) return;
-    const validateSubTask = [{ id: 'subtask', type: 'text', value: trimmedValue }]; 
+    const validateSubTask = [{ id: 'subtask', type: 'text', value: trimmedValue }];
     if (validateTaskForm(validateSubTask)) {
         taskForm.subtask.push({ status: false, text: trimmedValue });
         input.value = '';
-        renderList(type);    
+        renderList(type);
     };
 };
 
