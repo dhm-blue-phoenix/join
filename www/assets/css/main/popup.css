@@ -11,6 +11,7 @@
   left: 0;
   bottom: 0;
   z-index: 9999;
+  overflow: hidden;
 }
 .smallcontainer {
   width: 396px;
