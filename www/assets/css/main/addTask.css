@@ -517,16 +517,20 @@
   font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  box-shadow: rgba(0, 0, 0, 0.384) 0px 0px 4px 0px;
-  background-color: #2a3647;
-  padding: 20px;
+  gap: 8px;
+  /* box-shadow: rgba(0, 0, 0, 0.384) 0px 0px 4px 0px; */
+  /* background-color: #2a3647; */
+  padding: 8px;
   border-radius: 8px;
-  color: var(--text-color02) !important;
+  transition: 0.2s;
+}
+
+.taskcardbigsubtaskscheckbox:hover {
+  background-color: #cecece;
+  cursor: pointer;
 }
 
 .taskcardbigsubtaskscheckbox span {
-  color: var(--text-color02) !important;
   font-size: 16px;
   display: flex;
   width: 100%;
@@ -538,8 +542,8 @@
 }
 
 .taskcardbigsubtaskscheckbox input[type="checkbox"] {
-  width: 32px;
-  height: 32px;
+  width: 16px;
+  height: 16px;
 }
 
 .taskcardbigeditdelete {
