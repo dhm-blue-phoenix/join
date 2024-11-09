@@ -4,7 +4,8 @@ import { showContactCards } from './module/contact/showCards.js';
 import { editContact } from './module/contact/editCard.js';
 import { addContact } from './module/contact/addCard.js';
 import { formTesting } from '../formTesting/testing.js';
-import { validateTaskForm } from './module/validation.js';
+import { validateTaskForm } from './module/validate.js';
+import { addEventToValidateFields } from './module/validateFields.js';
 
 
 const idEditPersonShortcut = document.getElementById('editPersonShortcut');
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * Adds event listeners for the add contact form.
  */
 const addEventFromAddContact = () => {
+    addEventToValidateFields('contactsAdd');
     idFormAddContact.removeEventListener('submit', initAddForm);
     idFormAddContact.addEventListener('submit', initAddForm);
 };
@@ -109,6 +111,7 @@ const loadDataAddForm = (name, email, tel) => {
  */
 const initEditForm = (event) => {
     event.preventDefault();
+    addEventToValidateFields('contactsAdd');
     const formData = loadDataFromEditForm(
         idInputEditPersonName.value,
         idInputEditPersonEmail.value,
@@ -131,8 +134,8 @@ const initEditForm = (event) => {
  * @function isUser
  */
 const isUser = () => {
-    if(!fieldsToValidateEdit[2]) fieldsToValidateEdit.push({ id: 'editPersonTel', type: 'tel', value: '' });
-    if(showUser) fieldsToValidateEdit.splice(2, 2);
+    if (!fieldsToValidateEdit[2]) fieldsToValidateEdit.push({ id: 'editPersonTel', type: 'tel', value: '' });
+    if (showUser) fieldsToValidateEdit.splice(2, 2);
 };
 
 

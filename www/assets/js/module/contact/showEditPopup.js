@@ -2,6 +2,7 @@ import { loadUserIdFromStored } from '../modules.js';
 import { getContactId } from '../modules.js';
 import { extractInitials } from '../modules.js';
 import { retrievingData } from '../dataResponse.js';
+import { addEventToValidateFields } from '../validateFields.js';
 
 
 const idEditPersonShortcut = document.getElementById('editPersonShortcut');
@@ -23,6 +24,7 @@ let editUser = false;
  */
 export async function showContactEditPopup(email) {
     try {
+        addEventToValidateFields('contactsEdit');       
         showPopup();
         const userID = loadUserIdFromStored();
         if (email === 'user') {

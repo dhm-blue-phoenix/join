@@ -69,6 +69,9 @@ const validateDescription = (description) => {
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
 const validateName = (name) => {
+    if (name.length === 0) {
+        return { status: false, msg: 'The field must not be empty!' };
+    };
     if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(name)) {
         return { status: false, msg: 'Name can only contain letters, including German characters, spaces, and hyphens.' };
     };
@@ -86,6 +89,9 @@ const validateName = (name) => {
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
 const validateEmail = (email) => {
+    if (email.length === 0) {
+        return { status: false, msg: 'The field must not be empty!' };
+    };
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|de|at|org)$/.test(email)) {
         return { status: false, msg: 'Email must be a valid format (e.g., example@example.com).' };
     };
@@ -119,6 +125,9 @@ const validatePassword = (password) => {
  * @returns {{status: boolean, msg: string}} Returns an object containing the validation status and message.
  */
 const validateTel = (tel) => {
+    if (tel.length === 0) {
+        return { status: false, msg: 'The field must not be empty!' };
+    };
     if (!/^\d{10,15}$/.test(tel)) {
         return { status: false, msg: 'Telephone must be between 10 and 15 digits long.' };
     };

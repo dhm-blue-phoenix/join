@@ -6,7 +6,6 @@ import {
     taskForm,
     loadNextPage
 } from '../../initAddTask.js';
-import { validateTaskForm, msgErrIds } from '../validation.js';
 
 
 const idFormAddTask = document.getElementById('formAddTask');
@@ -15,7 +14,6 @@ const idBtnUrgent = document.getElementById('urgent');
 const idBtnMedium = document.getElementById('medium');
 const idBtnLow = document.getElementById('low');
 const idBtnCancel = document.getElementById('taskbuttonCancel');
-const validFieldIds = ['title', 'description', 'date', 'category'];
 
 
 let lastBtnPrio = 'medium';
@@ -181,58 +179,6 @@ const lastBtn = (prio) => {
 };
 
 
-/**
- * Adds event listeners to the specified elements for validation.
- *
- * @param {string[]} validFieldIds - An array of element IDs to validate.
- */
-const addEventToValidateFields = () => {
-    validFieldIds.forEach((field) => {
-        const element = document.getElementById(field);
-        if (element) {
-            element.addEventListener("input", validateFieldsFromInput);
-        };
-    });
-};
-
-
-/**
- * Validates a field based on its input type and value.
- *
- * @param {Event} event - The input event.
- */
-const validateFieldsFromInput = (event) => {
-    const inputType = event.target.type;
-    const text = event.target.value;
-    const validField = checkFieldsToType(inputType, text);
-    if (validField) {
-        const isValid = validateTaskForm([validField]);
-        if (isValid && msgErrIds[validField.type]) {            
-            document.getElementById(msgErrIds[validField.type]).style.borderColor = "";
-        };
-    };
-};
-
-
-/**
- * Maps input types to corresponding valid field IDs.
- *
- * @param {string} inputType - The input type.
- * @param {string} text - The input value.
- * @returns {{ id: string, type: string, value: string } | null} - The corresponding valid field object or null if not found.
- */
-const checkFieldsToType = (inputType, text) => {
-    const typeMapping = {
-        'text': validFieldIds[0],
-        'textarea': validFieldIds[1],
-        'date': validFieldIds[2],
-        'select-one': validFieldIds[3]
-    };
-    const currentField = typeMapping[inputType];
-    return { id: currentField, type: currentField, value: text };
-};
-
-
 export {
     addEventFromAddTask,
     addEventFromBtnUrgent,
@@ -243,6 +189,5 @@ export {
     addEventFromEditListSubTask,
     addEventFromDelListSubTask,
     addEventFromCancelBtn,
-    setBtnPrio,
-    addEventToValidateFields
+    setBtnPrio
 };

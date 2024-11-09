@@ -11,12 +11,12 @@ import {
     addEventFromAddSubTask,
     addEventFromEditListSubTask,
     addEventFromDelListSubTask,
-    setBtnPrio,
-    addEventToValidateFields
+    setBtnPrio
 } from './module/addTask/addEventsToAddTask.js';
 import { formTesting } from '../formTesting/testing.js';
-import { validateTaskForm } from './module/validation.js';
+import { validateTaskForm } from './module/validate.js';
 import { editItem } from './module/addTask/editSubTask.js';
+import { addEventToValidateFields } from './module/validateFields.js';
 
 
 const idInputTask = ['title', 'description', 'date', 'category'];
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addEventFromAddSubTask();
     renderUsers();
     loadEditTaskFromUrl();
-    addEventToValidateFields();
+    addEventToValidateFields('addTask');
     testing && formTesting();
 });
 
