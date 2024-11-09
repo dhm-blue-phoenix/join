@@ -7,9 +7,9 @@ const validFieldIds = {
 let validPage;
 
 /**
- * Adds event listeners to the specified elements for validation.
+ * Adds input event listeners to elements that require validation on the current page.
  *
- * @param {string[]} validFieldIds - An array of element IDs to validate.
+ * @param {string} page - The identifier of the page type to validate (e.g., 'addTask', 'contactsAdd', 'contactsEdit').
  */
 const addEventToValidateFields = (page) => {
     validPage = page;
@@ -23,9 +23,9 @@ const addEventToValidateFields = (page) => {
 
 
 /**
- * Validates a field based on its input type and value.
+ * Handles input events and triggers validation for the modified field.
  *
- * @param {Event} event - The input event.
+ * @param {Event} event - The input event containing information about the changed field.
  */
 const validateFieldsFromInput = (event) => {
     const inputType = event.target.type;
@@ -41,11 +41,11 @@ const validateFieldsFromInput = (event) => {
 
 
 /**
- * Maps input types to corresponding valid field IDs.
+ * Maps input types to their respective valid field identifiers based on the current page.
  *
- * @param {string} inputType - The input type.
- * @param {string} text - The input value.
- * @returns {{ id: string, type: string, value: string } | null} - The corresponding valid field object or null if not found.
+ * @param {string} inputType - The type of input field (e.g., 'text', 'textarea', 'date', etc.).
+ * @param {string} text - The value of the input field.
+ * @returns {{ id: string, type: string, value: string } | null} - An object representing the validated field or null if no mapping exists.
  */
 const checkFieldsToType = (inputType, text) => {
     const typeMapping = {
