@@ -53,7 +53,6 @@ async function uploadData(formData) {
     email: formData.email,
     name: formData.name,
     password: formData.pw,
-    contacts: { none: '' },
     shortcutBackColor: '#' + Math.floor(Math.random() * 16777215).toString(16),
   });
   signedUp(formData);
