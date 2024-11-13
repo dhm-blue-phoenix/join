@@ -99,6 +99,8 @@ main {
   align-items: flex-start;
   justify-content: center;
   position: unset !important;
+  overflow: auto;
+  padding: 32px 0;
 }
 
 .boardmain,
