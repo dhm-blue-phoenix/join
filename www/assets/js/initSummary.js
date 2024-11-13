@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 async function init() {
   const urgentTaskCount = await loadTaskStatusPrio();
   const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
-  // Hier kannst du die Daten verwenden, wie du möchtest
 
   const containers = [
     { id: 'countTasksinToDo', text: 'To-do', data: taskStatusData[0].count },
