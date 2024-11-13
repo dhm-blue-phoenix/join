@@ -13,7 +13,7 @@ export async function deleteContact(email) {
     try {
         const userID = loadUserIdFromStored();
         const contactId = await getContactId(userID, email, 'contactCard');
-        await removeContact(userID, contactId);
+        await removeContact(contactId);
         await updateContactDisplay();
         hideMobileContactCard();
     } catch (err) {
@@ -24,12 +24,11 @@ export async function deleteContact(email) {
 
 /**
  * Removes a contact using userID and contactId.
- * @param {string} userID - The ID of the user.
  * @param {string} contactId - The ID of the contact to remove.
  * @returns {Promise<void>}
  */
-async function removeContact(userID, contactId) {
-    await deleteElementById(`users/${userID}/contacts/${contactId[0]}`);
+async function removeContact(contactId) {    
+    await deleteElementById(`contacts/${contactId[0]}`);
 };
 
 

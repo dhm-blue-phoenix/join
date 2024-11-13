@@ -11,9 +11,9 @@ let message = '';
  * @returns {{status: boolean, msg: string}} An object containing the validation status and message.
  */
 const validateTitle = (text) => {
-    if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(text)) {
-        return { status: false, msg: 'Title can only contain letters, including German characters, spaces, and hyphens.' };
-    };
+    if (!/^[a-zA-ZäöüÄÖÜß\s-0-9]+$/.test(text)) {
+        return { status: false, msg: 'Title can only contain letters, numbers, including German characters, spaces, and hyphens.' };
+    };    
     if (text.length < 1 || text.length > 60) {
         return { status: false, msg: 'Title must be between 1 and 60 characters long.' };
     };

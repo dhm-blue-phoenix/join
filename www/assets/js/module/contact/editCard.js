@@ -17,7 +17,7 @@ export async function editContact(formData) {
         if (formData.tel === '') {
             await updateUserDetails(userId, formData);
         } else {
-            await updateContactDetails(userId, formData);
+            await updateContactDetails(formData);
         };
         await updateContactDisplay();
         hideMobileContactCard();
@@ -42,12 +42,11 @@ async function updateUserDetails(userId, formData) {
 
 /**
  * Updates the contact details.
- * @param {string} userId - The ID of the user.
  * @param {Object} formData - The data to update the contact with.
  * @returns {Promise<void>}
  */
-async function updateContactDetails(userId, formData) {
-    await updateData(`users/${userId}/contacts/${editContactId}`, formData);
+async function updateContactDetails(formData) {
+    await updateData(`contacts/${editContactId}`, formData);
 };
 
 

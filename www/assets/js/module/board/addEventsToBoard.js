@@ -47,6 +47,7 @@ const addEventToLoadAddTask = () => {
  */
 const addEventFromTaskCard = (id) => {
     let element = document.getElementById(id);
+    if(!element) return;
     element.removeEventListener('click', handleClick);
     element.addEventListener('click', handleClick);
 };

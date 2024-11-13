@@ -1,4 +1,4 @@
-import { initValidation } from '../../formTesting/inputValidation.js';
+import { initValidation } from './inputValidation.js';
 
 
 const msgErrIds = {

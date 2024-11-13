@@ -16,13 +16,11 @@ export const createTaskCard = async (cardId, headline, description, users, categ
     taskCard.className = 'taskcard';
     taskCard.draggable = true;
     taskCard.setAttribute('task-id', cardId);
-    
     taskCard.appendChild(createCategory(category));
     taskCard.appendChild(createDescription(headline, description));
     taskCard.appendChild(createProgress(subtask));
     taskCard.appendChild(createPerson(users, prio, cardId));
     taskCard.appendChild(createMobile(cardId));
-    
     document.getElementById(taskStatus[0].value).appendChild(taskCard);
 };
 
@@ -132,17 +130,20 @@ const progressText = (taskFinished, subtask) => {
 const createProgressImage = (progressPercentage, subtaskLength) => {
     if (subtaskLength <= 1) {
         const noSubtasksMessage = document.createElement('div');
+        if (!noSubtasksMessage) return;
         noSubtasksMessage.textContent = 'Keine Subtasks';
         noSubtasksMessage.style.color = '#5ab824';
         noSubtasksMessage.style.fontWeight = 'bold';
         return noSubtasksMessage;
     };
     const progressContainer = document.createElement('div');
+    if (!progressContainer) return;
     progressContainer.style.width = '128px';
     progressContainer.style.height = '8px';
     progressContainer.style.backgroundColor = '#e0e0e0';
     progressContainer.style.borderRadius = '4px';
     const progressBar = document.createElement('div');
+    if (!progressBar && !progressPercentage) return;
     progressBar.style.width = `${progressPercentage}%`;
     progressBar.style.height = '100%';
     progressBar.style.backgroundColor = '#007CEE';
@@ -201,6 +202,7 @@ const createPersonShortcut = (contacts) => {
  */
 const createPersonShortcutContent = (contact) => {
     const persionShortcutContent = document.createElement('div');
+    if (!persionShortcutContent && !contact.color && !contact.short) return;
     persionShortcutContent.id = 'nameShortcut';
     persionShortcutContent.style.marginLeft = '-10px';
     persionShortcutContent.style.backgroundColor = contact.color;
@@ -219,8 +221,8 @@ const createPersonShortcutContent = (contact) => {
  * @returns {HTMLImageElement} - The created image element for the priority icon.
  */
 const createPrioShortcut = (cardId, prio) => {
-    const prioIcon = document.createElement('img');
-    switch (prio.toLowerCase()) {
+    const prioIcon = document.createElement('img');    
+    switch (prio) {
         case 'low':
             prioIcon.src = './resources/symbols/PrioLow.png';
             break;
@@ -231,8 +233,8 @@ const createPrioShortcut = (cardId, prio) => {
             prioIcon.src = './resources/symbols/PrioUrgent.png';
             break;
         default:
-            console.log('Unbekannte Priorität:', prio);
-    }
+            break;
+    };
     prioIcon.alt = '';
     prioIcon.className = 'taskcardbigprioshortcut'; // Optional: Füge die Klasse hinzu, wenn du sie benötigst
     return prioIcon;
@@ -295,16 +297,16 @@ const createMobileCategoryOptions = (option) => {
  * @returns {HTMLButtonElement} - The created button element.
  */
 const createMobileButton = (cardId) => {
-  const mobileBtn = document.createElement('button');
-  mobileBtn.id = 'moveTaskButton';
-  mobileBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-  });
-  mobileBtn.textContent = 'Move';
-  mobileBtn.addEventListener('click', () => {
-    import('./draganddrop.js').then(module => {
-      module.switchCategory(cardId);
+    const mobileBtn = document.createElement('button');
+    mobileBtn.id = 'moveTaskButton';
+    mobileBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
     });
-  });
-  return mobileBtn;
+    mobileBtn.textContent = 'Move';
+    mobileBtn.addEventListener('click', () => {
+        import('./draganddrop.js').then(module => {
+            module.switchCategory(cardId);
+        });
+    });
+    return mobileBtn;
 };

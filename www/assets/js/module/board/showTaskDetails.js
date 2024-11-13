@@ -1,6 +1,5 @@
 import { deleteTaskCard } from './deleteTaskCard.js';
 import { editTaskCard } from './editTaskCard.js';
-import { restoreTaskPositions } from './draganddrop.js';
 import { updateData, retrievingData } from '../dataResponse.js';
 
 
@@ -10,9 +9,13 @@ let taskId;
 
 
 /**
- * Initializes the details of a task with the given ID by retrieving its data from the server and updating the DOM accordingly.
- * @param {number|string} id - The ID of the task to initialize.
- * @returns {Promise<void>} - A promise that resolves when the task details have been loaded and the DOM has been updated.
+ * Initializes the display of task details by loading task data based on the provided ID,
+ * updating various elements of the UI based on task content, and adding event listeners for task actions.
+ *
+ * @async
+ * @function initShowTaskDetails
+ * @param {string} id - The ID of the task to display.
+ * @returns {Promise<void>} A promise that resolves when the task details have been initialized.
  */
 export async function initShowTaskDetails(id) {
     try {
@@ -20,39 +23,43 @@ export async function initShowTaskDetails(id) {
         const dataResponse = await retrievingData('board');
         const taskData = dataResponse.find(task => task.id === taskId);
         ids.forEach((id, value) => {
-            switch (id) {
-                case 'TITLE':
-                case 'DESCRIPTION_HEADLINE':
-                case 'DESCRIPTION_CONTENT':
-                case 'DATE':
-                case 'BTN_PRIO':
-                    updateTextContent(id, taskData[item[value]]);
-                    break;
-                case 'PERSONS':
-                    let persons = taskData[item[value]].filter(item => item !== 'none');
-                    if (persons.length > 0) {
-                        updatePersons(id, persons);
-                    }
-                    break;
-                case 'SUBTASKS':
-                    let subtasks = taskData[item[value]].filter(item => item !== 'none');
-                    if (subtasks.length > 0) {
-                        updateSubtasks(id, subtasks, taskId, true);
-                    } else {
-                        updateSubtasks(id, '', taskId, false)
-                    }
-                    break;
-                case 'BTN_CONTAINER':
-                    updateButtonContainer(id);
-                    break;
-                default:
-                    break;
-            }
+            handleTaskContentUpdate(id, taskData[item[value]]);
         });
         addEventFromDelTaskCard();
         addEventToEditTaskCard();
     } catch (err) {
         console.error(err);
+    };
+};
+
+
+/**
+ * Updates task content based on the specified ID and task data, applying specific UI updates
+ * depending on the content type (e.g., title, description, persons, subtasks, etc.).
+ *
+ * @function handleTaskContentUpdate
+ * @param {string} id - The ID of the UI element to update.
+ * @param {*} content - The content to update in the UI element, specific to the task.
+ */
+function handleTaskContentUpdate(id, content) {
+    switch (id) {
+        case 'TITLE': case 'DESCRIPTION_HEADLINE': case 'DESCRIPTION_CONTENT': case 'DATE': case 'BTN_PRIO':
+            updateTextContent(id, content);
+            break;
+        case 'PERSONS':
+            const persons = content.filter(item => item !== 'none');
+            if (persons.length > 0) updatePersons(id, persons);
+            break;
+        case 'SUBTASKS':
+            const subtasks = content.filter(item => item !== 'none');
+            if (subtasks.length > 0) updateSubtasks(id, subtasks, taskId, true);
+            else updateSubtasks(id, '', taskId, false);
+            break;
+        case 'BTN_CONTAINER':
+            updateButtonContainer(id);
+            break;
+        default:
+            break;
     };
 };
 

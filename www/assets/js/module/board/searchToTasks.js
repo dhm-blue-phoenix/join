@@ -1,7 +1,8 @@
 import { retrievingData } from '../dataResponse.js';
 import { createTaskCard } from './createTaskCard.js';
 import { addEventFromTaskCard } from './addEventsToBoard.js';
-import { initTaskBord, clearBoard } from '../../initBoard.js';
+import { initTaskBord, clearBoard, initBoard } from '../../initBoard.js';
+import { switchCategory } from './draganddrop.js';
 
 
 const idInputSearch = document.getElementById('boardSearch');
@@ -17,8 +18,11 @@ const idTaskNotFound = document.getElementById('taskNotFound');
  */
 async function searchToTasks() {
     try {
-        const searchToTitle = idInputSearch?.value?.toLowerCase() || ' ';
-        if (searchToTitle === ' ') return initTaskBord();
+        const searchToTitle = idInputSearch.value.toLowerCase() || ' ';
+        if (searchToTitle === ' ') {
+            await initTaskBord();
+            return initBoard();
+        };
         const taskResponseData = await retrievingData('board/');
         const searchELements = searchTaskElements(taskResponseData, searchToTitle);
         renderSearchTasks(searchELements);
@@ -52,12 +56,13 @@ const searchTaskElements = (tasks, search) => {
  */
 const renderSearchTasks = (tasks) => {
     clearBoard();
-    if(tasks.length === 0) return idTaskNotFound.textContent = 'Keine Ergebnisse gefunden';
+    if (tasks.length === 0) return idTaskNotFound.textContent = 'Keine Ergebnisse gefunden';
     tasks.forEach((task) => {
         let { id, title: headline, description, assigned: users, category, subtask } = task;
         createTaskCard(id, headline, description, users, category, subtask);
         addEventFromTaskCard(`taskCardID${id}`);
     });
+    initBoard();
     idTaskNotFound.textContent = '';
 };
 

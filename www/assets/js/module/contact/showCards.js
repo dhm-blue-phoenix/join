@@ -2,6 +2,7 @@ import { showContactDetails } from './showCardDetails.js';
 import { loadUserIdFromStored, loadElementByPatch } from '../modules.js';
 import { generateCardHeadline, createContactCard } from './createCard.js';
 import { showUserDetails } from './user/showUserDetails.js';
+import { retrievingData } from '../dataResponse.js';
 
 
 const classContactCard = document.querySelector('.Contactcards');
@@ -27,7 +28,7 @@ export async function fetchContacts() {
     try {
         contacts = {};
         userID = loadUserIdFromStored();
-        const tempContacts = await loadElementByPatch(`users/${userID}/`, 0);
+        const tempContacts = await retrievingData('contacts');
         organizeContacts(tempContacts);
     } catch (err) {
         console.error(`An error occurred while loading contacts: ${err}`);

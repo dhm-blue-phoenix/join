@@ -8,6 +8,7 @@ const idInputEmail = document.getElementById('userEmail');
 const idInputPW = document.getElementById('userPassword');
 const idInputCheckbox = document.getElementById('inputCheckbox');
 const idErrEmail = document.getElementById('emailError');
+const idErrPw = document.getElementById('passwordError');
 
 
 /**
@@ -60,8 +61,8 @@ async function initLogin(event) {
         const statusCheckbox = idInputCheckbox.checked;
         const formData = await loadFormData();
         const user = await loadUserData(formData);
-        if (user === undefined) return checkUser();
-        checkStatusFromCheckbox(statusCheckbox, user);
+        if (user[1].length > 0) return checkUser(user);
+        checkStatusFromCheckbox(statusCheckbox, user[0]);
         loadWindow();
     } catch (err) {
         console.error(`Error during login initialization: ${err}`);
@@ -73,16 +74,27 @@ async function initLogin(event) {
  * Resets the error messages displayed to the user.
  */
 const resetErrMessages = () => {
+    idErrEmail.textContent = '';
     idErrEmail.style.display = 'none';
+    idErrPw.textContent = '';
+    idErrPw.style.display = 'none';
 };
 
 
 /**
  * Displays an error message when the user is not found.
  */
-const checkUser = () => {
-    idErrEmail.textContent = 'User not found!';
-    idErrEmail.style.display = 'block';
+const checkUser = (err) => {
+    switch (err[0]) {
+        case 'email':
+            idErrEmail.textContent = err[1];
+            idErrEmail.style.display = 'block';
+            break;
+        case 'pw':
+            idErrPw.textContent = err[1];
+            idErrPw.style.display = 'block';
+            break;
+    };
 };
 
 

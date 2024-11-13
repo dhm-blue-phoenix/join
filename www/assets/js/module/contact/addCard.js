@@ -1,7 +1,7 @@
 import { loadUserIdFromStored, loadElementByPatch } from '../modules.js';
 import { showContactCards } from './showCards.js';
 import { dnonePersonCard, resetAddContactForm } from '../dnone.js';
-import { uploadPatchData } from '../dataResponse.js';
+import { retrievingData, uploadPatchData } from '../dataResponse.js';
 
 
 /**
@@ -12,9 +12,9 @@ import { uploadPatchData } from '../dataResponse.js';
 export async function addContact(contactData) {
     try {
         const userId = loadUserIdFromStored();
-        const contactCards = await loadElementByPatch(`users/${userId}`, 0);
+        const contactCards = await retrievingData('contacts');
         if (isContactExists(contactCards, contactData.email)) return console.warn('Benutzer existiert bereits!'); // [!] Ändern zu Benutzer-Feedback
-        await uploadPatchData(`users/${userId}/contacts/`, contactData);
+        await uploadPatchData(`contacts/`, contactData);
         await updateContactDisplay();
     } catch (err) {
         console.error(`Es ist ein schwerwiegender Fehler aufgetreten! ${err}`);

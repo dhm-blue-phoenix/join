@@ -13,7 +13,7 @@ const storedSessionUserID = sessionStorage.getItem('userID');
 async function loadUserData(find) {
     try {
         const users = await retrievingData('');
-        const user = await findUser(users[1], find);
+        const user = await findUser(users[2], find);
         return user;
     } catch (err) {
         console.error('Error loading user data:', err);
@@ -29,7 +29,19 @@ async function loadUserData(find) {
  * @returns {Object} - User object matching the search criteria.
  */
 async function findUser(users, find) {
-    return Object.entries(users).find(([id, user]) => user.email === find.email && user.password === find.pw);
+    let msg = '';
+    const userData = Object.entries(users);
+    const checkEmail = userData.find(([id, user]) => user.email === find.email);
+    if(!checkEmail) {
+        msg = 'Email not Fount!'
+        return ['email', msg];
+    };
+    const checkPw = Object.entries(users).find(([id, user]) => user.email === find.email && user.password === find.pw);
+    if(!checkPw) {
+        msg = 'Password is incorrect!'
+        return ['pw', msg];
+    };
+    return [checkPw, msg];
 };
 
 
@@ -104,8 +116,8 @@ async function loadElementById(patch, type, category) {
         return taskId;
     };
     if (category === 'contactCard') {
-        const data = await retrievingData(patch);
-        const contactId = await findContactById(data[0], type);
+        const data = await retrievingData('');
+        const contactId = await findContactById(data[1], type);
         return contactId;
     };
 };
@@ -137,7 +149,7 @@ async function findContactById(contacts, findEmail) {
  * Deletes an element by its ID.
  * @param {string} patch - Patch to delete data from.
  */
-async function deleteElementById(patch) {
+async function deleteElementById(patch) {    
     await deleteData(patch);
 };
 

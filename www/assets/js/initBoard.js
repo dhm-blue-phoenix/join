@@ -8,20 +8,35 @@ let taskStatus = [];
 
 
 if (window.location.pathname === '/board.html') {
-    document.addEventListener('DOMContentLoaded', async () => {        
+    document.addEventListener('DOMContentLoaded', async () => {
         await loadTaskStatus();
         await initTaskBord();
-        addEventToLoadAddTask();
-        addEventToSearch();
-        enableDragAndDrop();
-        addTaskNotFoundContainers();
-        restoreTaskPositions();
-        updateEmptyState();
-        setTimeout(async () => {
-            await updateTaskStatusInDatabase();
-        }, 1000);
-        addEventToCloseTaskCard();
+        initBoard();
     });
+};
+
+
+/**
+ * Initializes the task board by loading task statuses, setting up event listeners, 
+ * enabling drag-and-drop functionality, restoring task positions, and updating the board state.
+ * Additionally, it schedules an update to synchronize task statuses with the database.
+ *
+ * @async
+ * @function initBoard
+ * @returns {Promise<void>} A promise that resolves when the board initialization is complete.
+ */
+const initBoard = async () => {
+    await loadTaskStatus();
+    addEventToLoadAddTask();
+    addEventToSearch();
+    enableDragAndDrop();
+    addTaskNotFoundContainers();
+    restoreTaskPositions();
+    updateEmptyState();
+    setTimeout(async () => {
+        await updateTaskStatusInDatabase();
+    }, 1000);
+    addEventToCloseTaskCard();
 };
 
 
@@ -98,4 +113,4 @@ const clearBoard = () => {
 };
 
 
-export { initTaskBord, clearBoard, taskStatus, loadTaskStatus };
+export { initTaskBord, clearBoard, taskStatus, loadTaskStatus, initBoard };
