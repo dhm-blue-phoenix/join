@@ -3,83 +3,111 @@
 /*
     Definiert gemeinsame Stile für Elemente mit den Klassen .help, .privacyPolicy und .legalNotice.
 */
+.privacyPolicy h1 {
+  font-size: 42px;
+}
+.legalNotice h1 {
+  font-size: 42px;
+}
+.contant {
+  margin-top: 24px;
+}
+.contant h4 {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.contant h2 {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.contant p {
+  font-size: 16px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.contant ul {
+  font-size: 16px;
+  padding: 0;
+  list-style: none;
+}
+
 .help div,
 .privacyPolicy div,
 .legalNotice div {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1014px;
+  display: flex;
+  justify-content: space-between;
+  /* max-width: 1014px; */
 }
 
 .help div h2,
 .privacyPolicy div h2,
 .legalNotice div h2 {
-    font-weight: 700;
-    font-size: 48px;
+  font-weight: 700;
+  font-size: 30px;
 }
 
 .help div img,
 .privacyPolicy div img,
 .legalNotice div img {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .help div img:hover,
 .privacyPolicy div img:hover,
 .legalNotice div img:hover {
-    cursor: pointer;
-    transform: scale(1.1);
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .help .contant,
 .privacyPolicy .contant,
 .legalNotice .contant {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .help .contant section,
 .privacyPolicy .contant section,
 .legalNotice .contant section {
-    max-width: 1014px;
+  max-width: 1014px;
 }
 
 .help .contant section h2,
 .privacyPolicy .contant section h2,
 .legalNotice .contant section h2 {
-    font-weight: 700;
-    font-size: 16px;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .help .contant section h3,
 .privacyPolicy .contant section h3,
 .legalNotice .contant section h3 {
-    font-weight: 700;
-    font-size: 16px;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .help .contant section p,
 .privacyPolicy .contant section p,
 .legalNotice .contant section p {
-    font-weight: 400;
-    font-size: 16px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    line-height: 20px;
-    text-align: justify;
+  font-weight: 400;
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  line-height: 20px;
+  text-align: justify;
 }
 
 .help .contant section ol {
-    font-weight: 700;
-    font-size: 27px;
+  font-weight: 700;
+  font-size: 27px;
 }
 
 .legalNotice .contant section ul {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .help .contant section span,
 .legalNotice .contant section span {
-    color: var(--text-color05);
+  color: var(--text-color05);
 }

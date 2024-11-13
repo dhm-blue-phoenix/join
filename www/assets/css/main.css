@@ -111,7 +111,10 @@ main {
 }
 
 .dataprotectionmain {
-  padding-bottom: 80px !important;
+  max-width: 80vw;
+  height: calc(100vh - 96px - 80px);
+  overflow: auto;
+  /* padding-bottom: 80px !important; */
 }
 
 .contactsmain {

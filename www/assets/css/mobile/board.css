@@ -14,7 +14,7 @@
     font-size: 16px;
     font-weight: 400;
     color: var(--text-color06);
-    height: 120px;
+    height: auto;
     overflow: auto;
     /* width: 90%; */
     overflow-x: hidden;
@@ -70,10 +70,10 @@
 
   .taskcard {
     min-width: 300px;
-    height: auto !important;
-    gap: 8px;
+    min-height: 420px;
+    gap: 16px;
     cursor: pointer;
-    justify-content: center;
+    /* justify-content: center; */
     border-radius: 24px;
     /* border-radius: 24px 0 24px 0; */
   }
