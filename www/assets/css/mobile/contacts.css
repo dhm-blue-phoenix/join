@@ -1,4 +1,10 @@
 @media (max-width: 1300px) {
+  .addpersoninput div {
+    width: 100%;
+  }
+  .editpersoninput div {
+    width: 100%;
+  }
   @keyframes slideIn {
     from {
       right: -100%;
@@ -118,7 +124,7 @@
     display: none;
   }
   .addpersoninput input {
-    width: 340px;
+    width: 100%;
     height: 41px;
     padding-left: 16px;
     font-size: 16px;
@@ -128,7 +134,7 @@
   }
 
   .addpersoninput {
-    width: 364px;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -201,17 +207,17 @@
   }
 
   .editpersoninput input {
-    width: 340px;
+    width: 100%;
     height: 41px;
     border-radius: 8px;
     border: 1px solid var(--back-color08);
     padding-left: 16px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
   }
 
   .editpersoninput {
-    width: auto;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -360,7 +366,7 @@
     width: 100%;
     gap: 16px;
   }
-  .nameemail{
+  .nameemail {
     width: 80%;
     overflow: hidden;
   }
@@ -396,7 +402,7 @@
     padding: 8px;
     gap: 0;
     justify-content: space-between;
-}
+  }
   .letter {
     width: 95%;
   }
@@ -422,12 +428,6 @@
     /* width: 95%; */
     justify-content: center;
     align-items: center;
-  }
-
-  .editpersoninput input {
-    width: 70vw;
-    height: 41px;
-    font-size: 16px;
   }
 }
 @media (max-height: 670px) {
@@ -468,5 +468,5 @@
     align-items: center;
     margin-top: 24px;
     gap: 8px;
-}
+  }
 }
