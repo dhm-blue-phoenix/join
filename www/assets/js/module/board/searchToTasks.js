@@ -33,10 +33,10 @@ async function searchToTasks() {
 
 
 /**
- * Filtern von Aufgaben nach Titel und Beschreibung.
- * @param {object[]} tasks - Ein Array von Aufgaben-Objekten.
- * @param {string} search - Der Suchbegriff.
- * @returns {object[]} Ein Array von Aufgaben-Objekten, die den Suchbegriff enthalten.
+ * Filters tasks by title and description.
+ * @param {object[]} tasks - An array of task objects.
+ * @param {string} search - The search term.
+ * @returns {object[]} An array of task objects that contain the search term.
  */
 const searchTaskElements = (tasks, search) => {
     const filteredTasks = tasks.filter(task => {

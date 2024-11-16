@@ -3,7 +3,7 @@ import { retrievingData, updateData } from '../dataResponse.js';
 import { loadTaskStatus } from '../../initBoard.js';
 
 /**
- * Aktiviert Drag-and-Drop-Funktionalität für die Container und Karten.
+ * Enables drag-and-drop functionality for containers and cards.
  */
 export function enableDragAndDrop() {
     const containers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
@@ -23,24 +23,24 @@ export function enableDragAndDrop() {
 }
 
 /**
- * Erlaubt das Ablegen von Elementen in einem Container.
- * @param {DragEvent} event - Das DragEvent-Objekt.
+ * Allows dropping of elements into a container.
+ * @param {DragEvent} event - The DragEvent object.
  */
 function allowDrop(event) {
     event.preventDefault();
 }
 
 /**
- * Setzt die Daten für das Drag-and-Drop über die DataTransfer-API.
- * @param {DragEvent} event - Das DragEvent-Objekt.
+ * Sets the data for drag-and-drop using the DataTransfer API.
+ * @param {DragEvent} event - The DragEvent object.
  */
 function drag(event) {
     event.dataTransfer.setData('text', event.target.id);
 }
 
 /**
- * Handhabt das Ablegen einer Karte in einem Container.
- * @param {DragEvent} event - Das DragEvent-Objekt.
+ * Handles the dropping of a card into a container.
+ * @param {DragEvent} event - The DragEvent object.
  */
 function drop(event) {
     event.preventDefault();
@@ -63,8 +63,17 @@ function drop(event) {
     removeHoverEffect(event.target);
 }
 
-
-
+/**
+ * Saves the new position of a task card by updating its board status in the data source.
+ *
+ * This asynchronous function retrieves the task ID associated with a card, loads the task data,
+ * and updates the board status to reflect its new container. It also triggers an update to 
+ * synchronize task statuses with the database.
+ *
+ * @param {string} cardId - The ID of the task card element.
+ * @param {string} containerId - The ID of the container where the card is dropped.
+ * @returns {Promise<void>} A promise that resolves when the task position is successfully saved.
+ */
 async function saveTaskPosition(cardId, containerId) {
     const taskId = document.getElementById(cardId).getAttribute('task-id');
     const id = await loadTasksToBoard(taskId);
@@ -72,7 +81,16 @@ async function saveTaskPosition(cardId, containerId) {
     updateTaskStatusInDatabase();
 };
 
-
+/**
+ * Updates the task status data in the database to reflect the current state of the board.
+ *
+ * This function loads the current task status data, counts the number of task cards in each
+ * container, and updates the corresponding count in the database.
+ *
+ * @async
+ * @function updateTaskStatusInDatabase
+ * @returns {Promise<void>} A promise that resolves when the task status data has been successfully updated.
+ */
 async function updateTaskStatusInDatabase() {
     try {
         const taskStatusData = await loadTaskStatus();
@@ -86,9 +104,7 @@ async function updateTaskStatusInDatabase() {
             const containerId = category.value;
             const container = document.getElementById(containerId);
             const currentCardCount = container.querySelectorAll('[id^=taskCardID]').length;
-            // console.log(`Kategorie: ${category.text}, Anzahl Taskcards: ${currentCardCount}`);
 
-            // Aktualisieren Sie data.count in der Datenbank für jede Kategorie
             const data = {
                 count: currentCardCount,
                 prio: category.prio,
@@ -96,7 +112,7 @@ async function updateTaskStatusInDatabase() {
                 value: category.value
             };
             const path = `board/taskStatus/${categoryMapping[containerId]}`;
-            updateData(path, data); // Verwenden Sie updateData aus dataResponse.js
+            updateData(path, data);
         });
 
     } catch (error) {
@@ -106,7 +122,7 @@ async function updateTaskStatusInDatabase() {
 
 
 /**
- * Stellt die Positionen aller Karten basierend auf dem lokalen Speicher wieder her.
+ * Restores the positions of all cards based on local storage.
  */
 export function restoreTaskPositions() {
     document.querySelectorAll('[id^=taskCardID]').forEach(async (card) => {
@@ -124,12 +140,12 @@ export function restoreTaskPositions() {
 };
 
 /**
- * Lädt die Aufgaben auf das Board basierend auf der Aufgaben-ID.
+ * Loads tasks onto the board based on the task ID.
  * 
  * @async
  * @function loadTasksToBoard
- * @param {string} taskId - Die ID der Aufgabe, die geladen werden soll.
- * @returns {Promise<Object>} - Ein Promise, das das gefundene Aufgabenobjekt zurückgibt.
+ * @param {string} taskId - The ID of the task to be loaded.
+ * @returns {Promise<Object>} - A promise that returns the found task object.
  */
 async function loadTasksToBoard(taskId) {
     let taskData = await retrievingData('');
@@ -138,7 +154,7 @@ async function loadTasksToBoard(taskId) {
 };
 
 /**
- * Aktualisiert den Zustand der leeren Anzeige für alle Container.
+ * Updates the empty display state for all containers.
  */
 export function updateEmptyState() {
     const containers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
@@ -155,10 +171,9 @@ export function updateEmptyState() {
     });
 }
 
-
 /**
- * Fügt den Hover-Effekt hinzu, wenn ein gültiger Container betreten wird.
- * @param {DragEvent} event - Das DragEvent-Objekt.
+ * Adds the hover effect when a valid container is entered.
+ * @param {DragEvent} event - The DragEvent object.
  */
 function handleDragEnter(event) {
     const validContainers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
@@ -168,8 +183,8 @@ function handleDragEnter(event) {
 }
 
 /**
- * Entfernt den Hover-Effekt, wenn das Element den Container verlässt.
- * @param {DragEvent} event - Das DragEvent-Objekt.
+ * Removes the hover effect when the element leaves the container.
+ * @param {DragEvent} event - The DragEvent object.
  */
 function handleDragLeave(event) {
     const validContainers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
@@ -179,8 +194,8 @@ function handleDragLeave(event) {
 }
 
 /**
- * Entfernt den Hover-Effekt eines Containers nach dem Ablegen.
- * @param {Element} target - Das Ziel-Element des Drop-Events.
+ * Removes the hover effect of a container after dropping.
+ * @param {Element} target - The target element of the drop event.
  */
 function removeHoverEffect(target) {
     const validContainers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
@@ -190,12 +205,12 @@ function removeHoverEffect(target) {
 }
 
 /**
- * Wechselt die Task-Karte zu einer anderen Kategorie.
+ * Switches the task card to another category.
  * ====================================================================================================
- * Diese Funktion wird durch den Klick auf den "Move"-Button auf der mobilen Task-Karte ausgelöst.
- * Sie liest den ausgewählten Kategorie-Wert aus dem `select`-Element mit der ID 'taskCategorySelect' und
- * verschiebt die Task-Karte in den Ziel-Kategorie-Container. Sie aktualisiert auch den Zustand der Kategorie
- * und speichert die neue Position der Task-Karte im LocalStorage.
+ * This function is triggered by clicking the "Move" button on the mobile task card.
+ * It reads the selected category value from the `select` element with the ID 'taskCategorySelect' and
+ * moves the task card to the target category container. It also updates the category state and saves the
+ * new position of the task card in LocalStorage.
  * ====================================================================================================
  * @function switchCategory
  * ====================================================================================================
@@ -207,23 +222,17 @@ export const switchCategory = (cardId) => {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const taskCard = document.getElementById(`taskCardID${cardId}`);
 
-    // Verwende den Code von createMobileCategory, um den richtigen Div-Container auszuwählen
     const category = taskStatus.find(option => option.value === selectedOption.value).value;
     const mobileCategory = createMobileCategory(category);
     const targetContainer = document.getElementById(mobileCategory.cardId);
 
-    // Finde den richtigen Container-Element
-    const containerId = selectedOption.value; // Hier wird der Wert des ausgewählten Options verwendet
+    const containerId = selectedOption.value;
     const container = document.getElementById(containerId);
 
-
-    // Füge das taskCard-Element zum Container hinzu
     container.appendChild(taskCard);
 
-    // Speichere die neue Position der Task-Karte
     saveTaskPosition(taskCard.id, selectedOption.value);
 
-    // Aktualisiere den Zustand der Kategorie
     updateEmptyState();
     updateTaskStatusInDatabase();
 };

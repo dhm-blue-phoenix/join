@@ -10,7 +10,12 @@ const USER_CARDS_CONTAINER = document.getElementById('userCardsContainerID');
 let assignedActiv = [''];
 let users = ['', 'Select contacts to assign'];
 
-
+/**
+ * Retrieves all contacts from the server and renders them as user cards.
+ * The data is modified to match the structure used by the createSortedUsers function.
+ * If an error occurs, it is logged to the console.
+ * @returns {Promise<void>}
+ */
 const renderUsers = async () => {
     try {
         const tempUsers = await retrievingData(`contacts`);
@@ -41,10 +46,13 @@ document.addEventListener('click', (event) => {
         USER_CARDS_CONTAINER.style.display = 'none';
     }
 });
+
 /**
- * Hauptfunktion, die sortierte Benutzerkarten erstellt und dem Benutzercontainer hinzufügt.
- * Initialisiert die Benutzerkarte und Checkboxen für jeden Benutzer.
+ * Creates sorted user cards and appends them to the DOM.
+ * It also handles the visibility of the container for selected persons based on its content.
+ * @returns {void}
  */
+
 function createSortedUsers() {
     USER_CARDS_CONTAINER.innerHTML = '';  // Clear the container
     const selectedPersonContainer = document.getElementById('selectedPerson');  // Container for selected persons
@@ -66,20 +74,23 @@ function createSortedUsers() {
     toggleSelectedPersonContainer(selectedPersonContainer);  // Initially hide the container
 }
 
+
 /**
- * Überprüft, ob der Benutzer übersprungen werden sollte, basierend auf leeren oder ungültigen Daten.
- * @param {Array|string} user - Der Benutzer, der überprüft werden soll.
- * @returns {boolean} - Gibt true zurück, wenn der Benutzer übersprungen werden soll.
+ * Determines whether a user should be skipped based on its value.
+ * Skips if the user is an empty string or is labeled as "Select contacts to assign".
+ * @param {string} user - The user value to evaluate.
+ * @returns {boolean} - True if the user should be skipped, otherwise false.
  */
 function shouldSkipUser(user) {
     return typeof user === 'string' && (user === '' || user === 'Select contacts to assign');
 }
 
 /**
- * Erstellt ein Benutzer-Div-Element, das den Namen, die Initialen und die Benutzerinformationen enthält.
- * @param {Array} user - Das Array mit Benutzerinformationen (Name, Initialen, Hintergrundfarbe).
- * @param {number} counter - Ein Zähler, um den Benutzer zu identifizieren.
- * @returns {HTMLElement} - Das erstellte Benutzer-Div-Element.
+ * Creates a div element for a user, containing its initials and name.
+ * It also applies some CSS styles to make the div look like a user card.
+ * @param {Array} user - The user data array, containing name, initials, and background color.
+ * @param {number} counter - A counter to generate a unique id for the div element.
+ * @returns {HTMLElement} - The created div element for the user.
  */
 function createUserDiv(user, counter) {
     const userDiv = document.createElement('div');
@@ -99,9 +110,11 @@ function createUserDiv(user, counter) {
 }
 
 /**
- * Erstellt ein Div-Element für die Benutzerinitialen und setzt die Hintergrundfarbe.
- * @param {Array} user - Das Array mit Benutzerinformationen (Name, Initialen, Hintergrundfarbe).
- * @returns {HTMLElement} - Das erstellte Div-Element für die Initialen des Benutzers.
+ * Creates a div element displaying the initials of a user.
+ * It takes the user data array and generates a div element with the initials,
+ * styled with a background color from the user data.
+ * @param {Array} user - The user data array, containing name, initials, and background color.
+ * @returns {HTMLElement} - The created div element for the user's initials.
  */
 function createInitialsDiv(user) {
     const initialsDiv = document.createElement('div');
@@ -113,10 +126,14 @@ function createInitialsDiv(user) {
 }
 
 /**
- * Erstellt ein Checkbox-Element für die Benutzerkarte und fügt die zugehörigen Event-Listener hinzu.
- * @param {HTMLElement} userDiv - Das Benutzer-Div-Element, dem die Checkbox hinzugefügt wird.
- * @param {HTMLElement} selectedPersonContainer - Der Container, in dem ausgewählte Benutzer angezeigt werden.
- * @returns {HTMLInputElement} - Die erstellte Checkbox.
+ * Creates a checkbox input element, appends it to the given userDiv, and adds event listeners
+ * to handle its checked state. The checkbox state toggles on userDiv click and updates the
+ * selectedPersonContainer accordingly. It also stops event propagation on checkbox click.
+ * 
+ * @param {HTMLElement} userDiv - The div element representing a user card to append the checkbox to.
+ * @param {HTMLElement} selectedPersonContainer - The container for displaying selected persons,
+ * which gets updated when the checkbox state changes.
+ * @returns {HTMLInputElement} - The created checkbox element.
  */
 function createCheckbox(userDiv, selectedPersonContainer) {
     const checkbox = document.createElement('input');
@@ -138,16 +155,25 @@ function createCheckbox(userDiv, selectedPersonContainer) {
 }
 
 /**
- * Zeigt oder verbirgt den Container für ausgewählte Benutzer basierend auf dessen Inhalt.
- * @param {HTMLElement} container - Der Container, der angezeigt oder ausgeblendet wird.
+ * Toggles the display state of the given container based on its content.
+ * If the container has children, it sets the display to 'flex', otherwise it sets it to 'none'.
+ * @param {HTMLElement} container - The container element to toggle the display of.
  */
 function toggleSelectedPersonContainer(container) {
     container.style.display = container.children.length > 0 ? 'flex' : 'none';
 }
 
 /**
- * Aktualisiert den Container mit den ausgewählten Benutzern, indem Initialen der aktiven Benutzer hinzugefügt werden.
- * @param {HTMLElement} selectedPersonContainer - Der Container, in dem ausgewählte Benutzer angezeigt werden.
+ * Updates the selected person container based on the current state of user card checkboxes.
+ *
+ * This function clears the existing content of the selectedPersonContainer and iterates
+ * through each user card to determine if the associated checkbox is checked. For each
+ * checked user, it adds the user to the assigned list if not already present, and removes
+ * the user if unchecked. It then clones and appends the initials div of each active user
+ * to the selectedPersonContainer. Finally, it toggles the display state of the container
+ * based on its updated content.
+ *
+ * @param {HTMLElement} selectedPersonContainer - The container element to update with selected users.
  */
 function updateSelectedPersonContainer(selectedPersonContainer) {
     selectedPersonContainer.innerHTML = '';

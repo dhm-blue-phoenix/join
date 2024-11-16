@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /**
  * Initialisiert die Summary-Seite.
- * Lädt die Task-Status-Daten von der Datenbank und aktualisiert die Anzeige.
+ * Loads the task status data from the database and updates the display.
  * @returns {Promise<void>}
  */
 
@@ -41,11 +41,11 @@ async function init() {
 }
 
 /**
- * Läd die Task-Status-Daten von der Datenbank.
- * Die Daten werden in der globalen Variable TASK_STATUS gespeichert.
- * @param {string} path - Der Pfad, von dem die Daten geladen werden sollen.
- * @returns {Promise<Array>} - Ein Promise, das die gefundene Task-Status-Daten zur ck gibt.
- * @throws {Error} Wenn ein Fehler bei der Daten bertragung auftritt.
+ * Loads task status data from the database.
+ * The data is stored in the global variable TASK_STATUS.
+ * @param {string} path - The path from which to load the data.
+ * @returns {Promise} - A promise that returns the found task status data.
+ * @throws {Error} If an error occurs during data transmission.
  */
 
 async function loadTaskStatusFromServer(path) {
@@ -58,17 +58,17 @@ async function loadTaskStatusFromServer(path) {
 }
 
 /**
- * Läd die Anzahl der Tasks mit Prio 'urgent' von der Datenbank.
- * Die Anzahl wird zurückgegeben.
- * @returns {Promise<number>} - Ein Promise, das die Anzahl der Tasks mit Prio 'urgent' zur ck gibt.
- * @throws {Error} Wenn ein Fehler bei der Daten bertragung auftritt.
+ * Loads the number of tasks with priority 'urgent' from the database.
+ * The count is returned.
+ * @returns {Promise} - A promise that returns the number of tasks with priority 'urgent'.
+ * @throws {Error} If an error occurs during data transmission.
  */
 
 async function loadTaskStatusPrio() {
   try {
     let urgentTaskCount = 0;
     const data = await retrievingData(`board/`);
-    // console.log(data);
+
     const tasks = data;
     for (let i = 0; i < tasks.length; i++) {
       const task = tasks[i];
@@ -76,7 +76,7 @@ async function loadTaskStatusPrio() {
         urgentTaskCount++;
       }
     }
-    // console.log(`Anzahl der Taskcards mit Prio 'urgent': ${urgentTaskCount}`);
+
     return urgentTaskCount;
   } catch (err) {
     console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
@@ -84,12 +84,12 @@ async function loadTaskStatusPrio() {
 }
 
 /**
- * Läd die Anzahl der Tasks pro Kategorie von der Datenbank.
- * Die Anzahl wird in einem Array mit vier Elementen und der Gesamtanzahl
- * der Tasks in einer extra Property 'totalTaskCount' im zurückgegebenen
- * Objekt zurückgegeben.
- * @returns {Promise<{taskStatusData: {count: number}[], totalTaskCount: number}>} - Ein Promise, das die Anzahl der Tasks pro Kategorie und die Gesamtanzahl der Tasks zurück gibt.
- * @throws {Error} Wenn ein Fehler bei der Daten bertragung auftritt.
+ * Loads the number of tasks per category from the database.
+ * The count is returned in an array with four elements and the total number
+ * of tasks in an extra property 'totalTaskCount' in the returned object.
+ * @returns {Promise<{taskStatusData: {count: number}[], totalTaskCount: number}>} 
+ *   A promise that returns the number of tasks per category and the total number of tasks.
+ * @throws {Error} If an error occurs during data transmission.
  */
 
 async function loadTaskStatusData() {
@@ -111,14 +111,13 @@ async function loadTaskStatusData() {
 }
 
 /**
-* Aktualisiert den Textinhalt des Elements mit der ID "massage",
-* um einen Gruß basierend auf der aktuellen Tageszeit anzuzeigen.
-*
-* Diese Funktion überprüft die aktuelle Stunde und setzt den Gruß
-* auf "Guten Morgen," für Stunden zwischen 0 und 11, "Guten Tag,"
-* für Stunden zwischen 12 und 17 und "Guten Abend," für Stunden
-* zwischen 18 und 23.
-*/
+ * Updates the text content of the element with the ID "massage" to display a greeting based on the current time of day.
+ *
+ * This function checks the current hour and sets the greeting to:
+ * - "Guten Morgen" for hours between 0 and 11
+ * - "Guten Tag" for hours between 12 and 17
+ * - "Guten Abend" for hours between 18 and 23
+ */
 function showGreeting() {
   const currentHour = new Date().getHours();
   const massage = document.getElementById("massage");
