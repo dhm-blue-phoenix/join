@@ -49,6 +49,12 @@ const validateFieldsFromInput = (event) => {
  */
 const checkFieldsToType = (inputType, text) => {
     const typeMapping = {
+        '/board.html': {
+            'text': [validFieldIds[validPage][0], 'title'],
+            'textarea': [validFieldIds[validPage][1], 'description'],
+            'date': [validFieldIds[validPage][2], 'date'],
+            'select-one': [validFieldIds[validPage][3], 'category']
+        },
         '/addTask.html': {
             'text': [validFieldIds[validPage][0], 'title'],
             'textarea': [validFieldIds[validPage][1], 'description'],
