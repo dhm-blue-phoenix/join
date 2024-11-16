@@ -1,10 +1,8 @@
 import { retrievingData } from '../dataResponse.js';
-import { setBtnPrio, addEventFromCancelBtn } from './addEventsToAddTask.js';
+import { setBtnPrio } from './addEventsToAddTask.js';
 import { addSubTaskToList, taskForm } from '../../initAddTask.js';
 
 
-const idSubmitBtn = document.querySelector('.taskbuttoncreat');
-const idBtnCancel = document.getElementById('taskbuttonCancel');
 const items = {
     title: 'value',
     description: 'textContent',
@@ -24,14 +22,12 @@ let editTaskId;
  * @returns {Promise<void>}
  */
 async function insertTaskData(id) {
-    try {        
+    try {
         const taskId = id;
         editTaskId = taskId;
         if (taskId === null) return;
-        const boardData = await fetchBoardData();        
+        const boardData = await fetchBoardData();
         const taskData = extractTaskData(boardData[0], taskId);
-        return console.log(taskData);
-    
         updateDomWithTaskData(taskData);
     } catch (error) {
         console.error('Error loading task for editing:', error);
@@ -43,7 +39,7 @@ async function insertTaskData(id) {
  * Fetches board data from the data source.
  * @returns {Promise<Array>}
  */
-async function fetchBoardData () {
+async function fetchBoardData() {
     const boardData = await retrievingData('');
     if (!Array.isArray(boardData)) {
         throw new Error('Board data is not an array!');
@@ -60,9 +56,6 @@ async function fetchBoardData () {
  */
 function extractTaskData(boardData, taskId) {
     const task = Object.entries(boardData).find(task => task[0] === taskId);
-    console.log(task);
-    console.log(Object.fromEntries(task));
-    return
     if (!task) {
         throw new Error(`Error with task ID (${taskId}): Task not found!`);
     };
@@ -75,10 +68,8 @@ function extractTaskData(boardData, taskId) {
  * @param {Object} taskData - The task data to update the DOM with.
  */
 function updateDomWithTaskData(taskData) {
-    updateAssignedTo(taskData);
-    idSubmitBtn.textContent = 'Save!';
+    // updateAssignedTo(taskData);
     updateItems(taskData);
-    updateCancelBtn();
 };
 
 
@@ -89,7 +80,7 @@ function updateDomWithTaskData(taskData) {
 function updateItems(taskData) {
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
-        if (item) {            
+        if (item) {
             updateItem(item, type, taskData[id]);
         } else {
             switch (type) {
@@ -130,15 +121,6 @@ function updateItem(item, type, data) {
             updateSubTask(sub.text);
         });
     };
-};
-
-
-/**
- * Updates the cancel button and sets its event listeners.
- */
-function updateCancelBtn() {
-    addEventFromCancelBtn();
-    idBtnCancel.style.display = 'inline-block';
 };
 
 

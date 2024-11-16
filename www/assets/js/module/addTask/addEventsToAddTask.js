@@ -111,15 +111,6 @@ const addEventFromDelListSubTask = (number) => {
 
 
 /**
- * Initializes event listener for cancel button click.
- */
-const addEventFromCancelBtn = () => {
-    idBtnCancel.removeEventListener('click', loadNextPage);
-    idBtnCancel.addEventListener('click', loadNextPage);
-};
-
-
-/**
  * Handles click event on urgent button.
  */
 const handleUrgentClick = () => {
@@ -195,6 +186,5 @@ export {
     addEventFromDelListAssigned,
     addEventFromEditListSubTask,
     addEventFromDelListSubTask,
-    addEventFromCancelBtn,
     setBtnPrio
 };
