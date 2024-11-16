@@ -13,12 +13,12 @@ let users = ['', 'Select contacts to assign'];
 
 const renderUsers = async () => {
     try {
-        const tempUsers = await retrievingData(`users`);
-        await tempUsers.forEach(async (user) => {
-            if(user.name === 'Guest') return;
-            users.push([user.name, extractInitials(user.name), user.shortcutBackColor]);
-            await createSortedUsers();
+        const tempUsers = await retrievingData(`contacts`);
+        const usersCopy = tempUsers.slice(0, -1).map((user) => {
+            return [user.name, extractInitials(user.name), user.shortcutBackColor];
         });
+        users.push(...usersCopy);
+        await createSortedUsers();
     } catch (err) {
         console.error('Beim laden der User ist ein Problem aufgetreten:', err);
     }
