@@ -16,12 +16,13 @@ const idAccount = document.getElementById('account');
 */
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const username = await loadUserName();
-        const usernamenote = await loadUserName();
+        const username = await loadUserName();        
         const initials = extractInitials(username);
         if (idAccount) idAccount.textContent = initials;
-        if (idUsername) idUsername.textContent = username;
-        if (idUsernamenote) idUsernamenote.textContent = usernamenote;
+        if (idUsername) {
+            idUsername.textContent = username;
+            idUsernamenote.textContent = username;
+        };
     } catch (err) {
         console.error(`An error occurred while loading the user profile! ${err}`);
     };
@@ -38,5 +39,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadUserName() {
     const userID = loadUserIdFromStored();
     const userData = await findUserById(userID);
-    return userData[2];
+    return userData[1];
 };

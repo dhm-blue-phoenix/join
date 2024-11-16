@@ -8,14 +8,20 @@ import {
 } from '../../initAddTask.js';
 
 
-const idFormAddTask = document.getElementById('formAddTask');
-const idBtnAddSubtask = document.getElementById('addSubTask');
-const idBtnUrgent = document.getElementById('urgent');
-const idBtnMedium = document.getElementById('medium');
-const idBtnLow = document.getElementById('low');
-const idBtnCancel = document.getElementById('taskbuttonCancel');
-
-
+let idFormAddTask;
+let idBtnAddSubtask;
+let idBtnUrgent;
+let idBtnMedium;
+let idBtnLow;
+let idBtnCancel;
+setTimeout(() => {
+    idFormAddTask = document.getElementById('formAddTask');
+    idBtnAddSubtask = document.getElementById('addSubTask');
+    idBtnUrgent = document.getElementById('urgent');
+    idBtnMedium = document.getElementById('medium');
+    idBtnLow = document.getElementById('low');
+    idBtnCancel = document.getElementById('taskbuttonCancel');
+}, 100);
 let lastBtnPrio = 'medium';
 
 
@@ -142,22 +148,23 @@ const handleLowClick = () => {
  * @param {string} prio - Priority value ('urgent', 'medium', 'low').
  */
 const setBtnPrio = (prio) => {
-    lastBtn(prio);
-    const prioButton = document.getElementById(prio);
-    const imgElement = prioButton.querySelector('img');
-    if (imgElement) {
-        imgElement.remove();
-    };
-    const newImgElement = document.createElement('img');
-    newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
-    prioButton.appendChild(newImgElement);
-    prioButton.classList.add(prio);
-    prioButton.disabled = true;
-    taskForm.prio = prio;
-    lastBtnPrio = prio;
+    setTimeout(() => {
+        lastBtn(prio);
+        const prioButton = document.getElementById(prio);
+        const imgElement = prioButton.querySelector('img');
+        if (imgElement) {
+            imgElement.remove();
+        };
+        const newImgElement = document.createElement('img');
+        newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
+        prioButton.appendChild(newImgElement);
+        prioButton.classList.add(prio);
+        prioButton.disabled = true;
+        taskForm.prio = prio;
+        lastBtnPrio = prio;
+    }, 100);
 };
 // newImgElement.src = `./resources/symbols/Prio${prio}Activ.png`;
-
 
 /**
  * Resets styling and enables the last used priority button.

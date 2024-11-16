@@ -31,9 +31,9 @@ export async function showContactEditPopup(email) {
             editUser = true;
             const user = await retrievingData(`users/${userID}/`);
             const userData = {
-                shortcutBackColor: user[4],
-                name: user[2],
-                email: user[1]
+                shortcutBackColor: user[3],
+                name: user[1],
+                email: user[0]
             };
             importFromEditFormData(userData);
         } else {

@@ -23,28 +23,19 @@ let editTaskId;
  * Loads the task data to edit from the URL.
  * @returns {Promise<void>}
  */
-async function loadEditTaskFromUrl() {
-    try {
-        const taskId = getTaskIdFromUrl();
+async function insertTaskData(id) {
+    try {        
+        const taskId = id;
         editTaskId = taskId;
         if (taskId === null) return;
-        const boardData = await fetchBoardData();
-        const taskData = extractTaskData(boardData, taskId);
+        const boardData = await fetchBoardData();        
+        const taskData = extractTaskData(boardData[0], taskId);
+        return console.log(taskData);
+    
         updateDomWithTaskData(taskData);
     } catch (error) {
         console.error('Error loading task for editing:', error);
     };
-};
-
-
-/**
- * Retrieves the task ID from the URL parameters.
- * @returns {string|null}
- */
-function getTaskIdFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const taskId = urlParams.get("task");
-    return taskId ? taskId : null;
 };
 
 
@@ -68,11 +59,14 @@ async function fetchBoardData () {
  * @returns {Object}
  */
 function extractTaskData(boardData, taskId) {
-    const task = boardData.find(task => task.hasOwnProperty(taskId));
+    const task = Object.entries(boardData).find(task => task[0] === taskId);
+    console.log(task);
+    console.log(Object.fromEntries(task));
+    return
     if (!task) {
         throw new Error(`Error with task ID (${taskId}): Task not found!`);
     };
-    return task[taskId];
+    return task[1];
 };
 
 
@@ -234,4 +228,4 @@ const getInitials = (firstName, lastName) => {
 };
 
 
-export { loadEditTaskFromUrl, editTaskId };
+export { insertTaskData, editTaskId };

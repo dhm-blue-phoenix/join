@@ -37,7 +37,7 @@ async function showUserCard() {
 async function fetchUserData() {
     const userId = await loadUserIdFromStored();
     const user = await retrievingData(`users/${userId}/`);
-    const userData = [user[4], user[2], user[1]];
+    const userData = [user[3], user[1], user[0]];
     return userData;
 };
 

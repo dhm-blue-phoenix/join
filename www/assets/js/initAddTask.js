@@ -1,8 +1,8 @@
 import { loadUserIdFromStored, loadElementByPatch, loadTaskData } from './module/modules.js';
 import { uploadPatchData, updateData, retrievingData } from './module/dataResponse.js';
 import { createListItem } from './module/addTask/createSubList.js';
-import { loadEditTaskFromUrl, editTaskId } from './module/addTask/loadEditTaskFromUrl.js';
-import { renderUsers } from './module/addTask/createSortedUsers.js';
+import { insertTaskData, editTaskId } from './module/addTask/loadTaskData.js';
+// import { renderUsers } from './module/addTask/createSortedUsers.js';
 import {
     addEventFromAddTask,
     addEventFromBtnUrgent,
@@ -42,21 +42,33 @@ const testing = false;
 
 
 let taskForm = resetTaskForm;
+let isEdit = false;
 let taskId;
 
 
 document.addEventListener('DOMContentLoaded', async () => {
     setBtnPrio('medium');
+    setTimeout(() => {
+        loadEvents();
+    }, 100);
+});
+
+
+// !!! NO COMMENT
+const loadEvents = (edit, taskId) => {
+    isEdit = edit;
     addEventFromAddTask();
     addEventFromBtnUrgent();
     addEventFromBtnMedium();
     addEventFromBtnLow();
     addEventFromAddSubTask();
-    renderUsers();
-    loadEditTaskFromUrl();
+    // renderUsers();
+    if (isEdit) {
+        insertTaskData(taskId);
+    };
     addEventToValidateFields('addTask');
     testing && formTesting();
-});
+};
 
 
 /**
@@ -251,29 +263,29 @@ const clearInput = () => {
 /**
  * Leer alle Inputfelder + selectedPersonContainer + subtaskListContainer + setzt die Prio auf medium.
  */
+setTimeout(() => {
+    document.addEventListener('DOMContentLoaded', function () {
+        const clearButton = document.querySelector('.taskbuttonclear');
+        const form = document.getElementById('formAddTask');
+        const selectedPersonContainer = document.getElementById('selectedPerson');
+        const subtaskListContainer = document.getElementById('subtask-list');
 
-document.addEventListener('DOMContentLoaded', function() {
-    const clearButton = document.querySelector('.taskbuttonclear');
-    const form = document.getElementById('formAddTask');
-    const selectedPersonContainer = document.getElementById('selectedPerson');
-    const subtaskListContainer = document.getElementById('subtask-list');
-  
-    clearButton.addEventListener('click', function() {
-      // Eingabefelder leeren
-      setBtnPrio('medium');
-      const inputFields = form.querySelectorAll('input');
-      inputFields.forEach(function(inputField) {
-        inputField.value = '';
-      });
-  
-      // selectedPersonContainer leeren
-      selectedPersonContainer.innerHTML = '';
-  
-      // subtaskListContainer leeren
-      subtaskListContainer.innerHTML = '';
+        clearButton.addEventListener('click', function () {
+            // Eingabefelder leeren
+            setBtnPrio('medium');
+            const inputFields = form.querySelectorAll('input');
+            inputFields.forEach(function (inputField) {
+                inputField.value = '';
+            });
+
+            // selectedPersonContainer leeren
+            selectedPersonContainer.innerHTML = '';
+
+            // subtaskListContainer leeren
+            subtaskListContainer.innerHTML = '';
+        });
     });
-  });
-
+}, 100);
 
 /**
  * Resets the task form to the initial state.
@@ -292,6 +304,7 @@ const loadNextPage = () => {
 
 
 export {
+    loadEvents,
     initAddTask,
     addSubTaskToList,
     editItem,
