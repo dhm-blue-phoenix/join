@@ -4,16 +4,16 @@ let message = '';
 /**
  * Validates the title input.
  *
- * Checks if the title consists only of letters, spaces, and hyphens (including German characters),
+ * Checks if the title consists only of letters, numbers, spaces, and hyphens (including German characters),
  * and if it is between 1 and 60 characters in length.
  *
  * @param {string} text - The title text to validate.
  * @returns {{status: boolean, msg: string}} An object containing the validation status and message.
  */
 const validateTitle = (text) => {
-    if (!/^[a-zA-ZäöüÄÖÜß\s-0-9]+$/.test(text)) {
-        return { status: false, msg: 'Title can only contain letters, numbers, including German characters, spaces, and hyphens.' };
-    };    
+    if (!/^[a-zA-ZäöüÄÖÜß0-9\s-]+$/.test(text)) {
+        return { status: false, msg: 'Title can only contain letters, numbers, German characters, spaces, and hyphens.' };
+    };
     if (text.length < 1 || text.length > 60) {
         return { status: false, msg: 'Title must be between 1 and 60 characters long.' };
     };
@@ -30,10 +30,10 @@ const validateTitle = (text) => {
  * @returns {{status: boolean, msg: string}} An object containing the validation status and message.
  */
 const validateText = (text) => {
-    if (!/^[a-zA-ZäöüÄÖÜß\s-]+$/.test(text)) {
+    if (!/^[a-zA-ZäöüÄÖÜß0-9\s-]+$/.test(text)) {
         return { status: false, msg: 'Text can only contain letters, including German characters, spaces, and hyphens.' };
     };
-    if (text.length < 5 || text.length > 60) {
+    if (text.length < 0 || text.length > 60) {
         return { status: false, msg: 'Text must be between 5 and 60 characters long.' };
     };
     return { status: true };

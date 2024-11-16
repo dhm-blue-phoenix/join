@@ -3,8 +3,7 @@ import {
     addSubTaskToList,
     editItem,
     deleteItem,
-    taskForm,
-    loadNextPage
+    taskForm
 } from '../../initAddTask.js';
 
 
@@ -13,14 +12,12 @@ let idBtnAddSubtask;
 let idBtnUrgent;
 let idBtnMedium;
 let idBtnLow;
-let idBtnCancel;
 setTimeout(() => {
     idFormAddTask = document.getElementById('formAddTask');
     idBtnAddSubtask = document.getElementById('addSubTask');
     idBtnUrgent = document.getElementById('urgent');
     idBtnMedium = document.getElementById('medium');
     idBtnLow = document.getElementById('low');
-    idBtnCancel = document.getElementById('taskbuttonCancel');
 }, 100);
 let lastBtnPrio = 'medium';
 

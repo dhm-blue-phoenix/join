@@ -1,8 +1,8 @@
-import { loadUserIdFromStored, loadElementByPatch, loadTaskData } from './module/modules.js';
+import { loadTaskData } from './module/modules.js';
 import { uploadPatchData, updateData, retrievingData } from './module/dataResponse.js';
 import { createListItem } from './module/addTask/createSubList.js';
 import { insertTaskData, editTaskId } from './module/addTask/loadTaskData.js';
-// import { renderUsers } from './module/addTask/createSortedUsers.js';
+import { renderUsers } from './module/addTask/createSortedUsers.js';
 import {
     addEventFromAddTask,
     addEventFromBtnUrgent,
@@ -20,7 +20,6 @@ import { addEventToValidateFields } from './module/validateFields.js';
 
 
 const idInputTask = ['title', 'description', 'date', 'category'];
-const userId = loadUserIdFromStored();
 const resetTaskForm = {
     id: '',
     title: '',
@@ -43,7 +42,6 @@ const testing = false;
 
 let taskForm = resetTaskForm;
 let isEdit = false;
-let taskId;
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -54,7 +52,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-// !!! NO COMMENT
+/**
+ * Loads all necessary events for the "Add Task" page.
+ *
+ * This function initializes event listeners, renders user data, and optionally populates
+ * the form with existing task data if editing mode is enabled.
+ *
+ * @param {boolean} edit - Indicates whether the function is in editing mode.
+ * @param {string} [taskId] - The ID of the task to edit, required if `edit` is `true`.
+ */
 const loadEvents = (edit, taskId) => {
     isEdit = edit;
     addEventFromAddTask();
@@ -62,7 +68,7 @@ const loadEvents = (edit, taskId) => {
     addEventFromBtnMedium();
     addEventFromBtnLow();
     addEventFromAddSubTask();
-    // renderUsers();
+    renderUsers();
     if (isEdit) {
         insertTaskData(taskId);
     };
@@ -78,12 +84,10 @@ const loadEvents = (edit, taskId) => {
 async function initAddTask(event) {
     event.preventDefault();
     try {
-        const tasks = await loadElementByPatch(`users/${userId}`, 4);
-        taskId = tasks.length;
         await loadDataToForm();
         loadDataToValidateFields();
         if (validateTaskForm(fieldsToValidate)) {
-            if (testing) return console.warn('Task wurde erfolgreich erstellt!');
+            if (testing) return console.warn('Task wurde erfolgreich erstellt!');            
             await uploadData();
             resetForm();
             loadNextPage();

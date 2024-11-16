@@ -64,7 +64,7 @@ export async function updateData(path, data) {
  * @param {Object} data - Data object to upload.
  */
 export async function uploadPatchData(path, data) {
-    try {
+    try {        
         const patchResponse = await fetch(baseURL + path + '.json', {
             method: 'POST',
             headers: {

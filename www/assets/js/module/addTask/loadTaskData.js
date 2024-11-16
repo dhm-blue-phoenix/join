@@ -15,7 +15,7 @@ const items = {
 const btnPrios = ['Urgent', 'Medium', 'Low'];
 
 
-let editTaskId;
+let editTaskId = null;
 
 /**
  * Loads the task data to edit from the URL.

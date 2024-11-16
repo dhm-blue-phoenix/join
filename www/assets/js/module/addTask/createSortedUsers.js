@@ -3,10 +3,12 @@ import { extractInitials } from '../modules.js';
 import { retrievingData } from '../dataResponse.js';
 
 
-const ID_SELECT_ASSIGNED = document.getElementById('assigned');
-const USER_CARDS_CONTAINER = document.getElementById('userCardsContainerID');
-
-
+let ID_SELECT_ASSIGNED;
+let USER_CARDS_CONTAINER;
+setTimeout(() => {
+    ID_SELECT_ASSIGNED = document.getElementById('assigned');
+    USER_CARDS_CONTAINER = document.getElementById('userCardsContainerID');
+}, 100);
 let assignedActiv = [''];
 let users = ['', 'Select contacts to assign'];
 
@@ -29,15 +31,18 @@ const renderUsers = async () => {
     }
 };
 
-// Toggle visibility of the userCardsContainer when the <select> is clicked
-ID_SELECT_ASSIGNED.addEventListener('click', (event) => {
-    // Check if the container is currently visible
-    if (USER_CARDS_CONTAINER.style.display === 'flex') {
-        USER_CARDS_CONTAINER.style.display = 'none'; // Hide if visible
-    } else {
-        USER_CARDS_CONTAINER.style.display = 'flex'; // Show if hidden
-    }
-});
+
+setTimeout(() => {
+    // Toggle visibility of the userCardsContainer when the <select> is clicked
+    ID_SELECT_ASSIGNED.addEventListener('click', (event) => {
+        // Check if the container is currently visible
+        if (USER_CARDS_CONTAINER.style.display === 'flex') {
+            USER_CARDS_CONTAINER.style.display = 'none'; // Hide if visible
+        } else {
+            USER_CARDS_CONTAINER.style.display = 'flex'; // Show if hidden
+        }
+    }); 
+}, 100);
 
 // Hide the userCardsContainer when clicking outside of it
 document.addEventListener('click', (event) => {
