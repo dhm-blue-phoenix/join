@@ -71,16 +71,8 @@ function createSortedUsers() {
     // Show or hide selectedPersonContainer based on its content
     toggleSelectedPersonContainer(selectedPersonContainer);
 
-    const existingUserIds = Array.from(USER_CARDS_CONTAINER.children).map((child) => child.id);
-
     users.forEach((user) => {
         if (shouldSkipUser(user)) return;  // Skip invalid users
-
-        // Check if user is already displayed
-        if (existingUserIds.includes(`person${counter}`)) {
-            console.log(`User ${user[0]} is already displayed, skipping...`);
-            return;
-        }
 
         const userDiv = createUserDiv(user, counter);  // Create user div
         const checkbox = createCheckbox(userDiv, selectedPersonContainer);  // Create and handle checkbox logic
