@@ -30,6 +30,7 @@ let lastBtnPrio = 'medium';
 const clearFields = () => {
     const fields = document.querySelectorAll('input, textarea, select');
     fields.forEach(field => {
+        if (field.id === "description") field.innerHTML = "";
         field.value = '';
     });
   
