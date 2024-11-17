@@ -33,16 +33,13 @@ const clearFields = () => {
         if (field.id === "description") field.textContent = "";
         field.value = '';
     });
-  
     const subtaskList = document.getElementById('subtask-list');
     subtaskList.innerHTML = '';
-  
     const selectedPerson = document.getElementById('selectedPerson');
     selectedPerson.innerHTML = '';
-  
     const description = document.getElementById('description');
-
     description.value = '';
+    setBtnPrio('medium');
 };
 /**
  * Initializes event listener for form submission.
