@@ -169,37 +169,27 @@ const validateCategory = (category) => {
 
 
 /**
- * Validates a field based on its type.
+ * Validates a field based on its name and value.
  *
  * @param {string} fieldName - The name of the field to validate.
- * Possible values include 'text', 'title', 'description', 'name', 'email', 'pw', 'tel', 'date', and 'category'.
- * @param {any} value - The value of the field to validate.
+ * @param {string} value - The value of the field to validate.
  * @returns {{status: boolean, msg: string}} An object containing the validation status and message.
  */
 const validateField = (fieldName, value) => {
-    value = value.trim();
-    switch (fieldName) {
-        case 'text':
-            return validateText(value);
-        case 'title':
-            return validateTitle(value);
-        case 'description':
-            return validateDescription(value);
-        case 'name':
-            return validateName(value);
-        case 'email':
-            return validateEmail(value);
-        case 'pw':
-            return validatePassword(value);
-        case 'tel':
-            return validateTel(value);
-        case 'date':
-            return validateDate(value);
-        case 'category':
-            return validateCategory(value);
-        default:
-            return { status: true, msg: '' };
+    const trimmedValue = value.trim();
+    const validationMap = {
+        text: validateText,
+        title: validateTitle,
+        description: validateDescription,
+        name: validateName,
+        email: validateEmail,
+        pw: validatePassword,
+        tel: validateTel,
+        date: validateDate,
+        category: validateCategory,
     };
+    const validator = validationMap[fieldName];
+    return validator ? validator(trimmedValue) : { status: true, msg: '' };
 };
 
 

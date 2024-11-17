@@ -78,6 +78,13 @@ const addEventFromDelListAssigned = (number) => {
 };
 
 
+/**
+ * Clears specific elements in the "Add Task" form.
+ *
+ * This function is designed to reset or clear the content of specific containers 
+ * in the "Add Task" form, such as the selected person container and the subtask list container.
+ * It also logs the subtask list container to the console for debugging purposes.
+ */
 const clearAddTaskForms = () => {
     let selectedPersonContainer = document.getElementById('selectedPerson');
     let subtaskListContainer = document.getElementById('subtask-list');

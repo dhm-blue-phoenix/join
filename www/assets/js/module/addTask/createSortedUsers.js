@@ -12,6 +12,7 @@ setTimeout(() => {
 let assignedActiv = [''];
 let users = ['', 'Select contacts to assign'];
 
+
 /**
  * Retrieves all contacts from the server and renders them as user cards.
  * The data is modified to match the structure used by the createSortedUsers function.
@@ -57,12 +58,12 @@ document.addEventListener('click', (event) => {
     }
 });
 
+
 /**
  * Creates sorted user cards and appends them to the DOM.
  * It also handles the visibility of the container for selected persons based on its content.
  * @returns {void}
  */
-
 function createSortedUsers() {
     USER_CARDS_CONTAINER.innerHTML = '';  // Clear the container
     const selectedPersonContainer = document.getElementById('selectedPerson');  // Container for selected persons

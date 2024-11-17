@@ -1,10 +1,15 @@
 import { validateTaskForm, msgErrIds } from './validate.js';
+
+
 const validFieldIds = {
     'addTask': ['title', 'description', 'date', 'category'],
     'contactsAdd': ['addPersonName', 'addPersonEmail', 'addPersonTel'],
     'contactsEdit': ['editPersonName', 'editPersonEmail', 'editPersonTel']
 };
+
+
 let validPage;
+
 
 /**
  * Adds input event listeners to elements that require validation on the current page.
