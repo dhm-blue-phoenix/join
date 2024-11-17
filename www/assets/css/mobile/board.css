@@ -70,7 +70,7 @@
 
   .taskcard {
     min-width: 300px;
-    min-height: 420px;
+    /* min-height: auto  !important; */
     gap: 16px;
     cursor: pointer;
     /* justify-content: center; */

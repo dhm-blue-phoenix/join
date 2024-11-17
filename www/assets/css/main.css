@@ -8,6 +8,7 @@
 @import url("./main/contacts.css");
 @import url("./main/board.css");
 @import url("./main/popup.css");
+@import url("./main/edittaskcard.css");
 
 /* mobile */
 @import url("./mobile/dataprotection.css");

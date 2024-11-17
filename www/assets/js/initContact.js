@@ -38,6 +38,9 @@ let fieldsToValidateEdit = [
 ];
 const testing = false;
 
+if (window.location.pathname === '/contacts.html') {
+    document.addEventListener('DOMContentLoaded', delayedFadeIn);
+  }
 
 document.addEventListener('DOMContentLoaded', async () => {
     showUserCard();
@@ -47,6 +50,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     testing && formTesting();
 });
 
+/**
+ * Fades in the main content of the contacts page after a short delay.
+ * The main content is set to have 0 opacity initially, and then
+ * after 250ms, its opacity is set to 1 and a transition to ease
+ * in the opacity change over 0.7s is set.
+ */
+function delayedFadeIn() {
+    const mainContent = document.querySelector('.contactsmain');
+    mainContent.style.opacity = 0;
+    setTimeout(() => {
+      mainContent.style.opacity = 1;
+      mainContent.style.transition = 'opacity 0.7s ease-in-out';
+    }, 250);
+  }
 
 /**
  * Adds event listeners for the add contact form.

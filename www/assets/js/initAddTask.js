@@ -43,6 +43,9 @@ const testing = false;
 let taskForm = resetTaskForm;
 let isEdit = false;
 
+if (window.location.pathname === '/addTask.html') {
+    document.addEventListener('DOMContentLoaded', delayedFadeIn);
+  }
 
 document.addEventListener('DOMContentLoaded', async () => {
     setBtnPrio('medium');
@@ -51,6 +54,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 100);
 });
 
+/**
+ * Fades in the main content of the add task page after a short delay.
+ * The main content is set to have 0 opacity initially, and then
+ * after 250ms, its opacity is set to 1 with a transition to ease
+ * in the opacity change over 0.7s.
+ */
+function delayedFadeIn() {
+    const mainContent = document.querySelector('.addtaskmain');
+    mainContent.style.opacity = 0;
+    setTimeout(() => {
+      mainContent.style.opacity = 1;
+      mainContent.style.transition = 'opacity 0.7s ease-in-out';
+    }, 250);
+  }
 
 /**
  * Loads all necessary events for the "Add Task" page.

@@ -8,13 +8,10 @@
   }
   .personCardsmall {
     background-color: var(--back-color01);
-    width: 95%;
-    height: 78px;
-    padding: 15px 24px 15px 24px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 35px;
+    gap: 16px;
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 8px;
@@ -22,11 +19,11 @@
   }
   .userCardsContainer {
     display: none;
-    width: 70%;
+    width: 100%;
     background-color: var(--back-color04);
     border: 1px solid #d1d1d1;
     overflow: auto;
-    position: absolute;
+    position: relative;
     border-radius: 8px;
     flex-direction: column;
     align-items: center;
@@ -222,7 +219,7 @@
 
 @media (max-width: 770px) {
   .userCardsContainer {
-    width: 96%;
+    width: 100%;
   }
 
   .taskbuttoncreat {

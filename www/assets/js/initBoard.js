@@ -9,12 +9,27 @@ let taskStatus = [];
 
 if (window.location.pathname === '/board.html') {
     document.addEventListener('DOMContentLoaded', async () => {
+        delayedFadeIn();
         await loadTaskStatus();
         await initTaskBord();
         initBoard();
     });
 };
 
+/**
+ * Fades in the main content of the board page after a short delay.
+ * The main content is set to have 0 opacity initially, and then
+ * after 250ms, its opacity is set to 1 and a transition to ease
+ * in the opacity change over 0.7s is set.
+ */
+function delayedFadeIn() {
+    const mainContent = document.querySelector('.boardmain');
+    mainContent.style.opacity = 0;
+    setTimeout(() => {
+      mainContent.style.opacity = 1;
+      mainContent.style.transition = 'opacity 0.7s ease-in-out';
+    }, 250);
+  }
 
 /**
  * Initializes the task board by loading task statuses, setting up event listeners, 

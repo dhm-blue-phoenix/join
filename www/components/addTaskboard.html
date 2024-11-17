@@ -1,16 +1,15 @@
 <!-- In Extra HTML fürs Popup!! -->
 <div class="taskmangermobil">
-
-
-  <div class="taskmanagerContent popupcontent boardmobile">
+  
+  <div class="taskmanagerContentEdit popupcontent boardmobile">
     <div class="taskcardbigheader">
       <h2>Edit Task</h2>
       <button class="closepopup" onclick="hidePopup('EditTaskcardPopupanimation', 'EdittaskCardpopup')">
         &#x2A2F;
       </button>
     </div>
-    <form id="formAddTask">
-      <section class="layout">
+    <form id="formAddTask" class="Taskedit">
+      <section class="layout layoutEdit">
         <div>
           <p>Title<i style="color: red">*</i></p>
           <input type="text" placeholder="Enter a title" id="title">
@@ -32,15 +31,13 @@
                 <img src="./resources/symbols/addSubtasks.svg" alt="addSubTask"> -->
               </button>
             </div>
-            <div class="userCardsContainer" id="userCardsContainerID"></div>
+            <div class="userCardsContainer EditUserCards" id="userCardsContainerID"></div>
           </fieldset>
           <div id="selectedPerson"></div>
         </div>
       </section>
 
-      <div class="trennline"></div>
-
-      <section class="layout">
+      <section class="layout layoutEdit">
         <div>
           <p>Due date<i style="color: red">*</i></p>
           <input type="date" placeholder="dd/mm/yyyy" id="date">
@@ -78,17 +75,17 @@
               </button>
             </div>
             <span id="msgErrSubtask" class="msg-err"></span>
-            <ul id="subtask-list"></ul>
+            <ul id="subtask-list" class="Editsubtasks"></ul>
           </fieldset>
         </div>
       </section>
 
-      <footer class="taskbottommobile">
-        <div class="footercontent">
+      <footer class="taskbottommobileedit">
+        <div class="footercontentedit">
           <div>
             <i style="color: red">*</i> This fields are required
           </div>
-          <div class="buttonsdivobile">
+          <div class="buttonsdimobileedit">
             <button type="reset" class="taskbuttonclear">Clear &#128473</button>
             <button type="button" id="taskbuttonCancel">Cancel</button>
             <button type="submit" class="taskbuttoncreat">Save Task <img src="./resources/symbols/check.svg"

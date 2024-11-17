@@ -50,17 +50,18 @@
 
 .personCardsmall {
   background-color: var(--back-color01);
-  width: 352px;
+  width: 95%;
   height: 78px;
-  padding: 15px 24px 15px 24px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 35px;
+  gap: 16px;
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 8px;
   border: 1px solid #d1d1d1;
+  padding: 8px;
+
 }
 
 .personCardsmall:hover {
