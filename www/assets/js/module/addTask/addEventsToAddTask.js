@@ -23,11 +23,13 @@ setTimeout(() => {
 }, 100);
 let lastBtnPrio = 'medium';
 
+/**
+ * Clears all input fields, resets the subtask list and selected person containers,
+ * and empties the description field.
+ */
 const clearFields = () => {
-    console.log('clearFields wurde aufgerufen');
     const fields = document.querySelectorAll('input, textarea, select');
     fields.forEach(field => {
-        console.log(`Leere Feld: ${field.id}`);
         field.value = '';
     });
   
@@ -37,11 +39,8 @@ const clearFields = () => {
     const selectedPerson = document.getElementById('selectedPerson');
     selectedPerson.innerHTML = '';
   
-    const userCardsContainer = document.getElementById('userCardsContainerID');
-    userCardsContainer.innerHTML = '';
-
     const description = document.getElementById('description');
-    console.log(`Leere Beschreibung: ${description.value}`);
+
     description.value = '';
 };
 /**
