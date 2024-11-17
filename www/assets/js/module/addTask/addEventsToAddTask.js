@@ -23,6 +23,7 @@ setTimeout(() => {
 }, 100);
 let lastBtnPrio = 'medium';
 
+
 /**
  * Clears all input fields, resets the subtask list and selected person containers,
  * and empties the description field.
@@ -33,14 +34,13 @@ const clearFields = () => {
         if (field.id === "description") field.textContent = "";
         field.value = '';
     });
-    const subtaskList = document.getElementById('subtask-list');
-    subtaskList.innerHTML = '';
-    const selectedPerson = document.getElementById('selectedPerson');
-    selectedPerson.innerHTML = '';
-    const description = document.getElementById('description');
-    description.value = '';
+    document.getElementById('subtask-list').innerHTML = '';
+    document.getElementById('selectedPerson').innerHTML = '';
+    document.getElementById('description').value = '';
     setBtnPrio('medium');
 };
+
+
 /**
  * Initializes event listener for form submission.
  */
