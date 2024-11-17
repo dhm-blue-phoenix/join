@@ -24,7 +24,12 @@ const renderUsers = async () => {
         const usersCopy = tempUsers.slice(0, -1).map((user) => {
             return [user.name, extractInitials(user.name), user.shortcutBackColor];
         });
-        users.push(...usersCopy);
+
+        // Überprüfe, ob ein Benutzer bereits angezeigt wird
+        const existingUsers = users.map((user) => user[0]);
+        const newUsers = usersCopy.filter((user) => !existingUsers.includes(user[0]));
+
+        users.push(...newUsers);
         await createSortedUsers();
     } catch (err) {
         console.error('Beim laden der User ist ein Problem aufgetreten:', err);
@@ -66,8 +71,16 @@ function createSortedUsers() {
     // Show or hide selectedPersonContainer based on its content
     toggleSelectedPersonContainer(selectedPersonContainer);
 
+    const existingUserIds = Array.from(USER_CARDS_CONTAINER.children).map((child) => child.id);
+
     users.forEach((user) => {
         if (shouldSkipUser(user)) return;  // Skip invalid users
+
+        // Check if user is already displayed
+        if (existingUserIds.includes(`person${counter}`)) {
+            console.log(`User ${user[0]} is already displayed, skipping...`);
+            return;
+        }
 
         const userDiv = createUserDiv(user, counter);  // Create user div
         const checkbox = createCheckbox(userDiv, selectedPersonContainer);  // Create and handle checkbox logic
