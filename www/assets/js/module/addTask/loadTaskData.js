@@ -10,7 +10,8 @@ const items = {
     prio: 'btn',
     category: 'value',
     subtask: 'forEach',
-    boardStatus: 'status'
+    boardStatus: 'status',
+    assigned: 'assigned'
 };
 const btnPrios = ['Urgent', 'Medium', 'Low'];
 
@@ -68,7 +69,6 @@ function extractTaskData(boardData, taskId) {
  * @param {Object} taskData - The task data to update the DOM with.
  */
 function updateDomWithTaskData(taskData) {
-    // updateAssignedTo(taskData);
     updateItems(taskData);
 };
 
@@ -95,8 +95,28 @@ function updateItems(taskData) {
             };
         };
     });
+    updateAssignedPersons(taskData);
 };
 
+/**
+ * Updates the assigned persons display in the DOM based on the provided task data.
+ * @param {Object} taskData - The task data containing information for the assigned persons.
+ */
+const updateAssignedPersons = (taskData) => {
+    const assignedPersons = taskData.assigned;
+    const selectedPersonContainer = document.getElementById('selectedPerson');
+    selectedPersonContainer.innerHTML = '';
+    assignedPersons.slice(1).forEach((person) => {
+        const nameShortcutDiv = createNameShortcutDiv(person);
+        selectedPersonContainer.appendChild(nameShortcutDiv);
+    });
+
+    if (selectedPersonContainer.children.length > 0) {
+        selectedPersonContainer.style.display = 'flex';
+    } else {
+        selectedPersonContainer.style.display = 'none';
+    }
+};
 
 /**
  * Updates the board status in the task form with the provided task data.
@@ -158,23 +178,6 @@ const updatePrioBtn = (taskData, id) => {
         if (prio === btn) {
             setBtnPrio(prio);
         };
-    });
-};
-
-
-/**
- * Updates the assigned persons display in the DOM.
- * @param {Object} taskData - The task data containing assigned persons.
- */
-const updateAssignedTo = (taskData) => {
-    const selectedPersonContainer = document.getElementById('selectedPerson');
-    selectedPersonContainer.style.display = 'flex';
-    selectedPersonContainer.innerHTML = '';
-    const assignedPersons = taskData.assigned;
-    taskForm.assigned = assignedPersons;
-    assignedPersons.slice(1).forEach((person) => {
-        const nameShortcutDiv = createNameShortcutDiv(person);
-        selectedPersonContainer.appendChild(nameShortcutDiv);
     });
 };
 

@@ -32,6 +32,7 @@
 #selectedPerson {
   display: flex;
   padding: 8px;
+  flex-wrap: wrap;
 }
 
 
@@ -418,11 +419,12 @@
 }
 
 .taskcardbig {
-  /* width: 370px; */
+  width: 100%;
   /* background-color: var(--back-color05); */
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-x: hidden;
 }
 
 .taskcardbigheader {
@@ -435,6 +437,7 @@
 .taskcardbig h3 {
   font-size: 36px;
   font-weight: 700;
+  word-wrap: break-word;
 }
 
 .taskcardbig p {
