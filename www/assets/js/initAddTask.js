@@ -279,7 +279,7 @@ const resetForm = () => {
  */
 const clearInput = () => {
     idInputTask.forEach((id) => document.getElementById(id).value = '');
-};
+
 
 /**
  * Leer alle Inputfelder + selectedPersonContainer + subtaskListContainer + setzt die Prio auf medium.
@@ -307,7 +307,7 @@ setTimeout(() => {
         });
     });
 }, 100);
-
+};
 /**
  * Resets the task form to the initial state.
  */

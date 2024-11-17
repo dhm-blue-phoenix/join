@@ -18,10 +18,32 @@ setTimeout(() => {
     idBtnUrgent = document.getElementById('urgent');
     idBtnMedium = document.getElementById('medium');
     idBtnLow = document.getElementById('low');
+    const clearButton = document.querySelector('.taskbuttonclear');
+    clearButton.addEventListener('click', clearFields);
 }, 100);
 let lastBtnPrio = 'medium';
 
+const clearFields = () => {
+    console.log('clearFields wurde aufgerufen');
+    const fields = document.querySelectorAll('input, textarea, select');
+    fields.forEach(field => {
+        console.log(`Leere Feld: ${field.id}`);
+        field.value = '';
+    });
+  
+    const subtaskList = document.getElementById('subtask-list');
+    subtaskList.innerHTML = '';
+  
+    const selectedPerson = document.getElementById('selectedPerson');
+    selectedPerson.innerHTML = '';
+  
+    const userCardsContainer = document.getElementById('userCardsContainerID');
+    userCardsContainer.innerHTML = '';
 
+    const description = document.getElementById('description');
+    console.log(`Leere Beschreibung: ${description.value}`);
+    description.value = '';
+};
 /**
  * Initializes event listener for form submission.
  */
