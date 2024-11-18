@@ -156,20 +156,35 @@ async function loadTasksToBoard(taskId) {
 /**
  * Updates the empty display state for all containers.
  */
+/**
+ * Updates the empty display state for all containers.
+ */
 export function updateEmptyState() {
     const containers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
-
+  
     containers.forEach(containerId => {
-        const container = document.getElementById(containerId);
-        const emptyStateElement = container.querySelector('#tasktnotfounddrag');
-
-        if (container.children.length === 1) {
-            emptyStateElement.style.display = 'flex';
-        } else {
-            emptyStateElement.style.display = 'none';
-        }
+      const container = document.getElementById(containerId);
+      let emptyStateElement = container.querySelector('#tasktnotfounddrag');
+  
+      // Überprüfe, ob der Container mit der ID "tasktnotfounddrag" existiert
+      if (!emptyStateElement) {
+        // Wenn nicht, erstelle einen neuen Container
+        emptyStateElement = document.createElement('div');
+        emptyStateElement.id = 'tasktnotfounddrag';
+        emptyStateElement.className = 'tasktnotfound';
+        const paragraph = document.createElement('p');
+        paragraph.textContent = 'No Tasks!';
+        emptyStateElement.appendChild(paragraph);
+        container.appendChild(emptyStateElement);
+      }
+  
+      if (container.children.length === 1) {
+        emptyStateElement.style.display = 'flex';
+      } else {
+        emptyStateElement.style.display = 'none';
+      }
     });
-}
+  }
 
 /**
  * Adds the hover effect when a valid container is entered.
