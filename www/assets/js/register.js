@@ -33,7 +33,7 @@ async function initRegister(event) {
     const formData = loadFormData();
     if (formData.pw !== formData.cfpw) return validatePassword();
     const userData = await loadUserData(formData.email);
-    if (userData) return validateUserData();
+    if (!userData) return validateUserData();
     await uploadData(formData);
   } catch (err) {
     console.error(`Error during registration initialization: ${err}`);

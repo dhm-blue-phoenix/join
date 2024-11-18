@@ -18,6 +18,7 @@ const btnPrios = ['Urgent', 'Medium', 'Low'];
 
 let editTaskId = null;
 
+
 /**
  * Loads the task data to edit from the URL.
  * @returns {Promise<void>}

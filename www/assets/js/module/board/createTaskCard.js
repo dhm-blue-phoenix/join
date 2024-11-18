@@ -1,5 +1,6 @@
 import { taskStatus } from '../../initBoard.js';
 
+
 /**
  * Creates a task card element with the given information and appends it to the DOM.
  * @param {number|string} cardId The ID of the task card.

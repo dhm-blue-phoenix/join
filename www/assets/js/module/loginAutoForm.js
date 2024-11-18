@@ -39,7 +39,7 @@ function getDataFromUrl(encode) {
 async function getDataFromAutoLogin() {
     const user = await findUserById(storedUserID);
     ID_inputCheckbox.checked = true;
-    return [user[1], user[3]];
+    return [user[0], user[2]];
 };
 
 

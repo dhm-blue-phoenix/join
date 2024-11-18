@@ -2,7 +2,6 @@ import { retrievingData } from '../dataResponse.js';
 import { createTaskCard } from './createTaskCard.js';
 import { addEventFromTaskCard } from './addEventsToBoard.js';
 import { initTaskBord, clearBoard, initBoard } from '../../initBoard.js';
-import { switchCategory } from './draganddrop.js';
 
 
 const idInputSearch = document.getElementById('boardSearch');
