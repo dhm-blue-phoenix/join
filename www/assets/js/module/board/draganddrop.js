@@ -156,32 +156,29 @@ async function loadTasksToBoard(taskId) {
 /**
  * Updates the empty display state for all containers.
  */
-/**
- * Updates the empty display state for all containers.
- */
 export function updateEmptyState() {
     const containers = ['taskToDo', 'taskInProgress', 'taskAwaitFeedback', 'taskDone'];
   
+    // Entferne alle existierenden Container mit der ID "tasktnotfounddrag"
     containers.forEach(containerId => {
       const container = document.getElementById(containerId);
-      let emptyStateElement = container.querySelector('#tasktnotfounddrag');
+      const existingEmptyState = container.querySelector('#tasktnotfounddrag');
+      if (existingEmptyState) {
+        container.removeChild(existingEmptyState);
+      }
+    });
   
-      // Überprüfe, ob der Container mit der ID "tasktnotfounddrag" existiert
-      if (!emptyStateElement) {
-        // Wenn nicht, erstelle einen neuen Container
-        emptyStateElement = document.createElement('div');
+    // Überprüfe, ob ein Container leer ist und erstelle einen neuen Container, wenn nötig
+    containers.forEach(containerId => {
+      const container = document.getElementById(containerId);
+      if (container.children.length === 0) {
+        const emptyStateElement = document.createElement('div');
         emptyStateElement.id = 'tasktnotfounddrag';
         emptyStateElement.className = 'tasktnotfound';
         const paragraph = document.createElement('p');
         paragraph.textContent = 'No Tasks!';
         emptyStateElement.appendChild(paragraph);
         container.appendChild(emptyStateElement);
-      }
-  
-      if (container.children.length === 1) {
-        emptyStateElement.style.display = 'flex';
-      } else {
-        emptyStateElement.style.display = 'none';
       }
     });
   }
