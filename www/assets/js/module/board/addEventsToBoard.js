@@ -1,8 +1,28 @@
 import { initShowTaskDetails } from './showTaskDetails.js';
 import { searchToTasks } from './searchToTasks.js';
+import { initTaskBord, initBoard } from '../../initBoard.js';
 
 
 const idInputSearch = document.getElementById('boardSearch');
+
+
+/**
+ * Initializes the event listener for the close button in the task card popup.
+ * 
+ * This function ensures that any previously attached `click` event listeners
+ * are removed before adding a new one. The newly added listener triggers the
+ * `handleCloseTaskCardClick` function when the close button is clicked.
+ * 
+ * If the element with ID `CLOSE_TASK_CARD_POPUP` is not found in the DOM,
+ * the function will silently fail without any action or logging.
+ * 
+ * @function addEventToCloseTaskCard
+ */
+const addEventToCloseTaskCard = () => {
+    const element = document.getElementById('CLOSE_TASK_CARD_POPUP');
+    element.removeEventListener('click', handleCloseTaskCardClick);
+    element.addEventListener('click', handleCloseTaskCardClick);
+};
 
 
 /**
@@ -32,7 +52,7 @@ const addEventToLoadAddTask = () => {
  */
 const addEventFromTaskCard = (id) => {
     let element = document.getElementById(id);
-    if(!element) return;
+    if (!element) return;
     element.removeEventListener('click', handleClick);
     element.addEventListener('click', handleClick);
 };
@@ -53,6 +73,18 @@ const addEventToSearch = () => {
 
 
 /**
+ * Handles the click event for closing the task card popup.
+ * This function triggers the initialization of the task board and board.
+ * @async
+ * @function handleCloseTaskCardClick
+ */
+const handleCloseTaskCardClick = async () => {
+    await initTaskBord();
+    await initBoard();
+};
+
+
+/**
  * Handles a click event on a task card.
  * @function handleClick
  * @param {MouseEvent} event - The click event object.
@@ -66,4 +98,4 @@ const handleClick = (event) => {
 };
 
 
-export { addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch };
+export { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch };
