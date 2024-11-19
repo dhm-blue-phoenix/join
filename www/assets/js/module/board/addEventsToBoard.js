@@ -1,23 +1,8 @@
 import { initShowTaskDetails } from './showTaskDetails.js';
-import { reloadWindow } from '../modules.js';
 import { searchToTasks } from './searchToTasks.js';
 
 
 const idInputSearch = document.getElementById('boardSearch');
-
-
-/**
- * Initializes the event listener for the close button in the task card popup.
- * @function addEventToCloseTaskCard
- * @description If the close button in the task card popup is found, it removes any previous event listeners and adds a new one.
- * The event listener is set to call the `reloadWindow` function whenever the `click` event is fired.
- * If the close button is not found, it logs a warning message to the console.
- */
-const addEventToCloseTaskCard = () => {
-    const element = document.getElementById('CLOSE_TASK_CARD_POPUP');
-    element.removeEventListener('click', reloadWindow);
-    element.addEventListener('click', reloadWindow);
-  };
 
 
 /**
@@ -81,4 +66,4 @@ const handleClick = (event) => {
 };
 
 
-export { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch };
+export { addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch };

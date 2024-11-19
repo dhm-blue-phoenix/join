@@ -1,7 +1,7 @@
 import { retrievingData } from './module/dataResponse.js';
 import { createTaskCard } from './module/board/createTaskCard.js';
 import { enableDragAndDrop, restoreTaskPositions, updateEmptyState, updateTaskStatusInDatabase } from './module/board/draganddrop.js';
-import { addEventToCloseTaskCard, addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEventsToBoard.js';
+import { addEventToLoadAddTask, addEventFromTaskCard, addEventToSearch } from './module/board/addEventsToBoard.js';
 
 
 let taskStatus = [];
@@ -51,7 +51,6 @@ const initBoard = async () => {
     setTimeout(async () => {
         await updateTaskStatusInDatabase();
     }, 1000);
-    addEventToCloseTaskCard();
 };
 
 
