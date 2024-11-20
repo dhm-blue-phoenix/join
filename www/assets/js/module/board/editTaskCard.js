@@ -29,5 +29,5 @@ export async function editTaskCard(event) {
 const loadNextPage = (currentTask) => {
   showPopup('EditTaskcardPopupanimation', 'EdittaskCardpopup');
   const popupContainer = document.getElementById('EdittaskCardpopup');
-  loadEvents(true, currentTask[0]);
+  loadEvents(true, currentTask);
 };

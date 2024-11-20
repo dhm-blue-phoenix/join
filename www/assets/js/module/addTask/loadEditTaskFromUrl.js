@@ -1,8 +1,10 @@
 import { retrievingData } from '../dataResponse.js';
-import { setBtnPrio } from './addEventsToAddTask.js';
+import { setBtnPrio, addEventFromCancelBtn } from './addEventsToAddTask.js';
 import { addSubTaskToList, taskForm } from '../../initAddTask.js';
 
 
+const idSubmitBtn = document.querySelector('.taskbuttoncreat');
+const idBtnCancel = document.getElementById('taskbuttonCancel');
 const items = {
     title: 'value',
     description: 'textContent',
@@ -10,26 +12,24 @@ const items = {
     prio: 'btn',
     category: 'value',
     subtask: 'forEach',
-    boardStatus: 'status',
-    assigned: 'assigned'
+    boardStatus: 'status'
 };
 const btnPrios = ['Urgent', 'Medium', 'Low'];
 
 
-let editTaskId = null;
-
+let editTaskId;
 
 /**
  * Loads the task data to edit from the URL.
  * @returns {Promise<void>}
  */
-async function insertTaskData(id) {
+async function loadEditTaskFromUrl() {
     try {
-        const taskId = id;
+        const taskId = getTaskIdFromUrl();
         editTaskId = taskId;
         if (taskId === null) return;
         const boardData = await fetchBoardData();
-        const taskData = extractTaskData(boardData[0], taskId);
+        const taskData = extractTaskData(boardData, taskId);
         updateDomWithTaskData(taskData);
     } catch (error) {
         console.error('Error loading task for editing:', error);
@@ -38,10 +38,21 @@ async function insertTaskData(id) {
 
 
 /**
+ * Retrieves the task ID from the URL parameters.
+ * @returns {string|null}
+ */
+function getTaskIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const taskId = urlParams.get("task");
+    return taskId ? taskId : null;
+};
+
+
+/**
  * Fetches board data from the data source.
  * @returns {Promise<Array>}
  */
-async function fetchBoardData() {
+async function fetchBoardData () {
     const boardData = await retrievingData('');
     if (!Array.isArray(boardData)) {
         throw new Error('Board data is not an array!');
@@ -57,11 +68,11 @@ async function fetchBoardData() {
  * @returns {Object}
  */
 function extractTaskData(boardData, taskId) {
-    const task = Object.entries(boardData).find(task => task[0] === taskId);
+    const task = boardData.find(task => task.hasOwnProperty(taskId));
     if (!task) {
         throw new Error(`Error with task ID (${taskId}): Task not found!`);
     };
-    return task[1];
+    return task[taskId];
 };
 
 
@@ -70,7 +81,10 @@ function extractTaskData(boardData, taskId) {
  * @param {Object} taskData - The task data to update the DOM with.
  */
 function updateDomWithTaskData(taskData) {
+    updateAssignedTo(taskData);
+    idSubmitBtn.textContent = 'Save!';
     updateItems(taskData);
+    updateCancelBtn();
 };
 
 
@@ -81,7 +95,7 @@ function updateDomWithTaskData(taskData) {
 function updateItems(taskData) {
     Object.entries(items).forEach(([id, type]) => {
         const item = document.getElementById(id);
-        if (item) {
+        if (item) {            
             updateItem(item, type, taskData[id]);
         } else {
             switch (type) {
@@ -96,30 +110,8 @@ function updateItems(taskData) {
             };
         };
     });
-    // updateAssignedPersons(taskData);
 };
 
-/**
- * Updates the assigned persons display in the DOM based on the provided task data.
- * @param {Object} taskData - The task data containing information for the assigned persons.
- */
-const updateAssignedPersons = (taskData) => {
-    const assignedPersons = taskData.assigned;
-
-    const selectedPersonContainer = document.getElementById('selectedPerson');
-    selectedPersonContainer.innerHTML = '';
-    assignedPersons.slice(1).forEach((person) => {
-        const nameShortcutDiv = createNameShortcutDiv(person);
-        selectedPersonContainer.appendChild(nameShortcutDiv);
-
-    });
-
-    if (selectedPersonContainer.children.length > 0) {
-        selectedPersonContainer.style.display = 'flex';
-    } else {
-        selectedPersonContainer.style.display = 'none';
-    }
-};
 
 /**
  * Updates the board status in the task form with the provided task data.
@@ -140,11 +132,19 @@ function updateItem(item, type, data) {
     if (type !== 'forEach') {
         updateText(item, type, data);
     } else {
-        document.getElementById('subtask-list').innerHTML = '';
         data.forEach((sub) => {
             updateSubTask(sub.text);
         });
     };
+};
+
+
+/**
+ * Updates the cancel button and sets its event listeners.
+ */
+function updateCancelBtn() {
+    addEventFromCancelBtn();
+    idBtnCancel.style.display = 'inline-block';
 };
 
 
@@ -187,6 +187,23 @@ const updatePrioBtn = (taskData, id) => {
 
 
 /**
+ * Updates the assigned persons display in the DOM.
+ * @param {Object} taskData - The task data containing assigned persons.
+ */
+const updateAssignedTo = (taskData) => {
+    const selectedPersonContainer = document.getElementById('selectedPerson');
+    selectedPersonContainer.style.display = 'flex';
+    selectedPersonContainer.innerHTML = '';
+    const assignedPersons = taskData.assigned;
+    taskForm.assigned = assignedPersons;
+    assignedPersons.slice(1).forEach((person) => {
+        const nameShortcutDiv = createNameShortcutDiv(person);
+        selectedPersonContainer.appendChild(nameShortcutDiv);
+    });
+};
+
+
+/**
  * Creates a name shortcut div for a person.
  * @param {Object} person - The person object containing name and color.
  * @returns {HTMLDivElement} - The created name shortcut div element.
@@ -217,4 +234,4 @@ const getInitials = (firstName, lastName) => {
 };
 
 
-export { insertTaskData, editTaskId };
+export { loadEditTaskFromUrl, editTaskId };

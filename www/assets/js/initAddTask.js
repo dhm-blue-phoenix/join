@@ -85,9 +85,9 @@ const loadEvents = (edit, taskId) => {
     addEventFromBtnMedium();
     addEventFromBtnLow();
     addEventFromAddSubTask();
-    renderUsers();
+    renderUsers(taskId);
     if (isEdit) {
-        insertTaskData(taskId);
+        insertTaskData(taskId[0]);
     };
     addEventToValidateFields('addTask');
     testing && formTesting();

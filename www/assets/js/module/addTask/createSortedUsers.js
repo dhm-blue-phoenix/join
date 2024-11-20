@@ -19,11 +19,19 @@ let users = ['', 'Select contacts to assign'];
  * If an error occurs, it is logged to the console.
  * @returns {Promise<void>}
  */
-const renderUsers = async () => {
+const renderUsers = async (taskArray) => {
     try {
-        const tempUsers = await retrievingData(`contacts`);
+        let tempUsers = await retrievingData(``);
+        tempUsers = Object.entries(tempUsers[1])
+
+        // tempUsers.forEach(element => {
+        //     if (element[0] == "-OBu0iQnOXCzHPyBk_RZ") {
+        //         console.log(element);
+        //     }
+        // });
+
         const usersCopy = tempUsers.slice(0, -1).map((user) => {
-            return [user.name, extractInitials(user.name), user.shortcutBackColor];
+            return [user[1].name, extractInitials(user[1].name), user[1].shortcutBackColor, user[0]];
         });
 
         // Überprüfe, ob ein Benutzer bereits angezeigt wird
@@ -31,7 +39,7 @@ const renderUsers = async () => {
         const newUsers = usersCopy.filter((user) => !existingUsers.includes(user[0]));
 
         users.push(...newUsers);
-        await createSortedUsers();
+        await createSortedUsers(taskArray);
     } catch (err) {
         console.error('Beim laden der User ist ein Problem aufgetreten:', err);
     }
@@ -47,7 +55,7 @@ setTimeout(() => {
         } else {
             USER_CARDS_CONTAINER.style.display = 'flex'; // Show if hidden
         }
-    }); 
+    });
 }, 100);
 
 // Hide the userCardsContainer when clicking outside of it
@@ -64,7 +72,21 @@ document.addEventListener('click', (event) => {
  * It also handles the visibility of the container for selected persons based on its content.
  * @returns {void}
  */
-function createSortedUsers() {
+function createSortedUsers(taskArray) {
+
+    let assignedID = [];
+
+    if (taskArray) {
+        taskArray[1].assigned.forEach(assigned => {
+            if (assigned.id){
+            assignedID.push(assigned.id);
+        }
+        });
+    }
+    
+
+    
+
     USER_CARDS_CONTAINER.innerHTML = '';  // Clear the container
     const selectedPersonContainer = document.getElementById('selectedPerson');  // Container for selected persons
     let counter = 1;
@@ -76,11 +98,19 @@ function createSortedUsers() {
         if (shouldSkipUser(user)) return;  // Skip invalid users
 
         const userDiv = createUserDiv(user, counter);  // Create user div
-        const checkbox = createCheckbox(userDiv, selectedPersonContainer);  // Create and handle checkbox logic
+
+
+        if (assignedID.includes(user[3])) {
+            createCheckbox(userDiv, selectedPersonContainer, true);  // Create and handle checkbox logic
+        } else {
+            createCheckbox(userDiv, selectedPersonContainer, false);
+        }
+
 
         USER_CARDS_CONTAINER.appendChild(userDiv);  // Append user div
         counter++;
     });
+    updateSelectedPersonContainer(selectedPersonContainer);
 
     toggleSelectedPersonContainer(selectedPersonContainer);  // Initially hide the container
 }
@@ -146,9 +176,11 @@ function createInitialsDiv(user) {
  * which gets updated when the checkbox state changes.
  * @returns {HTMLInputElement} - The created checkbox element.
  */
-function createCheckbox(userDiv, selectedPersonContainer) {
+function createCheckbox(userDiv, selectedPersonContainer, value) {
+
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.checked = value;
     checkbox.classList.add('Personcardcheckbox');
     userDiv.appendChild(checkbox);
 
@@ -190,11 +222,11 @@ function updateSelectedPersonContainer(selectedPersonContainer) {
     selectedPersonContainer.innerHTML = '';
     document.querySelectorAll('.personCardsmall').forEach((card, index) => {
         const cardCheckbox = card.querySelector('.Personcardcheckbox');
-        const [name, short, color] = users[index + 2];
+        const [name, short, color, id] = users[index + 2];
 
         if (cardCheckbox.checked) {
             if (!assignedActiv.includes(name)) {
-                taskForm.assigned.push({ name, short, color });
+                taskForm.assigned.push({ name, short, color, id });
                 assignedActiv.push(name);
             }
         } else {
