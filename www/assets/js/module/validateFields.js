@@ -72,6 +72,7 @@ const checkFieldsToType = (inputType, text) => {
             'number': [validFieldIds[validPage][2], 'tel'],
         }
     };
+    console.log('%c' + '[DEBUG]', 'color: #f40ec2;', currentPage, typeMapping)
     const currentField = typeMapping[currentPage][inputType];
     return { id: currentField[0], type: currentField[1], value: text };
 };

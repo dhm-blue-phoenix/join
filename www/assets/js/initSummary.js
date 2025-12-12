@@ -19,25 +19,29 @@ async function init() {
   const urgentTaskCount = await loadTaskStatusPrio();
   const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
 
-  const containers = [
-    { id: 'countTasksinToDo', text: 'To-do', data: taskStatusData[0].count },
-    { id: 'countTasksinDone', text: 'Done', data: taskStatusData[3].count },
-    { id: 'countTasksinBoard', text: 'Tasks in Board', data: totalTaskCount },
-    { id: 'countTasksinProgress', text: 'Tasks In Progress', data: taskStatusData[1].count },
-    { id: 'countTasksinAwait', text: 'Awaiting Feedback', data: taskStatusData[2].count },
-    { id: 'countPrioUrgent', text: 'Urgent', data: urgentTaskCount },
-  ];
+  if (taskStatusData && totalTaskCount) {
+    const containers = [
+      { id: 'countTasksinToDo', text: 'To-do', data: taskStatusData[0].count },
+      { id: 'countTasksinDone', text: 'Done', data: taskStatusData[3].count },
+      { id: 'countTasksinBoard', text: 'Tasks in Board', data: totalTaskCount },
+      { id: 'countTasksinProgress', text: 'Tasks In Progress', data: taskStatusData[1].count },
+      { id: 'countTasksinAwait', text: 'Awaiting Feedback', data: taskStatusData[2].count },
+      { id: 'countPrioUrgent', text: 'Urgent', data: urgentTaskCount },
+    ];
 
-  containers.forEach(container => {
-    const element = document.getElementById(container.id);
-    element.innerHTML = '';
-    const h2Element = document.createElement('h2');
-    h2Element.textContent = container.data;
-    element.appendChild(h2Element);
-    const pElement = document.createElement('p');
-    pElement.textContent = container.text;
-    element.appendChild(pElement);
-  });
+    containers.forEach(container => {
+      const element = document.getElementById(container.id);
+      element.innerHTML = '';
+      const h2Element = document.createElement('h2');
+      h2Element.textContent = container.data;
+      element.appendChild(h2Element);
+      const pElement = document.createElement('p');
+      pElement.textContent = container.text;
+      element.appendChild(pElement);
+    });
+  } else {
+    console.warn('[DEBUG-init]', 'taskStatusData:', taskStatusData, 'totalTaskCount:', totalTaskCount);
+  }
 }
 
 /**
@@ -51,6 +55,9 @@ async function init() {
 async function loadTaskStatusFromServer(path) {
   try {
     const data = await retrievingData(path);
+    console.warn('%c' + '[DEBUG-loadTaskStatusFromServer]', 'color: #f40e0e', data);
+
+
     return data;
   } catch (err) {
     console.error(`Ein schwerwiegender Fehler ist beim Rendern aufgetreten! ${err}`);
@@ -98,11 +105,18 @@ async function loadTaskStatusData() {
     const taskStatusData = [];
     for (let i = 0; i <= 3; i++) {
       const data = await loadTaskStatusFromServer(`board/taskStatus/${i}`);
-      const formattedData = {
-        count: data[0],
-      };
-      taskStatusData.push(formattedData);
-      totalTaskCount += formattedData.count;
+
+      if (data) {
+        console.log("%c" + '[DEBUG-1-loadTaskStatusData] const data ist:', data);
+
+        const formattedData = {
+          count: data[0],
+        };
+        taskStatusData.push(formattedData);
+        totalTaskCount += formattedData.count;
+      } else {
+        console.log('%c' + '[DEBUG-2-loadTaskStatusData] const data ist:', 'color: #b7120c;', data);
+      }
     }
     return { taskStatusData, totalTaskCount };
   } catch (err) {

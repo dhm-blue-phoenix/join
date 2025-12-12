@@ -26,10 +26,10 @@ function delayedFadeIn() {
     const mainContent = document.querySelector('.boardmain');
     mainContent.style.opacity = 0;
     setTimeout(() => {
-      mainContent.style.opacity = 1;
-      mainContent.style.transition = 'opacity 0.7s ease-in-out';
+        mainContent.style.opacity = 1;
+        mainContent.style.transition = 'opacity 0.7s ease-in-out';
     }, 250);
-  }
+}
 
 /**
  * Initializes the task board by loading task statuses, setting up event listeners, 
@@ -64,6 +64,7 @@ async function loadTaskStatus() {
     try {
         const data = await retrievingData(`board/taskStatus/`);
         taskStatus = data;
+        console.warn('[DEBUG] taskstatus:', taskStatus)
         return taskStatus;
     } catch (err) {
         console.error(`A severe error occurred during rendering!! ${err}`);
@@ -123,7 +124,10 @@ async function initTaskBord() {
 const clearBoard = () => {
     taskStatus.forEach(id => {
         const element = document.getElementById(id.value);
-        element.innerHTML = '';
+        if (element) {
+            element.innerHTML = '';
+        }
+        console.log('%c' + '[DEBUG-clearBoard] element:', 'color: #f40ee5;', element)
     });
 };
 

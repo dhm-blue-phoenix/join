@@ -8,10 +8,20 @@ const baseURL = "https://join-393a6-default-rtdb.europe-west1.firebasedatabase.a
  */
 export async function retrievingData(path) {
     try {
+
+        console.log('%c' + '[DEBUG-1-retrievingData]', 'color: #0ef4e9;', path)
+
         const response = await fetch(baseURL + path + '.json');
         await checkAnswer(response);
         const data = await response.json();
-        return Object.values(data);
+
+        console.log('%c' + '[DEBUG-2-retrievingData]', 'color: #0ef4e9;', path, 'data:', Object.values(data))
+
+        if(data) {
+            return Object.values(data);
+        }
+
+        return []
     } catch (err) {
         handleError(err);
     };
@@ -24,7 +34,7 @@ export async function retrievingData(path) {
  */
 export async function deleteData(path) {
     try {
-        const deleteResponse = await fetch(baseURL + path + '.json', {
+        const deleteResponse = await fetch(baseURL + path, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

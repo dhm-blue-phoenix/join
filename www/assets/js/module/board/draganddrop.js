@@ -100,21 +100,24 @@ async function updateTaskStatusInDatabase() {
             taskAwaitFeedback: 2,
             taskDone: 3
         };
-        taskStatusData.forEach((category) => {
-            const containerId = category.value;
-            const container = document.getElementById(containerId);
-            const currentCardCount = container.querySelectorAll('[id^=taskCardID]').length;
-
-            const data = {
-                count: currentCardCount,
-                prio: category.prio,
-                text: category.text,
-                value: category.value
-            };
-            const path = `board/taskStatus/${categoryMapping[containerId]}`;
-            updateData(path, data);
-        });
-
+        if(taskStatusData.length <= 0) {
+            taskStatusData.forEach((category) => {
+                const containerId = category.value;
+                const container = document.getElementById(containerId);
+                const currentCardCount = container.querySelectorAll('[id^=taskCardID]').length;
+                
+                const data = {
+                    count: currentCardCount,
+                    prio: category.prio,
+                    text: category.text,
+                    value: category.value
+                };
+                const path = `board/taskStatus/${categoryMapping[containerId]}`;
+                updateData(path, data);
+            });
+        } else {
+            console.log('%c' + '[DEBUG-updateTaskStatusInDatabase] taskStatusData:', 'color: #f4760e;', taskStatusData)
+        }
     } catch (error) {
         console.error('Fehler beim Aktualisieren der Datenbank: ', error);
     }
