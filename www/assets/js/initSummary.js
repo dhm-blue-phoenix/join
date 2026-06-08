@@ -19,7 +19,7 @@ async function init() {
   const urgentTaskCount = await loadTaskStatusPrio();
   const { taskStatusData, totalTaskCount } = await loadTaskStatusData();
 
-  if (taskStatusData && totalTaskCount) {
+  if (taskStatusData && taskStatusData.length > 0) {
     const containers = [
       { id: 'countTasksinToDo', text: 'To-do', data: taskStatusData[0].count },
       { id: 'countTasksinDone', text: 'Done', data: taskStatusData[3].count },
@@ -106,15 +106,19 @@ async function loadTaskStatusData() {
     for (let i = 0; i <= 3; i++) {
       const data = await loadTaskStatusFromServer(`board/taskStatus/${i}`);
 
-      if (data) {
+      if (data && data.length > 0) {
         console.log("%c" + '[DEBUG-1-loadTaskStatusData] const data ist:', data);
 
         const formattedData = {
-          count: data[0],
+          count: data[0] !== undefined ? data[0] : 0,
         };
         taskStatusData.push(formattedData);
         totalTaskCount += formattedData.count;
       } else {
+        const formattedData = {
+          count: 0,
+        };
+        taskStatusData.push(formattedData);
         console.log('%c' + '[DEBUG-2-loadTaskStatusData] const data ist:', 'color: #b7120c;', data);
       }
     }

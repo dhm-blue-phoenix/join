@@ -34,7 +34,7 @@ export async function retrievingData(path) {
  */
 export async function deleteData(path) {
     try {
-        const deleteResponse = await fetch(baseURL + path, {
+        const deleteResponse = await fetch(baseURL + path + '.json', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

@@ -22,7 +22,9 @@ export const createTaskCard = async (cardId, headline, description, users, categ
     taskCard.appendChild(createProgress(subtask));
     taskCard.appendChild(createPerson(users, prio, cardId));
     taskCard.appendChild(createMobile(cardId));
-    if(taskStatus.length <= 0) document.getElementById(taskStatus[0].value).appendChild(taskCard);
+    if (taskStatus && taskStatus.length > 0) {
+        document.getElementById(taskStatus[0].value).appendChild(taskCard);
+    }
     console.log('%c' + '[DEBUG-createTaskCard] taskstatus:', 'color: #48f40e;', taskStatus)
 };
 

@@ -100,7 +100,7 @@ async function updateTaskStatusInDatabase() {
             taskAwaitFeedback: 2,
             taskDone: 3
         };
-        if(taskStatusData.length <= 0) {
+        if (taskStatusData && taskStatusData.length > 0) {
             taskStatusData.forEach((category) => {
                 const containerId = category.value;
                 const container = document.getElementById(containerId);
